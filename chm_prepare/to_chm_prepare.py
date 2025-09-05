@@ -48,7 +48,7 @@ class ChmPrepare:
 
     def __init__(self, settings:dict = None) -> None:
 
-        workdir = os.path.normpath(os.path.join(os.getcwd(), '..\\..\\'))
+        workdir = os.path.normpath(os.path.join(os.getcwd(), '..\\'))
         # подготавливаем настройки
         self.sets = {
             'src_html_folder': os.path.join(workdir, 'html_src'),
@@ -161,7 +161,8 @@ class ChmPrepare:
         new_soup = BeautifulSoup(HHC_PAGE, 'lxml')
         new_soup.body.append(ul)
 
-        write_file(self.hhc_dst_path, str(new_soup))
+        with open(self.hhc_dst_path, 'w', encoding='windows-1251') as fp:
+            fp.write(str(new_soup))
         os.remove(self.hhc_src_path)
 
     def hhc_ul_rebuild_li(self, ul:Tag, soup:BeautifulSoup):
