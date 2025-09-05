@@ -24,7 +24,7 @@ logging.basicConfig(
 )
 
 class WikiDownloader:
-    def __init__(self, base_url="https://wiki.qsp.org", output_dir="..\\..\\html_src"):
+    def __init__(self, base_url="https://wiki.qsp.org", output_dir="..\\html_src"):
         self.base_url = base_url
         self.output_dir = output_dir
 
