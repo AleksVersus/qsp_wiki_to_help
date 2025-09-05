@@ -1,0 +1,368 @@
+2025-09-04 23:03:21,350 - INFO - Создана папка: ..\..\html_src
+2025-09-04 23:03:21,351 - INFO - Создана папка для изображений: ..\..\html_src\images
+2025-09-04 23:03:21,351 - INFO - Начинаю скачивание с https://wiki.qsp.org
+2025-09-04 23:03:21,351 - INFO - Обрабатываю: https://wiki.qsp.org
+2025-09-04 23:03:21,360 - DEBUG - Starting new HTTPS connection (1): wiki.qsp.org:443
+2025-09-04 23:03:22,031 - DEBUG - https://wiki.qsp.org:443 "GET / HTTP/1.1" 200 None
+2025-09-04 23:03:22,106 - INFO - Сохранена страница: index.html
+2025-09-04 23:03:22,167 - DEBUG - Найдено новое изображение в <img>: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:22,306 - DEBUG - https://wiki.qsp.org:443 "GET /_media/wiki:logo.png HTTP/1.1" 200 None
+2025-09-04 23:03:22,308 - INFO - Скачано изображение: wiki_logo.png
+2025-09-04 23:03:22,809 - INFO - Обрабатываю: https://wiki.qsp.org/help:msgbox
+2025-09-04 23:03:22,928 - DEBUG - https://wiki.qsp.org:443 "GET /help:msgbox HTTP/1.1" 200 None
+2025-09-04 23:03:22,965 - INFO - Сохранена страница: help_msgbox.html
+2025-09-04 23:03:23,019 - DEBUG - Найдена ссылка на новое изображение: https://wiki.qsp.org/_detail/help:msgbox.png
+2025-09-04 23:03:23,134 - DEBUG - https://wiki.qsp.org:443 "GET /_detail/help:msgbox.png HTTP/1.1" 200 None
+2025-09-04 23:03:23,141 - INFO - Скачано изображение: help_msgbox.png
+2025-09-04 23:03:23,143 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:23,143 - DEBUG - Найдено новое изображение в <img>: https://wiki.qsp.org/_media/help:msgbox.png?w=200&tok=3424fe
+2025-09-04 23:03:23,251 - DEBUG - https://wiki.qsp.org:443 "GET /_media/help:msgbox.png?w=200&tok=3424fe HTTP/1.1" 200 None
+2025-09-04 23:03:23,253 - INFO - Скачано изображение: help_msgbox.png
+2025-09-04 23:03:23,754 - INFO - Обрабатываю: https://wiki.qsp.org/help:modules
+2025-09-04 23:03:24,077 - DEBUG - https://wiki.qsp.org:443 "GET /help:modules HTTP/1.1" 200 None
+2025-09-04 23:03:24,079 - INFO - Сохранена страница: help_modules.html
+2025-09-04 23:03:24,132 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:24,633 - INFO - Обрабатываю: https://wiki.qsp.org/help:analyzer
+2025-09-04 23:03:24,765 - DEBUG - https://wiki.qsp.org:443 "GET /help:analyzer HTTP/1.1" 200 None
+2025-09-04 23:03:24,768 - INFO - Сохранена страница: help_analyzer.html
+2025-09-04 23:03:24,824 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:25,325 - INFO - Обрабатываю: https://wiki.qsp.org/help:limits
+2025-09-04 23:03:25,458 - DEBUG - https://wiki.qsp.org:443 "GET /help:limits HTTP/1.1" 200 None
+2025-09-04 23:03:25,464 - INFO - Сохранена страница: help_limits.html
+2025-09-04 23:03:25,511 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:26,012 - INFO - Обрабатываю: https://wiki.qsp.org/help:qspider_inclib
+2025-09-04 23:03:26,146 - DEBUG - https://wiki.qsp.org:443 "GET /help:qspider_inclib HTTP/1.1" 200 None
+2025-09-04 23:03:26,174 - INFO - Сохранена страница: help_qspider_inclib.html
+2025-09-04 23:03:26,269 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:26,770 - INFO - Обрабатываю: https://wiki.qsp.org/help:qspider_themes
+2025-09-04 23:03:26,899 - DEBUG - https://wiki.qsp.org:443 "GET /help:qspider_themes HTTP/1.1" 200 None
+2025-09-04 23:03:26,901 - INFO - Сохранена страница: help_qspider_themes.html
+2025-09-04 23:03:26,958 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:27,494 - INFO - Обрабатываю: https://wiki.qsp.org/help:classic_qsp
+2025-09-04 23:03:27,935 - DEBUG - https://wiki.qsp.org:443 "GET /help:classic_qsp HTTP/1.1" 200 None
+2025-09-04 23:03:27,937 - INFO - Сохранена страница: help_classic_qsp.html
+2025-09-04 23:03:27,973 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:28,473 - INFO - Обрабатываю: https://wiki.qsp.org/help:tuples
+2025-09-04 23:03:28,621 - DEBUG - https://wiki.qsp.org:443 "GET /help:tuples HTTP/1.1" 200 None
+2025-09-04 23:03:28,655 - INFO - Сохранена страница: help_tuples.html
+2025-09-04 23:03:28,759 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:29,260 - INFO - Обрабатываю: https://wiki.qsp.org/help:arrays
+2025-09-04 23:03:29,433 - DEBUG - https://wiki.qsp.org:443 "GET /help:arrays HTTP/1.1" 200 None
+2025-09-04 23:03:29,459 - INFO - Сохранена страница: help_arrays.html
+2025-09-04 23:03:29,561 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:30,062 - INFO - Обрабатываю: https://wiki.qsp.org/help:savegame
+2025-09-04 23:03:30,264 - DEBUG - https://wiki.qsp.org:443 "GET /help:savegame HTTP/1.1" 200 None
+2025-09-04 23:03:30,377 - INFO - Сохранена страница: help_savegame.html
+2025-09-04 23:03:30,422 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:30,923 - INFO - Обрабатываю: https://wiki.qsp.org/playground:playground
+2025-09-04 23:03:31,051 - DEBUG - https://wiki.qsp.org:443 "GET /playground:playground HTTP/1.1" 200 None
+2025-09-04 23:03:31,067 - INFO - Сохранена страница: playground_playground.html
+2025-09-04 23:03:31,175 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:31,175 - DEBUG - Найдено новое изображение в <img>: https://wiki.qsp.org/lib/plugins/statdisplay/graph.php?graph=all&f=&t=
+2025-09-04 23:03:31,539 - DEBUG - https://wiki.qsp.org:443 "GET /lib/plugins/statdisplay/graph.php?graph=all&f=&t= HTTP/1.1" 200 None
+2025-09-04 23:03:31,548 - INFO - Скачано изображение: graph.png
+2025-09-04 23:03:32,049 - INFO - Обрабатываю: https://wiki.qsp.org/help:expressions
+2025-09-04 23:03:32,213 - DEBUG - https://wiki.qsp.org:443 "GET /help:expressions HTTP/1.1" 200 None
+2025-09-04 23:03:32,322 - INFO - Сохранена страница: help_expressions.html
+2025-09-04 23:03:32,405 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:32,906 - INFO - Обрабатываю: https://wiki.qsp.org/help:debugger
+2025-09-04 23:03:33,027 - DEBUG - https://wiki.qsp.org:443 "GET /help:debugger HTTP/1.1" 200 None
+2025-09-04 23:03:33,031 - INFO - Сохранена страница: help_debugger.html
+2025-09-04 23:03:33,081 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:33,582 - INFO - Обрабатываю: https://wiki.qsp.org/help:main
+2025-09-04 23:03:33,708 - DEBUG - https://wiki.qsp.org:443 "GET /help:main HTTP/1.1" 200 None
+2025-09-04 23:03:33,732 - INFO - Сохранена страница: help_main.html
+2025-09-04 23:03:33,842 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:34,344 - INFO - Обрабатываю: https://wiki.qsp.org/help:cycle
+2025-09-04 23:03:34,679 - DEBUG - https://wiki.qsp.org:443 "GET /help:cycle HTTP/1.1" 200 None
+2025-09-04 23:03:34,704 - INFO - Сохранена страница: help_cycle.html
+2025-09-04 23:03:34,794 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:35,295 - INFO - Обрабатываю: https://wiki.qsp.org/help:realtime
+2025-09-04 23:03:35,419 - DEBUG - https://wiki.qsp.org:443 "GET /help:realtime HTTP/1.1" 200 None
+2025-09-04 23:03:35,440 - INFO - Сохранена страница: help_realtime.html
+2025-09-04 23:03:35,508 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:36,010 - INFO - Обрабатываю: https://wiki.qsp.org/help:locations
+2025-09-04 23:03:36,351 - DEBUG - https://wiki.qsp.org:443 "GET /help:locations HTTP/1.1" 200 None
+2025-09-04 23:03:36,355 - INFO - Сохранена страница: help_locations.html
+2025-09-04 23:03:36,446 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:36,947 - INFO - Обрабатываю: https://wiki.qsp.org/help:graphics
+2025-09-04 23:03:37,080 - DEBUG - https://wiki.qsp.org:443 "GET /help:graphics HTTP/1.1" 200 None
+2025-09-04 23:03:37,084 - INFO - Сохранена страница: help_graphics.html
+2025-09-04 23:03:37,150 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:37,650 - INFO - Обрабатываю: https://wiki.qsp.org/help:qspider_standalone
+2025-09-04 23:03:37,775 - DEBUG - https://wiki.qsp.org:443 "GET /help:qspider_standalone HTTP/1.1" 200 None
+2025-09-04 23:03:37,781 - INFO - Сохранена страница: help_qspider_standalone.html
+2025-09-04 23:03:37,829 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:38,330 - INFO - Обрабатываю: https://wiki.qsp.org/help:organizing
+2025-09-04 23:03:38,477 - DEBUG - https://wiki.qsp.org:443 "GET /help:organizing HTTP/1.1" 200 None
+2025-09-04 23:03:38,498 - INFO - Сохранена страница: help_organizing.html
+2025-09-04 23:03:38,579 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:39,080 - INFO - Обрабатываю: https://wiki.qsp.org/help:acts
+2025-09-04 23:03:39,204 - DEBUG - https://wiki.qsp.org:443 "GET /help:acts HTTP/1.1" 200 None
+2025-09-04 23:03:39,266 - INFO - Сохранена страница: help_acts.html
+2025-09-04 23:03:39,334 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:39,835 - INFO - Обрабатываю: https://wiki.qsp.org/help:aeroqsp
+2025-09-04 23:03:39,968 - DEBUG - https://wiki.qsp.org:443 "GET /help:aeroqsp HTTP/1.1" 200 None
+2025-09-04 23:03:39,973 - INFO - Сохранена страница: help_aeroqsp.html
+2025-09-04 23:03:40,027 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:40,527 - INFO - Обрабатываю: https://wiki.qsp.org/help:navigator
+2025-09-04 23:03:40,699 - DEBUG - https://wiki.qsp.org:443 "GET /help:navigator HTTP/1.1" 200 None
+2025-09-04 23:03:40,727 - INFO - Сохранена страница: help_navigator.html
+2025-09-04 23:03:40,774 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:41,275 - INFO - Обрабатываю: https://wiki.qsp.org/help:keywords
+2025-09-04 23:03:41,420 - DEBUG - https://wiki.qsp.org:443 "GET /help:keywords HTTP/1.1" 200 None
+2025-09-04 23:03:41,423 - INFO - Сохранена страница: help_keywords.html
+2025-09-04 23:03:41,527 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:42,028 - INFO - Обрабатываю: https://wiki.qsp.org/help:menu
+2025-09-04 23:03:42,162 - DEBUG - https://wiki.qsp.org:443 "GET /help:menu HTTP/1.1" 200 None
+2025-09-04 23:03:42,170 - INFO - Сохранена страница: help_menu.html
+2025-09-04 23:03:42,246 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:42,747 - INFO - Обрабатываю: https://wiki.qsp.org/help:interface
+2025-09-04 23:03:42,948 - DEBUG - https://wiki.qsp.org:443 "GET /help:interface HTTP/1.1" 200 None
+2025-09-04 23:03:42,952 - INFO - Сохранена страница: help_interface.html
+2025-09-04 23:03:43,006 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:43,506 - INFO - Обрабатываю: https://wiki.qsp.org/help:principle
+2025-09-04 23:03:43,625 - DEBUG - https://wiki.qsp.org:443 "GET /help:principle HTTP/1.1" 200 None
+2025-09-04 23:03:43,642 - INFO - Сохранена страница: help_principle.html
+2025-09-04 23:03:43,751 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:44,252 - INFO - Обрабатываю: https://wiki.qsp.org/help:qspider_interface
+2025-09-04 23:03:44,380 - DEBUG - https://wiki.qsp.org:443 "GET /help:qspider_interface HTTP/1.1" 200 None
+2025-09-04 23:03:44,393 - INFO - Сохранена страница: help_qspider_interface.html
+2025-09-04 23:03:44,461 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:44,972 - INFO - Обрабатываю: https://wiki.qsp.org/help:conditional
+2025-09-04 23:03:45,123 - DEBUG - https://wiki.qsp.org:443 "GET /help:conditional HTTP/1.1" 200 None
+2025-09-04 23:03:45,127 - INFO - Сохранена страница: help_conditional.html
+2025-09-04 23:03:45,276 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:45,804 - INFO - Обрабатываю: https://wiki.qsp.org/help:objs
+2025-09-04 23:03:45,931 - DEBUG - https://wiki.qsp.org:443 "GET /help:objs HTTP/1.1" 200 None
+2025-09-04 23:03:45,935 - INFO - Сохранена страница: help_objs.html
+2025-09-04 23:03:46,008 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:46,508 - INFO - Обрабатываю: https://wiki.qsp.org/help:qspider
+2025-09-04 23:03:46,637 - DEBUG - https://wiki.qsp.org:443 "GET /help:qspider HTTP/1.1" 200 None
+2025-09-04 23:03:46,851 - INFO - Сохранена страница: help_qspider.html
+2025-09-04 23:03:46,920 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:46,920 - DEBUG - Найдено новое изображение в <img>: https://wiki.qsp.org/lib/exe/fetch.php?w=500&tok=db3850&media=https%3A%2F%2Fi.ibb.co%2F8z8MHyp%2Fimage.png
+2025-09-04 23:03:47,163 - DEBUG - https://wiki.qsp.org:443 "GET /lib/exe/fetch.php?w=500&tok=db3850&media=https%3A%2F%2Fi.ibb.co%2F8z8MHyp%2Fimage.png HTTP/1.1" 302 0
+2025-09-04 23:03:47,164 - DEBUG - Starting new HTTPS connection (1): i.ibb.co:443
+2025-09-04 23:03:47,612 - DEBUG - https://i.ibb.co:443 "GET /8z8MHyp/image.png HTTP/1.1" 200 8622
+2025-09-04 23:03:47,618 - INFO - Скачано изображение: fetch.png
+2025-09-04 23:03:48,119 - INFO - Обрабатываю: https://wiki.qsp.org/help:jump
+2025-09-04 23:03:48,244 - DEBUG - https://wiki.qsp.org:443 "GET /help:jump HTTP/1.1" 200 None
+2025-09-04 23:03:48,263 - INFO - Сохранена страница: help_jump.html
+2025-09-04 23:03:48,311 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:48,811 - INFO - Обрабатываю: https://wiki.qsp.org/help:qspider_aeroqsp
+2025-09-04 23:03:49,002 - DEBUG - https://wiki.qsp.org:443 "GET /help:qspider_aeroqsp HTTP/1.1" 200 None
+2025-09-04 23:03:49,045 - INFO - Сохранена страница: help_qspider_aeroqsp.html
+2025-09-04 23:03:49,079 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:49,581 - INFO - Обрабатываю: https://wiki.qsp.org/start
+2025-09-04 23:03:49,707 - DEBUG - https://wiki.qsp.org:443 "GET /start HTTP/1.1" 200 None
+2025-09-04 23:03:49,769 - INFO - Сохранена страница: start.html
+2025-09-04 23:03:49,850 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:50,351 - INFO - Обрабатываю: https://wiki.qsp.org/help:html
+2025-09-04 23:03:50,526 - DEBUG - https://wiki.qsp.org:443 "GET /help:html HTTP/1.1" 200 None
+2025-09-04 23:03:50,529 - INFO - Сохранена страница: help_html.html
+2025-09-04 23:03:50,586 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:51,087 - INFO - Обрабатываю: https://wiki.qsp.org/help:qspider_gamecfg
+2025-09-04 23:03:51,245 - DEBUG - https://wiki.qsp.org:443 "GET /help:qspider_gamecfg HTTP/1.1" 200 None
+2025-09-04 23:03:51,249 - INFO - Сохранена страница: help_qspider_gamecfg.html
+2025-09-04 23:03:51,333 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:51,835 - INFO - Обрабатываю: https://wiki.qsp.org/help:qspider_spectags
+2025-09-04 23:03:51,963 - DEBUG - https://wiki.qsp.org:443 "GET /help:qspider_spectags HTTP/1.1" 200 None
+2025-09-04 23:03:51,966 - INFO - Сохранена страница: help_qspider_spectags.html
+2025-09-04 23:03:52,080 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:52,581 - INFO - Обрабатываю: https://wiki.qsp.org/help:qgen
+2025-09-04 23:03:52,811 - DEBUG - https://wiki.qsp.org:443 "GET /help:qgen HTTP/1.1" 200 None
+2025-09-04 23:03:52,940 - INFO - Сохранена страница: help_qgen.html
+2025-09-04 23:03:53,003 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:53,004 - DEBUG - Найдено новое изображение в <img>: https://wiki.qsp.org/lib/exe/fetch.php?w=450&tok=66e268&media=https%3A%2F%2Fwiki.qsp.org%2F_media%2Fqgen.png
+2025-09-04 23:03:53,391 - DEBUG - https://wiki.qsp.org:443 "GET /lib/exe/fetch.php?w=450&tok=66e268&media=https%3A%2F%2Fwiki.qsp.org%2F_media%2Fqgen.png HTTP/1.1" 302 0
+2025-09-04 23:03:53,501 - DEBUG - https://wiki.qsp.org:443 "GET /_media/qgen.png HTTP/1.1" 200 None
+2025-09-04 23:03:53,607 - INFO - Скачано изображение: fetch.png
+2025-09-04 23:03:54,108 - INFO - Обрабатываю: https://wiki.qsp.org/help:txt2gam
+2025-09-04 23:03:54,234 - DEBUG - https://wiki.qsp.org:443 "GET /help:txt2gam HTTP/1.1" 200 None
+2025-09-04 23:03:54,242 - INFO - Сохранена страница: help_txt2gam.html
+2025-09-04 23:03:54,328 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:54,328 - DEBUG - Найдено новое изображение в <img>: https://wiki.qsp.org/lib/images/smileys/icon_smile.gif
+2025-09-04 23:03:54,421 - DEBUG - https://wiki.qsp.org:443 "GET /lib/images/smileys/icon_smile.gif HTTP/1.1" 200 174
+2025-09-04 23:03:54,423 - INFO - Скачано изображение: icon_smile.gif
+2025-09-04 23:03:54,924 - INFO - Обрабатываю: https://wiki.qsp.org/help:glossary
+2025-09-04 23:03:55,062 - DEBUG - https://wiki.qsp.org:443 "GET /help:glossary HTTP/1.1" 200 None
+2025-09-04 23:03:55,138 - INFO - Сохранена страница: help_glossary.html
+2025-09-04 23:03:55,195 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:55,697 - INFO - Обрабатываю: https://wiki.qsp.org/help:inputs
+2025-09-04 23:03:55,825 - DEBUG - https://wiki.qsp.org:443 "GET /help:inputs HTTP/1.1" 200 None
+2025-09-04 23:03:55,829 - INFO - Сохранена страница: help_inputs.html
+2025-09-04 23:03:55,886 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:56,388 - INFO - Обрабатываю: https://wiki.qsp.org/help:dynamical
+2025-09-04 23:03:56,517 - DEBUG - https://wiki.qsp.org:443 "GET /help:dynamical HTTP/1.1" 200 None
+2025-09-04 23:03:56,524 - INFO - Сохранена страница: help_dynamical.html
+2025-09-04 23:03:56,602 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:57,103 - INFO - Обрабатываю: https://wiki.qsp.org/help:variables
+2025-09-04 23:03:57,389 - DEBUG - https://wiki.qsp.org:443 "GET /help:variables HTTP/1.1" 200 None
+2025-09-04 23:03:57,513 - INFO - Сохранена страница: help_variables.html
+2025-09-04 23:03:57,619 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:58,120 - INFO - Обрабатываю: https://wiki.qsp.org/help:sound
+2025-09-04 23:03:58,253 - DEBUG - https://wiki.qsp.org:443 "GET /help:sound HTTP/1.1" 200 None
+2025-09-04 23:03:58,256 - INFO - Сохранена страница: help_sound.html
+2025-09-04 23:03:58,313 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:58,814 - INFO - Обрабатываю: https://wiki.qsp.org/help:regexp
+2025-09-04 23:03:58,946 - DEBUG - https://wiki.qsp.org:443 "GET /help:regexp HTTP/1.1" 200 None
+2025-09-04 23:03:59,000 - INFO - Сохранена страница: help_regexp.html
+2025-09-04 23:03:59,103 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:03:59,605 - INFO - Обрабатываю: https://wiki.qsp.org/help:goto
+2025-09-04 23:03:59,913 - DEBUG - https://wiki.qsp.org:443 "GET /help:goto HTTP/1.1" 200 None
+2025-09-04 23:03:59,916 - INFO - Сохранена страница: help_goto.html
+2025-09-04 23:03:59,964 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:04:00,464 - INFO - Обрабатываю: https://wiki.qsp.org/help:service_locations
+2025-09-04 23:04:00,588 - DEBUG - https://wiki.qsp.org:443 "GET /help:service_locations HTTP/1.1" 200 None
+2025-09-04 23:04:00,613 - INFO - Сохранена страница: help_service_locations.html
+2025-09-04 23:04:00,712 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:04:01,213 - INFO - Обрабатываю: https://wiki.qsp.org/discussions
+2025-09-04 23:04:01,380 - DEBUG - https://wiki.qsp.org:443 "GET /discussions HTTP/1.1" 200 None
+2025-09-04 23:04:01,382 - INFO - Сохранена страница: discussions.html
+2025-09-04 23:04:01,430 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:04:01,931 - INFO - Обрабатываю: https://wiki.qsp.org/help:coding
+2025-09-04 23:04:02,045 - DEBUG - https://wiki.qsp.org:443 "GET /help:coding HTTP/1.1" 200 None
+2025-09-04 23:04:02,053 - INFO - Сохранена страница: help_coding.html
+2025-09-04 23:04:02,138 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:04:02,639 - INFO - Обрабатываю: https://wiki.qsp.org/howto:start
+2025-09-04 23:04:02,819 - DEBUG - https://wiki.qsp.org:443 "GET /howto:start HTTP/1.1" 200 None
+2025-09-04 23:04:02,820 - INFO - Сохранена страница: howto_start.html
+2025-09-04 23:04:02,873 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:04:03,374 - INFO - Обрабатываю: https://wiki.qsp.org/help:qsp
+2025-09-04 23:04:03,495 - DEBUG - https://wiki.qsp.org:443 "GET /help:qsp HTTP/1.1" 200 None
+2025-09-04 23:04:03,704 - INFO - Сохранена страница: help_qsp.html
+2025-09-04 23:04:03,784 - DEBUG - Найдена ссылка на новое изображение: https://wiki.qsp.org/_detail/help:ballad.jpg
+2025-09-04 23:04:03,919 - DEBUG - https://wiki.qsp.org:443 "GET /_detail/help:ballad.jpg HTTP/1.1" 200 None
+2025-09-04 23:04:03,921 - INFO - Скачано изображение: help_ballad.jpg
+2025-09-04 23:04:03,922 - DEBUG - Найдена ссылка на новое изображение: https://wiki.qsp.org/_detail/help:level13.jpg
+2025-09-04 23:04:04,033 - DEBUG - https://wiki.qsp.org:443 "GET /_detail/help:level13.jpg HTTP/1.1" 200 None
+2025-09-04 23:04:04,035 - INFO - Скачано изображение: help_level13.jpg
+2025-09-04 23:04:04,035 - DEBUG - Найдена ссылка на новое изображение: https://wiki.qsp.org/_detail/help:window_msg.png
+2025-09-04 23:04:04,146 - DEBUG - https://wiki.qsp.org:443 "GET /_detail/help:window_msg.png HTTP/1.1" 200 None
+2025-09-04 23:04:04,148 - INFO - Скачано изображение: help_window_msg.png
+2025-09-04 23:04:04,149 - DEBUG - Найдена ссылка на новое изображение: https://wiki.qsp.org/_detail/help:input_window.png
+2025-09-04 23:04:04,263 - DEBUG - https://wiki.qsp.org:443 "GET /_detail/help:input_window.png HTTP/1.1" 200 None
+2025-09-04 23:04:04,265 - INFO - Скачано изображение: help_input_window.png
+2025-09-04 23:04:04,267 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:04:04,267 - DEBUG - Найдено новое изображение в <img>: https://wiki.qsp.org/_media/help:qspblank2.jpg?w=500&tok=223541
+2025-09-04 23:04:04,375 - DEBUG - https://wiki.qsp.org:443 "GET /_media/help:qspblank2.jpg?w=500&tok=223541 HTTP/1.1" 200 None
+2025-09-04 23:04:04,399 - INFO - Скачано изображение: help_qspblank2.jpg
+2025-09-04 23:04:04,399 - DEBUG - Найдено новое изображение в <img>: https://wiki.qsp.org/_media/help:ballad.jpg?w=300&tok=828bed
+2025-09-04 23:04:04,559 - DEBUG - https://wiki.qsp.org:443 "GET /_media/help:ballad.jpg?w=300&tok=828bed HTTP/1.1" 200 None
+2025-09-04 23:04:04,704 - INFO - Скачано изображение: help_ballad.jpg
+2025-09-04 23:04:04,704 - DEBUG - Найдено новое изображение в <img>: https://wiki.qsp.org/_media/help:level13.jpg?w=342&tok=f3998a
+2025-09-04 23:04:04,827 - DEBUG - https://wiki.qsp.org:443 "GET /_media/help:level13.jpg?w=342&tok=f3998a HTTP/1.1" 200 None
+2025-09-04 23:04:04,920 - INFO - Скачано изображение: help_level13.jpg
+2025-09-04 23:04:04,921 - DEBUG - Найдено новое изображение в <img>: https://wiki.qsp.org/_media/help:window_msg.png?w=300&tok=1861a3
+2025-09-04 23:04:05,040 - DEBUG - https://wiki.qsp.org:443 "GET /_media/help:window_msg.png?w=300&tok=1861a3 HTTP/1.1" 200 None
+2025-09-04 23:04:05,799 - INFO - Скачано изображение: help_window_msg.png
+2025-09-04 23:04:05,800 - DEBUG - Найдено новое изображение в <img>: https://wiki.qsp.org/_media/help:input_window.png?w=300&tok=1b02f0
+2025-09-04 23:04:05,915 - DEBUG - https://wiki.qsp.org:443 "GET /_media/help:input_window.png?w=300&tok=1b02f0 HTTP/1.1" 200 None
+2025-09-04 23:04:06,016 - INFO - Скачано изображение: help_input_window.png
+2025-09-04 23:04:06,017 - DEBUG - Найдено новое изображение в <img>: https://wiki.qsp.org/lib/images/smileys/icon_smile2.gif
+2025-09-04 23:04:06,110 - DEBUG - https://wiki.qsp.org:443 "GET /lib/images/smileys/icon_smile2.gif HTTP/1.1" 200 174
+2025-09-04 23:04:06,111 - INFO - Скачано изображение: icon_smile2.gif
+2025-09-04 23:04:06,612 - INFO - Обрабатываю: https://wiki.qsp.org/help:strings
+2025-09-04 23:04:06,731 - DEBUG - https://wiki.qsp.org:443 "GET /help:strings HTTP/1.1" 200 None
+2025-09-04 23:04:06,737 - INFO - Сохранена страница: help_strings.html
+2025-09-04 23:04:06,893 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:04:07,394 - INFO - Обрабатываю: https://wiki.qsp.org/help:stat
+2025-09-04 23:04:07,729 - DEBUG - https://wiki.qsp.org:443 "GET /help:stat HTTP/1.1" 200 None
+2025-09-04 23:04:07,731 - INFO - Сохранена страница: help_stat.html
+2025-09-04 23:04:07,787 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:04:08,288 - INFO - Обрабатываю: https://wiki.qsp.org/help:classic_standalone
+2025-09-04 23:04:08,449 - DEBUG - https://wiki.qsp.org:443 "GET /help:classic_standalone HTTP/1.1" 200 None
+2025-09-04 23:04:08,452 - INFO - Сохранена страница: help_classic_standalone.html
+2025-09-04 23:04:08,517 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:04:09,019 - INFO - Обрабатываю: https://wiki.qsp.org/glossary:bag
+2025-09-04 23:04:09,162 - DEBUG - https://wiki.qsp.org:443 "GET /glossary:bag HTTP/1.1" 200 None
+2025-09-04 23:04:09,165 - INFO - Сохранена страница: glossary_bag.html
+2025-09-04 23:04:09,211 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:04:09,711 - INFO - Обрабатываю: https://wiki.qsp.org/playground:contents_what_dif_goto_gosub.md
+2025-09-04 23:04:09,950 - DEBUG - https://wiki.qsp.org:443 "GET /playground:contents_what_dif_goto_gosub.md HTTP/1.1" 200 None
+2025-09-04 23:04:09,987 - INFO - Сохранена страница: playground_contents_what_dif_goto_gosub.md.html
+2025-09-04 23:04:10,031 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:04:10,533 - INFO - Обрабатываю: https://wiki.qsp.org/help:keywords_operator
+2025-09-04 23:04:10,731 - DEBUG - https://wiki.qsp.org:443 "GET /help:keywords_operator HTTP/1.1" 200 None
+2025-09-04 23:04:10,734 - INFO - Сохранена страница: help_keywords_operator.html
+2025-09-04 23:04:10,778 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:04:11,279 - INFO - Обрабатываю: https://wiki.qsp.org/help:sozdanie_igr_na_quest_navigator
+2025-09-04 23:04:11,669 - DEBUG - https://wiki.qsp.org:443 "GET /help:sozdanie_igr_na_quest_navigator HTTP/1.1" 200 None
+2025-09-04 23:04:11,672 - INFO - Сохранена страница: help_sozdanie_igr_na_quest_navigator.html
+2025-09-04 23:04:11,723 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:04:12,224 - INFO - Обрабатываю: https://wiki.qsp.org/help:navigator_game_files
+2025-09-04 23:04:12,400 - DEBUG - https://wiki.qsp.org:443 "GET /help:navigator_game_files HTTP/1.1" 200 None
+2025-09-04 23:04:12,409 - INFO - Сохранена страница: help_navigator_game_files.html
+2025-09-04 23:04:12,462 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:04:12,964 - INFO - Обрабатываю: https://wiki.qsp.org/help:navigator_game_template
+2025-09-04 23:04:13,418 - DEBUG - https://wiki.qsp.org:443 "GET /help:navigator_game_template HTTP/1.1" 200 None
+2025-09-04 23:04:13,420 - INFO - Сохранена страница: help_navigator_game_template.html
+2025-09-04 23:04:13,496 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:04:13,997 - INFO - Обрабатываю: https://wiki.qsp.org/help:ispolzovanie_shriftov_v_quest_navigator
+2025-09-04 23:04:14,114 - DEBUG - https://wiki.qsp.org:443 "GET /help:ispolzovanie_shriftov_v_quest_navigator HTTP/1.1" 200 None
+2025-09-04 23:04:14,117 - INFO - Сохранена страница: help_ispolzovanie_shriftov_v_quest_navigator.html
+2025-09-04 23:04:14,168 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:04:14,669 - INFO - Обрабатываю: https://wiki.qsp.org/help:navigator_standalone
+2025-09-04 23:04:14,797 - DEBUG - https://wiki.qsp.org:443 "GET /help:navigator_standalone HTTP/1.1" 200 None
+2025-09-04 23:04:14,799 - INFO - Сохранена страница: help_navigator_standalone.html
+2025-09-04 23:04:14,856 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:04:15,358 - INFO - Обрабатываю: https://wiki.qsp.org/help:fajl_nastroek_igry_v_quest_navigator
+2025-09-04 23:04:15,619 - DEBUG - https://wiki.qsp.org:443 "GET /help:fajl_nastroek_igry_v_quest_navigator HTTP/1.1" 200 None
+2025-09-04 23:04:15,699 - INFO - Сохранена страница: help_fajl_nastroek_igry_v_quest_navigator.html
+2025-09-04 23:04:15,756 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:04:16,258 - INFO - Обрабатываю: https://wiki.qsp.org/help:navigator_command_line
+2025-09-04 23:04:16,388 - DEBUG - https://wiki.qsp.org:443 "GET /help:navigator_command_line HTTP/1.1" 200 None
+2025-09-04 23:04:16,390 - INFO - Сохранена страница: help_navigator_command_line.html
+2025-09-04 23:04:16,454 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:04:16,956 - INFO - Обрабатываю: https://wiki.qsp.org/help:html_classic
+2025-09-04 23:04:17,206 - DEBUG - https://wiki.qsp.org:443 "GET /help:html_classic HTTP/1.1" 200 None
+2025-09-04 23:04:17,209 - INFO - Сохранена страница: help_html_classic.html
+2025-09-04 23:04:17,287 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:04:17,788 - INFO - Обрабатываю: https://wiki.qsp.org/glossary:snippet
+2025-09-04 23:04:17,905 - DEBUG - https://wiki.qsp.org:443 "GET /glossary:snippet HTTP/1.1" 200 None
+2025-09-04 23:04:18,070 - INFO - Сохранена страница: glossary_snippet.html
+2025-09-04 23:04:18,125 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:04:18,626 - INFO - Обрабатываю: https://wiki.qsp.org/help:txt2gam_preprocessor
+2025-09-04 23:04:18,791 - DEBUG - https://wiki.qsp.org:443 "GET /help:txt2gam_preprocessor HTTP/1.1" 200 None
+2025-09-04 23:04:18,796 - INFO - Сохранена страница: help_txt2gam_preprocessor.html
+2025-09-04 23:04:18,867 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:04:19,369 - INFO - Обрабатываю: https://wiki.qsp.org/help:txt2gam_manual
+2025-09-04 23:04:19,610 - DEBUG - https://wiki.qsp.org:443 "GET /help:txt2gam_manual HTTP/1.1" 200 None
+2025-09-04 23:04:19,722 - INFO - Сохранена страница: help_txt2gam_manual.html
+2025-09-04 23:04:19,787 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:04:20,288 - INFO - Обрабатываю: https://wiki.qsp.org/regex:start
+2025-09-04 23:04:20,514 - DEBUG - https://wiki.qsp.org:443 "GET /regex:start HTTP/1.1" 200 None
+2025-09-04 23:04:20,524 - INFO - Сохранена страница: regex_start.html
+2025-09-04 23:04:20,607 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:04:20,607 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/lib/images/smileys/icon_smile.gif
+2025-09-04 23:04:21,108 - INFO - Обрабатываю: https://wiki.qsp.org/sidebar
+2025-09-04 23:04:21,348 - DEBUG - https://wiki.qsp.org:443 "GET /sidebar HTTP/1.1" 200 None
+2025-09-04 23:04:21,350 - INFO - Сохранена страница: sidebar.html
+2025-09-04 23:04:21,412 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:04:21,913 - INFO - Обрабатываю: https://wiki.qsp.org/howto:randomize
+2025-09-04 23:04:22,462 - DEBUG - https://wiki.qsp.org:443 "GET /howto:randomize HTTP/1.1" 200 None
+2025-09-04 23:04:22,516 - INFO - Сохранена страница: howto_randomize.html
+2025-09-04 23:04:22,564 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:04:23,065 - INFO - Обрабатываю: https://wiki.qsp.org/howto:namedconst
+2025-09-04 23:04:23,192 - DEBUG - https://wiki.qsp.org:443 "GET /howto:namedconst HTTP/1.1" 200 None
+2025-09-04 23:04:23,196 - INFO - Сохранена страница: howto_namedconst.html
+2025-09-04 23:04:23,247 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:04:23,747 - INFO - Обрабатываю: https://wiki.qsp.org/howto:arrays
+2025-09-04 23:04:24,336 - DEBUG - https://wiki.qsp.org:443 "GET /howto:arrays HTTP/1.1" 200 None
+2025-09-04 23:04:24,339 - INFO - Сохранена страница: howto_arrays.html
+2025-09-04 23:04:24,411 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:04:24,912 - INFO - Обрабатываю: https://wiki.qsp.org/help:fajl_js_igry_v_quest_navigator
+2025-09-04 23:04:25,035 - DEBUG - https://wiki.qsp.org:443 "GET /help:fajl_js_igry_v_quest_navigator HTTP/1.1" 200 None
+2025-09-04 23:04:25,047 - INFO - Сохранена страница: help_fajl_js_igry_v_quest_navigator.html
+2025-09-04 23:04:25,096 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:04:25,597 - INFO - Обрабатываю: https://wiki.qsp.org/help:fajl_css_igry_v_quest_navigator
+2025-09-04 23:04:25,751 - DEBUG - https://wiki.qsp.org:443 "GET /help:fajl_css_igry_v_quest_navigator HTTP/1.1" 200 None
+2025-09-04 23:04:25,765 - INFO - Сохранена страница: help_fajl_css_igry_v_quest_navigator.html
+2025-09-04 23:04:25,809 - DEBUG - Изображение уже найдено ранее: https://wiki.qsp.org/_media/wiki:logo.png
+2025-09-04 23:04:26,310 - INFO - Скачивание завершено!
+2025-09-04 23:04:26,310 - INFO - Успешно скачано: 76 страниц
+2025-09-04 23:04:26,310 - INFO - Ошибок: 0 страниц
+2025-09-04 23:04:26,310 - INFO - Успешно скачано изображений: 17
+2025-09-04 23:04:26,311 - INFO - Ошибок при скачивании изображений: 0
+2025-09-04 23:04:26,313 - INFO - JSON структура со связкой url и путей к файлам сохраена.
