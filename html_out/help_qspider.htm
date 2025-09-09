@@ -1,0 +1,425 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>qSpider — плеер с поддержкой HTML [Документация QSP]</title>
+<link href="default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="page group">
+<!-- wikipage start -->
+<!-- TOC START -->
+
+<!-- TOC END -->
+<p>
+<a class="wikilink1" href="help_classic_qsp.htm" title="help:classic_qsp">Назад: Классический плеер</a>
+</p>
+<h1 class="sectionedit1" id="qspider_pleer_s_podderzhkoj_html">qSpider — плеер с поддержкой HTML</h1>
+<div class="level1">
+<p>
+Статья актуализирована для qSpider версии 1.3.1.
+</p>
+</div>
+<h2 class="sectionedit2" id="obschie_svedenija">Общие сведения</h2>
+<div class="level2">
+<p>
+<strong>qSpider</strong> — это QSP-плеер с поддержкой полноценной браузерной <abbr title="HyperText Markup Language">HTML</abbr>-вёрстки, то есть в нём можно использовать такой же <abbr title="HyperText Markup Language">HTML</abbr>-код, как в обычном браузере.
+</p>
+<p>
+Обучиться писать <abbr title="HyperText Markup Language">HTML</abbr>-разметку можно, например, здесь:
+</p>
+<ul>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://htmlacademy.ru" rel="nofollow" target="_blank" title="https://htmlacademy.ru">htmlacademy.ru</a>.</div>
+</li>
+<li class="level1"><div class="li"> Справочник актуальных <abbr title="HyperText Markup Language">HTML</abbr>-тегов, <abbr title="Cascading Style Sheets">CSS</abbr>-свойств, самоучители и прочее: <a class="urlextern" href="https://htmlbook.ru" rel="nofollow" target="_blank" title="https://htmlbook.ru">htmlbook.ru</a></div>
+</li>
+</ul>
+<p>
+Cуществует два варианта плеера:
+</p>
+<ul>
+<li class="level1"><div class="li"> десктопный вариант (для стационарных компьютеров, запускается без браузера);</div>
+</li>
+<li class="level1"><div class="li"> браузерный вариант (запускается непосредственно в браузере, и потому данный вариант можно использовать, например, для публикации игр на QSP в интернете).</div>
+</li>
+</ul>
+<p>
+Релиз последней версии плеера <strong>qSpider</strong> вы всегда можете найти по этой ссылке:
+</p>
+<p>
+<a class="urlextern" href="https://github.com/qspfoundation/qspider/releases" rel="nofollow" target="_blank" title="https://github.com/qspfoundation/qspider/releases">https://github.com/qspfoundation/qspider/releases</a>
+</p>
+<p>
+<strong>qSpider</strong> использует последнюю версию библиотеки <code>qsplib</code>, а значит игры, написанные на классический плеер с той же версией библиотеки, полностью совместимы с <strong>qSpider</strong>.
+</p>
+<p>
+Демонстрацию работы плеера можно посмотреть здесь:
+</p>
+<ul>
+<li class="level1"><div class="li"> Поиграть в QSP-игры без установки плеера: <strong><a class="urlextern" href="https://qspfoundation.github.io/qspider/" rel="nofollow" target="_blank" title="https://qspfoundation.github.io/qspider/">qspfoundation.github.io/qspider</a></strong>. <strong>qSpider</strong> откроется в браузере и прямо в нём вы сможете просмотреть каталог игр, представленных на сайте qsp.org, добавить любую из них на полку и поиграть.</div>
+</li>
+<li class="level1"><div class="li"> <strong><a class="urlextern" href="https://aleksversus.github.io/merphy_law/" rel="nofollow" target="_blank" title="https://aleksversus.github.io/merphy_law/">"Вереница миров"</a></strong> — стандалон сборка игры онлайн на плеере <strong>qSpider</strong>.</div>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit3" id="otlichija_qspider_ot_klassicheskogo_pleera">Отличия qSpider от Классического плеера:</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <strong>Полноценная поддержка <abbr title="HyperText Markup Language">HTML</abbr></strong>, как в браузере, в том числе встраивание видео(!);</div>
+</li>
+<li class="level1"><div class="li"> Есть <strong>доступ к панели разработчика</strong>, позволяющей контролировать корректность <abbr title="HyperText Markup Language">HTML</abbr>-вёрстки;</div>
+</li>
+<li class="level1"><div class="li"> <strong>Пути к ресурсам</strong> (картинкам/аудио файлам) <strong>регистрозависимы</strong> — то есть, если файл называется "<code>image.jpg</code>", а в файле игры записано "<code>Image.jpg</code>" или "<code>image.JPG</code>", то плеер не сможет показать такую картинку;</div>
+</li>
+<li class="level1"><div class="li"> Для проигрывания аудио используются встроенные средства браузера, поэтому рекомендованный формат для плеера — <code>.mp3</code> как самый поддерживаемый (хорошая альтернатива — <code>.webm</code>, у него меньше размер при том же качестве, но чуть хуже с поддержкой браузеров);</div>
+</li>
+<li class="level1"><div class="li"> Есть возможность пропуска <code>wait</code> (кликом по странице);</div>
+</li>
+<li class="level1"><div class="li"> <strong>Сохранения хранятся в браузере</strong>;</div>
+</li>
+<li class="level1"><div class="li"> Можно открывать игры, упакованные в rar-архив, zip-архив или в aqsp-архив;</div>
+</li>
+<li class="level1"><div class="li"> Можно открывать коллекции игр, упакованных в один архив (в корне архива должен находиться файл <code>game.cfg</code> с описанием всех игр).</div>
+</li>
+<li class="level1"><div class="li"> Можно открывать игры в виде текстового файла формата <strong>TXT2GAM</strong> (<strong>QSPS</strong>) (см. ниже раздел "Запуск игр в формате текстовых файлов").</div>
+</li>
+<li class="level1"><div class="li"> Можно создавать собственные темы оформления и переключаться между ними из кода QSP.</div>
+</li>
+<li class="level1"><div class="li"> Расширенные возможности взаимодействия с интерфейсом и <abbr title="HyperText Markup Language">HTML</abbr>-разметкой.</div>
+</li>
+<li class="level1"><div class="li"> Возможность связать вызов кода QSP с событиями браузера (клик, двойной клик и т.п.).</div>
+</li>
+</ul>
+<p>
+<strong>Обратите внимание</strong>: чтобы запустить игру из архива, QSP-файл игры должен находится в корне архива (не в подпапке), а так же в корне должен быть только один QSP-файл (если используются дополнительные QSP-файлы, то они должны быть расположены в подпапках).
+</p>
+</div>
+<h2 class="sectionedit4" id="desktopnaja_versija">Десктопная версия</h2>
+<div class="level2">
+</div>
+<h3 class="sectionedit5" id="osnovnye_otlichija_desktop-versii_ot_web-versii">Основные отличия desktop-версии от web-версии:</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> открытие игры через drag-n-drop — перетаскивание файла игры на окно плеера;</div>
+</li>
+<li class="level1"><div class="li"> открытие игры через консоль;</div>
+</li>
+<li class="level1"><div class="li"> <code>game.cfg</code> подключается, даже если игра не упакована в архив;</div>
+</li>
+<li class="level1"><div class="li"> дополнительная секция в файле конфига для настройки окна desktop-плеера;</div>
+</li>
+<li class="level1"><div class="li"> автоматическое обновление desktop-плеера при выходе новой версии.</div>
+</li>
+</ul>
+</div>
+<h3 class="sectionedit6" id="ustanovka_i_zapusk">Установка и запуск</h3>
+<div class="level3">
+<p>
+Установка десктопного варианта будет несколько отличаться для разных операционных систем, но проблем у вас не возникнет, если вы хоть раз устанавливали программы на свой компьютер.
+</p>
+<p>
+После установки запуск плеера ничем не отличается от запуска любой другой программы.
+</p>
+<p>
+У пользователей устаревших операционных систем при установке могут возникнуть ошибки, похожие на эту:
+</p>
+<p>
+<img alt="Экран QSP" class="media" src="help_qspider_error.png" title="Экран QSP"/></a>
+</p>
+<p>
+В этом случае попробуйте установить webview2 вручную (скачать можно с <a class="urlextern" href="https://developer.microsoft.com/en-us/microsoft-edge/webview2/" rel="nofollow" target="_blank" title="https://developer.microsoft.com/en-us/microsoft-edge/webview2/">этой страницы</a>), а затем вновь запустите установку плеера.
+</p>
+<p>
+Если ошибка не исправилась, воспользуйтесь браузерной версией плеера.
+</p>
+</div>
+<h3 class="sectionedit7" id="zapusk_pleera_iz_quest_generator">Запуск плеера из Quest Generator</h3>
+<div class="level3">
+<p>
+Десктопный <strong>qSpider</strong> запускается из <strong>Quest Generator</strong> точно так же, как и классический плеер. Достаточно прописать путь к <strong>qSpider</strong> в настройках <strong>QGen</strong>. Это делается через меню "<strong>Утилиты → Настройки</strong>" на вкладке "Пути" в поле "Путь к плееру".
+</p>
+</div>
+<h2 class="sectionedit8" id="brauzernaja_versija_ili_web-versija">Браузерная версия, или web-версия</h2>
+<div class="level2">
+<p>
+Данная версия плеера может быть использована вами для размещения игр онлайн, то есть в интернете. Однако так же её можно запускать и на компьютере.
+</p>
+</div>
+<h3 class="sectionedit9" id="osnovnye_otlichija_web-versii_ot_desktop-versii">Основные отличия web-версии от desktop-версии:</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> запуск QSP-файлов и текстовых qsps-файлов с компьютера возможен, но к игре не подключаются ресурсы и файлы конфигурации;</div>
+</li>
+<li class="level1"><div class="li"> игры могут иметь общий файл конфигурации, который загружается из папки "<code>game</code>"; приоритет у индивидуальных файлов конфигураций;</div>
+</li>
+<li class="level1"><div class="li"> можно открыть файл со списком игр или отдельную игру по ссылке (см. раздел "Запуск игр по ссылке").</div>
+</li>
+</ul>
+</div>
+<h3 class="sectionedit10" id="ustanovka_i_zapusk_pleera_na_kompjutere">Установка и запуск плеера на компьютере</h3>
+<div class="level3">
+<p>
+<strong>Стандалон-сборка</strong>
+</p>
+<p>
+Прежде всего вам необходимо скачать архив "<code>qspider-player-standalone.zip</code>" с web-версией плеера со <a class="urlextern" href="https://github.com/qspfoundation/qspider/releases" rel="nofollow" target="_blank" title="https://github.com/qspfoundation/qspider/releases">страницы релизов</a>. Содержимое архива распакуйте в любую папку, эта папка и будет местом расположения плеера.
+</p>
+<p>
+Из-за ограничений безопасности плеер нельзя запустить просто открыв файл "<code>index.html</code>" в браузере.
+</p>
+<p>
+Поэтому для запуска необходим локально запущенный сервер — можно использовать один из <a class="urlextern" href="https://gist.github.com/willurd/5720255" rel="nofollow" target="_blank" title="https://gist.github.com/willurd/5720255">списка</a>.
+</p>
+<p>
+Более простой способ запустить веб-версию — использовать VS Code с расширением Live Server: * Скачайте и установите бесплатный <a class="urlextern" href="https://code.visualstudio.com" rel="nofollow" target="_blank" title="https://code.visualstudio.com">VS Code</a>.
+</p>
+<ul>
+<li class="level1"><div class="li"> Запустите его по окончании установки.</div>
+</li>
+<li class="level1"><div class="li"> Установите на него расширение <a class="urlextern" href="https://github.com/ritwickdey/vscode-live-server-plus-plus" rel="nofollow" target="_blank" title="https://github.com/ritwickdey/vscode-live-server-plus-plus">Live Server</a>. Для этого:</div>
+<ul>
+<li class="level2"><div class="li"> Откройте меню и выберите пункты <code>File → Preferences → Extensions</code>, или нажмите сочетание клавиш <code>Ctrl + Shift + X</code></div>
+</li>
+<li class="level2"><div class="li"> Слева появится поисковая строка для расширений, введите в неё текст: "<code>Live Server</code>".</div>
+</li>
+<li class="level2"><div class="li"> В списке найденных расширений будет расширение "Live Server", установите его, нажав кнопку <code>Install</code>.</div>
+</li>
+<li class="level2"><div class="li"> Когда расширение установится, в правом нижнем углу VS Code появится кнопка "<code>Go Live</code>"</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> В VS Code откройте папку с распакованной браузерной версией плеера. Меню "<code>File → Open Folder...</code>"</div>
+</li>
+<li class="level1"><div class="li"> Выберите из списка файлов в папке файл <code>index.html</code>.</div>
+</li>
+<li class="level1"><div class="li"> Нажмите кнопку <code>Go Live</code>.</div>
+</li>
+</ul>
+<p>
+Если вы всё сделали правильно, в браузере откроется <strong>qSpider</strong>.
+</p>
+<p>
+Поскольку ни одна игра в <strong>qSpider</strong> не добавлена, в окне браузера будет проигрываться бесконечная анимация.
+</p>
+<p>
+Для того, чтобы игра проигрывалась в браузерной версии плеера, нужно добавить игру и файл <code>game.cfg</code> в папку <code>game</code>, расположенную в папке с плеером.
+</p>
+<p>
+<strong>Плеер с полкой игр</strong>
+</p>
+<p>
+Порядок установки веб-версии плеера с полкой игр мало чем отличается от установки стандалон варианта для веб-версии. Единственное отличие заключается в том, что вам нужно скачать архив "<code>qspider-player.zip</code>" с web-версией плеера со <a class="urlextern" href="https://github.com/qspfoundation/qspider/releases" rel="nofollow" target="_blank" title="https://github.com/qspfoundation/qspider/releases">страницы релизов</a>.
+</p>
+<p>
+Далее всё делаем точно так же, как в выше изложенной инструкции.
+</p>
+<p>
+После запуска сервера в браузере откроется <strong>qSpider</strong> с полкой игр. Эта версия <strong>qSpider</strong> ничем не будет отличаться от версии, доступной по ссылке <strong><a class="urlextern" href="https://qspfoundation.github.io/qspider/" rel="nofollow" target="_blank" title="https://qspfoundation.github.io/qspider/">qspfoundation.github.io/qspider</a></strong>.
+</p>
+</div>
+<h3 class="sectionedit11" id="ustanovka_pleera_na_github">Установка плеера на github</h3>
+<div class="level3">
+<ol>
+<li class="level1"><div class="li"> Ознакомьтесь с порядком установки плеера на компьютер. Лучше выделить отдельную папку и распаковать браузерную версию плеера туда. Затем открыть подпапку "<code>game</code>" и добавить в неё свою игру, которую хотите разместить на гитхабе.</div>
+</li>
+<li class="level1"><div class="li"> Отредактируйте файл "<code>game.cfg</code>" так, чтобы в нём присутствовали все необходимые секции настроек (см. статью <a class="wikilink1" href="help_qspider_gamecfg.htm" title="help:qspider_gamecfg">"Конфигурационный файл"</a>).</div>
+</li>
+<li class="level1"><div class="li"> Откройте <a class="urlextern" href="https://github.com" rel="nofollow" target="_blank" title="https://github.com">github</a> в браузере, зайдите в свой профиль и создайте новый публичный репозиторий с любым именем, для примера: "<code>qspider-game</code>".</div>
+</li>
+<li class="level1"><div class="li"> В разделе "Code" нажмите кнопку "Main".</div>
+</li>
+<li class="level1"><div class="li"> В открывшемся окошке в поле "Find or create branch…" введите название новой ветки "gh-pages", а затем нажмите на кнопку "Create branch: gh-pages from main".</div>
+</li>
+<li class="level1"><div class="li"> Обязательно переключитесь на ветку "gh-pages", если это не произошло автоматически. Вместо кнопки "main" у вас должна появиться кнопка "gh-pages".</div>
+</li>
+<li class="level1"><div class="li"> В этом же разделе найдите и нажмите кнопку "Add file" и выберите пункт "Upload files", откроется страница загрузки файлов на github.</div>
+</li>
+<li class="level1"><div class="li"> Перетащите все распакованные файлы браузерной версии плеера в соответствующее поле на странице. В т.ч. пять папок: "<code>aero</code>", "<code>assets</code>", "<code>game</code>", "<code>locales</code>", "<code>themes</code>".</div>
+</li>
+<li class="level1"><div class="li"> Теперь по адресу "<code>https://username.github.io/qspider-game</code>" станет доступна страничка с вашей игрой. (Соответственно вместо "username" будет ваш ник на гитхабе, а вместо "qspider-game" — название репозитория, который вы только что создали).</div>
+</li>
+</ol>
+<p>
+Есть видео на тему: <a class="urlextern" href="https://www.youtube.com/watch?v=bEjRzTDsPp4&amp;t=3029s" rel="nofollow" target="_blank" title="https://www.youtube.com/watch?v=bEjRzTDsPp4&amp;t=3029s">Размещение игры онлайн с использованием GitHub</a>, однако там создание страницы производится другим способом, без создания ветки "gh-pages".
+</p>
+</div>
+<h3 class="sectionedit12" id="zapusk_igr_po_ssylke">Запуск игр по ссылке</h3>
+<div class="level3">
+<p>
+<strong>ВНИМАНИЕ!!!</strong> Возможность запуска игр по ссылке ограничена — на сервере, на котором лежит игра, должна быть включена поддержка CORS.
+</p>
+<p>
+<strong>Важно!</strong> Запускать сторонние игры может только версия плеера со встроенным каталогом игр.
+</p>
+<p>
+В чём смысл.
+</p>
+<p>
+Нам не нужно, чтобы все игры, которые мы хотим запускать с нашего сайта, лежали прямо у нас на сайте. Мы можем запускать игры, которые лежат на других сайтах.
+</p>
+<p>
+Например, <strong>qSpider</strong> у нас установлен по адресу "<code>https://qspfoundation.github.io/qspider</code>", а игра лежит по адресу "<code>https://aleksversus.github.io/merphy_law/game/merphy_law.qsp</code>".
+</p>
+<p>
+Мы можем ввести в адресную строку, или вставить в атрибут <code>href</code> гиперссылки следующий адрес, и он откроет нашу игру в указанном "плеере" <strong>qSpider</strong>:
+</p>
+<p>
+</p><pre class="brush: text">
+https://qspfoundation.github.io/qspider/?game=https://aleksversus.github.io/merphy_law/game/merphy_law.qsp
+</pre>
+<p>
+При этом игра будет загружена на полку игр.
+</p>
+<p>
+Открыть таким же образом игру в онлайн-плеере, в котором нет полки игр (то есть в плеере для стандалон-сборки), не получится.
+</p>
+<p>
+Таким же образом можно загружать игры целым пакетом, сославшись на один конфигурационный файл (конфиг), в котором описаны сразу несколько игр:
+</p>
+<p>
+</p><pre class="brush: text">
+https://qspfoundation.github.io/qspider/?config=https://aleksversus.github.io/QSP-storage/game/game.cfg
+</pre>
+<p>
+После загрузки всех игр на полку, самая первая игра в конфиге будет запущена автоматически.
+</p>
+<p>
+А ещё можно упаковать несколько игр в zip-архив, поместить в корень архива конфигурационный файл, и сделать ссылку на архив — все игры из архива тоже будут загружены на полку.
+</p>
+</div>
+<h3 class="sectionedit13" id="zapusk_igr_iz_kataloga_po_ssylke">Запуск игр из каталога по ссылке</h3>
+<div class="level3">
+<p>
+Игру, опубликованную в каталоге игр qsp.org, можно запускать по прямой ссылке. Она автоматически добавится на полку и запустится. Чтобы получить такую ссылку:
+</p>
+<ul>
+<li class="level1"><div class="li"> откройте страницу с игрой на сайте qsp.org</div>
+</li>
+<li class="level1"><div class="li"> скопируйте адрес из адресной строки. Должно получиться что-то вроде этого: <pre class="brush: html">https://qsp.org/index.php?option=com_sobi2&amp;sobi2Task=sobi2Details&amp;catid=6&amp;sobi2Id=84&amp;Itemid=55</pre></div>
+</li>
+<li class="level1"><div class="li"> Найдите в этом адресе часть, начинающуюся с <strong>sobi2Id</strong>. Число после знака равенства является идентификатором игры в каталоге. Например, для ссылки выше это число 84.</div>
+</li>
+<li class="level1"><div class="li"> Теперь возьмите полную ссылку к онлайн-версии плеера, и укажите через вопросительный знак параметр <strong>catalogId</strong> и идентификатор игры в каталоге. Получится вот такая ссылка: <pre class="brush: html">https://qspfoundation.github.io/qspider/?catalogId=84</pre></div>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit14" id="zapusk_igr_v_formate_tekstovyx_fajlov">Запуск игр в формате текстовых файлов</h2>
+<div class="level2">
+<p>
+Для того, чтобы писать игры QSP в текстовом редакторе, был разработан специальный формат для текстовых файлов под названием <strong>TXT2GAM</strong>. Ещё его можно называть "формат <strong>QSPS</strong>" по названию общепринятого расширения "<code>.qsps</code>", которое таким файлам назначается. Подробное описание формата вы найдёте в статье <a class="wikilink1" href="help_txt2gam.htm" title="help:txt2gam">"TXT2GAM. Краткое руководство"</a>.
+</p>
+<p>
+Обычно игры, написанные в этом формате, требуется сконвертировать в файл игр QSP с помощью специальной утилиты <strong>TXT2GAM</strong>. Однако <strong>qSpider</strong> позволяет запускать такие игры прямо из qsps-файлов, не конвертируя их.
+</p>
+<p>
+Требования к играм, написанным в виде текстовых файлов:
+</p>
+<ul>
+<li class="level1"><div class="li"> Игра обязательно должна быть написана в формате <strong><a class="wikilink1" href="help_txt2gam.htm" title="help:txt2gam">TXT2GAM (QSPS)</a></strong>;</div>
+</li>
+<li class="level1"><div class="li"> Файл должен иметь расширение "<code>.qsps</code>";</div>
+</li>
+<li class="level1"><div class="li"> Файл должен быть сохранён в кодировке <strong>utf-8</strong> (рекомендуется), или <strong>utf-16le</strong>.</div>
+</li>
+</ul>
+<p>
+<strong>Quest Generator</strong> позволяет экспортировать игру в qsps-файл именно в кодировке <strong>utf-16le</strong>, однако предпочтительнее использовать кодировку <strong>utf-8</strong>, поскольку в этом случае файл будет гораздо меньше по объёму.
+</p>
+</div>
+<h2 class="sectionedit15" id="standartnye_gorjachie_klavishi">Стандартные горячие клавиши</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <code>ctrl+r</code> - перезапуск игры (Заново)</div>
+</li>
+<li class="level1"><div class="li"> <code>ctrl+s</code> - меню сохранения</div>
+</li>
+<li class="level1"><div class="li"> <code>ctrl+o</code> - меню загрузки</div>
+</li>
+<li class="level1"><div class="li"> <code>f5</code> - quicksave (быстрое сохранение)</div>
+</li>
+<li class="level1"><div class="li"> <code>f9</code> - quickload (быстрая загрузка)</div>
+</li>
+<li class="level1"><div class="li"> <code>PageUp</code> - увеличить громкость</div>
+</li>
+<li class="level1"><div class="li"> <code>PageDown</code> - уменьшить громкость</div>
+</li>
+<li class="level1"><div class="li"> <code>Home</code> - выключить звук</div>
+</li>
+<li class="level1"><div class="li"> <code>End</code> - включить звук</div>
+</li>
+<li class="level1"><div class="li"> <code>Space</code> - единственное действие</div>
+</li>
+<li class="level1"><div class="li"> <code>1 ... 9</code> - действия с 1 по 9 по порядку.</div>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit16" id="spisok_poleznyx_ssylok_o_qspider">Список полезных ссылок о qSpider</h2>
+<div class="level2">
+</div>
+<h3 class="sectionedit17" id="v_qsp-wiki">в QSP-WIKI:</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_gamecfg.htm" title="help:qspider_gamecfg">Конфигурационный файл</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_aeroqsp.htm" title="help:qspider_aeroqsp">Особенности запуска и работы игр AeroQSP на qSpider</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_interface.htm" title="help:qspider_interface">Взаимодействие с интерфейсом</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_themes.htm" title="help:qspider_themes">Темы оформления</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_spectags.htm" title="help:qspider_spectags">Специальные теги</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_inclib.htm" title="help:qspider_inclib">Встроенная библиотека</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink2" href="help_qspider_standalone.htm" rel="nofollow" title="help:qspider_standalone">Стандалон-сборка игры на qSpider</a></div>
+</li>
+</ul>
+</div>
+<h3 class="sectionedit18" id="na_ifhub_kratkaja_istorija_versij">на IFHUB (краткая история версий)</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://ifhub.club/2020/10/11/qspider-pleer-dlya-zapuska-qsp-igr-v-brauzere.html" rel="nofollow" target="_blank" title="https://ifhub.club/2020/10/11/qspider-pleer-dlya-zapuska-qsp-igr-v-brauzere.html">qSpider - плеер для запуска QSP игр в браузере</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://ifhub.club/2020/10/11/qspider-hotkeys.html" rel="nofollow" target="_blank" title="https://ifhub.club/2020/10/11/qspider-hotkeys.html">qSpider HotKeys - горячие клавиши</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://ifhub.club/2020/10/18/qspider-090.html" rel="nofollow" target="_blank" title="https://ifhub.club/2020/10/18/qspider-090.html">qSpider 0.9.0 - список игр в конфиге</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://ifhub.club/2020/11/01/qspider-091.html" rel="nofollow" target="_blank" title="https://ifhub.club/2020/11/01/qspider-091.html">qSpider 0.9.1 - загрузка игр из zip</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://ifhub.club/2021/05/23/qspider-0100.html" rel="nofollow" target="_blank" title="https://ifhub.club/2021/05/23/qspider-0100.html">qSpider 0.10.0 - подключение дополнительных ресурсов</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://ifhub.club/2021/10/22/qspider-0110.html" rel="nofollow" target="_blank" title="https://ifhub.club/2021/10/22/qspider-0110.html">qSpider 0.11.0 - поддержка игр в AeroQSP-формате</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://ifhub.club/2022/02/06/qspider-0120.html" rel="nofollow" target="_blank" title="https://ifhub.club/2022/02/06/qspider-0120.html">qSpider 0.12.0 - полноценная desktop-версия</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://ifhub.club/2022/10/05/qspider-0130.html" rel="nofollow" target="_blank" title="https://ifhub.club/2022/10/05/qspider-0130.html">qSpider 0.13.0</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://ifhub.club/2024/01/03/qspider-100.html" rel="nofollow" target="_blank" title="https://ifhub.club/2024/01/03/qspider-100.html">qSpider 1.0.0 — Полка игр и Каталог</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://ifhub.club/2024/01/10/qspider-101.html" rel="nofollow" target="_blank" title="https://ifhub.club/2024/01/10/qspider-101.html">qSpider 1.0.1</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://ifhub.club/2024/02/11/qspider-110.html" rel="nofollow" target="_blank" title="https://ifhub.club/2024/02/11/qspider-110.html">qSpider 1.1.0 — Стандалон</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://ifhub.club/2024/07/15/qspider-120.html" rel="nofollow" target="_blank" title="https://ifhub.club/2024/07/15/qspider-120.html">qSpider 1.2.0 — китайский язык</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://ifhub.club/2024/09/29/qspider-130.html" rel="nofollow" target="_blank" title="https://ifhub.club/2024/09/29/qspider-130.html">qSpider 1.3.0 — переход на библиотеку QSP 5.9.0</a></div>
+</li>
+</ul>
+</div>
+<h3 class="sectionedit19" id="drugie_ssylki">Другие ссылки</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://qsp.org/index.php?option=com_agora&amp;task=topic&amp;id=1291&amp;Itemid=57" rel="nofollow" target="_blank" title="https://qsp.org/index.php?option=com_agora&amp;task=topic&amp;id=1291&amp;Itemid=57">Обсуждение плеера на форуме QSP.org</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://vk.com/@qsplayer-qspider-v-0120-svodnaya-statya" rel="nofollow" target="_blank" title="https://vk.com/@qsplayer-qspider-v-0120-svodnaya-statya">Сводная статья по версии 0.12.0 в вк</a></div>
+</li>
+</ul>
+<p>
+<a class="wikilink1" href="help_qgen.htm" title="help:qgen">Вперёд: Quest Generator</a>
+</p>
+</div>
+
+<!-- wikipage stop -->
+</div></body>
+</html>

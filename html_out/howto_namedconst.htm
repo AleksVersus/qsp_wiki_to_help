@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Именованные константы [Документация QSP]</title>
+<link href="default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="page group">
+<!-- wikipage start -->
+<h1 class="sectionedit1" id="imenovannye_konstanty">Именованные константы</h1>
+<div class="level1">
+<p>
+В <strong>QSP</strong> нет возможности создавать <strong>неизменяемые переменные</strong>, они же <strong>именованные константы</strong>, напрямую, как в других языках программирования:
+</p>
+<p>
+</p><pre class="brush: js"># javascript
+const newStr = 'эту переменную нельзя перезаписать'
+</pre>
+<p>
+Однако вы можете использовать локации-функции и неявный вызов <strong><code>FUNC</code></strong> для того, чтобы создавать аналог таких констант.
+</p>
+<p>
+Например, нам нужны константы <code>true</code> и <code>false</code>, которые мы сможем использовать в различных логических операциях. Давайте создадим их.
+</p>
+<p>
+Для этого:
+</p>
+<ol>
+<li class="level1"><div class="li"> Создаём локации-функции, которые просто будут возвращать нужное значение:</div>
+<ul>
+<li class="level2"><div class="li"> локация <code>true</code>: <pre class="brush: qsp">
+result = 1
+</pre></div>
+</li>
+<li class="level2"><div class="li"> локация <code>false</code>: <pre class="brush: qsp">
+result = 0
+</pre></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> А теперь используем эти локации-функции с неявным вызовом <strong><code>FUNC</code></strong>: <pre class="brush: qsp">
+if isnum($string) = @true:
+  *pl 'Это число'
+else:
+  *pl 'Это строка'
+end
+
+if isplay('snd/trees.mp3') = @false: play 'snd/trees.mp3'
+</pre></div>
+</li>
+</ol>
+</div>
+
+<!-- wikipage stop -->
+</div></body>
+</html>

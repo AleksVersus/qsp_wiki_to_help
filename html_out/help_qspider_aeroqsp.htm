@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Особенности работы AeroQSP-игр на qSpider [Документация QSP]</title>
+<link href="default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="page group">
+<!-- wikipage start -->
+<!-- TOC START -->
+
+<!-- TOC END -->
+<p>
+<a class="wikilink1" href="help_qspider.htm" title="help:qspider">Назад: qSpider - основная информация</a>
+</p>
+<h1 class="sectionedit1" id="osobennosti_raboty_aeroqsp-igr_na_qspider">Особенности работы AeroQSP-игр на qSpider</h1>
+<div class="level1">
+<p>
+<abbr title="HyperText Markup Language">HTML</abbr>-движок в флеш версии AeroQSP достаточно специфичен и не всегда совпадает с тем, как работает браузер, поэтому при запуске AeroQSP-игр на <strong>qSpider</strong> будут наблюдаться некоторые отличия в поведении игр.
+</p>
+<p>
+Вот список особенностей и отличий:
+</p>
+<ul>
+<li class="level1"><div class="li"> несколько игр использовали синтаксис, который поменялся в 5.8.0 (порядок аргументов в <code>INSTR</code>, <code>ARRCOMP</code>, <code>ARRPOS</code>), и в <strong>qSpider</strong> эти игры будут выдавать ошибку о несовпадении типов данных;</div>
+</li>
+<li class="level1"><div class="li"> в AeroQSP шрифты подключались в формате <code>swf</code>, использовать такой формат больше нет возможности, поэтому если игра использует нестандартные шрифты — их необходимо будет подключать через файл конфига в секции <a class="wikilink1" href="help_qspider_gamecfg.htm" title="help:qspider_gamecfg">game.resources</a>;</div>
+</li>
+<li class="level1"><div class="li"> в <strong>qSpider</strong> не поддерживаются эффекты <strong>pixels</strong>, <strong>h_blinds</strong> и <strong>v_blinds</strong>, остальные эффекты могут немного отличаться от того, как работала флеш-версия;</div>
+</li>
+<li class="level1"><div class="li"> не поддерживается переменная <code>SCROLL_SPEED</code> (впрочем, скорее всего нет игр, в которых она бы использовалась);</div>
+</li>
+<li class="level1"><div class="li"> обработка клика в флеше отличается от браузера — если на блоке нет обработчика, то он не перехватывает клик, даже если размещен поверх другого. В ряде игр это привело к тому, что неспрятанные панельки (пустые и не видимые) в <strong>qSpider</strong> блокируют клики по линкам под ними. Пример — игра "Новогодние сказки", где кнопка "Играть" почти полностью перекрыта пустой на этот момент панелькой действий. Лечится небольшими изменениями игры — отключением неиспользуемых панелей.</div>
+</li>
+<li class="level1"><div class="li"> в флеше тег <strong>center</strong> внутри таблиц растягивает таблицу на всю ширину, при этом еще размеры ячеек без явно указанной ширины в этом случае считаются не как в браузере. Чаще всего это заметно в действиях — для форматирования по умолчанию используется таблица, и если в названии действия использовать тег center, то в флеш-версии текст будет посередине панели, а в <strong>qSpider</strong> — нет. Лечится добавлением <code>width=100%</code> в такую таблицу. Не было возможности сделать это на уровне плеера, поскольку в ряде игр это ломало отображение.</div>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit2" id="primer_podkljuchenija">Пример подключения</h2>
+<div class="level2">
+<p>
+Для подключения AeroQSP игры через конфиг — необходимо в основной секции добавить <code>mode="aero"</code>, и если используется размер экрана игры, отличающийся от дефолтного <code>800х600</code>, — добавить секцию с размерами:
+</p>
+<p>
+</p><pre class="brush: text">
+[[game]]
+id = "c2cb4b5b-6a1c-482e-bb47-9ef207fb0dcd"
+title = "Чашка кофе"
+mode = "aero"
+file = "aero_coffee.aqsp"
+
+[game.aero]
+width = 504
+height = 680
+</pre>
+<p>
+При этом можно использовать как aqsp-архив, так и распаковать его и прописать ссылку на qsp-файл в папке.
+</p>
+</div>
+<h2 class="sectionedit3" id="vazhnoe_primechanie_ot_werewolf_a">Важное примечание от Werewolf`а</h2>
+<div class="level2">
+<blockquote><div class="no">
+ Я не собираюсь развивать и поддерживать (кроме багфиксов) формат AeroQSP, поэтому не советую начинать новые игры с его использованием.</div></blockquote>
+</div>
+<h2 class="sectionedit4" id="drugie_stati_po_qspider">Другие статьи по qSpider</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider.htm" title="help:qspider">qSpider — общая информация</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_gamecfg.htm" title="help:qspider_gamecfg">Конфигурационный файл</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_interface.htm" title="help:qspider_interface">Взаимодействие с интерфейсом</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_themes.htm" title="help:qspider_themes">Темы оформления</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_spectags.htm" title="help:qspider_spectags">Специальные теги</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_inclib.htm" title="help:qspider_inclib">Встроенная библиотека</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink2" href="help_qspider_standalone.htm" rel="nofollow" title="help:qspider_standalone">Стандалон-сборка игры на qSpider</a></div>
+</li>
+</ul>
+</div>
+
+<!-- wikipage stop -->
+</div></body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Специальные HTML-теги [Документация QSP]</title>
+<link href="default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="page group">
+<!-- wikipage start -->
+<!-- TOC START -->
+
+<!-- TOC END -->
+<h1 class="sectionedit1" id="specialnye_html-tegi">Специальные HTML-теги</h1>
+<div class="level1">
+<p>
+В <strong>qSpider</strong> добавлены специальные теги, которые позволяют различным образом взаимодействовать с разметкой <abbr title="HyperText Markup Language">HTML</abbr>. Они помогут в отладке игры, проектировании интерфейса для взаимодействия с игроком, и для оформления внешнего вида вашей игры.
+</p>
+<p>
+Все специальные теги — сдвоенные. То есть состоят из открывающей и закрывающей части.
+</p>
+<p>
+<strong>Обратите внимание.</strong> Теги позволяют взаимодействовать со значениями как глобальных, так и локальных переменных, однако локальные переменные уничтожаются сразу после выполнения блока кода, в котором они объявлены. Поэтому если вы используете специальные теги для взаимодействия с локальными переменными, вы можете не увидеть их работу без искусственной задержки (<code>wait</code>).
+</p>
+</div>
+<h2 class="sectionedit2" id="tekuschee_znachenie_peremennoj">Текущее значение переменной</h2>
+<div class="level2">
+<p>
+<strong>qsp-variable</strong> — с помощью этого тега можно выводить на экран в режиме реального времени значения переменной. То есть, даже если переменная будет изменяться на локации-счётчике, вы увидите её актуальное значение на экране.
+</p>
+<p>
+Можно выводить не только значение отдельной переменной, но и значение из ячейки массива.
+</p>
+<p>
+Атрибуты тега:
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>name</code> — название переменной или массива.</div>
+</li>
+<li class="level1"><div class="li"> <code>index</code> — числовой индекс ячейки массива.</div>
+</li>
+<li class="level1"><div class="li"> <code>key</code> — строковый индекс ячейки массива (строковый ключ).</div>
+</li>
+</ul>
+<p>
+Примеры использования:
+</p>
+<p>
+</p><pre class="brush: html">
+&lt;qsp-variable name="money"&gt;&lt;/qsp-variable&gt;
+&lt;qsp-variable name="counts" index="5"&gt;&lt;/qsp-variable&gt;
+&lt;qsp-variable name="$items" key="knife"&gt;&lt;/qsp-variable&gt;
+</pre>
+</div>
+<h2 class="sectionedit3" id="otobrazhenie_po_usloviju">Отображение по условию</h2>
+<div class="level2">
+<p>
+<strong>qsp-show</strong> — содержимое данного тега будет отображаться только если выполняется условие, прописанное в атрибуте <code>when</code>.
+</p>
+<p>
+Атрибуты тега:
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>when</code> — должен содержать валидное условие QSP (как для операторов <code>if</code>, <code>elseif</code> или <code>while</code>), при выполнении которого содержимое тега будет отображаться.</div>
+</li>
+</ul>
+<p>
+Примеры использования:
+</p>
+<p>
+</p><pre class="brush: html">
+&lt;qsp-show when="should_show=1"&gt;Этот текст будет виден только когда значение перменной should_show будет равно 1&lt;/qsp-show&gt;
+&lt;qsp-show when="usehtml = 1 and flag = 1"&gt;Флаг выставлен.&lt;/qsp-show&gt;
+&lt;qsp-show when="no obj('Ваза')"&gt;Ваза стоит на столе.&lt;/qsp-show&gt;
+</pre>
+</div>
+<h2 class="sectionedit4" id="dinamicheskoe_primenenie_stilej">Динамическое применение стилей</h2>
+<div class="level2">
+<p>
+<strong>qsp-style</strong> — этот тег подгружает на страницу стили <abbr title="Cascading Style Sheets">CSS</abbr> из указанной в атрибуте <code>from</code> переменной QSP. В AeroQSP для таких целей использовалась переменная <code>$STYLESHEET</code>. В qSpider вы можете использовать любую удобную вам переменную.
+</p>
+<p>
+Атрибуты тега:
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>from</code> — название переменной, из которой следует подгружать стили.</div>
+</li>
+</ul>
+<p>
+Пример смены стилей без перезахода на локацию:
+</p>
+<p>
+</p><pre class="brush: qsp">
+*p '&lt;qsp-style from="$styles"&gt;&lt;/qsp-style&gt;'
+*p '&lt;span class="universal"&gt;Какого цвета этот текст?&lt;/span&gt;'
+
+act "Сменить цвет":
+  flag = 1 - flag
+  if flag:
+    $styles = '.universal {color:red;}'
+  else:
+    $styles = '.universal {color:blue;}'
+  end
+end
+</pre>
+</div>
+<h2 class="sectionedit5" id="upravlenie_regionami">Управление регионами</h2>
+<div class="level2">
+<p>
+<strong>qsp-region</strong> — позволяет обновить часть экрана без перезахода на локацию, или разного рода принудительного очищения и перерисовки всей разметки на экране.
+</p>
+<p>
+Атрибуты тега:
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>name</code> — название региона, с которым планируется взаимодействие.</div>
+</li>
+</ul>
+<p>
+Регионы можно создавать как в файлах тем, так и выводить непосредственно из кода QSP.
+</p>
+<p>
+Пример региона:
+</p>
+<p>
+</p><pre class="brush: html">
+&lt;qsp-region name="market-items"&gt;&lt;/qsp-region&gt;
+</pre>
+<p>
+Для обновления региона из кода QSP используются функции <a class="wikilink1" href="help_qspider_inclib.htm" title="help:qspider_inclib">встроенной библиотеки</a> <code>qspider</code>.
+</p>
+<p>
+Пример замены содержимого региона новым:
+</p>
+<p>
+</p><pre class="brush: qsp">
+@qspider_update_region('market-items', '&lt;strong&gt;Здесь больше ничего нет.&lt;/strong&gt;')
+</pre>
+</div>
+<h2 class="sectionedit6" id="upravlenie_slojami">Управление слоями</h2>
+<div class="level2">
+<p>
+<strong>qsp-layer</strong> — даёт возможность быстро показывать и скрывать большие фрагменты отображения. Слои рисуются один поверх другого, что даёт возможность делать наложения элементов интерфейса друг на друга, или создавать модальные окна.
+</p>
+<p>
+По умолчанию все слои скрыты!
+</p>
+<p>
+Атрибуты тега:
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>name</code> — название слоя, нужно для управления.</div>
+</li>
+<li class="level1"><div class="li"> <code>index</code> — порядок отображения слоя относительно других слоёв.</div>
+</li>
+</ul>
+<p>
+Пример слоя:
+</p>
+<p>
+</p><pre class="brush: html">
+&lt;qsp-layer name="prompt-popup"&gt;Кошелёк или жизнь?&lt;/qsp-layer&gt;
+</pre>
+<p>
+Для управления отображением слоёв из кода QSP нужно использовать функции <a class="wikilink1" href="help_qspider_inclib.htm" title="help:qspider_inclib">встроенной библиотеки</a> <code>qspider</code>.
+</p>
+<p>
+Пример <em>включения</em> слоя:
+</p>
+<p>
+</p><pre class="brush: qsp">
+@qspider_show_layer('prompt-popup')
+</pre>
+</div>
+<h2 class="sectionedit7" id="drugie_stati_po_qspider">Другие статьи по qSpider</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider.htm" title="help:qspider">qSpider — общая информация</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_gamecfg.htm" title="help:qspider_gamecfg">Конфигурационный файл</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_aeroqsp.htm" title="help:qspider_aeroqsp">Особенности запуска и работы игр AeroQSP на qSpider</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_interface.htm" title="help:qspider_interface">Взаимодействие с интерфейсом</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_themes.htm" title="help:qspider_themes">Темы оформления</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_inclib.htm" title="help:qspider_inclib">Встроенная библиотека</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink2" href="help_qspider_standalone.htm" rel="nofollow" title="help:qspider_standalone">Стандалон-сборка игры на qSpider</a></div>
+</li>
+</ul>
+</div>
+
+<!-- wikipage stop -->
+</div></body>
+</html>

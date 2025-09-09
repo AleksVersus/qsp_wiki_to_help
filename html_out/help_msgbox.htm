@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Окно сообщений [Документация QSP]</title>
+<link href="default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="page group">
+<!-- wikipage start -->
+<!-- TOC START -->
+
+<!-- TOC END -->
+<p>
+<a class="wikilink1" href="help_stat.htm" title="help:stat">Назад: Окно дополнительного описания</a>
+</p>
+<h1 class="sectionedit1" id="okno_soobschenij">Окно сообщений</h1>
+<div class="level1">
+<p>
+<strong>Окно сообщений</strong> — это всплывающее окошко, в котором вы можете вывести своё сообщение для игрока. Данное окошко необходимо исключительно для информирования, вы не сможете получить из него никаких данных, узнать нажал ли игрок на кнопку “OK” или на крестик в углу. Никакие варианты для этого окошка не предусмотрены.
+</p>
+<p>
+При выводе на экран <strong>Окна сообщения</strong> выполнение всего остального кода игры приостанавливается, пока игрок не нажмёт кнопку “OK”, или не закроет <strong>Окно сообщения</strong>.
+</p>
+<p>
+<img alt="" class="media" src="help_msgbox.png"/>
+</p>
+</div>
+<h2 class="sectionedit2" id="komanda_dlja_vyvoda_okna_soobschenija">Команда для вывода Окна сообщения</h2>
+<div class="level2">
+<p>
+<code>MSG [$текст]</code> - вывод сообщения <code>[$текст]</code> в диалоговом окне.
+</p>
+</div>
+<h2 class="sectionedit3" id="primery">Примеры</h2>
+<div class="level2">
+<p>
+</p><pre class="brush: qsp">
+! простой вывод сообщения.
+msg 'Много спелых груш.'
+! получим окно с сообщением 'Много спелых груш'
+</pre>
+<p>
+</p><pre class="brush: qsp">
+! Пример сообщения в действии ACT.
+act 'Поесть груш':
+  msg 'Ммм груши очень вкусные.'
+end
+! Получим вывод сообщения при клике по действию "Поесть груш"
+</pre>
+<p>
+</p><pre class="brush: qsp">
+!Пример с условием.
+if hlebgotov = 1:
+  msg 'Похоже хлеб уже готов.'
+end
+! Получаем вывод сообщения когда условие hlebgotov = 1 выполняется
+</pre>
+<p>
+<a class="wikilink1" href="help_acts.htm" title="help:acts">Вперёд: Действия</a>
+</p>
+</div>
+
+<!-- wikipage stop -->
+</div></body>
+</html>

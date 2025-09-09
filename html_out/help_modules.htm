@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Работа с файлами игр, использование модулей [Документация QSP]</title>
+<link href="default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="page group">
+<!-- wikipage start -->
+<!-- TOC START -->
+
+<!-- TOC END -->
+<p>
+<a class="wikilink1" href="help_inputs.htm" title="help:inputs">Назад: Ввод текста игроком</a>
+</p>
+<h1 class="sectionedit1" id="rabota_s_fajlami_igr_ispolzovanie_modulej">Работа с файлами игр, использование модулей</h1>
+<div class="level1">
+<p>
+<strong>QSP</strong> позволяет загружать в выполняемую игру другие файлы игр. Это можно сделать двумя способами:
+</p>
+<ul>
+<li class="level1"><div class="li"> Добавить локации из другой игры к списку локаций текущей игры.</div>
+</li>
+<li class="level1"><div class="li"> Заменить локации текущей игры локациями из другой игры.</div>
+</li>
+</ul>
+<p>
+Первый способ обычно используется для того, чтобы разбить игру на несколько частей и работать над каждой частью отдельно, а затем объединять эти части уже при запуске основного файла игры. Так, например, можно создать различные наборы <a class="wikilink1" href="help_organizing.htm" title="help:organizing">пользовательских функций и процедур</a> и повторно использовать их в разных играх.
+</p>
+<p>
+Конечно, такие наборы уже не являются самостоятельными играми, хотя и представляют собой обычные QSP-файлы. Подобные, многократно используемые QSP-файлы принято называть <strong>модулями</strong> или <strong>библиотеками</strong>.
+</p>
+<p>
+(Ниже по тексту слово <strong>библиотека</strong> означает движок плеера <strong>QSP</strong>, а не подключаемые файлы QSP)
+</p>
+<p>
+Второй способ используется достаточно редко, и он позволяет объединить запуск различных игр из одного сеанса работы плеера. При этом во время сеанса сохраняются значения всех переменных, предметов и состояния всех окон, т.е. игрок не замечает, как одна игра подменяется другой.
+</p>
+<p>
+Для примера представьте, что вы пишете симулятор казино на <strong>QSP</strong>. В казино есть множество различных игр: рулетка, покер, блэкджек, кости и другие. И каждая такая игра у вас смоделирована в отдельном QSP-файле. И есть главный файл, из которого вы можете запустить любую из этих игр. Пока работает плеер, деньги, заработанные в любой из этих игр, могут использоваться также и в любой другой, благодаря тому, что во всех отдельных играх они описываются одной и той же переменной <code>money</code>.
+</p>
+<p>
+Ознакомьтесь с операторами, управляющими подключением файлов к игре, чтобы узнать, как на практике использовать оба способа.
+</p>
+</div>
+<h2 class="sectionedit2" id="operatory_dlja_raboty_s_moduljami">Операторы для работы с модулями</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <code id="statement_INCLIB">INCLIB</code> — из указанного файла игры добавляет все локации, названия которых отсутствуют среди текущих игровых локаций. Загруженные локации полностью эквивалентны локациям из основного файла игры. Общая запись: <pre class="brush: qsp">
+INCLIB [$путь к файлу игры]
+</pre> Пример: <pre class="brush: qsp">
+inclib "lib/easy.math.qsp"
+inclib "lib/easy.title.qsp"
+inclib "res/drive.qsp"
+inclib "res/base.qsp"
+inclib "res/intro.qsp"
+</pre> <strong>Обратите внимание!</strong> Несмотря на то, что с применением оператора <code>INCLIB</code> увеличивается список доступных для использования локаций, сама запущенная игра не изменяется и не заменяется. Это позволяет запускать сохранения при отключенном режиме отладки (см. <code><strong><a class="wikilink1" href="help_savegame.htm#variable_DEBUG" title="help:savegame">DEBUG</a></strong></code>) даже в тех случаях, когда вы изменяете подключаемые к игре модули. То есть вы можете написать основной файл игры, включающий всего одну локацию, на которой подключаются все прочие модули, и сохранения от вашей игры будет невозможно запустить в других играх; однако при этом вы спокойно можете изменять все подключаемые к игре модули (например, если выпускаете патчи на игру), не боясь, что старые сохранения не запустятся с новыми версиями модулей.</div>
+</li>
+<li class="level1"><div class="li"> <code id="statement_FREELIB">FREELIB</code> — удаляет все локации, добавленные с помощью оператора <code>INCLIB</code>. <pre class="brush: qsp">
+! удаляем все добавленные локации
+freelib
+</pre></div>
+</li>
+<li class="level1"><div class="li"> <code id="statement_OPENQST">OPENQST</code> — открывает и запускает указанный файл игры. То есть в сеансе плеера полностью очищается весь список локаций, затем добавляются локации из указанной игры, и на самую первую из них осуществляется переход, как если бы этот переход осуществлялся с помощью оператора <code><strong><a class="wikilink1" href="help_goto.htm" title="help:goto">GOTO</a></strong></code>. Общая запись: <pre class="brush: qsp">
+OPENQST [$путь]
+</pre> , где <code>[$путь]</code> — путь к файлу игры, которую требуется запустить. Пример: <pre class="brush: qsp">
+openqst "gamespool/cubesgame.qsp"
+</pre> При использовании данного оператора, не происходит удаления переменных, удаления предметов инвентаря, очистки дополнительного описания и строки ввода, а также остановки проигрываемых файлов. Если вам нужно очистить экран и значения всех переменных, можно прописать в начале загружаемого файла игры такие команды: <pre class="brush: qsp">
+killall &amp; cls &amp; close all
+</pre> <strong>Обратите внимание!</strong> Загружаемая с помощью <code>OPENQST</code> игра — это совершенно другая игра, не та, из которой она была вызвана. Поэтому если вы из игры "1" запустили игру "2" и в игре "2" сделали сохранение, это сохранение не получится запустить из игры "1" при отключенном режиме отладки (см. <code><strong><a class="wikilink1" href="help_savegame.htm" title="help:savegame">DEBUG</a></strong></code>).<br/>
+<strong>Внимание!</strong> Не путайте операторы <code>OPENQST</code> и <a class="wikilink1" href="help_savegame.htm#statement_OPENGAME" title="help:savegame">''OPENGAME''</a>.</div>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit3" id="spisok_gotovyx_avtorskix_modulej">Список готовых авторских модулей</h2>
+<div class="level2">
+</div>
+<h3 class="sectionedit4" id="olegus">Olegus</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://forum.ifiction.ru/viewtopic.php?id=1613" rel="nofollow" target="_blank" title="https://forum.ifiction.ru/viewtopic.php?id=1613">QSP:Экран</a> — модуль для управления отдельными <abbr title="HyperText Markup Language">HTML</abbr>-областями на экране.</div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://forum.ifiction.ru/viewtopic.php?id=1522" rel="nofollow" target="_blank" title="https://forum.ifiction.ru/viewtopic.php?id=1522">Модуль для работы с таблицами данных</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://forum.ifiction.ru/viewtopic.php?id=1527" rel="nofollow" target="_blank" title="https://forum.ifiction.ru/viewtopic.php?id=1527">Модуль для работы с меню</a> — облегчает работу со всплывающими меню.</div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://forum.ifiction.ru/viewtopic.php?id=1540" rel="nofollow" target="_blank" title="https://forum.ifiction.ru/viewtopic.php?id=1540">QSP:Типограф</a> — модуль для форматирования текста.</div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://forum.ifiction.ru/viewtopic.php?id=1873" rel="nofollow" target="_blank" title="https://forum.ifiction.ru/viewtopic.php?id=1873">QSP:Таймер</a> — модуль для управления событиями по таймеру.</div>
+</li>
+</ul>
+</div>
+<h3 class="sectionedit5" id="werewolf">Werewolf</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://qsp.org/index.php?option=com_content&amp;id=71&amp;Itemid=56" rel="nofollow" target="_blank" title="https://qsp.org/index.php?option=com_content&amp;id=71&amp;Itemid=56">Отладчик</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://qsp.org/index.php?option=com_content&amp;view=article&amp;id=79:-10&amp;catid=36:2009-02-19-06-11-21&amp;Itemid=76" rel="nofollow" target="_blank" title="https://qsp.org/index.php?option=com_content&amp;view=article&amp;id=79:-10&amp;catid=36:2009-02-19-06-11-21&amp;Itemid=76">Гибкий плейлист</a></div>
+</li>
+</ul>
+</div>
+<h3 class="sectionedit6" id="ntropy">Ntropy</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://qsp.org/index.php?option=com_content&amp;view=article&amp;id=70:qsp-inventory-advanced-lib-076&amp;catid=36:2009-02-19-06-11-21&amp;Itemid=76" rel="nofollow" target="_blank" title="https://qsp.org/index.php?option=com_content&amp;view=article&amp;id=70:qsp-inventory-advanced-lib-076&amp;catid=36:2009-02-19-06-11-21&amp;Itemid=76">Библиотечка, дополняющая инвентарь</a></div>
+</li>
+</ul>
+</div>
+<h3 class="sectionedit7" id="aleks_versus">Aleks Versus</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://github.com/AleksVersus/easy.math.3" rel="nofollow" target="_blank" title="https://github.com/AleksVersus/easy.math.3">Easy.Math</a> — математический модуль, расширяющий возможности работы с числами. Вещественные числа, работа со строками и массивами и другие полезные функции.</div>
+</li>
+</ul>
+<p>
+<a class="wikilink1" href="help_savegame.htm" title="help:savegame">Вперёд: Файлы сохранений</a>
+</p>
+</div>
+
+<!-- wikipage stop -->
+</div></body>
+</html>

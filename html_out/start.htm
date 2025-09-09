@@ -1,0 +1,164 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Справочная информация о платформе Quest Soft Player [Документация QSP]</title>
+<link href="default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="page group">
+<!-- wikipage start -->
+<!-- TOC START -->
+
+<!-- TOC END -->
+<h1 class="sectionedit1" id="spravochnaja_informacija_o_platforme_quest_soft_player"><img src="help_wiki_logo.png" src="wiki_logo"> Справочная информация о платформе Quest Soft Player</h1>
+<div class="level1">
+<p>
+Данный цикл статей - основная версия справки по QSP. Здесь собрано всё необходимое для освоения платформы.
+</p>
+<p>
+Обратная связь принимается на форуме: <a class="urlextern" href="https://qsp.org/index.php?option=com_agora&amp;task=topic&amp;id=647&amp;Itemid=57" rel="nofollow" target="_blank" title="https://qsp.org/index.php?option=com_agora&amp;task=topic&amp;id=647&amp;Itemid=57">Новая справка по QSP</a>.
+</p>
+<p>
+<strong>Текущая редакция Справки составлялась для плееров с версией библиотеки 5.9.1.</strong>
+</p>
+<p>
+<em><strong>Есть желание</strong> приобщиться к текстовым играм, но пока <strong>нет идеи</strong>?</em>
+</p>
+<p>
+Скачайте “Набор игрока” с <a class="urlextern" href="https://qsp.org/" rel="nofollow" target="_blank" title="https://qsp.org/">главной страницы сайта</a> и просто поиграйте, чтобы проникнуться идеей таких игр.
+</p>
+<p>
+<em><strong>Есть желание</strong> начать писать текстовые игры, даже <strong>есть идея</strong>, но <strong>нет опыта</strong> программирования?</em>
+</p>
+<p>
+Смело открывайте <a class="urlextern" href="https://qsp.org/index.php?option=com_content&amp;task=view&amp;id=59&amp;Itemid=56" rel="nofollow" target="_blank" title="https://qsp.org/index.php?option=com_content&amp;task=view&amp;id=59&amp;Itemid=56">учебник</a>, который специально создан для авторов, не имеющих опыта в программировании. Или заходите на канал <a class="urlextern" href="https://www.youtube.com/c/aleksversus" rel="nofollow" target="_blank" title="https://www.youtube.com/c/aleksversus">“Пишем игры на QSP”</a> на Ютубе, где можно ознакомиться с полным курсом видеоуроков для новичков.
+</p>
+<p>
+<strong>Ну а остальных милости просим в эту справку.</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qsp.htm" title="help:qsp">Первая статья: что такое QSP?</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_glossary.htm" title="help:glossary">Cловарь терминов</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_keywords.htm" title="help:keywords">Список ключевых слов. Указатель</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_limits.htm" title="help:limits">Ограничения QSP</a></div>
+</li>
+</ul>
+<p>
+Если вам не хватает информации о какой либо команде, обратитесь к <a class="wikilink1" href="help_keywords.htm" title="help:keywords">Списку ключевых слов</a>, там вы найдёте ссылки на разделы в справочной форме с более подробными описаниями команд.
+</p>
+<p>
+В справке встречаются следующие обозначения:
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>[выражение]</code> - значение выражения, которое может быть как текстового, так и числового типа. Это может быть строка текста, число, значение переменной, результат вычисления математической операции, функции и т.п.</div>
+</li>
+<li class="level1"><div class="li"> <code>[$выражение]</code> - значение выражения, которое может быть только текстового (строкового) типа (но при необходимости движок автоматически переведёт число в строку).</div>
+</li>
+<li class="level1"><div class="li"> <code>[%выражение]</code> - значение выражения, которое может быть только кортежем (возвращать кортеж).</div>
+</li>
+<li class="level1"><div class="li"> <code>[#выражение]</code> - значение выражения, которое может быть только числового типа (если возможно, движок автоматически переведёт строку в число).</div>
+</li>
+<li class="level1"><div class="li"> <code>{оператор}</code> - любая команда или несколько команд, в зависимости от контекста</div>
+</li>
+</ul>
+<p>
+<strong>Внимание!</strong> Это просто обозначения, а не настоящий QSP-код! Символ <code>#</code> использован в справке только чтобы разделить выражения произвольного и числового типов. К синтаксису QSP данный символ отношения не имеет, его не нужно писать перед названиями числовых переменных.
+</p>
+<p>
+Примеры:
+</p>
+<p>
+</p><pre class="brush: qsp">
+*pl [выражение]
+</pre>
+<p>
+В данном случае вместо <code>[выражение]</code> может быть подставлено <strong>любое</strong> значение: строка, число, математическое выражение, значение функции или переменной и т.д.
+</p>
+<p>
+</p><pre class="brush: qsp">
+addobj [$название]
+</pre>
+<p>
+В этом случае вместо <code>[$название]</code> может быть подставлено любое <strong>строковое</strong> значение: просто строка текста, результат строкового типа, возвращаемый функцией, значение строковой переменной и т.д.
+</p>
+<p>
+</p><pre class="brush: qsp">
+rand([#число])
+</pre>
+<p>
+Здесь вместо <code>[#число]</code> может быть подставлено любое <strong>числовое</strong> значение: просто число, результат вычисления математического выражения, значение числовой переменной и т.д.
+</p>
+<p>
+</p><pre class="brush: qsp">
+%box = [%кортеж]
+</pre>
+<p>
+Здесь вместо <code>[%кортеж]</code> может быть подставлен любой <strong>кортеж</strong>, или выражение или функция, возвращающие кортеж.
+</p>
+<p>
+</p><pre class="brush: qsp">
+{оператор 1} &amp; {оператор 2} &amp; {оператор 3}
+</pre>
+<p>
+Здесь вместо <code>{оператор 1}</code>, <code>{оператор 2}</code> и <code>{оператор 3}</code> могут стоять любые команды QSP. Например, операторы вывода текста, математические выражения, присвоение значений переменным и другие.
+</p>
+</div>
+<h2 class="sectionedit2" id="offlajn-versija">Оффлайн-версия</h2>
+<div class="level2">
+<p>
+<del>Вы можете скачать документацию вики для просмотра в оффлайне: <a class="urlextern" href="https://qsp.org/tools/offlinehelp/qspwiki.zip" rel="nofollow" target="_blank" title="https://qsp.org/tools/offlinehelp/qspwiki.zip">qspwiki.zip</a>. Архив обновляется ежедневно.</del>
+</p>
+</div>
+<h2 class="sectionedit3" id="dokumentacija_po_qsp_vne_ehtoj_viki">Документация по QSP вне этой вики</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://qsp.org/index.php?option=com_content&amp;task=view&amp;id=59&amp;Itemid=56" rel="nofollow" target="_blank" title="https://qsp.org/index.php?option=com_content&amp;task=view&amp;id=59&amp;Itemid=56">Учебник по созданию игр в редакторе QGen</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://www.youtube.com/c/aleksversus" rel="nofollow" target="_blank" title="https://www.youtube.com/c/aleksversus">Канал на YouTube, посвящённый написанию игр на QSP</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://qsp.org/index.php?option=com_content&amp;view=article&amp;id=57&amp;Itemid=56" rel="nofollow" target="_blank" title="https://qsp.org/index.php?option=com_content&amp;view=article&amp;id=57&amp;Itemid=56">Раздел “Разработчикам”</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://qsp.org/index.php?option=com_agora&amp;task=forum&amp;id=1&amp;Itemid=57" rel="nofollow" target="_blank" title="https://qsp.org/index.php?option=com_agora&amp;task=forum&amp;id=1&amp;Itemid=57">Обсуждение и разработка игр на форуме</a></div>
+</li>
+<li class="level1"><div class="li"> Старая справка в формате <a class="urlextern" href="https://qsp.org/attachments/qsp564help.zip" rel="nofollow" target="_blank" title="https://qsp.org/attachments/qsp564help.zip">zip</a>. Отличия новой от старой справки:</div>
+<ul>
+<li class="level2"><div class="li"> В новой справке текст переработан для упрощения понимания и соответствия текущему синтаксису.</div>
+</li>
+<li class="level2"><div class="li"> Отсутствуют статьи “Лицензионное соглашение”, “Системные требования”, “Благодарности”</div>
+</li>
+<li class="level2"><div class="li"> Не вся информация из статей “Подсказки/советы” и “FAQ” вошла в справку.</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://qsp.org/index.php?option=com_agora&amp;task=topic&amp;id=316&amp;Itemid=57" rel="nofollow" target="_blank" title="https://qsp.org/index.php?option=com_agora&amp;task=topic&amp;id=316&amp;Itemid=57">FAQ для разработчиков</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://aleksversus.github.io/howdo_faq/" rel="nofollow" target="_blank" title="https://aleksversus.github.io/howdo_faq/">Онлайн-справочник по самым часто задаваемым вопросам по QSP</a></div>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit4" id="podderzhka_platformy">Поддержка платформы</h2>
+<div class="level2">
+<p>
+<strong>Поддержите развитие платформы</strong> и плееров, пожертвовав небольшую сумму <strong>через следующие сервисы</strong>:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong><a class="urlextern" href="https://buymeacoffee.com/varg" rel="nofollow" target="_blank" title="https://buymeacoffee.com/varg">Buy me a coffee</a></strong></div>
+</li>
+<li class="level1"><div class="li"> <strong><a class="urlextern" href="https://brianmacdonald.github.io/Ethonate/address#0x4537B99e27deD6C8459C1eFCdE0E7fa48357e44D" rel="nofollow" target="_blank" title="https://brianmacdonald.github.io/Ethonate/address#0x4537B99e27deD6C8459C1eFCdE0E7fa48357e44D">Ethereum / EVM</a></strong></div>
+</li>
+<li class="level1"><div class="li"> <strong><a class="urlextern" href="https://www.paypal.com/donate/?hosted_button_id=RB8B6EQW4FW6N" rel="nofollow" target="_blank" title="https://www.paypal.com/donate/?hosted_button_id=RB8B6EQW4FW6N">PayPal</a></strong></div>
+</li>
+</ul>
+<p>
+<a class="wikilink1" href="help_qsp.htm" title="help:qsp">Вперёд: Что такое QSP?</a>
+</p>
+</div>
+
+<!-- wikipage stop -->
+</div></body>
+</html>

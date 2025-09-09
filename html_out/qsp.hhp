@@ -2,7 +2,7 @@
 Compatibility=1.1 or later
 Compiled file=qsp.chm
 Contents file=qsp.hhc
-Default Font=Arial,16,1
+Default Font=,,1
 Default topic=start.htm
 Display compile progress=No
 Full-text search=Yes

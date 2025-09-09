@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Standalone-сборка игры на классическом плеере [Документация QSP]</title>
+<link href="default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="page group">
+<!-- wikipage start -->
+<!-- TOC START -->
+
+<!-- TOC END -->
+<h1 class="sectionedit1" id="standalone-sborka_igry_na_klassicheskom_pleere">Standalone-сборка игры на классическом плеере</h1>
+<div class="level1">
+<p>
+По этому вопросу записано отдельное видео на ютубе: <a class="urlextern" href="https://youtu.be/Ca4ynD_1BqQ" rel="nofollow" target="_blank" title="https://youtu.be/Ca4ynD_1BqQ">https://youtu.be/Ca4ynD_1BqQ</a>
+</p>
+<p>
+О создании файла запуска: Genryzz. #3912 21.Фев.16 21:30:40: <a class="urlextern" href="https://qsp.org/index.php?option=com_agora&amp;task=topic&amp;id=40&amp;p=157&amp;prc=25&amp;Itemid=57#p23065" rel="nofollow" target="_blank" title="https://qsp.org/index.php?option=com_agora&amp;task=topic&amp;id=40&amp;p=157&amp;prc=25&amp;Itemid=57#p23065">как сделать пусковой файл?</a>
+</p>
+<p>
+Статья Серого Волка в теме <a class="urlextern" href="https://qsp.su/index.php?option=com_agora&amp;task=topic&amp;id=88&amp;Itemid=57" rel="nofollow" target="_blank" title="https://qsp.su/index.php?option=com_agora&amp;task=topic&amp;id=88&amp;Itemid=57">Возможности) Помогите разобраться</a>
+</p>
+<p>
+Непосредственно без плеера ни одна игра QSP не запустится.
+</p>
+<p>
+Но если вам лень объяснять всем и каждому, что игры QSP запускаются на специальном плеере, что надо отдельно качать плеер, отдельно — игры, то есть специальная инструкция по упаковке и файла плеера и файла игры в самораспаковывающийся sfx-архив, который заменит привычный для игрока установщик.
+</p>
+<p>
+Выше есть ссылка на изначальную версию данной инструкции, мы же сейчас рассмотрим вариант распространяемой standalone-сборки, включающий как изначальную версию, так и работу с пакетным файлом <code>.bat</code>, который позволит игроку запускать игру одним кликом (прямо с рабочего стола).
+</p>
+<p>
+Названия всех файлов и папок, которые вы будете использовать при сборке игры, должны быть только латинскими буквами.
+</p>
+<p>
+Для того, чтобы проделать нижеследующие шаги, вам потребуется заранее установить на компьютер программу WinRAR. Она условно-бесплатная. После того, как установите WinRAR, выполните следующее:
+</p>
+</div>
+<h2 class="sectionedit2" id="podgotovka_fajlov_dlja_sborki">Подготовка файлов для сборки</h2>
+<div class="level2">
+<ol>
+<li class="level1"><div class="li"> В первую очередь необходимо завести отдельную папку, назовём её "Standalone". Можете создать её прямо на рабочем столе, это папка, в которую мы скопируем все необходимые нам файлы, чтобы затем создать sfx-архив.</div>
+</li>
+<li class="level1"><div class="li"> Если вы хотите добавить оригинальную иконку на сам sfx-архив и на ярлык, с которого будет запускаться игра, скопируйте файлы иконок в папку "Standalone". Далее в инструкции будет указано, что и где прописать, чтобы эти иконки задействовать.</div>
+</li>
+<li class="level1"><div class="li"> Скопируйте игру и все сопутствующие ей файлы и папки в папку "Standalone". Например, файл игры называется "moonlight.qsp", он должен оказаться в папке "Standalone".</div>
+</li>
+<li class="level1"><div class="li"> Создайте в папке "Standalone" папку "Player"</div>
+</li>
+<li class="level1"><div class="li"> Скачайте архив с плеером и распакуйте в папку "Player" всё содержимое архива. Таким образом в папке "Player" будет "qspgui.exe" и другие файлы и папки.</div>
+</li>
+</ol>
+</div>
+<h2 class="sectionedit3" id="sozdanie_bat-fajla">Создание bat-файла</h2>
+<div class="level2">
+<ol>
+<li class="level1"><div class="li"> Создаём в папке "Standalone" текстовый файл, называем его "Start", а вместо расширения ".txt" пишем расширение ".bat"</div>
+</li>
+<li class="level1"><div class="li"> Открываем файл "Start.bat" с помощью любого текстового редактора. В этом файле прописываем такую команду:<pre class="brush: text">
+start "Player/qspgui.exe" "moonlight.qsp"
+</pre></div>
+<ul>
+<li class="level2"><div class="li"> start — это команда, запускающая исполняемый файл,</div>
+</li>
+<li class="level2"><div class="li"> первым аргументом указываем путь к исполняемому файлу, то есть к нашему плееру,</div>
+</li>
+<li class="level2"><div class="li"> вторым аргументом — путь к игре.</div>
+</li>
+<li class="level2"><div class="li"> Поскольку плеер лежит во вложенной папке, а файл игры в той же папке, что и "start.bat" можно указывать относительные пути. Но если вы точно знаете, в какие папки будут распакованы игра и плеер, можете указать и абсолютные пути.</div>
+</li>
+</ul>
+</li>
+</ol>
+</div>
+<h2 class="sectionedit4" id="upakovka_podgotovlennyx_fajlov_v_sfx-arxiv">Упаковка подготовленных файлов в SFX-архив</h2>
+<div class="level2">
+<ol>
+<li class="level1"><div class="li"> Теперь в папке "Standalone" выделяем папку "Player", выделяем игру ("moonlight.qsp") и все сопутствующие ей файлы и папки, выделяем файл "start.bat", щёлкаем правой кнопкой мыши по любому из выделенных файлов и из всплывающего контекстного меню выбираем пункт "Добавить в архив…"</div>
+</li>
+<li class="level1"><div class="li"> Откроется диалоговое окно по добавлению файлов в архив. Указываем имя архива. Можно написать например "moonline_setup".</div>
+</li>
+<li class="level1"><div class="li"> На вкладке "Дополнительно" заходим в "параметры SFX".</div>
+</li>
+<li class="level1"><div class="li"> На вкладке "Общие" указываем путь для распаковки. Рекомендую указывать абсолютный путь, так как неизвестно, откуда игрок запустит ваш "установщик". Например, можно прописать такой путь:<pre class="brush: text">
+C:\QSP_Games\MoonLight
+</pre></div>
+</li>
+<li class="level1"><div class="li"> На вкладке "Дополнительно" можно добавить ярлык:</div>
+<ul>
+<li class="level2"><div class="li"> Нажимаем кнопку "Добавить ярлык…", откроетя диалоговое окно.</div>
+</li>
+<li class="level2"><div class="li"> Отмечаем в списке "Место создания ярлыка" пункт "На рабочем столе".</div>
+</li>
+<li class="level2"><div class="li"> В поле "Имя файла для которого будет создан ярлык" пишем:<pre class="brush: text">
+start.bat
+</pre></div>
+</li>
+<li class="level2"><div class="li"> В поле "Имя ярлыка" можно написать название игры ("MoonLight").</div>
+</li>
+<li class="level2"><div class="li"> В поле "Значок ярлыка" прописываем относительный путь к файлу иконки, которую мы хотим увидеть на ярлыке (эта иконка лежит у нас в папке "Standalone" и тоже должна быть упакована в архив).</div>
+</li>
+<li class="level2"><div class="li"> Нажимаем "ОК".</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> На вкладке "Текст и графика" можно прописать некоторые данные. Например, вы можете установить свой логотип, написать текст приветствия для игрока и заголовок окна. Если вы подготовили оригинальный значок/иконку для своего sfx-архива, на этой вкладке можно указать путь к файлу этого значка (эта иконка опять же у нас уже лежит в папке "Standalone").</div>
+</li>
+<li class="level1"><div class="li"> На вкладке "Обновление" отмечаем пункты "извлечь и заменить файлы" и "перезаписывать файлы без запроса".</div>
+</li>
+<li class="level1"><div class="li"> Нажимаем кнопку "ОК", и снова "ОК" в основном окне.</div>
+</li>
+</ol>
+<p>
+В папке "Satndalone" должен появиться файл с расширением ".exe" ("moonline_setup.exe"). Остаётся только проверить, как данный "установщик" работает, и можно распространять игру среди друзей и знакомых.
+</p>
+</div>
+
+<!-- wikipage stop -->
+</div></body>
+</html>

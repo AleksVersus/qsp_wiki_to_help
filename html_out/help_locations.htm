@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Локации [Документация QSP]</title>
+<link href="default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="page group">
+<!-- wikipage start -->
+<!-- TOC START -->
+
+<!-- TOC END -->
+<p>
+<a class="wikilink1" href="help_qsp.htm" title="help:qsp">Назад: Что такое QSP?</a>
+</p>
+<h1 class="sectionedit1" id="lokacii">Локации</h1>
+<div class="level1">
+<p>
+<strong>Локация</strong> - элементарная единица игрового мира. Это может быть пещера, дом, комната, улица, большой город или даже целая планета.
+</p>
+<p>
+С точки зрения игрока он исследует игровой мир, перемещаясь по локациям. Но с точки зрения создателя игры понятие “локация” гораздо шире. В <strong>QSP</strong> локации — это отдельные блоки кода, и они могут использоваться не только для описания различных мест.
+</p>
+<p>
+Возможные назначения локаций:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>Игровые локации</strong> - локации, по которым ходит игрок, основа игрового мира. Такие локации можно разделить по назначению:</div>
+<ul>
+<li class="level2"><div class="li"> <strong>локации мест</strong> - локации, в которых описывается некоторый кусочек игрового мира. Комнаты, дома, города, пещеры, подземелья и т.д.</div>
+</li>
+<li class="level2"><div class="li"> <strong>информационные локации</strong> - локации, на которых размещается информация об игре, своего рода страницы. Это могут быть: стартовый экран, страницы главного меню, страницы информации об авторе и об игре.</div>
+</li>
+<li class="level2"><div class="li"> <strong>локации главы, параграфы, или разделы</strong> - локации, составляющие основу книг-игр. В книгах-играх игрок перемещается не столько по игровому миру, сколько между страницами интерактивной истории. Вот в такой роли и могут в данном случае выступать локации.</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <strong>Служебные локации</strong> - локации, на которые игрок не может попасть, но которые необходимы для работы игры:</div>
+<ul>
+<li class="level2"><div class="li"> <strong>Локации-обработчики</strong> - локации, обрабатывающие определенные события в игре (переходы между локациями, таймер, выбор предмета и т.п.).</div>
+</li>
+<li class="level2"><div class="li"> <strong>Локации-данные</strong> - иногда удобно хранить игровые тексты в отдельных переменных, а переменные - в отдельной локации, чтобы не захламлять код.</div>
+</li>
+<li class="level2"><div class="li"> <strong>Локации-функции</strong> - в QSP есть возможность сделать локацию-функцию.</div>
+</li>
+<li class="level2"><div class="li"> <strong>Локации с кодом</strong> - иногда удобно вынести часть кода в отдельную локацию. Чаще всего это код, который используется в нескольких локациях.</div>
+</li>
+</ul>
+</li>
+</ul>
+<p>
+<strong>Вы сами определяете назначение локации</strong>. Для плеера абсолютно все локации равнозначны.
+</p>
+<p>
+Любая локация может состоять из трёх полей:
+</p>
+<ul>
+<li class="level1"><div class="li"> Базовое описание локации</div>
+</li>
+<li class="level1"><div class="li"> Базовые действия локации</div>
+</li>
+<li class="level1"><div class="li"> Код “Выполнить при посещении”</div>
+</li>
+</ul>
+<p>
+Вы можете заполнять эти поля по своему усмотрению. Можно заполнить их все, или одно из них, или не заполнять ни одного, — всё зависит от того, какое назначение вы выбрали для вашей локации, и как вам удобнее воплощать вашу идею.
+</p>
+<p>
+Поля <strong>Базовое описание локации</strong> и <strong>Базовые действия локации</strong> доступны для заполнения только в редакторе <a class="wikilink1" href="help_qgen.htm" title="help:qgen">Quest Generator</a>, если вы работаете в обычном текстовом редакторе, весь код пишется только для поля <strong>Выполнить при посещении</strong>.
+</p>
+</div>
+<h2 class="sectionedit2" id="imenovanie_lokacij">Именование локаций</h2>
+<div class="level2">
+<p>
+Имя локации в процессе игры не отображается и может быть любым. Вы сами решаете, как назвать вашу локацию и какие символы использовать для названия. Но есть общие рекомендации:
+</p>
+<ul>
+<li class="level1"><div class="li"> Имя локации должно соответствовать её смыслу - если локация описывает дом, то это может быть “Дом”, “House”, но никак не “Пещера”.</div>
+</li>
+<li class="level1"><div class="li"> Можно пользоваться префиксами в названии:</div>
+<ul>
+<li class="level2"><div class="li"> <strong><code>!название</code></strong> или <strong><code>$название</code></strong> - служебная локация (не с базой данных)</div>
+</li>
+<li class="level2"><div class="li"> <strong><code>#название</code></strong> - служебная локация с <a class="wikilink1" href="help_glossary.htm" title="help:glossary">базой данных</a></div>
+</li>
+<li class="level2"><div class="li"> <strong><code>^название</code></strong> - локация, вложенная в предыдущую. Например, названия локаций через запятую: <strong><code>Северная площадь</code></strong>, <strong><code>^Магазин игрушек</code></strong>, <strong><code>^^Продавец игрушек</code></strong>, <strong><code>^Магазин оружия</code></strong>, <strong><code>^^Мечи</code></strong>, <strong><code>^^Булавы</code></strong>, <strong><code>^^Оружейник</code></strong>.<br/>
+Подобная маркировка префиксами была актуальна для старых версий <a class="wikilink1" href="help_qgen.htm" title="help:qgen">Quest Generator</a>, в которых не было возможности распределять локации по папкам. Сейчас такая маркировка менее актуальна, так как названия без префиксов использовать намного удобнее, а в <a class="wikilink1" href="help_qgen.htm" title="help:qgen">Quest Generator</a> есть возможность размещать локации в отдельных папках.</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> Названия локаций из нескольких слов можно писать любым удобным способом, например:</div>
+<ul>
+<li class="level2"><div class="li"> <strong><code>Дом с трубой</code></strong></div>
+</li>
+<li class="level2"><div class="li"> <strong><code>Дом_с_трубой</code></strong></div>
+</li>
+<li class="level2"><div class="li"> <strong><code>ДомСТрубой</code></strong></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> Регистр букв не важен: “домструбой”, “ДОМСТРУБОЙ” и “ДомСТрубой” - одна и та же локация.</div>
+</li>
+<li class="level1"><div class="li"> <strong>Если вы пишете <a class="wikilink1" href="help_organizing.htm" title="help:organizing">локацию-функцию</a></strong>, рекомендуется использовать в названии только буквы, цифры, символ подчёркивания и точку. Остальные символы могут поломать работу кода при упрощённом (неявном) вызове таких локаций-функций.</div>
+</li>
+<li class="level1"><div class="li"> Рекомендуется выбирать названия локаций не совпадающие с <a class="wikilink1" href="help_keywords.htm" title="help:keywords">ключевыми словами</a> <strong>QSP</strong>.</div>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit3" id="komandy_dlja_raboty_s_lokacijami">Команды для работы с локациями</h2>
+<div class="level2">
+</div>
+<h3 class="sectionedit4" id="funkcii_dlja_obrabotki_lokacij">Функции для обработки локаций</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <strong><code id="func_CURLOC">$CURLOC</code></strong> — данная функция возвращает название <strong>текущей</strong> (“активной”) локации, т.е. локации на которой “находится” игрок. Пример:</div>
+</li>
+</ul>
+<p>
+</p><pre class="brush: qsp">
+*pl $curloc &amp; ! выводим название текущей локации в Окно основного описания
+*pl "Сколько раз перезашли: &lt;&lt;перезашёл&gt;&gt;"
+act "Перезайти на текущую локацию":
+  перезашёл += 1
+  goto $curloc
+end
+</pre>
+</div>
+<h2 class="sectionedit5" id="porjadok_vosproizvedenija_lokacij">Порядок воспроизведения локаций</h2>
+<div class="level2">
+<p>
+При запуске игры автоматически воспроизводится только самая первая локация, на все остальные локации нужно делать <a class="wikilink1" href="help_goto.htm" title="help:goto">переходы</a>, или <a class="wikilink1" href="help_organizing.htm" title="help:organizing">вызывать</a> их иным образом.
+</p>
+<p>
+Так же, автоматически может выполняться код локации-счётчика и <a class="wikilink1" href="help_service_locations.htm" title="help:service_locations">служебных локаций</a>, отвечающих за обработку разных событий.
+</p>
+<p>
+Подробнее о порядке воспроизведения локаций смотри статью <a class="wikilink1" href="help_principle.htm" title="help:principle">“Порядок работы интерпретатора”</a>.
+</p>
+<p>
+<a class="wikilink1" href="help_main.htm" title="help:main">Вперёд: Окно основного описания</a>
+</p>
+</div>
+
+<!-- wikipage stop -->
+</div></body>
+</html>

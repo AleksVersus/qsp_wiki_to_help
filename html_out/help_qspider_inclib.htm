@@ -1,0 +1,271 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Встроенная библиотека qspider [Документация QSP]</title>
+<link href="default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="page group">
+<!-- wikipage start -->
+<!-- TOC START -->
+
+<!-- TOC END -->
+<h1 class="sectionedit1" id="vstroennaja_biblioteka_qspider">Встроенная библиотека qspider</h1>
+<div class="level1">
+<p>
+В плеер <strong>qSpider</strong> втроена специальная библиотека <code>qspider</code>, которая содержит набор функций для управления интерфейсом вашей игры.
+</p>
+<p>
+Чтобы воспользоваться функциями библиотеки, её нужно подключить, как <a class="wikilink1" href="help_modules.htm" title="help:modules">обычный модуль QSP</a>, написав, например в самой первой локации в игре команду:
+</p>
+<p>
+</p><pre class="brush: qsp">
+inclib 'qspider'
+</pre>
+<p>
+Все функции библиотеки вызываются из кода QSP.
+</p>
+</div>
+<h2 class="sectionedit2" id="komandy_pleera">Команды плеера</h2>
+<div class="level2">
+<p>
+Данные функции позволяют управлять поведением плеера прямо из кода QSP.
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>qspider_quit</code> — выход из игры на полку игр. <pre class="brush: qsp">
+     @qspider_quit()
+</pre></div>
+</li>
+<li class="level1"><div class="li"> <code>qspider_restart</code> — перезапуск текущей игры. <pre class="brush: qsp">
+     @qspider_restart()
+</pre></div>
+</li>
+<li class="level1"><div class="li"> <code>qspider_resume</code> — продолжить игру (закрыть меню паузы). <pre class="brush: qsp">
+     @qspider_resume()
+</pre></div>
+</li>
+<li class="level1"><div class="li"> <code>qspider_mute</code> — Выключить звук. <pre class="brush: qsp">
+     @qspider_mute()
+</pre></div>
+</li>
+<li class="level1"><div class="li"> <code>qspider_unmute</code> — Включить звук. <pre class="brush: qsp">
+     @qspider_unmute()
+</pre></div>
+</li>
+<li class="level1"><div class="li"> <code>qspider_toggle_mute</code> — Переключить звук. <pre class="brush: qsp">
+     @qspider_toggle_mute()
+</pre></div>
+</li>
+<li class="level1"><div class="li"> <code>qspider_quicksave</code> — Быстро сохранить игру. <pre class="brush: qsp">
+     @qspider_quicksave()
+</pre></div>
+</li>
+<li class="level1"><div class="li"> <code>qspider_quickload</code> — Загрузить быстрое сохранение. <pre class="brush: qsp">
+     @qspider_quickload()
+</pre></div>
+</li>
+<li class="level1"><div class="li"> <code>qspider_open_pause_screen</code> — открыть меню паузы. Аргументы <code>$args[0]</code>:</div>
+<ul>
+<li class="level2"><div class="li"> <code>saves</code> — меню сохранений. <pre class="brush: qsp">
+       @qspider_open_pause_screen('saves')
+</pre></div>
+</li>
+<li class="level2"><div class="li"> <code>preferences</code> — меню настроек. <pre class="brush: qsp">
+       @qspider_open_pause_screen('preferences')
+</pre></div>
+</li>
+<li class="level2"><div class="li"> без аргументов — основной раздел меню паузы. <pre class="brush: qsp">
+       @qspider_open_pause_screen()
+</pre></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <code>qspider_scroll</code> — прокрутить окно (вверх или вниз). Аргументы:</div>
+<ul>
+<li class="level2"><div class="li"> <code>$args[0]</code> — указать окно:</div>
+<ul>
+<li class="level3"><div class="li"> <code>main</code> — окно основного описания. <pre class="brush: qsp">
+       @qspider_scroll('main', 'bottom')
+</pre></div>
+</li>
+<li class="level3"><div class="li"> <code>stats</code> — окно дополнительного описания. <pre class="brush: qsp">
+       @qspider_scroll('stats', 'bottom')
+</pre></div>
+</li>
+</ul>
+</li>
+<li class="level2"><div class="li"> <code>$args[1]</code> — указать направление:</div>
+<ul>
+<li class="level3"><div class="li"> <code>top</code> — прокрутить до верха. <pre class="brush: qsp">
+       @qspider_scroll('main', 'top')
+</pre></div>
+</li>
+<li class="level3"><div class="li"> <code>bottom</code> — прокрутить до низа. <pre class="brush: qsp">
+       @qspider_scroll('main', 'bottom')
+</pre></div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit3" id="upravlenie_temami">Управление темами</h2>
+<div class="level2">
+<p>
+Вы можете переключать созданные заранее <a class="wikilink1" href="help_qspider_themes.htm" title="help:qspider_themes">темы оформления</a>, используя встроенную функцию библиотеки:
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>qspider_change_theme</code> — включить указанную тему оформления. <pre class="brush: qsp">
+     @qspider_change_theme('dark-theme')
+</pre> Аргументом указывается название темы.</div>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit4" id="upravlenie_slojami">Управление слоями</h2>
+<div class="level2">
+<p>
+Эти функции позволяют управлять поведением слоёв, созданных с помощью <a class="wikilink1" href="help_qspider_spectags.htm" title="help:qspider_spectags">специальных тегов</a> <strong>qsp-layer</strong>. По умолчанию все слои скрыты.
+</p>
+<p>
+Пример слоя:
+</p>
+<p>
+</p><pre class="brush: html">
+&lt;qsp-layer name="layer1" index="10"&gt;Some UI&lt;/qsp-layer&gt;
+</pre>
+<ul>
+<li class="level1"><div class="li"> <code>qspider_show_layer</code> — показать слой на экране. <pre class="brush: qsp">
+     @qspider_show_layer('layer1')
+</pre> В качестве аргумента передаётся название слоя, соответствующее значению атрибута <code>name</code>.</div>
+</li>
+<li class="level1"><div class="li"> <code>qspider_hide_layer</code> — скрыть слой с экрана. <pre class="brush: qsp">
+     @qspider_hide_layer('layer1')
+</pre> В качестве аргумента передаётся название слоя.</div>
+</li>
+<li class="level1"><div class="li"> <code>qspider_show_only_layer</code> — показать указанный слой, а остальные скрыть. <pre class="brush: qsp">
+     @qspider_show_only_layer('layer1')
+</pre> В качестве аргумента передаётся название слоя.</div>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit5" id="upravlenie_regionami">Управление регионами</h2>
+<div class="level2">
+<p>
+Данные функции позволяют управлять поведением регионов, созданных с помощью <a class="wikilink1" href="help_qspider_spectags.htm" title="help:qspider_spectags">специального тега</a> <strong>qsp-region</strong>.
+</p>
+<p>
+Пример региона:
+</p>
+<p>
+</p><pre class="brush: html">
+&lt;qsp-region name="region1"&gt;&lt;/qsp-region&gt;
+</pre>
+<ul>
+<li class="level1"><div class="li"> <code>qspider_update_region</code> — полностью перезаписать содержимое региона. <pre class="brush: qsp">
+@qspider_update_region('region1', '&lt;b&gt;Текст&lt;/b&gt;')
+</pre> Аргументы:</div>
+<ul>
+<li class="level2"><div class="li"> <code>$args[0]</code> — название региона.</div>
+</li>
+<li class="level2"><div class="li"> <code>$args[1]</code> — новое содержимое региона.</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <code>qspider_prepend_region</code> — вставить содержимое в начало региона. <pre class="brush: qsp">
+     @qspider_prepend_region('region1', 'Текст&lt;br&gt;')
+</pre> Аргументы:</div>
+<ul>
+<li class="level2"><div class="li"> <code>$args[0]</code> — название региона.</div>
+</li>
+<li class="level2"><div class="li"> <code>$args[1]</code> — добавляемое содержимое региона.</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <code>qspider_append_region</code> — вставить содержимое в конец региона. <pre class="brush: qsp">
+     @qspider_append_region('region1', '&lt;br&gt;Конец')
+</pre> Аргументы:</div>
+<ul>
+<li class="level2"><div class="li"> <code>$args[0]</code> — название региона.</div>
+</li>
+<li class="level2"><div class="li"> <code>$args[1]</code> — добавляемое содержимое региона.</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <code>qspider_scroll_region</code> — прокрутить регион. Аргументы:</div>
+<ul>
+<li class="level2"><div class="li"> <code>$args[0]</code> — название региона.</div>
+</li>
+<li class="level2"><div class="li"> <code>$args[1]</code> — направление прокрутки:</div>
+<ul>
+<li class="level3"><div class="li"> <code>top</code> — прокрутить до верха. <pre class="brush: qsp">
+       @qspider_scroll_region('region1', 'top')
+</pre></div>
+</li>
+<li class="level3"><div class="li"> <code>bottom</code> — прокрутить до низа. <pre class="brush: qsp">
+       @qspider_scroll_region('region1', 'bottom')
+</pre></div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <code>qspider_clear_region</code> — очистить содержимое региона. <pre class="brush: qsp">
+     @qspider_clear_region('region1')
+</pre> В качестве аргумента передаётся название региона.</div>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit6" id="vyzov_sobytij_na_obekte_window">Вызов событий на объекте window</h2>
+<div class="level2">
+<p>
+При необходимости вы можете вызвать на объекте <code>window</code> браузера/плеера событие с указанным именем. Это позволит, например, в нужный момент запустить JavaScript.
+</p>
+<p>
+Команда для вызова события из кода QSP:
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>qspider_event</code> — вызывает событие с указанным именем. Аргументы:</div>
+</li>
+<li class="level1"><div class="li"> <code>$args[0]</code> — имя события, которое нужно вызвать.</div>
+</li>
+<li class="level1"><div class="li"> <code>args[1] ... args[18]</code> — числовые и текстовые аргументы, которые нужно передать в событие.</div>
+</li>
+</ul>
+<p>
+Примеры вызова событий:
+</p>
+<p>
+</p><pre class="brush: qsp">
+@qspider_event('test_event') &amp; ! вызов события без аргументов
+@qspider_event('event_with_args', 1, "test") &amp; ! с аргументами
+</pre>
+<p>
+Также, см. статью: <a class="urlextern" href="https://ifhub.club/2021/05/23/qspider-0100.html" rel="nofollow" target="_blank" title="https://ifhub.club/2021/05/23/qspider-0100.html">qSpider v.0.10.0</a>
+</p>
+</div>
+<h2 class="sectionedit7" id="drugie_stati_po_qspider">Другие статьи по qSpider</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider.htm" title="help:qspider">qSpider — общая информация</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_gamecfg.htm" title="help:qspider_gamecfg">Конфигурационный файл</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_aeroqsp.htm" title="help:qspider_aeroqsp">Особенности запуска и работы игр AeroQSP на qSpider</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_interface.htm" title="help:qspider_interface">Взаимодействие с интерфейсом</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_themes.htm" title="help:qspider_themes">Темы оформления</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_spectags.htm" title="help:qspider_spectags">Специальные теги</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink2" href="help_qspider_standalone.htm" rel="nofollow" title="help:qspider_standalone">Стандалон-сборка игры на qSpider</a></div>
+</li>
+</ul>
+</div>
+
+<!-- wikipage stop -->
+</div></body>
+</html>

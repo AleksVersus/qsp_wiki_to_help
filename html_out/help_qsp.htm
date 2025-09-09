@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Что такое QSP? [Документация QSP]</title>
+<link href="default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="page group">
+<!-- wikipage start -->
+<!-- TOC START -->
+
+<!-- TOC END -->
+<p>
+<a class="wikilink1" href="start.htm" title="start">Назад: Введение</a>
+</p>
+<h1 class="sectionedit1" id="chto_takoe_qsp">Что такое QSP?</h1>
+<div class="level1">
+<p>
+Платформа <strong>QSP</strong> — набор программ, с помощью которых можно создавать текстовые игры и играть в них. Расшифровывается как <strong>Quest Soft Player</strong>.
+</p>
+<p>
+В основном платформа <strong>QSP</strong> ориентирована на создание так называемых “менюшных” игр, то есть игр, где управление осуществляется при помощи нажатия различных кнопок и пунктов меню. Однако на <strong>QSP</strong> можно писать и парсерные игры — игры, управление которыми осуществляется с помощью вводимых в строку ввода команд.
+</p>
+<p>
+Подробная Справка, простой синтаксис, множество примеров и отзывчивое сообщество позволят Вам освоить QSP максимально быстро.
+</p>
+<p>
+Стандартный классический плеер <strong>QSP</strong> воспроизводит файлы игр с расширением “<code>.qsp</code>”. Эти файлы можно создавать в редакторе <strong><a class="wikilink1" href="help_qgen.htm" title="help:qgen">Quest Generator</a></strong>, а так же конвертируя обычные текстовые файлы, написанные в специальном формате, с помощью утилиты <strong><a class="wikilink1" href="help_txt2gam.htm" title="help:txt2gam">TXT2GAM</a></strong>.
+</p>
+<p>
+Большинство статей ориентированы на использование классического плеера <strong>QSP</strong> версии 5.9.0 и редактора игр <strong>Quest Generator</strong> версии 4.0.0 Beta. Отдельные разделы посвящены новому плееру <strong><a class="wikilink1" href="help_qspider.htm" title="help:qspider">qSpider</a></strong> и написанию игр в текстовом редакторе с использованием утилиты <strong><a class="wikilink1" href="help_txt2gam.htm" title="help:txt2gam">TXT2GAM</a></strong>. Большой разницы в написании игр для разных плееров и в разных редакторах нет; о существенных отличиях будет упомянуто в соответствующих статьях.
+</p>
+</div>
+<h2 class="sectionedit2" id="vozmozhnosti_qsp">Возможности QSP</h2>
+<div class="level2">
+<p>
+Базовый функционал QSP<sup><a class="fn_top" href="#fn__1" id="fnt__1">1)</a></sup>:
+</p>
+<ol>
+<li class="level1"><div class="li"> Два окна для вывода текста: основное и дополнительное</div>
+</li>
+<li class="level1"><div class="li"> Окно Действий</div>
+</li>
+<li class="level1"><div class="li"> Окно Предметов (Инвентаря)</div>
+</li>
+<li class="level1"><div class="li"> Строка ввода (для реализации парсерных игр и отладки)</div>
+</li>
+<li class="level1"><div class="li"> Всплывающие сообщения пользователю, картинки</div>
+</li>
+<li class="level1"><div class="li"> Всплывающее окно для ввода текста пользователем</div>
+</li>
+<li class="level1"><div class="li"> Возможность создания всплывающего меню для предметов (и не только)</div>
+</li>
+<li class="level1"><div class="li"> Проигрывание музыки и звуков</div>
+</li>
+<li class="level1"><div class="li"> Поддержка <abbr title="HyperText Markup Language">HTML</abbr></div>
+</li>
+<li class="level1"><div class="li"> Возможность сохранения и загрузки игрового прогресса</div>
+</li>
+<li class="level1"><div class="li"> Встроенный язык программирования со следующими особенностями:</div>
+<ul>
+<li class="level2"><div class="li"> Целочисленные и строковые переменные, кортежи</div>
+</li>
+<li class="level2"><div class="li"> Поддержка массивов</div>
+</li>
+<li class="level2"><div class="li"> Продвинутая обработка строк и массивов (поддержка регулярных выражений)</div>
+</li>
+<li class="level2"><div class="li"> Условные выражения </div>
+</li>
+<li class="level2"><div class="li"> Циклы</div>
+</li>
+<li class="level2"><div class="li"> Метки и переходы по меткам</div>
+</li>
+<li class="level2"><div class="li"> Возможность привязки к реальному времени</div>
+</li>
+<li class="level2"><div class="li"> Возможность выполнения определенных действий при каждом переходе на новую локацию, при создании и удалении предметов, при выборе пункта меню и других <strong>событиях</strong></div>
+</li>
+<li class="level2"><div class="li"> Возможность выносить часть кода в подключаемые файлы</div>
+</li>
+</ul>
+</li>
+</ol>
+</div>
+<h2 class="sectionedit3" id="standartnyj_ehkran_qsp">Стандартный экран QSP</h2>
+<div class="level2">
+<p>
+На представленном ниже изображении вы можете видеть пять основных областей классического плеера <strong>QSP</strong>, которые так же могут называться окнами.
+</p>
+<p>
+<img alt="Экран QSP" class="media" src="help_qspblank2.jpg" title="Экран QSP"/>
+</p>
+<ol>
+<li class="level1"><div class="li"> Окно основного описания</div>
+</li>
+<li class="level1"><div class="li"> Окно предметов (инвентаря)</div>
+</li>
+<li class="level1"><div class="li"> Окно действий</div>
+</li>
+<li class="level1"><div class="li"> Окно дополнительного описания</div>
+</li>
+<li class="level1"><div class="li"> Поле ввода, или Строка ввода</div>
+</li>
+</ol>
+<p>
+Интерфейс <strong>QSP</strong> отличается гибкостью. Все окна, кроме основного окна описания могут отключаться.
+</p>
+<p>
+Ниже для примера приведены скриншоты игр “Куртуазная баллада” и “Мировое сознание, 13 уровень” (картинки кликабельны).
+</p>
+<p><img alt="Куртуазная баллада" class="media" src="help_ballad.jpg" title="Куртуазная баллада"/>
+</p>
+<p><img alt="level13.jpg" class="media" src="help_level13.jpg" title="level13.jpg"/>
+</p>
+</div>
+<h2 class="sectionedit4" id="primery_vsplyvajuschix_okon_i_menju">Примеры всплывающих окон и меню</h2>
+<div class="level2">
+<p>
+Примеры использования вывода сообщения в диалоговом окне посредством <a class="wikilink1" href="help_msgbox.htm" title="help:msgbox">MSG</a>, и ввода текста в диалоговом окне игроком посредством <a class="wikilink1" href="help_inputs.htm" title="help:inputs">INPUT</a>
+</p>
+<p>
+<img alt="сообщение в диалоговом окне" class="media" src="help_window_msg.png" title="сообщение в диалоговом окне"/></p>
+<p><img alt="всплывающие окно со строкой ввода." class="media" src="help_input_window.png" title="всплывающие окно со строкой ввода."/>
+</p>
+<p>
+!!! Здесь должны быть → Скриншот VIEW; Три скриншота MENU (предмет, действие, ссылка)
+</p>
+</div>
+<h2 class="sectionedit5" id="versii_pleera_qsp">Версии плеера QSP</h2>
+<div class="level2">
+<p>
+Существуют различные версии плееров для разных операционных систем, в том числе и для устройств на Андроид. Вы можете скачать подходящий плеер <a class="urlextern" href="https://qsp.org/index.php?option=com_content&amp;view=article&amp;id=64&amp;Itemid=56" rel="nofollow" target="_blank" title="https://qsp.org/index.php?option=com_content&amp;view=article&amp;id=64&amp;Itemid=56">здесь</a>.
+</p>
+</div>
+<h2 class="sectionedit6" id="isxodnyj_kod">Исходный код</h2>
+<div class="level2">
+<p>
+<a class="urlextern" href="https://github.com/QSPFoundation/qsp" rel="nofollow" target="_blank" title="https://github.com/QSPFoundation/qsp">Исходный код библиотеки интерпретатора QSP</a>
+</p>
+<p>
+<a class="wikilink1" href="help_locations.htm" title="help:locations">Вперёд: Локации</a>
+</p>
+</div>
+<div class="footnotes">
+<div class="fn"><sup><a class="fn_bot" href="#fnt__1" id="fn__1">1)</a></sup> 
+без дополнительных ухищрений, с ухищрениями - гораздо больше =) </div>
+</div>
+
+<!-- wikipage stop -->
+</div></body>
+</html>

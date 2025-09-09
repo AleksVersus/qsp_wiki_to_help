@@ -1,0 +1,211 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Окно основного описания [Документация QSP]</title>
+<link href="default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="page group">
+<!-- wikipage start -->
+<!-- TOC START -->
+
+<!-- TOC END -->
+<p>
+<a class="wikilink1" href="help_locations.htm" title="help:locations">Назад: Локации</a>
+</p>
+<h1 class="sectionedit1" id="okno_osnovnogo_opisanija">Окно основного описания</h1>
+<div class="level1">
+<p>
+Это то самое окно, которое используется чаще всего. В него выводятся практически все тексты игры, и оно не отключается.
+</p>
+<p>
+<strong>Окно основного описания</strong> очищается автоматически, при переходе на локацию с помощью оператора <strong><a class="wikilink1" href="help_goto.htm" title="help:goto">GOTO</a></strong> (<strong><a class="wikilink1" href="help_goto.htm" title="help:goto">GT</a></strong>).
+</p>
+<p>
+Чтобы вывести текст в <strong>Окно основного описания</strong>, нужно воспользоваться одним из следующих способов:
+</p>
+<ul>
+<li class="level1"><div class="li"> Написать текст в поле “Описание” локации (Базовое описание локации) в Quest Generator. Тогда весь текст из этого поля автоматически будет выведен в <strong>Окно основного описания</strong> при переходе на локацию.</div>
+</li>
+<li class="level1"><div class="li"> Воспользоваться одной из команд для вывода текста, прописав эту команду в поле <strong>Выполнить при посещении</strong> локации в <strong>Quest Generator</strong>. При работе в текстовом редакторе у вас есть только этот способ.</div>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit2" id="komandy_dlja_raboty_s_oknom_osnovnogo_opisanija">Команды для работы с Окном основного описания</h2>
+<div class="level2">
+<p>
+Под обозначением <code>[$текст]</code> ниже на странице понимается любая строка текста, число, значение выражения, переменной или функции.
+</p>
+</div>
+<h3 class="sectionedit3" id="komandy_dlja_vyvoda_teksta_v_okno_osnovnogo_opisanija">Команды для вывода текста в Окно основного описания</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <code id="statement_STAR_P">*P [$текст]</code> - простой вывод текста. Выводит текст в <strong>Окно основного описания</strong> без перехода на новую строку. Пример:<pre class="brush: qsp">
+*p 'Шла'
+*p 'Саша'
+*p 'По'
+*p 'Шоссе'
+</pre> После выполнения кода (если запустим игру) — в <strong>Окне основного описания</strong> мы увидим:<pre class="brush: text">
+ШлаСашаПоШоссе
+</pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> <code id="statement_STAR_PL">*PL [$текст]</code> - вывод текста, затем переход на новую строку. Пример:<pre class="brush: qsp">
+*p 'Шла' &amp; ! здесь выводим текст без перехода на новую строку
+*p 'Саша' &amp; ! и здесь тоже
+*pl 'По'
+*pl 'Шоссе'
+</pre> После выполнения кода — в <strong>Окне основного описания</strong> мы увидим:<pre class="brush: text">
+ШлаСашаПо
+Шоссе
+</pre></div>
+<ul>
+<li class="level2"><div class="li"> Если не указать <code>[$текст]</code>, то команда просто создаст переход на новую строку: <pre class="brush: qsp">
+*p 'Шла Саша'
+*pl
+*p 'По шоссе'
+</pre> В <strong>Окне основного описания</strong> мы увидим:<pre class="brush: text">
+Шла Саша
+По Шоссе
+</pre></div>
+</li>
+<li class="level2"><div class="li"> Если не указать <code>*pl</code>, а указать только <code>[$текст]</code>, работа такой команды почти не будет отличаться от работы команды с операторм <strong><code>*pl</code></strong>. Это называется <strong><a class="wikilink1" href="help_keywords_operator.htm" title="help:keywords_operator">неявный оператор</a></strong>: <pre class="brush: qsp">
+'Во поле'
+'берёзка'
+'стояла'
+
+! эквивалентно
+
+*pl 'Во поле'
+*pl 'берёзка'
+*pl 'стояла'
+</pre></div>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> <code  id="statement_STAR_NL">*NL [$текст]</code> - переход на новую строку, а затем вывод текста. Пример: <pre class="brush: qsp">
+*p 'Шла' &amp; ! здесь выводим текст без перехода на новую строку
+*p 'Саша' &amp; ! и здесь тоже
+*nl 'По'
+*nl 'Шоссе'
+</pre> После выполнения кода — в <strong>Окне основного описания</strong> мы увидим: <pre class="brush: text">
+ШлаСаша
+По
+Шоссе
+</pre></div>
+<ul>
+<li class="level2"><div class="li"> Если не указать <code>[$текст]</code>, то команда просто совершит переход на новую строку: <pre class="brush: qsp">
+*p 'Шла Саша'
+*nl
+*p 'По Шоссе'
+</pre> В <strong>Окне основного описания</strong> мы увидим: <pre class="brush: text">
+Шла Саша
+По Шоссе
+</pre></div>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h3 class="sectionedit4" id="komandy_dlja_ochistki_okna_osnovnogo_opisanija">Команды для очистки Окна основного описания</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <strong><code id="statement_STAR_CLEAR">*CLEAR</code></strong> или <strong><code>*CLR</code></strong> - очищает <strong>Окно основного описания</strong>. Пример: <pre class="brush: qsp">
+*p 'Шла'    &amp; ! выводим текст без перехода на новую строку
+*pl 'Саша'  &amp; ! выводим текст и переходим на новую строку
+*nl 'По'    &amp; ! переходим на новую строку и выводим текст
+*nl 'Шоссе' &amp; ! переходим на новую строку и выводим текст
+*clear &amp; ! очищаем окно основного описания от всего текста
+</pre> В результате работы этого кода <strong>Окно основного описания</strong> окажется пустым.</div>
+</li>
+<li class="level1"><div class="li"> <strong><code id="statement_CLS">CLS</code></strong> - эквивалентно конструкции “<code>CLEAR &amp; *CLEAR &amp; CLA &amp; CMDCLEAR</code>”, т.е. очищает все окна, кроме списка предметов.</div>
+</li>
+</ul>
+</div>
+<h3 class="sectionedit5" id="funkcii_dlja_raboty_s_oknom_osnovnogo_opisanija">Функции для работы с Окном основного описания</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <strong><code id="func_MAINTXT">$MAINTXT</code></strong> - возвращает текст, выведенный в окно основного описания. Пример: <pre class="brush: qsp">
+*p 'Ехал Грека Через Реку'
+*nl 'Видит Грека В Реке Рак'
+$text = $maintxt
+</pre> В данном случае в переменную <strong><code>$text</code></strong> запишутся две строки текста: <pre class="brush: text">
+Ехал Грека Через Реку
+Видит Грека В Реке Рак
+</pre></div>
+</li>
+<li class="level1"><div class="li"> <code id="func_DESC">$DESC([$локация])</code> - возвращает текст базового описания локации с названием <code>[$локация]</code>. Обратите внимание! Функция возвращает текст, написанный только в поле “Описание” (<strong>Базовое описание</strong>) редактора <strong>Quest Generator</strong>. При работе в текстовом редакторе данное поле вам недоступно и функция будет всегда возвращать пустую строку.<br/>
+В <strong>Базовом описании</strong> можно использовать <a class="wikilink1" href="help_strings.htm#podvyrazhenija" title="help:strings">подвыражения</a>, функция <strong><code>$DESC</code></strong> автоматически “раскроет” их.</div>
+</li>
+</ul>
+</div>
+<h3 class="sectionedit6" id="sistemnye_peremennye_dlja_upravlenija_oknom_osnovnogo_opisanija">Системные переменные для управления Окном основного описания</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <strong><code id="variable_DISABLESCROLL">DISABLESCROLL</code></strong> - если значение переменной не равно <code>0</code>, то запрещает автопрокрутку текста при его выводе в окно основного или дополнительное описания. <strong>Что это значит</strong>. Предположим, мы вывели на экран большой объём текста, а затем при нажатии на <strong>действие</strong> у нас выводится ещё один фрагментик текста. Если <code>DISABLESCROLL = 0</code>, этот фрагментик текста при выводе заставит экран прокрутиться вниз. Если мы не хотим, чтобы экран прокручивался вниз в этом случае, мы присваиваем переменной <strong><code>DISABLESCROLL</code></strong> единицу.</div>
+</li>
+<li class="level1"><div class="li"> <strong><code id="variable_BACKIMAGE">$BACKIMAGE</code></strong> - содержит путь к файлу фонового изображения для <strong>Окна основного описания</strong>.</div>
+<ul>
+<li class="level2"><div class="li"> Фон в окне основного описания отображается в том случае, если значение данной переменной отлично от <code>""</code> (пустая строка) и файл изображения удалось загрузить.</div>
+</li>
+<li class="level2"><div class="li"> Необходимо указывать путь к изображению относительно файла игры: <pre class="brush: qsp">
+! файл игры лежит в папке C:\QSP\myCoolGame
+! файл изображения лежит в папке C:\QSP\myCoolGame\image и называется picture.png
+! значит установить изображение фоном в окно основного описания мы можем так:
+$backimage='image\picture.png'
+</pre></div>
+</li>
+<li class="level2"><div class="li"> При этом фон вписывается в границы <strong>Окна основного описания</strong>, и управлять им в классическом плеере нельзя.</div>
+</li>
+<li class="level2"><div class="li"> Если вы хотите убрать фон, присвойте переменной <strong><code>$BACKIMAGE</code></strong> пустую строку: <pre class="brush: qsp">
+$backimage = ''
+</pre></div>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit7" id="drugie_primery">Другие примеры</h2>
+<div class="level2">
+<p>
+</p><pre class="brush: qsp">
+*P '1'
+*PL '23'
+*NL '456'
+'78'
+</pre>
+<p>
+После выполнения кода в <strong>Окно основного описания</strong> будет выведено:
+</p>
+<p>
+</p><pre class="brush: text">
+123
+
+45678
+</pre>
+<p>
+Можно выводить не только строки, но и числа, и значения переменных, функций и результаты вычисления выражений:
+</p>
+<p>
+</p><pre class="brush: qsp">
+*pl 'I ♥ QSP!'
+*pl 256 / 12 * 9
+137 + (2 * 9)
+$curloc
+*nl rand(999)
+x = 15
+*nl x
+</pre>
+<p>
+<a class="wikilink1" href="help_stat.htm" title="help:stat">Вперёд: Окно дополнительного описания</a>
+</p>
+</div>
+
+<!-- wikipage stop -->
+</div></body>
+</html>

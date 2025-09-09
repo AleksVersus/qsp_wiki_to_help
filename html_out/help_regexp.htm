@@ -1,0 +1,288 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Регулярные выражения [Документация QSP]</title>
+<link href="default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="page group">
+<!-- wikipage start -->
+<!-- TOC START -->
+
+<!-- TOC END -->
+<p>
+<a class="wikilink1" href="help_strings.htm" title="help:strings">Назад: Строки</a>
+</p>
+<h1 class="sectionedit1" id="reguljarnye_vyrazhenija">Регулярные выражения</h1>
+<div class="level1">
+<p>
+Этот раздел может на первый взгляд показаться сложным.
+</p>
+<p>
+На самом деле в регулярных выражениях ничего особо сложного нет. То, что вам кажется непонятной абракадаброй, при должной сноровке легко читается. Тем не менее данный раздел можно спокойно пропустить, и вернуться к его изучению позже.
+</p>
+<p>
+<strong>Регулярные выражения</strong> — это просто шаблоны, которые используются различными функциями для поиска в тексте фрагментов, точное значение которых неизвестно. Например, регулярное выражение позволяет отыскать в тексте слово из шести букв, оканчивающееся на "ка". Это может быть и слово "аптека", и слово "оптика", и слово "спичка", и слово "опушка". Регулярные выражения ещё называют <strong>регулярками</strong>, <strong>масками</strong> и <strong>регэкспами</strong>.
+</p>
+<p>
+Сами по себе регулярные выражения ничего делать не умеют. Как мы уже выяснили, это просто шаблоны для строк. Но эти шаблоны вы можете использовать в специальных функциях.
+</p>
+</div>
+<h2 class="sectionedit2" id="funkcii_ispolzujuschie_reguljarnye_vyrazhenija">Функции, использующие регулярные выражения</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <code>STRCOMP([$строка],[$шаблон])</code> - проводит сравнение строки <code>[$строка]</code> на соответствие регулярному выражению <code>[$шаблон]</code>. Возвращает <code>1</code>, если строка соответствует шаблону, иначе <code>0</code>. Сравни с функцией <code>$STRFIND</code>. <pre class="brush: qsp">
+strcomp('иду по дороге','\s?\S+\s+\S+\s+\S+\s?') &amp; ! вернёт 1
+strcomp(' иду домой','\s?\S+\s+\S+\s+\S+\s?') &amp; ! вернёт 0
+strcomp(' иду в лес ','\s?\S+\s+\S+\s+\S+\s?') &amp; ! вернёт 1
+strcomp('однословие','\s?\S+\s+\S+\s+\S+\s?') &amp; ! вернёт 0
+</pre></div>
+</li>
+<li class="level1"><div class="li"> <code>$STRFIND([$строка],[$шаблон],[#номер])</code> - эта функция ищет в строке <code>[$строка]</code> подстроку, соответствующую регулярному выражению <code>[$шаблон]</code>, и возвращает эту подстроку. <pre class="brush: qsp">
+! функция найдёт слово из четырёх букв
+$STRFIND('идти к пещере', '\b\w{4}\b') &amp;! на экране увидим 'идти'
+</pre></div>
+<ul>
+<li class="level2"><div class="li"> Если указан <code>[#номер]</code>, то функция возвращает не всю найденную подстроку, а только ту её часть которая соответствует группе с указанным номером <code>[#номер]</code>. Группы нумеруются слева направо, сначала внешние, а потом внутренние, начиная с <strong>1</strong>. <pre class="brush: qsp">
+! первая группа в первых скобках, вторая во вторых, третья - в скобках, вложенных во вторые
+$STRFIND('+33-671-190-23-999', '\+\d{1,2}-(\d{3})((-\d+)+)',1) &amp;! на экране увидим '671'
+$STRFIND('+33-671-190-23-999', '\+\d{1,2}-(\d{3})((-\d+)+)',2) &amp;! на экране увидим '-190-23-999'
+$STRFIND('+33-671-190-23-999', '\+\d{1,2}-(\d{3})((-\d+)+)',3) &amp;! на экране увидим '-999'
+</pre></div>
+</li>
+<li class="level2"><div class="li"> Если подстрока с указанным номером отсутствует, то возвращается пустая строка. <pre class="brush: qsp">
+! пытаемся отыскать числа в строке без чисел
+$STRFIND('Восемь зелёных яблок в корзине','\d+') &amp;! на экране будет пустая строка
+</pre></div>
+</li>
+<li class="level2"><div class="li"> Ещё примеры: <pre class="brush: qsp">
+$STRFIND('идти к пещере', '^(\S+)\s(\S+)\s(\S+)$', 0) &amp;! 'идти к пещере'
+$STRFIND(' идти к пещере', '^(\S+)\s(\S+)\s(\S+)$', 0) &amp;! ''
+$STRFIND('идти к пещере', '^(\S+)\s(\S+)\s(\S+)$', 1)  &amp;! 'идти'
+$STRFIND('идти к пещере', '^(\S+)\s(\S+)\s(\S+)$', 2)  &amp;! 'к'
+$STRFIND('идти к пещере', '^(\S+)\s(\S+)\s(\S+)$', 3)  &amp;! 'пещере'
+$STRFIND('идти к дому', 'к\s(\S+)', 0) &amp;! 'к дому'
+$STRFIND('идти к дому', 'к\s(\S+)')    &amp;! 'к дому'
+$STRFIND('идти к дому', 'к\s(\S+)', 1) &amp;! 'дому'
+$STRFIND('идти к своему дому', 'к\s(\S+)', 1) &amp;! 'своему'
+</pre></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <code>STRPOS([$строка],[$шаблон],[#номер])</code> - эта функция похожа на функцию <code>$STRFIND</code>, то есть она ищет в строке <code>[$строка]</code> подстроку, соответствующую регулярному выражению <code>[$шаблон]</code>. Однако, в отличие от функции <code>$STRFIND</code>, она возвращает номер символа, с которого начинается вхождение найденной подстроки в указанную строку <code>[$строка]</code>. <pre class="brush: qsp">
+! функция найдёт слово из трёх букв, и вернёт номер первого символа,
+! с которого это слово начинается
+STRPOS('Здесь три слова.', '\b\w{3}\b') &amp;! на экране увидим 7
+</pre></div>
+<ul>
+<li class="level2"><div class="li"> Если указан <code>[#номер]</code>, то функция возвращает номер символа, с которого начинается вхождение не всей подстроки, а только той её части, которая соответствует группе с указанным номером <code>[#номер]</code>. Группы нумеруются слева направо, сначала внешние, а потом внутренние, начиная с <strong>1</strong>. <pre class="brush: qsp">
+!------'----5--8------15--'
+STRPOS('+33-671-190-23-999', '\+\d{1,2}-(\d{3})((-\d+)+)',1) &amp;! на экране увидим 5
+STRPOS('+33-671-190-23-999', '\+\d{1,2}-(\d{3})((-\d+)+)',2) &amp;! на экране увидим 8
+STRPOS('+33-671-190-23-999', '\+\d{1,2}-(\d{3})((-\d+)+)',3) &amp;! на экране увидим 15
+</pre></div>
+</li>
+<li class="level2"><div class="li"> Если подстрока с указанным номером отсутствует, то возвращается <strong>0</strong>. <pre class="brush: qsp">
+! пытаемся отыскать числа в строке без чисел
+STRPOS('Восемь зелёных яблок в корзине','\d+') &amp;! на экране будет 0
+</pre></div>
+</li>
+<li class="level2"><div class="li"> Ещё примеры: <pre class="brush: qsp">
+STRPOS('идти к пещере', '^(\S+)\s(\S+)\s(\S+)$', 0) &amp;! 1
+STRPOS(' идти к пещере', '^(\S+)\s(\S+)\s(\S+)$', 0) &amp;! 0
+STRPOS('идти к пещере', '^(\S+)\s(\S+)\s(\S+)$', 1)  &amp;! 1
+STRPOS('идти к пещере', '^(\S+)\s(\S+)\s(\S+)$', 2)  &amp;! 6
+STRPOS('идти к пещере', '^(\S+)\s(\S+)\s(\S+)$', 3)  &amp;! 8
+STRPOS('идти к пещере', '^(\S+)\s(\S+)(\s(\S+))?$', 4) &amp;! 8
+STRPOS('идти к дому', 'к\s(\S+)', 0) &amp;! 6
+STRPOS('идти к дому', 'к\s(\S+)')    &amp;! 6
+STRPOS('идти к дому', 'к\s(\S+)', 1) &amp;! 8
+STRPOS('идти к своему дому', 'к\s(\S+)', 1) &amp;! 8
+</pre></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <code>ARRCOMP([$имя_массива],[$шаблон],[#начало])</code> - возвращает номер элемента массива <code>[$имя_массива]</code>, соответствующего регулярному выражению <code>[$шаблон]</code>. Поиск начинается с элемента с номером <code>[#начало]</code>; индексация элементов массива ведётся с нуля. Если указанное значение не найдено, функция возвращает <strong>-1</strong>.</div>
+<ul>
+<li class="level2"><div class="li"> Подробное описание функции с примерами в разделе "<a class="wikilink1" href="help_arrays.htm" title="help:arrays">Массивы</a>".</div>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit3" id="operatory_ispolzujuschie_reguljarnye_vyrazhenija">Операторы, использующие регулярные выражения</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <code>SCANSTR [$имя_массива], [$текст_для_разбора], [$регэксп], [#номер_группы]</code> — оператор ищет в строке <code>[$текст_для_разбора]</code> непересекающиеся фрагменты, соответствующие регулярному выражению <code>[$регэксп]</code>, и помещает их в массив <code>[$имя_массива]</code>. Если параметр <code>[#номер_группы]</code> указан и отличается от нуля, в массив помещается не весь фрагмент целиком, а лишь та его часть, которая соответствует группе с указанным номером.</div>
+<ul>
+<li class="level2"><div class="li"> Подробное описание оператора и примеры использования в разделе "<a class="wikilink1" href="help_arrays.htm" title="help:arrays">массивы</a>".</div>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit4" id="kak_nauchitsja_pisat_reguljarnye_vyrazhenija">Как научиться писать регулярные выражения</h2>
+<div class="level2">
+<p>
+Почитайте наш самоучитель по составлению регулярных выражений:
+</p>
+<ul>
+<li class="level1"><div class="li"> <a class="wikilink1" href="regex_start.htm" title="regex:start">Самоучитель по регулярным выражениям</a></div>
+</li>
+</ul>
+<p>
+На канале, посвящённом написанию игр на QSP, есть отдельное видео по регуляркам:
+</p>
+<ul>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://youtu.be/2ERAQw1M-yA" rel="nofollow" target="_blank" title="https://youtu.be/2ERAQw1M-yA">Уроки по QSP. Номер 23. Регулярные выражения</a></div>
+</li>
+</ul>
+<p>
+Ещё есть прекрасное видео на канале Алекса Лущенко:
+</p>
+<ul>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://youtu.be/_pLpx6btq6U" rel="nofollow" target="_blank" title="https://youtu.be/_pLpx6btq6U">Не бойтесь регулярных выражений. Regex за 20 минут!</a></div>
+</li>
+</ul>
+<p>
+Полезные сайты:
+</p>
+<ul>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://regexcrossword.com" rel="nofollow" target="_blank" title="https://regexcrossword.com">Игровое обучение регуляркам - regexcrossword.com</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://regex101.com/" rel="nofollow" target="_blank" title="https://regex101.com/">Тестирование регулярок онлайн - regex101.com</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://regexper.com" rel="nofollow" target="_blank" title="https://regexper.com">Вводим свою регулярку и получаем объяснение - regexper.com</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://regexone.com" rel="nofollow" target="_blank" title="https://regexone.com">Обучающий материал на английском - regexone.com</a></div>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit5" id="osnovnye_ehlementy_sintaksisa_reguljarok_v_qsp">Основные элементы синтаксиса регулярок в QSP</h2>
+<div class="level2">
+<p>
+Основные поддерживаемые в <strong>QSP</strong> операции при записи регулярных выражений (для более подробной информации смотрите помощь по регулярным выражениям (PCRE)):
+</p>
+</div>
+<h3 class="sectionedit6" id="metasimvoly">Метасимволы</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <code>\</code> — Экранирующий символ.</div>
+</li>
+<li class="level1"><div class="li"> <code>|</code> — Выбор из альтернатив "или|или"</div>
+</li>
+<li class="level1"><div class="li"> <code>()</code> — Группировка, т.е. задание групп</div>
+</li>
+<li class="level1"><div class="li"> <code>[]</code> — объединение символов в класс, например чётные цифры "[02468]". Такое объединение считается за один символ.</div>
+</li>
+</ul>
+</div>
+<h3 class="sectionedit7" id="fiksatory">Фиксаторы</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <code>^</code> — Начало строки</div>
+</li>
+<li class="level1"><div class="li"> <code>$</code> — Конец строки</div>
+</li>
+<li class="level1"><div class="li"> <code>\b</code> — Граница слова</div>
+</li>
+<li class="level1"><div class="li"> <code>\B</code> — Не граница слова</div>
+</li>
+</ul>
+</div>
+<h3 class="sectionedit8" id="kvantifikatory">Квантификаторы</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <code>*</code> — 0 или более вхождений символа или группы.</div>
+</li>
+<li class="level1"><div class="li"> <code>+</code> — 1 или более вхождений символа или группы.</div>
+</li>
+<li class="level1"><div class="li"> <code>?</code> — 0 или 1 вхождение символа или группы.</div>
+</li>
+<li class="level1"><div class="li"> <code>{n}</code> — Ровно n вхождений символа или группы.</div>
+</li>
+<li class="level1"><div class="li"> <code>{n,}</code> — От n вхождений, и более, символа или группы</div>
+</li>
+<li class="level1"><div class="li"> <code>{,m}</code> — От 0 до m вхождений символа или группы</div>
+</li>
+<li class="level1"><div class="li"> <code>{n,m}</code> — От n до m вхождений символа или группы</div>
+</li>
+<li class="level1"><div class="li"> <code>*?</code> — "Ленивое" <code>*</code></div>
+</li>
+<li class="level1"><div class="li"> <code>+?</code> — "Ленивое" <code>+</code></div>
+</li>
+<li class="level1"><div class="li"> <code>??</code> — "Ленивое" <code>?</code></div>
+</li>
+<li class="level1"><div class="li"> <code>{n}?</code> — "Ленивое" <code>{n}</code></div>
+</li>
+<li class="level1"><div class="li"> <code>{n,}?</code> — "Ленивое" <code>{n,}</code></div>
+</li>
+<li class="level1"><div class="li"> <code>{,m}?</code> — "Ленивое" <code>{,m}</code></div>
+</li>
+<li class="level1"><div class="li"> <code>{n,m}?</code> — "Ленивое" <code>{n,m}</code></div>
+</li>
+</ul>
+</div>
+<h3 class="sectionedit9" id="specsimvoly">Спецсимволы</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <code>\t</code> — Табуляция</div>
+</li>
+<li class="level1"><div class="li"> <code>\n</code> — Перевод строки</div>
+</li>
+<li class="level1"><div class="li"> <code>\r</code> — Возврат каретки</div>
+</li>
+</ul>
+</div>
+<h3 class="sectionedit10" id="specsimvoly_predopredelennyx_klassov_simvolov">Спецсимволы предопределенных классов символов</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <code>.</code> — Любой символ</div>
+</li>
+<li class="level1"><div class="li"> <code>\w</code> — Буква, цифра или символ подчёркивания</div>
+</li>
+<li class="level1"><div class="li"> <code>\W</code> — Не входит в <code>\w</code>, т.е. не буква, не цифра и не символ подчёркивания</div>
+</li>
+<li class="level1"><div class="li"> <code>\s</code> — Пробельный символ</div>
+</li>
+<li class="level1"><div class="li"> <code>\S</code> — Не пробельный символ</div>
+</li>
+<li class="level1"><div class="li"> <code>\d</code> — Цифра</div>
+</li>
+<li class="level1"><div class="li"> <code>\D</code> — Не цифра</div>
+</li>
+<li class="level1"><div class="li"> <code>\h</code> — Шестнадцатиричная цифра (<code>[ABCDEFabcdef0123456789]</code>)</div>
+</li>
+<li class="level1"><div class="li"> <code>\H</code> — Не входит в <strong>\h</strong>, т.е. не шестнадцатеричная цифра</div>
+</li>
+</ul>
+</div>
+<h3 class="sectionedit11" id="svojstva_simvolov">Свойства символов</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <code>\p{имя свойства}</code> Свойство</div>
+</li>
+<li class="level1"><div class="li"> <code>\p{^имя свойства}</code> Отрицание</div>
+</li>
+<li class="level1"><div class="li"> <code>\P{имя свойства}</code> Отрицание</div>
+</li>
+</ul>
+<p>
+Возможные названия свойств:
+</p>
+<p>
+<strong>Alnum, Alpha, Blank, Cntrl, Digit, Graph, Lower, Print, Punct, Space, Upper, XDigit, Word, <abbr title="American Standard Code for Information Interchange">ASCII</abbr></strong>
+</p>
+<p>
+Также поддерживаются обратные ссылки: <code>\G</code>, где <code>G</code> - номер группы
+</p>
+<p>
+<a class="wikilink1" href="help_tuples.htm" title="help:tuples">Вперёд: Кортежи</a>
+</p>
+</div>
+
+<!-- wikipage stop -->
+</div></body>
+</html>

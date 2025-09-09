@@ -1,0 +1,294 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Меню [Документация QSP]</title>
+<link href="default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="page group">
+<!-- wikipage start -->
+<!-- TOC START -->
+
+<!-- TOC END -->
+<p>
+<a class="wikilink1" href="help_dynamical.htm" title="help:dynamical">Назад: Динамический код</a>
+</p>
+<h1 class="sectionedit1" id="menju">Меню</h1>
+<div class="level1">
+<p>
+<strong>QSP</strong> позволяет в любом месте игры вызывать всплывающее меню. Такое меню удобно для расширения функционала различных частей игры. Например, (и это самый распространённый случай), всплывающее меню позволяет "привязать" различные стандартные действия к предметам.
+</p>
+<p>
+Меню можно вызвать в ЛЮБОМ МЕСТЕ игры. Т.е. нет никакого технического запрета, чтобы вызвать меню прямо из кода локации, или из действия, или из кода гиперссылки. Оператор используется один и тот же.
+</p>
+</div>
+<h2 class="sectionedit2" id="operator_menu">Оператор MENU</h2>
+<div class="level2">
+<p>
+<code>MENU [$имя_масива]</code> - вызов "всплывающего" меню из массива с именем <code>[$имя_массива]</code>.
+</p>
+<p>
+Прежде, чем использовать данный оператор, необходимо заполнить массив, на основе содержимого которого будут формироваться пункты меню. Начиная с плеера версии 5.9.0 у нас есть два варианта, как заполнять этот массив.
+</p>
+</div>
+<h3 class="sectionedit3" id="pervyj_variant_zapolnenija_massiva_menju_kortezhi">Первый вариант заполнения массива меню. Кортежи</h3>
+<div class="level3">
+<p>
+Этот вариант можно использовать, начиная с плееров версии 5.9.0. В более старых версиях он не работает.
+</p>
+<p>
+Здесь каждый пункт меню это кортеж из трёх значений:
+</p>
+<p>
+</p><pre class="brush: qsp">
+["название пункта меню", "название локации", "путь к файлу иконки"]
+</pre>
+<ul>
+<li class="level1"><div class="li"> Название пункта меню — это то, что мы увидим на экране, когда меню будет выведено;</div>
+</li>
+<li class="level1"><div class="li"> название локации — это название локации-обработчика пункта меню, код которой будет выполняться при щелчке на соответствующем пункте меню;</div>
+</li>
+<li class="level1"><div class="li"> путь к файлу иконки — это путь к файлу изображения, которое будет выведено рядом с названием пункта меню. Если путь к файлу иконки не указан или указанный файл недоступен, то пункт меню отобразится без иконки.</div>
+</li>
+</ul>
+<p>
+Таким образом мы должны заполнить массив кортежей для того, чтоб создать наши пункты меню:
+</p>
+<p>
+</p><pre class="brush: qsp">
+%stone[0] = ['Взять камень','takestone']
+%stone[1] = ['Кинуть камень','throwstone']
+%stone[2] = ['Осмотреть камень','lookstone']
+</pre>
+<p>
+Здесь название массива (<code>%stone</code>) - это название меню, а кортежи - действия, для которых указаны названия пунктов и названия локаций-обработчиков выбора пунктов меню. При выборе пункта "Взять камень" произойдёт вызов локации с названием "takestone". Аналогично будет происходить с другими пунктами.
+</p>
+<p>
+Чтобы вывести меню на экран, нужно воспользоваться оператором <code>MENU</code>:
+</p>
+<p>
+</p><pre class="brush: qsp">
+menu '%stone'
+</pre>
+<p>
+Пример создания меню с иконками:
+</p>
+<p>
+</p><pre class="brush: qsp">
+! нет иконки
+%usr_menu[0] = ['Взять предмет', 'take_item']
+! иконка задана gif-файлом
+%usr_menu[1] = ['Положить предмет', 'put_item', 'images/put_item.gif']
+! иконка задана значением $icon_file
+%usr_menu[2] = ['Уничтожить предмет','del_item', $icon_file]
+! пункт меню задан 3-мя переменными
+%usr_menu[3] = [$name, $location, $icon_file]
+
+menu 'usr_menu' &amp;! покажет меню из 4-х пунктов
+</pre>
+<p>
+Меню заканчивается на элементе массива со пустым кортежем, либо с кортежем, в котором отсутствует значение для названия пункта меню или локации-обработчика пункта меню.
+</p>
+<p>
+Примеры, когда два последних пункта меню не будут созданы:
+</p>
+<p>
+</p><pre class="brush: qsp">
+%usr_menu[0]=['Взять предмет','take_item'] &amp; ! этот пункт мы увидим на экране
+%usr_menu[1]=['Осмотреть предмет','look_item'] &amp; ! и этот пункт мы увидим на экране
+%usr_menu[2]=[] &amp; ! пустой кортеж, плеер посчитает, что меню кончилось
+%usr_menu[3]=['Положить предмет','put_item'] &amp; ! этот пункт мы не увидим
+</pre>
+<p>
+</p><pre class="brush: qsp">
+%usr_menu[0]=['Взять предмет','take_item'] &amp; ! этот пункт мы увидим на экране
+%usr_menu[1]=['Осмотреть предмет','look_item'] &amp; ! и этот пункт мы увидим на экране
+%usr_menu[2]=['уничтожить предмет', ''] &amp; ! не указана локация-обработчик, пункт не увидим
+%usr_menu[3]=['Положить предмет','put_item'] &amp; ! и этот пункт мы не увидим
+</pre>
+<p>
+</p><pre class="brush: qsp">
+%usr_menu[0]=['Взять предмет','take_item'] &amp; ! этот пункт мы увидим на экране
+%usr_menu[1]=['Осмотреть предмет','look_item'] &amp; ! и этот пункт мы увидим на экране
+%usr_menu[2]=['', 'del_item'] &amp; ! не указано название, пункт не увидим
+%usr_menu[3]=['Положить предмет','put_item'] &amp; ! и этот пункт мы не увидим
+</pre>
+<p>
+Чтобы вставить разделитель в меню, используйте кортеж со значениями <code>-</code>. Т.е. если нужно поставить разделитель вместо 3-го элемента:
+</p>
+<p>
+</p><pre class="brush: qsp">
+%usr_menu[0]=['Взять предмет','take_item']
+%usr_menu[1]=['Осмотреть предмет','look_item']
+%usr_menu[2]=['-', '-'] &amp; ! разделитель вместо пункта меню
+%usr_menu[3]=['Положить предмет','put_item']
+</pre>
+</div>
+<h3 class="sectionedit4" id="vtoroj_variant_zapolnenija_massiva_menju_stroki">Второй вариант заполнения массива меню. Строки</h3>
+<div class="level3">
+<p>
+Этот вариант можно использовать, как в плеерах версии 5.9.0, так и в более ранних версиях.
+</p>
+<p>
+Здесь пункты меню — это строковые значения массива с особым форматом записи:
+</p>
+<p>
+</p><pre class="brush: qsp">
+"название пункта меню:название локации:путь к файлу иконки"
+</pre>
+<ul>
+<li class="level1"><div class="li"> Название пункта меню — это то, что мы увидим на экране, когда меню будет выведено;</div>
+</li>
+<li class="level1"><div class="li"> название локации — это название локации-обработчика пункта меню, код которой будет выполняться при щелчке на соответствующем пункте меню;</div>
+</li>
+<li class="level1"><div class="li"> путь к файлу иконки — это путь к файлу изображения, которое будет выведено рядом с названием пункта меню. Если путь к файлу иконки не указан или указанный файл недоступен, то пункт меню отобразится без иконки.</div>
+</li>
+</ul>
+<p>
+Таким образом мы должны заполнить массив для того, чтоб создать наши пункты меню:
+</p>
+<p>
+</p><pre class="brush: qsp">
+$stone[0]='Взять камень:takestone'
+$stone[1]='Кинуть камень:throwstone'
+$stone[2]='Осмотреть камень:lookstone'
+</pre>
+<p>
+Здесь название массива (<code>$stone</code>) - это название меню, а текстовые значения массива - действия, для которых указаны названия пунктов и названия локаций-обработчиков выбора пунктов меню. При выборе пункта "Взять камень" произойдёт вызов локации с названием "takestone". Аналогично будет происходить с другими пунктами.
+</p>
+<p>
+Чтобы вывести меню на экран, нужно воспользоваться оператором <code>MENU</code>:
+</p>
+<p>
+</p><pre class="brush: qsp">
+menu '$stone'
+</pre>
+<p>
+Поиск символов ":" в пунктах начинается с конца строки, то есть название пункта меню может содержать двоеточия, однако тогда обязательно после названия локации должно стоять двоеточие, даже если вы не используете иконки для пунктов меню.
+</p>
+<p>
+</p><pre class="brush: qsp">
+$stone[0]='Камень: взять:takestone:'
+$stone[1]='Камень: кинуть:throwstone:'
+$stone[2]='Камень: осмотреть:lookstone:'
+</pre>
+<p>
+Пример создания меню с иконками:
+</p>
+<p>
+</p><pre class="brush: qsp">
+! нет иконки
+$usr_menu[0] = 'Взять предмет:take_item'
+! иконка задана gif-файлом
+$usr_menu[1] = 'Положить предмет:put_item:images/put_item.gif'
+! иконка задана значением $icon_file
+$usr_menu[2] = 'Осмотреть предмет:look_item:&lt;&lt;$icon_file&gt;&gt;'
+! пункт меню задан 3-мя переменными
+$usr_menu[3] = '&lt;&lt;$name&gt;&gt;:&lt;&lt;$location&gt;&gt;:&lt;&lt;$file&gt;&gt;'
+
+menu 'usr_menu' &amp;! покажет меню из 4-х пунктов
+</pre>
+<p>
+Меню заканчивается на элементе массива со значением <code>""</code> (пустая строка). Т.е. если массив меню состоит из элементов <code>"Взять"</code>,<code>"Осмотреть"</code>,<code>""</code>,<code>"Бросить"</code>, то 2 последних пункта не будут созданы:
+</p>
+<p>
+</p><pre class="brush: qsp">
+$usr_menu[0]='Взять предмет:take_item' &amp; ! этот пункт мы увидим на экране
+$usr_menu[1]='Осмотреть предмет:look_item' &amp; ! и этот пункт мы увидим на экране
+$usr_menu[2]='' &amp; ! здесь пустое значение, плеер посчитает, что меню кончилось
+$usr_menu[3]='Положить предмет:put_item' &amp; ! этот пункт мы не увидим
+</pre>
+<p>
+Чтобы вставить разделитель в меню, вместо соответствующего элемента массива напишите <code>"-:-"</code>. Т.е. если нужно поставить разделитель вместо 3-го элемента:
+</p>
+<p>
+</p><pre class="brush: qsp">
+$usr_menu[0]='Взять предмет:take_item'
+$usr_menu[1]='Осмотреть предмет:look_item'
+$usr_menu[2]='-:-'
+$usr_menu[3]='Положить предмет:put_item'
+</pre>
+</div>
+<h2 class="sectionedit5" id="primery_vyzova_menju">Примеры вызова меню</h2>
+<div class="level2">
+<p>
+Пример вызова меню из гиперсылки:
+</p>
+<p>
+</p><pre class="brush: qsp">
+  '&lt;a href="EXEC: menu ''$stone''"&gt;Камень&lt;/a&gt;'
+</pre>
+</div>
+<h2 class="sectionedit6" id="faq_po_sozdaniju_menju">F.A.Q. по созданию меню</h2>
+<div class="level2">
+<p>
+Более подробно о том, как делать меню, можно почитать в соответствующих статьях нашего F.A.Q:
+</p>
+<ul>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://aleksversus.github.io/howdo_faq/docs/howdo/contents/menu/menu_of_item" rel="nofollow" target="_blank" title="https://aleksversus.github.io/howdo_faq/docs/howdo/contents/menu/menu_of_item">Как сделать меню предмета?</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://aleksversus.github.io/howdo_faq/docs/howdo/contents/menu/different_menus" rel="nofollow" target="_blank" title="https://aleksversus.github.io/howdo_faq/docs/howdo/contents/menu/different_menus">Как сделать разные меню?</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://aleksversus.github.io/howdo_faq/docs/howdo/contents/menu/menu_in_hyperlinks" rel="nofollow" target="_blank" title="https://aleksversus.github.io/howdo_faq/docs/howdo/contents/menu/menu_in_hyperlinks">Как сделать меню в ссылках?</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://aleksversus.github.io/howdo_faq/docs/howdo/contents/menu/args_to_menu_item" rel="nofollow" target="_blank" title="https://aleksversus.github.io/howdo_faq/docs/howdo/contents/menu/args_to_menu_item">Как передавать локациям-пунктам меню аргументы?</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://aleksversus.github.io/howdo_faq/docs/howdo/contents/menu/context_menu" rel="nofollow" target="_blank" title="https://aleksversus.github.io/howdo_faq/docs/howdo/contents/menu/context_menu">Как делать контекстное меню?</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://aleksversus.github.io/howdo_faq/docs/howdo/contents/menu/menu_separator" rel="nofollow" target="_blank" title="https://aleksversus.github.io/howdo_faq/docs/howdo/contents/menu/menu_separator">Как вставлять разделители?</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://aleksversus.github.io/howdo_faq/docs/howdo/contents/menu/image_in_menu" rel="nofollow" target="_blank" title="https://aleksversus.github.io/howdo_faq/docs/howdo/contents/menu/image_in_menu">Как вставлять картинки в меню?</a></div>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit7" id="porjadok_raboty_operatora_menu">Порядок работы оператора MENU</h2>
+<div class="level2">
+<p>
+Когда плеер встречает оператор <code>MENU</code> в коде, он выводит на экран всплывающее меню, сформированное на основе указанного массива, и прерывает выполнение кода, ожидая действий игрока.
+</p>
+<p>
+Пока ни один из пунктов меню не выбран, или пока игрок не щёлкнул в области за пределами меню, дальнейший код не выполняется.
+</p>
+<p>
+Если игрок щёлкнул по одному из пунктов меню, вызывается локация, соответствующая данному пункту меню. Эта локация называется локацией-обработчиком выбранного пункта меню. При этом вызов локации осуществляется так же, как осуществлялся бы при вызове этой локации с помощью оператора <code>GOSUB</code>.
+</p>
+<p>
+После вызова локации продолжается выполнение кода со следующей команды после <code>MENU</code>.
+</p>
+<p>
+Если игрок не выбрал ни одного пункта меню и щёлкнул по области вне меню, просто продолжается выполнение кода со следующей команды после <code>MENU</code>.
+</p>
+<p>
+В локацию-обработчик выбранного пункта меню передаётся один аргумент - позиция выбранного пункта. Этот аргумент можно получить из <code>ARGS[0]</code>. Позиции пунктов меню нумеруются с 1.
+</p>
+<p>
+Так же в локацию обработчик передаются значения локальных переменных, объявленные до вызова меню с помощью оператора <code>MENU</code>. Точно так же, как для <code>GOSUB</code>. Пример:
+</p>
+<p>
+</p><pre class="brush: qsp">
+# start
+i = 99
+act 'run':
+    local i = 137
+    %stone = ['click', 'mp']
+    menu '%stone'
+end
+-
+
+# mp
+*pl i
+-
+</pre>
+<p>
+Если запустить игру с представленным выше кодом и щёлкнуть на действии "run", на экране появится меню с одним пунктом "click". Если игрок щёлкнет по этому пункту, на экране отобразиться значение 137, присвоенное локальной переменной внутри действия. То есть значение локальной переменной, объявленной в действии, будет доступно и в локации-обработчике пункта меню, вызванного из кода этого действия.
+</p>
+<p>
+<a class="wikilink1" href="help_sound.htm" title="help:sound">Вперёд: Звук</a>
+</p>
+</div>
+
+<!-- wikipage stop -->
+</div></body>
+</html>

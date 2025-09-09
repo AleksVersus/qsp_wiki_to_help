@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr" class="no-js">
+<head>
+    <meta charset="utf-8" />
+    <title>TXT2GAM. Краткое руководство [Документация QSP]</title>
+    <script>(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement)</script>
+    <meta name="generator" content="DokuWiki"/>
+<meta name="robots" content="index,follow"/>
+<meta name="keywords" content="help,txt2gam"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/lib/exe/opensearch.php" title="Документация QSP"/>
+<link rel="start" href="/"/>
+<link rel="contents" href="/help:txt2gam?do=index" title="Все страницы"/>
+<link rel="alternate" type="application/rss+xml" title="Недавние изменения" href="/feed.php"/>
+<link rel="alternate" type="application/rss+xml" title="Текущее пространство имён" href="/feed.php?mode=list&amp;ns=help"/>
+<link rel="alternate" type="text/html" title="Простой HTML" href="/_export/xhtml/help:txt2gam"/>
+<link rel="alternate" type="text/plain" title="вики-разметка" href="/_export/raw/help:txt2gam"/>
+<link rel="canonical" href="https://wiki.qsp.org/help:txt2gam"/>
+<link rel="stylesheet" type="text/css" href="/lib/exe/css.php?t=qspdokuwiki&amp;tseed=f799b71f6ad814a2c02470a4d20f4250"/>
+<link rel="stylesheet" type="text/css" href="/lib/plugins/syntaxhighlighter3/sxh3/styles/shCore.css"/>
+<link rel="stylesheet" type="text/css" href="/lib/plugins/syntaxhighlighter3/sxh3/styles/shThemeDefault.css"/>
+<script type="text/javascript">/*<![CDATA[*/var NS='help';var JSINFO = {"id":"help:txt2gam","namespace":"help"};
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="/lib/exe/js.php?tseed=f799b71f6ad814a2c02470a4d20f4250&amp;template=qspdokuwiki"></script>
+<script type="text/javascript" charset="utf-8">/*<![CDATA[*/NS = "help";var toolbar = [{"type":"format","title":"\u041f\u043e\u043b\u0443\u0436\u0438\u0440\u043d\u044b\u0439","icon":"bold.png","key":"b","open":"**","close":"**","block":false},{"type":"format","title":"\u041a\u0443\u0440\u0441\u0438\u0432","icon":"italic.png","key":"i","open":"\/\/","close":"\/\/","block":false},{"type":"format","title":"\u041f\u043e\u0434\u0447\u0451\u0440\u043a\u043d\u0443\u0442\u044b\u0439","icon":"underline.png","key":"u","open":"__","close":"__","block":false},{"type":"format","title":"\u0422\u0435\u043a\u0441\u0442 \u043a\u043e\u0434\u0430","icon":"mono.png","key":"m","open":"''","close":"''","block":false},{"type":"format","title":"\u0417\u0430\u0447\u0451\u0440\u043a\u043d\u0443\u0442\u044b\u0439","icon":"strike.png","key":"d","open":"<del>","close":"<\/del>","block":false},{"type":"autohead","title":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a \u0442\u0435\u043a\u0443\u0449\u0435\u0433\u043e \u0443\u0440\u043e\u0432\u043d\u044f","icon":"hequal.png","key":"8","text":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a","mod":0,"block":true},{"type":"autohead","title":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a \u0431\u043e\u043b\u0435\u0435 \u043d\u0438\u0437\u043a\u043e\u0433\u043e \u0443\u0440\u043e\u0432\u043d\u044f (\u043f\u043e\u0434\u0437\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a)","icon":"hminus.png","key":"9","text":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a","mod":1,"block":true},{"type":"autohead","title":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a \u0431\u043e\u043b\u0435\u0435 \u0432\u044b\u0441\u043e\u043a\u043e\u0433\u043e \u0443\u0440\u043e\u0432\u043d\u044f","icon":"hplus.png","key":"0","text":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a","mod":-1,"block":true},{"type":"picker","title":"\u0412\u044b\u0431\u043e\u0440 \u0437\u0430\u0433\u043e\u043b\u043e\u0432\u043a\u0430","icon":"h.png","class":"pk_hl","list":[{"type":"format","title":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a 1-\u0433\u043e \u0443\u0440\u043e\u0432\u043d\u044f","icon":"h1.png","key":"1","open":"====== ","close":" ======\\n"},{"type":"format","title":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a 2-\u0433\u043e \u0443\u0440\u043e\u0432\u043d\u044f","icon":"h2.png","key":"2","open":"===== ","close":" =====\\n"},{"type":"format","title":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a 3-\u0433\u043e \u0443\u0440\u043e\u0432\u043d\u044f","icon":"h3.png","key":"3","open":"==== ","close":" ====\\n"},{"type":"format","title":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a 4-\u0433\u043e \u0443\u0440\u043e\u0432\u043d\u044f","icon":"h4.png","key":"4","open":"=== ","close":" ===\\n"},{"type":"format","title":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a 5-\u0433\u043e \u0443\u0440\u043e\u0432\u043d\u044f","icon":"h5.png","key":"5","open":"== ","close":" ==\\n"}],"block":true},{"type":"format","title":"\u0412\u043d\u0435\u0448\u043d\u044f\u044f \u0441\u0441\u044b\u043b\u043a\u0430","icon":"linkextern.png","open":"[[","close":"]]","sample":"http:\/\/example.com|\u0412\u043d\u0435\u0448\u043d\u044f\u044f \u0441\u0441\u044b\u043b\u043a\u0430","block":false},{"type":"formatln","title":"\u042d\u043b\u0435\u043c\u0435\u043d\u0442 \u043d\u0443\u043c\u0435\u0440\u043e\u0432\u0430\u043d\u043d\u043e\u0433\u043e \u0441\u043f\u0438\u0441\u043a\u0430","icon":"ol.png","open":"  - ","close":"","key":"-","block":true},{"type":"formatln","title":"\u042d\u043b\u0435\u043c\u0435\u043d\u0442 \u043d\u0435\u043d\u0443\u043c\u0435\u0440\u043e\u0432\u0430\u043d\u043d\u043e\u0433\u043e \u0441\u043f\u0438\u0441\u043a\u0430","icon":"ul.png","open":"  * ","close":"","key":".","block":true},{"type":"insert","title":"\u0420\u0430\u0437\u0434\u0435\u043b\u0438\u0442\u0435\u043b\u044c","icon":"hr.png","insert":"\\n----\\n","block":true},{"type":"picker","title":"\u0421\u043c\u0430\u0439\u043b\u0438\u043a\u0438","icon":"smiley.png","list":{"8-)":"icon_cool.gif","8-O":"icon_eek.gif","8-o":"icon_eek.gif",":-(":"icon_sad.gif",":-)":"icon_smile.gif","=)":"icon_smile2.gif",":-\/":"icon_doubt.gif",":-\\":"icon_doubt2.gif",":-?":"icon_confused.gif",":-D":"icon_biggrin.gif",":-P":"icon_razz.gif",":-o":"icon_surprised.gif",":-O":"icon_surprised.gif",":-x":"icon_silenced.gif",":-X":"icon_silenced.gif",":-|":"icon_neutral.gif",";-)":"icon_wink.gif","m(":"facepalm.gif","^_^":"icon_fun.gif",":?:":"icon_question.gif",":!:":"icon_exclaim.gif","LOL":"icon_lol.gif","FIXME":"fixme.gif","DELETEME":"delete.gif"},"icobase":"smileys","block":false},{"type":"picker","title":"\u0421\u043f\u0435\u0446\u0438\u0430\u043b\u044c\u043d\u044b\u0435 \u0441\u0438\u043c\u0432\u043e\u043b\u044b","icon":"chars.png","list":["\u00c0","\u00e0","\u00c1","\u00e1","\u00c2","\u00e2","\u00c3","\u00e3","\u00c4","\u00e4","\u01cd","\u01ce","\u0102","\u0103","\u00c5","\u00e5","\u0100","\u0101","\u0104","\u0105","\u00c6","\u00e6","\u0106","\u0107","\u00c7","\u00e7","\u010c","\u010d","\u0108","\u0109","\u010a","\u010b","\u00d0","\u0111","\u00f0","\u010e","\u010f","\u00c8","\u00e8","\u00c9","\u00e9","\u00ca","\u00ea","\u00cb","\u00eb","\u011a","\u011b","\u0112","\u0113","\u0116","\u0117","\u0118","\u0119","\u0122","\u0123","\u011c","\u011d","\u011e","\u011f","\u0120","\u0121","\u0124","\u0125","\u00cc","\u00ec","\u00cd","\u00ed","\u00ce","\u00ee","\u00cf","\u00ef","\u01cf","\u01d0","\u012a","\u012b","\u0130","\u0131","\u012e","\u012f","\u0134","\u0135","\u0136","\u0137","\u0139","\u013a","\u013b","\u013c","\u013d","\u013e","\u0141","\u0142","\u013f","\u0140","\u0143","\u0144","\u00d1","\u00f1","\u0145","\u0146","\u0147","\u0148","\u00d2","\u00f2","\u00d3","\u00f3","\u00d4","\u00f4","\u00d5","\u00f5","\u00d6","\u00f6","\u01d1","\u01d2","\u014c","\u014d","\u0150","\u0151","\u0152","\u0153","\u00d8","\u00f8","\u0154","\u0155","\u0156","\u0157","\u0158","\u0159","\u015a","\u015b","\u015e","\u015f","\u0160","\u0161","\u015c","\u015d","\u0162","\u0163","\u0164","\u0165","\u00d9","\u00f9","\u00da","\u00fa","\u00db","\u00fb","\u00dc","\u00fc","\u01d3","\u01d4","\u016c","\u016d","\u016a","\u016b","\u016e","\u016f","\u01d6","\u01d8","\u01da","\u01dc","\u0172","\u0173","\u0170","\u0171","\u0174","\u0175","\u00dd","\u00fd","\u0178","\u00ff","\u0176","\u0177","\u0179","\u017a","\u017d","\u017e","\u017b","\u017c","\u00de","\u00fe","\u00df","\u0126","\u0127","\u00bf","\u00a1","\u00a2","\u00a3","\u00a4","\u00a5","\u20ac","\u00a6","\u00a7","\u00aa","\u00ac","\u00af","\u00b0","\u00b1","\u00f7","\u2030","\u00bc","\u00bd","\u00be","\u00b9","\u00b2","\u00b3","\u00b5","\u00b6","\u2020","\u2021","\u00b7","\u2022","\u00ba","\u2200","\u2202","\u2203","\u018f","\u0259","\u2205","\u2207","\u2208","\u2209","\u220b","\u220f","\u2211","\u203e","\u2212","\u2217","\u00d7","\u2044","\u221a","\u221d","\u221e","\u2220","\u2227","\u2228","\u2229","\u222a","\u222b","\u2234","\u223c","\u2245","\u2248","\u2260","\u2261","\u2264","\u2265","\u2282","\u2283","\u2284","\u2286","\u2287","\u2295","\u2297","\u22a5","\u22c5","\u25ca","\u2118","\u2111","\u211c","\u2135","\u2660","\u2663","\u2665","\u2666","\u03b1","\u03b2","\u0393","\u03b3","\u0394","\u03b4","\u03b5","\u03b6","\u03b7","\u0398","\u03b8","\u03b9","\u03ba","\u039b","\u03bb","\u03bc","\u039e","\u03be","\u03a0","\u03c0","\u03c1","\u03a3","\u03c3","\u03a4","\u03c4","\u03c5","\u03a6","\u03c6","\u03c7","\u03a8","\u03c8","\u03a9","\u03c9","\u2605","\u2606","\u260e","\u261a","\u261b","\u261c","\u261d","\u261e","\u261f","\u2639","\u263a","\u2714","\u2718","\u201e","\u201c","\u201d","\u201a","\u2018","\u2019","\u00ab","\u00bb","\u2039","\u203a","\u2014","\u2013","\u2026","\u2190","\u2191","\u2192","\u2193","\u2194","\u21d0","\u21d1","\u21d2","\u21d3","\u21d4","\u00a9","\u2122","\u00ae","\u2032","\u2033","[","]","{","}","~","(",")","%","\u00a7","$","#","|","@"],"block":false}];
+
+/*!]]>*/</script>
+<script type="text/javascript" src="/lib/plugins/syntaxhighlighter3/sxh3/scripts/shCore.js"></script>
+<script type="text/javascript" src="/lib/plugins/syntaxhighlighter3/sxh3/scripts/shAutoloader.js"></script>
+<script type="text/javascript" src="/lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushXml.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="shortcut icon" href="/lib/tpl/qspdokuwiki/images/favicon.ico" />
+<link rel="apple-touch-icon" href="/lib/tpl/qspdokuwiki/images/apple-touch-icon.png" />
+    </head>
+
+<body>
+    <!--[if lte IE 7 ]><div id="IE7"><![endif]--><!--[if IE 8 ]><div id="IE8"><![endif]-->
+    <div id="dokuwiki__site"><div id="dokuwiki__top" class="site dokuwiki mode_show tpl_qspdokuwiki    showSidebar hasSidebar">
+
+        
+<!-- ********** HEADER ********** -->
+<div id="dokuwiki__header"><div class="pad group">
+
+    
+    <div class="headings group">
+        <ul class="a11y skip">
+            <li><a href="#dokuwiki__content">Перейти к содержанию</a></li>
+        </ul>
+
+        <h1><a href="/start"  accesskey="h" title="[H]"><img src="/_media/wiki:logo.png" width="147" height="74" alt="" /></a><a href="/start"  accesskey="h" title="[H]"><span>Документация QSP</span></a><div class='main-site-row'><a href="https://qsp.org" ><span>Сайт</span></a><a href="https://qsp.org/index.php?option=com_agora&Itemid=57" ><span>Форум</span></a></div></h1>
+            </div>
+
+    <div class="tools group">
+        <!-- USER TOOLS -->
+                    <div id="dokuwiki__usertools">
+                <h3 class="a11y">Инструменты пользователя</h3>
+                <ul>
+                    <li><a href="/help:txt2gam?do=login&amp;sectok=3e6ff35dfd333a48df46ef95b66bb2d4"  class="action login" rel="nofollow" title="Войти">Войти</a></li>                </ul>
+            </div>
+        
+        <!-- SITE TOOLS -->
+        <div id="dokuwiki__sitetools">
+            <h3 class="a11y">Инструменты сайта</h3>
+            <form action="/start" accept-charset="utf-8" class="search" id="dw__search" method="get" role="search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" class="edit" title="[F]" /><input type="submit" value="Поиск" class="button" title="Поиск" /><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>            <div class="mobileTools">
+                <form action="/doku.php" method="get" accept-charset="utf-8"><div class="no"><input type="hidden" name="id" value="help:txt2gam" /><select name="do" class="edit quickselect" title="Инструменты"><option value="">Инструменты</option><optgroup label="Инструменты страницы"><option value="edit">Показать исходный текст</option><option value="revisions">История страницы</option><option value="backlink">Ссылки сюда</option></optgroup><optgroup label="Инструменты сайта"><option value="recent">Недавние изменения</option><option value="media">Управление медиафайлами</option><option value="index">Все страницы</option></optgroup><optgroup label="Инструменты пользователя"><option value="login">Войти</option></optgroup></select><input type="submit" value="&gt;" /></div></form>            </div>
+            <ul>
+                <li><a href="/help:txt2gam?do=recent"  class="action recent" accesskey="r" rel="nofollow" title="Недавние изменения [R]">Недавние изменения</a></li><li><a href="/help:txt2gam?do=media&amp;ns=help"  class="action media" rel="nofollow" title="Управление медиафайлами">Управление медиафайлами</a></li><li><a href="/help:txt2gam?do=index"  class="action index" accesskey="x" rel="nofollow" title="Все страницы [X]">Все страницы</a></li>            </ul>
+        </div>
+
+    </div>
+
+    <!-- BREADCRUMBS -->
+            <div class="breadcrumbs">
+                                        <div class="trace"><span class="bchead">Вы посетили:</span> <span class="bcsep">•</span> <bdi><a href="/help:qsp"  class="breadcrumbs" title="help:qsp">Что такое QSP?</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:tuples"  class="breadcrumbs" title="help:tuples">Кортежи</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:principle"  class="breadcrumbs" title="help:principle">Порядок работы интерпретатора</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:organizing"  class="breadcrumbs" title="help:organizing">Пользовательские функции и процедуры</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:savegame"  class="breadcrumbs" title="help:savegame">Сохранения</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:cycle"  class="breadcrumbs" title="help:cycle">Циклы</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:interface"  class="breadcrumbs" title="help:interface">Настройки интерфейса</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:qspider"  class="breadcrumbs" title="help:qspider">qSpider — плеер с поддержкой HTML</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:navigator"  class="breadcrumbs" title="help:navigator">Quest Navigator</a></bdi> <span class="bcsep">•</span> <span class="curid"><bdi><a href="/help:txt2gam"  class="breadcrumbs" title="help:txt2gam">TXT2GAM. Краткое руководство</a></bdi></span></div>
+                    </div>
+    
+    
+    <hr class="a11y" />
+</div></div><!-- /header -->
+
+        <div class="wrapper group">
+
+                            <!-- ********** ASIDE ********** -->
+                <div id="dokuwiki__aside"><div class="pad include group">
+                    <h3 class="toggle">Боковая панель</h3>
+                    <div class="content">
+                                                                        <ul>
+<li class="level1"><div class="li">  <strong><a href="/start" class="wikilink1" title="start">В начало</a></strong></div>
+</li>
+<li class="level1"><div class="li">  <strong><a href="/help:qsp" class="wikilink1" title="help:qsp">Что такое QSP?</a></strong></div>
+</li>
+<li class="level1"><div class="li">  <strong><a href="/help:locations" class="wikilink1" title="help:locations">Локации</a></strong></div>
+</li>
+<li class="level1"><div class="li">  <strong>Вывод текста</strong></div>
+<ul>
+<li class="level2"><div class="li">  <a href="/help:main" class="wikilink1" title="help:main">Окно основного описания</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:stat" class="wikilink1" title="help:stat">Окно дополнительного описания</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:msgbox" class="wikilink1" title="help:msgbox">Окно сообщений</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li">  <strong><a href="/help:acts" class="wikilink1" title="help:acts">Действия</a></strong></div>
+</li>
+<li class="level1"><div class="li">  <strong><a href="/help:goto" class="wikilink1" title="help:goto">Переходы</a></strong></div>
+</li>
+<li class="level1"><div class="li">  <strong><a href="/help:objs" class="wikilink1" title="help:objs">Предметы (инвентарь)</a></strong></div>
+</li>
+<li class="level1"><div class="li">  <strong>Программирование</strong></div>
+<ul>
+<li class="level2"><div class="li">  <a href="/help:principle" class="wikilink1" title="help:principle">Порядок работы интерпретатора</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:variables" class="wikilink1" title="help:variables">Переменные</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:expressions" class="wikilink1" title="help:expressions">Выражения</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:coding" class="wikilink1" title="help:coding">Программный код</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:cycle" class="wikilink1" title="help:cycle">Циклы</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:arrays" class="wikilink1" title="help:arrays">Массивы</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:strings" class="wikilink1" title="help:strings">Строки</a></div>
+<ul>
+<li class="level3"><div class="li">  <a href="/help:regexp" class="wikilink1" title="help:regexp">Регулярные выражения</a></div>
+</li>
+</ul>
+</li>
+<li class="level2"><div class="li">  <a href="/help:tuples" class="wikilink1" title="help:tuples">Кортежи</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:conditional" class="wikilink1" title="help:conditional">Условия</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:organizing" class="wikilink1" title="help:organizing">Пользовательские функции и процедуры</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:jump" class="wikilink1" title="help:jump">Переходы внутри локации</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:service_locations" class="wikilink1" title="help:service_locations">Служебные локации, события</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:dynamical" class="wikilink1" title="help:dynamical">Динамический код</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li">  <strong>Оформление</strong></div>
+<ul>
+<li class="level2"><div class="li">  <a href="/help:menu" class="wikilink1" title="help:menu">Меню</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:sound" class="wikilink1" title="help:sound">Звук</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:graphics" class="wikilink1" title="help:graphics">Графика</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:interface" class="wikilink1" title="help:interface">Настройки интерфейса</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:html" class="wikilink1" title="help:html">HTML</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li">  <strong>Расширенные возможности</strong></div>
+<ul>
+<li class="level2"><div class="li">  <a href="/help:inputs" class="wikilink1" title="help:inputs">Ввод текста игроком</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:modules" class="wikilink1" title="help:modules">Работа с файлами игр, модули</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:savegame" class="wikilink1" title="help:savegame">Работа с файлами сохранений</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:realtime" class="wikilink1" title="help:realtime">Реальное время</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li">  <strong>Нюансы написания игр под разные плееры</strong></div>
+<ul>
+<li class="level2"><div class="li">  <a href="/help:classic_qsp" class="wikilink1" title="help:classic_qsp">Классический плеер</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:qspider" class="wikilink1" title="help:qspider">qSpider</a></div>
+<ul>
+<li class="level3"><div class="li"> <a href="/help:qspider_gamecfg" class="wikilink1" title="help:qspider_gamecfg">Конфигурационный файл</a></div>
+</li>
+<li class="level3"><div class="li"> <a href="/help:qspider_aeroqsp" class="wikilink1" title="help:qspider_aeroqsp">Особенности запуска AeroQSP-игр</a></div>
+</li>
+<li class="level3"><div class="li"> <a href="/help:qspider_interface" class="wikilink1" title="help:qspider_interface">Взаимодействие с интерфейсом</a></div>
+</li>
+<li class="level3"><div class="li"> <a href="/help:qspider_themes" class="wikilink1" title="help:qspider_themes">Темы оформления</a></div>
+</li>
+<li class="level3"><div class="li"> <a href="/help:qspider_spectags" class="wikilink1" title="help:qspider_spectags">Специальные теги</a></div>
+</li>
+<li class="level3"><div class="li"> <a href="/help:qspider_inclib" class="wikilink1" title="help:qspider_inclib">Встроенная библиотека</a></div>
+</li>
+<li class="level3"><div class="li"> <a href="/help:qspider_standalone" class="wikilink2" title="help:qspider_standalone" rel="nofollow">Стандалон-сборка</a></div>
+</li>
+</ul>
+</li>
+<li class="level2"><div class="li">  x <a href="/help:navigator" class="wikilink1" title="help:navigator">Quest Navigator</a></div>
+</li>
+<li class="level2"><div class="li">  x <a href="/help:aeroqsp" class="wikilink1" title="help:aeroqsp">AeroQSP</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li">  <strong>Утилиты и средства разработки</strong></div>
+<ul>
+<li class="level2"><div class="li">  <a href="/help:qgen" class="wikilink1" title="help:qgen">Quest Generator</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:debugger" class="wikilink1" title="help:debugger">Отладчик</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:txt2gam" class="wikilink1" title="help:txt2gam">Работа с утилитой TXT2GAM</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:analyzer" class="wikilink1" title="help:analyzer">Анализатор кода QSP</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li">  <strong><a href="/help:limits" class="wikilink1" title="help:limits">Ограничения QSP</a></strong></div>
+</li>
+<li class="level1"><div class="li">  <strong><a href="/howto:start" class="wikilink1" title="howto:start">Как сделать?</a></strong></div>
+</li>
+<li class="level1"><div class="li">  <strong><a href="/help:glossary" class="wikilink1" title="help:glossary">Cловарь терминов</a></strong></div>
+</li>
+<li class="level1"><div class="li">  <strong><a href="/help:keywords" class="wikilink1" title="help:keywords">Ключевые слова. Указатель</a></strong></div>
+</li>
+</ul>
+                                            </div>
+                </div></div><!-- /aside -->
+            
+            <!-- ********** CONTENT ********** -->
+            <div id="dokuwiki__content"><div class="pad group">
+
+                <div class="pageId"><span>help:txt2gam</span></div>
+
+                <div class="page group">
+                                                            <!-- wikipage start -->
+                    <!-- TOC START -->
+<div id="dw__toc">
+<h3 class="toggle">Содержание</h3>
+<div>
+
+<ul class="toc">
+<li class="level1"><div class="li"><a href="#txt2gam_kratkoe_rukovodstvo">TXT2GAM. Краткое руководство</a></div>
+<ul class="toc">
+<li class="level2"><div class="li"><a href="#format_txt2gam_qsps">Формат TXT2GAM (QSPS)</a></div></li>
+<li class="level2"><div class="li"><a href="#ispolzovanie_utility_txt2gam">Использование утилиты TXT2GAM</a></div></li>
+<li class="level2"><div class="li"><a href="#dopolnitelnye_vozmozhnosti_utility">Дополнительные возможности утилиты</a></div>
+<ul class="toc">
+<li class="level3"><div class="li"><a href="#ispolzovanie">Использование</a></div></li>
+<li class="level3"><div class="li"><a href="#opcii_options">Опции. [Options]</a></div></li>
+<li class="level3"><div class="li"><a href="#primery_vyzova">Примеры вызова:</a></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><a href="#podkljuchenie_utility_k_tekstovomu_redaktoru">Подключение утилиты к текстовому редактору</a></div></li>
+<li class="level2"><div class="li"><a href="#dopolnitelnaja_informacija_i_poleznye_ssylki">Дополнительная информация и полезные ссылки:</a></div></li>
+</ul>
+</li>
+<li class="level1"><div class="li"><a href="#discussion__section">Обсуждение</a></div></li>
+</ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<p>
+<a href="/help:debugger" class="wikilink1" title="help:debugger">Назад: Отладчик</a>
+</p>
+
+<h1 class="sectionedit1" id="txt2gam_kratkoe_rukovodstvo">TXT2GAM. Краткое руководство</h1>
+<div class="level1">
+
+<p>
+Утилита &quot;<strong>TXT2GAM</strong>&quot; (&quot;<code>txt2gam.exe</code>&quot;) предназначена для конвертирования текстовых файлов, написанных в специальном формате, в файлы QSP-игр &quot;<code>.qsp</code>&quot;. Таким образом вы можете создавать игры в обычном текстовом редакторе, а затем конвертировать их в приемлемые для плееров файлы.
+</p>
+
+<p>
+<a href="https://github.com/QSPFoundation/txt2gam/releases" class="urlextern" title="https://github.com/QSPFoundation/txt2gam/releases"  rel="nofollow">Скачать утилиту для Windows/Linux/MacOS</a>
+</p>
+
+</div>
+
+<h2 class="sectionedit2" id="format_txt2gam_qsps">Формат TXT2GAM (QSPS)</h2>
+<div class="level2">
+
+<p>
+Формат <strong>TXT2GAM</strong> так же называется форматом <strong>QSPS</strong>, а текстовые файлы, записанные в этом формате и имеющие расширение &quot;<code>.qsps</code>&quot;, называются qsps-файлами.
+</p>
+
+<p>
+Использовать qsps-файлы предпочтительнее по трём причинам:
+</p>
+<ul>
+<li class="level1"><div class="li"> воспроизведение таких файлов поддерживается плеером <strong><a href="/help:qspider" class="wikilink1" title="help:qspider">qSpider</a></strong>;</div>
+</li>
+<li class="level1"><div class="li"> расширение для <strong><a href="https://github.com/gretmn102/QSP-VSCode/blob/master/README.md" class="urlextern" title="https://github.com/gretmn102/QSP-VSCode/blob/master/README.md"  rel="nofollow">MS Visual Studio Cod</a>e</strong> поддерживает подсветку синтаксиса qsps-файлов;</div>
+</li>
+<li class="level1"><div class="li"> в <strong><a href="https://github.com/AleksVersus/JAD_for_QSP" class="urlextern" title="https://github.com/AleksVersus/JAD_for_QSP"  rel="nofollow">пакете для Sublime Text</a></strong> встроена подсветка синтаксиса qsps-файлов.</div>
+</li>
+</ul>
+
+<p>
+Как было отмечено выше, файлы в формате <strong>TXT2GAM</strong> — это обычные текстовые файлы, в которых мы размещаем код QSP, при этом данный код нужно записывать по определённым правилам.
+</p>
+
+<p>
+Начало локации отмечается символом <strong><code>#</code></strong> (решётка/диез), после которого должен стоять пробел и название локации. Например так:
+</p>
+
+<p>
+<pre class="brush: qsp">
+# начало
+</pre>
+</p>
+
+<p>
+Конец локации обозначается строкой <strong><code>--</code></strong> (2 дефиса) в отдельной строке. После этого в той же строке могут идти любые символы, например, снова название локации:
+</p>
+
+<p>
+<pre class="brush: qsp">
+-- начало
+</pre>
+</p>
+
+<p>
+Между началом и концом локации записывается обычный код QSP, как если бы вы его писали в поле &quot;<strong>Выполнить при посещении</strong>&quot; редактора <strong>Quest Generator</strong>. Вот пример кода в формате <strong>TXT2GAM</strong> с двумя локациями:
+</p>
+
+<p>
+<pre class="brush: qsp">
+# Начало
+&#039;It&#039;&#039;s only test of new utility.&#039;
+&#039;That is all.&#039;
+act &#039;Далее&#039;:
+   goto &#039;next&#039;
+end
+-- (конец локации)
+
+# next
+$s=&#039;Это последняя локация примера.&#039;
+loop local i = 1 while i&lt;=len($s) step i += 1:
+   *p $mid($s,i,1)
+   wait 200
+end
+*nl &amp; &#039;Это всё.&#039;
+--
+</pre>
+</p>
+
+<p>
+Между локациями в таком файле может быть записан любой текст, он не попадёт в конечный файл игры. Поэтому вы можете помещать туда различные комментарии, команды препроцессора и другой сопроводительный текст.
+</p>
+
+<p>
+Отнеситесь внимательно к строке завершения локации <strong><code>--</code></strong> в начале отдельно стоящей строки.
+Записанная в поле &quot;Выполнить при посещении&quot; редактора <strong>Quest Generator</strong>, она будет частью локации в итоговой игре, однако если эту строку записать в файле формата <strong>TXT2GAM</strong>, конвертер посчитает её окончанием локации, и все последующие строки вплоть до начала следующей локации будут проигнорированы.
+</p>
+
+<p>
+<pre class="brush: qsp">
+# начало
+&quot;Какой-то код. Много-много кода
+Этот код попадёт в локацию&quot;
+--
+&quot;А вот этот код не попадёт в локацию&quot;
+-- начало (хотим, чтобы конец локации был здесь)
+
+# локация 2
+! какой-то код
+-- локация 2
+</pre>
+</p>
+
+<p>
+Если не закрыть локацию строкой, начинающейся с <strong><code>--</code></strong>, новую локацию открыть будет нельзя, а значит строка, начинающаяся с символа <strong><code>#</code></strong> может вызвать ошибку &quot;Неизвестное действие&quot; в конечной игре:
+</p>
+
+<p>
+<pre class="brush: qsp">
+# начало
+&quot;Выводим текст&quot;
+# локация 2
+&quot;Забыли закрыть локацию перед открытием новой&quot;
+-- локация 2
+</pre>
+</p>
+
+<p>
+Внимание! Для формата <strong>TXT2GAM</strong> не предусмотрено редактирование базового описания и базовых действий. Поэтому при экспорте игры из <strong>Quest Generator</strong> в формат <strong>TXT2GAM</strong> будьте внимательны: все базовые описания и базовые действия будут экспортированы в основной код локаций. Если впоследствии вы импортируете игру обратно из TXT2GAM-файла в <strong>Quest Generator</strong>, то поля &quot;Описание&quot; и &quot;Базовые действия&quot; во всех локациях окажутся пустыми.
+</p>
+
+</div>
+
+<h2 class="sectionedit3" id="ispolzovanie_utility_txt2gam">Использование утилиты TXT2GAM</h2>
+<div class="level2">
+
+<p>
+<strong>TXT2GAM</strong> — это консольная утилита, т.е. она запускается командами из консоли, например из командной строки Windows.
+</p>
+
+<p>
+(Ознакомиться с основными командами командной строки вы можете в обучающей статье <a href="https://sonikelf.ru/vvodnaya-statya-po-rabote-v-konsoli-chto-takoe-konsol-komandy-konsoli-i-prochee-takoe-raznoe-cmd/" class="urlextern" title="https://sonikelf.ru/vvodnaya-statya-po-rabote-v-konsoli-chto-takoe-konsol-komandy-konsoli-i-prochee-takoe-raznoe-cmd/"  rel="nofollow">&quot;Что такое консоль, команды и прочее такое разное — CMD&quot;</a>).
+</p>
+
+<p>
+Пример работы с утилитой:
+</p>
+
+<p>
+<pre class="brush: text">
+txt2gam.exe game.txt game.qsp
+</pre>
+</p>
+
+<p>
+Здесь: &quot;<code>game.txt</code>&quot; — исходный файл вашей игры, написанный в формате <strong>TXT2GAM</strong>; &quot;<code>game.qsp</code>&quot; — конечный файл, в котором будет сохранена ваша игра.
+</p>
+
+<p>
+Предположим, вы написали игру в текстовом редакторе, и теперь она у вас лежит в виде файла &quot;<code>game.txt</code>&quot; на диске &quot;<code>D:</code>&quot; в папке &quot;<code>QSP\Games\myCoolGame</code>&quot;.
+</p>
+
+<p>
+Для удобства скопируйте утилиту <strong>TXT2GAM</strong> (т.е. файл &quot;<code>txt2gam.exe</code>&quot;) в папку с игрой. Теперь для конвертирования игры вам нужно сделать следующее:
+</p>
+<ol>
+<li class="level1"><div class="li"> Откройте консоль</div>
+</li>
+<li class="level1"><div class="li"> Перейдите на диск &quot;<code>D:</code>&quot;, введя команду <code><strong>D:</strong></code> в командной строке и нажав клавишу &quot;Enter&quot;.</div>
+</li>
+<li class="level1"><div class="li"> Перейдите в папку с вашей игрой с помощью команды <strong>cd</strong>. В нашем примере это делается так <code><strong>cd &quot;QSP\Games\myCoolGame&quot;</strong></code></div>
+</li>
+<li class="level1"><div class="li"> Запустите утилиту <strong>TXT2GAM</strong>, указав в качестве параметров сначала исходный файл вашей игры (т.е. &quot;<code>game.txt</code>&quot;), а затем название файла, который хотите получить, например &quot;<code>myCoolGame.qsp</code>&quot;:</div>
+</li>
+</ol>
+
+<p>
+<pre class="brush: text">
+	txt2gam.exe game.txt myCoolGame.qsp
+</pre>
+</p>
+
+<p>
+Утилита поддерживает полные пути к файлам, поэтому вы можете использовать одну утилиту для конвертирования разных игр:
+</p>
+
+<p>
+<pre class="brush: text">
+txt2gam.exe &quot;D:\QSP\Games\myCoolGame\game.txt&quot; &quot;D:\QSP\releases\myCoolGame\myCoolGame.qsp&quot;
+</pre>
+</p>
+
+<p>
+Для получения дополнительной информации об утилите, запустите её в консоли без параметров:
+</p>
+
+<p>
+<pre class="brush: text">
+txt2gam.exe
+</pre>
+</p>
+
+<p>
+Если указать ключ <code><strong>a</strong></code>, исходный файл будет обрабатываться как ANSI-файл (кодировка <strong>CP1251</strong>). По умолчанию используется Unicode (<strong>UTF-8</strong>, <strong>UCS-2 LE</strong> / <strong>UTF-16 LE</strong>):
+</p>
+
+<p>
+<pre class="brush: text">
+txt2gam.exe game.txt myCoolGame.qsp a
+</pre>
+</p>
+
+</div>
+
+<h2 class="sectionedit4" id="dopolnitelnye_vozmozhnosti_utility">Дополнительные возможности утилиты</h2>
+<div class="level2">
+
+</div>
+
+<h3 class="sectionedit5" id="ispolzovanie">Использование</h3>
+<div class="level3">
+
+<p>
+Общий вид команды для консоли:
+</p>
+
+<p>
+<pre class="brush: text">
+txt2gam [txt file] [output file] [options]
+</pre>
+</p>
+
+</div>
+
+<h3 class="sectionedit6" id="opcii_options">Опции. [Options]</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <code>a</code>, <code>A</code> — режим ANSI. По умолчанию утилита работает в режиме Unicode (<strong>UTF-8</strong>, <strong>UCS-2</strong> / <strong>UTF-16</strong>).</div>
+</li>
+<li class="level1"><div class="li"> <code>o</code>, <code>O</code> — сохранить игру в старом формате (&quot;<code>.gam</code>&quot;). По умолчанию используется новый формат (&quot;<code>.qsp</code>&quot;).</div>
+</li>
+<li class="level1"><div class="li"> <code>s[string]</code>, <code>S[string]</code> — вместо <code>[string]</code> нужно указать строку, с которой начинаются ваши локации. Т.е. это строка, которую вы можете использовать вместо <code><strong>#</strong></code>, если это необходимо.</div>
+</li>
+<li class="level1"><div class="li"> <code>e[string]</code>, <code>E[string]</code> — вместо <code>[string]</code> нужно указать строку, которой будет отмечаться конец локации. Т.е. это строка, которую вы можете использовать вместо <code><strong>–</strong></code>, если это необходимо.</div>
+</li>
+<li class="level1"><div class="li"> <code>p[pass]</code>, <code>P[pass]</code> — вместо <code>[pass]</code> укажите пароль, который хотите установить на игру. По умолчанию <code><strong>NO</strong></code>. Если пароль содержит пробелы, заключите его в кавычки.</div>
+</li>
+<li class="level1"><div class="li"> <code>t</code>, <code>T</code> — извлечь строки из текста.</div>
+</li>
+<li class="level1"><div class="li"> <code>q</code>, <code>Q</code> - извлечь строки кода (между &quot;{&quot; и &quot;}&quot;) из текста.</div>
+</li>
+</ul>
+
+</div>
+
+<h3 class="sectionedit7" id="primery_vyzova">Примеры вызова:</h3>
+<div class="level3">
+
+<p>
+<pre class="brush: text">
+txt2gam.exe file.txt gamefile.qsp pMyPassword
+txt2gam.exe file.txt gamefile.qsp
+txt2gam.exe file.txt gamefile.qsp u
+txt2gam.exe file.txt gamefile.qsp o pMyPassword
+txt2gam.exe file.txt gamefile.qsp o e@ pMyPassword
+txt2gam.exe file.txt gamefile.qsp u o p&quot;My Password&quot;
+txt2gam.exe file.txt gamefile.qsp o
+txt2gam.exe file.txt gamefile.qsp o e@
+txt2gam.exe file.txt gamefile.qsp s@ e~
+txt2gam.exe file.txt gamefile.qsp s@ e~ o
+txt2gam.exe file.txt gamefile.qsp t u
+</pre>
+</p>
+
+</div>
+
+<h2 class="sectionedit8" id="podkljuchenie_utility_k_tekstovomu_redaktoru">Подключение утилиты к текстовому редактору</h2>
+<div class="level2">
+
+<p>
+При разработке игр в текстовом редакторе, очень полезным может оказаться создание специального действия / кнопки для автоматической компиляции файла в &quot;<code>.qsp</code>&quot; и запуска плеера сразу с редактируемым файлом.
+</p>
+
+<p>
+То есть пишете текст игры в редакторе, нажимаете некое сочетание клавиш и получаете запущенную в плеере игру.
+</p>
+
+<p>
+Данное руководство, на примере <strong><a href="https://www.emeditor.com" class="urlextern" title="https://www.emeditor.com"  rel="nofollow">EmEditor</a></strong>а , описывает, как это сделать.
+</p>
+
+<p>
+Для начала, создайте папку (допустим, &quot;<code>D:\Games\QSP</code>&quot;), распаковав в неё базовый архив плеера (&quot;<code>qspgui.exe</code>&quot; + все <strong>DLL</strong>ки) и архив утилиты <strong>TXT2GAM</strong>.
+</p>
+
+<p>
+Далее, создайте в этой папке (рядом с &quot;<code>qspgui.exe</code>&quot;, &quot;<code>txt2gam.exe</code>&quot;) файл &quot;<code>start.bat</code>&quot; со следующим содержимым:
+</p>
+
+<p>
+<pre class="brush: text">
+txt2gam %1 %2
+start qspgui %2
+</pre>
+</p>
+
+<p>
+Теперь нужно в редакторе добавить действие/кнопку, при нажатии на которую будет запущен файл &quot;<code>start.bat</code>&quot; с двумя аргументами - указанием исходного TXT-файла и конечного &quot;<code>.qsp</code>&quot;-файла.
+</p>
+<ol>
+<li class="level1"><div class="li"> Запустите EmEditor, выберите в меню <strong>Tools / External Tools / Customize Tools…</strong></div>
+</li>
+<li class="level1"><div class="li"> В появившемся окошке нажмите кнопку <strong>New</strong>.</div>
+</li>
+<li class="level1"><div class="li"> В поле <strong>Title</strong> впишите название действия (например, &quot;QSP&quot;).</div>
+</li>
+<li class="level1"><div class="li"> В поле <strong>Command</strong> строку <code>D:\Games\QSP\start.bat</code></div>
+</li>
+<li class="level1"><div class="li"> В поле <strong>Arguments</strong> строку <code>&quot;$(Path)&quot; &quot;$(Dir)\$(Filename).gam&quot;</code> (сохраняя кавычки)</div>
+</li>
+<li class="level1"><div class="li"> В поле <strong>Initial Directory</strong> строчку <code>D:\Games\QSP</code></div>
+</li>
+<li class="level1"><div class="li"> Затем поставьте флажок напротив <strong>Save File</strong>, и нажмите <strong>OK</strong>.</div>
+</li>
+<li class="level1"><div class="li"> На панели инструментов появится новая кнопка с подписью &quot;QSP&quot;, при нажатии на которую будут произведены требуемые действия.</div>
+</li>
+</ol>
+
+<p>
+Теперь нужно назначить сочетание клавиш для кнопки.
+</p>
+<ol>
+<li class="level1"><div class="li"> Выберите пункт меню <strong>Help / Keyboard Map…</strong>. В категории <strong>External Tools</strong> найдите пункт <strong>QSP</strong> (обычно, в самом низу) и щелкните по нему 2 раза.</div>
+</li>
+<li class="level1"><div class="li"> Установите курсор в поле <strong>Press New Shortcut Key</strong> и нажмите желаемое сочетание клавиш (к примеру, F1). Станет доступной кнопка <strong>Assign</strong>. Нажимаем.</div>
+</li>
+<li class="level1"><div class="li"> Далее жмём <strong>OK</strong> и пишем игры в формате TXT2GAM <img src="/lib/images/smileys/icon_smile.gif" class="icon" alt=":-)" /></div>
+</li>
+</ol>
+
+<p>
+Чтобы установить пароль на файл, создаваемый утилитой TXT2GAM, замените в файле <strong><code>start.bat</code></strong> строчку
+</p>
+
+<p>
+<pre class="brush: text">
+txt2gam.exe %1 %2
+</pre>
+</p>
+
+<p>
+на
+</p>
+
+<p>
+<pre class="brush: text">
+txt2gam.exe %1 %2 pMyPassword
+</pre>
+</p>
+
+<p>
+где <code>MyPassword</code> - устанавливаемый пароль. Для задания паролей с пробелами, строчка <code>pMyPassword</code> должна быть указана в кавычках:
+</p>
+
+<p>
+<pre class="brush: text">
+txt2gam.exe %1 %2 &quot;pMy Pass word&quot;
+</pre>
+</p>
+
+</div>
+
+<h2 class="sectionedit9" id="dopolnitelnaja_informacija_i_poleznye_ssylki">Дополнительная информация и полезные ссылки:</h2>
+<div class="level2">
+<ol>
+<li class="level1"><div class="li"> В настоящий момент общепринятым расширением для текстовых файлов формата <strong>TXT2GAM</strong> можно считать &quot;<code>.qsps</code>&quot;. &quot;Просто потому что&quot; (с) <a href="https://github.com/gretmn102/QSP-VSCode#допустим-я-хочу-попробовать" class="urlextern" title="https://github.com/gretmn102/QSP-VSCode#допустим-я-хочу-попробовать"  rel="nofollow">Pseudopod</a>.</div>
+</li>
+<li class="level1"><div class="li"> Существует утилита <strong>qsp2txt</strong> для конвертирования игр в обратную сторону — из файлов игр &quot;<code>.qsp</code>&quot; в текстовые файлы формата <strong>TXT2GAM</strong>. Исходная ссылка утеряна, можно скачать в <a href="https://mega.nz/folder/jXwXlSRJ#TF7P-soOJOWIC8MrBA-L1A" class="urlextern" title="https://mega.nz/folder/jXwXlSRJ#TF7P-soOJOWIC8MrBA-L1A"  rel="nofollow">архиве программ QSP от Aleks Versus</a>.</div>
+</li>
+<li class="level1"><div class="li"> Существовали разные <a href="https://qsp.org/index.php?option=com_agora&amp;task=topic&amp;id=686&amp;Itemid=57" class="urlextern" title="https://qsp.org/index.php?option=com_agora&amp;task=topic&amp;id=686&amp;Itemid=57"  rel="nofollow">подсветки синтаксиса для **Notepad++** и **AkelPad**</a>, но были утеряны.</div>
+</li>
+<li class="level1"><div class="li"> Подсветка синтаксиса для Sublime Text входит в <strong><a href="https://github.com/AleksVersus/JAD_for_QSP" class="urlextern" title="https://github.com/AleksVersus/JAD_for_QSP"  rel="nofollow">пакет QSP для Sublime Text</a></strong>. В этот же пакет встроен плагин с конвертерами qsps и QSP-файлов в любую сторону.</div>
+</li>
+<li class="level1"><div class="li"> Существует подсветка для <a href="https://qsp.org/components/com_agora/img/members/20/notepad-qsp.zip" class="urlextern" title="https://qsp.org/components/com_agora/img/members/20/notepad-qsp.zip"  rel="nofollow">Notepad++ от Олегуса</a>. С этой подсветкой ассоциируются текстовые файлы с расширением &quot;<code>.tqsp</code>&quot;, однако вы можете отредактировать файл подсветки, указав нужное вам расширение.</div>
+</li>
+<li class="level1"><div class="li"> Werewolf разработал утилиту для конвертирования QSP-файла в текстовый формат (аналог <strong>qsp2txt</strong>), которая работает онлайн: <a href="https://codepen.io/srg-kostyrko/full/QWqdwxv" class="urlextern" title="https://codepen.io/srg-kostyrko/full/QWqdwxv"  rel="nofollow">https://codepen.io/srg-kostyrko/full/QWqdwxv</a>. Так же он разработал специальные пакеты для конвертирования файлов в любую сторону: <a href="https://github.com/QSPFoundation/converters" class="urlextern" title="https://github.com/QSPFoundation/converters"  rel="nofollow">https://github.com/QSPFoundation/converters</a>.</div>
+</li>
+<li class="level1"><div class="li"> Существует учебник по написанию игр на QSP, если вы начинаете сразу с работы в текстовом редакторе: <a href="/help:txt2gam_manual" class="wikilink1" title="help:txt2gam_manual">Пишем QSP-игру в текстовом редакторе</a>.</div>
+</li>
+<li class="level1"><div class="li"> Можно дополнительно обрабатывать qsps-файлы специальными программами перед тем, как конвертировать в файл игры QSP. Эти программы называются препроцессорами. В 2010 году NTROPY написал статью на эту тему: <a href="/help:txt2gam_preprocessor" class="wikilink1" title="help:txt2gam_preprocessor">&quot;Препроцессор при использовании TXT2GAM&quot;</a></div>
+</li>
+</ol>
+
+<p>
+<a href="/help:analyzer" class="wikilink1" title="help:analyzer">Вперёд: Анализатор кода</a>
+</p>
+
+</div>
+
+<script type='text/javascript'>
+  SyntaxHighlighter.autoloader(
+    'applescript /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushAppleScript.js',
+    'actionscript3 as3 /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushAS3.js',
+    'bash shell /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushBash.js',
+    'coldfusion cf /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushColdFusion.js',
+    'cpp c /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushCpp.js',
+    'c# c-sharp csharp /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushCSharp.js',
+    'css /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushCss.js',
+    'delphi pascal /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushDelphi.js',
+    'diff patch pas /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushDiff.js',
+    'erl erlang /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushErlang.js',
+    'groovy /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushGroovy.js',
+    'java /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushJava.js',
+    'jfx javafx /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushJavaFX.js',
+    'js jscript javascript /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushJScript.js',
+    'perl pl /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushPerl.js',
+    'php /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushPhp.js',
+    'text plain /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushPlain.js',
+    'ps powershell /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushPowerShell.js',
+    'py python /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushPython.js',
+    'ruby rails ror rb /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushRuby.js',
+    'sass scss /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushSass.js',
+    'scala /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushScala.js',
+    'sql /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushSql.js',
+    'vb vbnet /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushVb.js',
+    'xml xhtml xslt html /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushXml.js',
+    ' qsp /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushQsp.js'
+  );
+  SyntaxHighlighter.all();
+</script>
+
+                    <!-- wikipage stop -->
+                                    </div>
+
+                <div class="docInfo"><bdi>help/txt2gam.txt</bdi> · Последние изменения: 2024/11/09 03:26  — <bdi>byte</bdi></div>
+
+                            </div></div><!-- /content -->
+
+            <hr class="a11y" />
+
+            <!-- PAGE ACTIONS -->
+            <div id="dokuwiki__pagetools">
+                <h3 class="a11y">Инструменты страницы</h3>
+                <div class="tools">
+                    <ul>
+                        <li><a href="/help:txt2gam?do=edit"  class="action source" accesskey="v" rel="nofollow" title="Показать исходный текст [V]"><span>Показать исходный текст</span></a></li><li><a href="/help:txt2gam?do=revisions"  class="action revs" accesskey="o" rel="nofollow" title="История страницы [O]"><span>История страницы</span></a></li><li><a href="/help:txt2gam?do=backlink"  class="action backlink" rel="nofollow" title="Ссылки сюда"><span>Ссылки сюда</span></a></li><li><a href="#dokuwiki__top"  class="action top" accesskey="t" rel="nofollow" title="Наверх [T]"><span>Наверх</span></a></li>                    </ul>
+                </div>
+            </div>
+        </div><!-- /wrapper -->
+
+        
+<!-- ********** FOOTER ********** -->
+<div id="dokuwiki__footer"><div class="pad">
+    
+    <div class="buttons">
+<a href="https://www.dokuwiki.org/ru:tips:good_style">Как писать хорошие вики-статьи</a>
+<a href="https://www.dokuwiki.org/ru:wiki:syntax">Вики-синтаксис</a>
+<a href="https://www.dokuwiki.org/ru:manual">Руководство пользователя</a>
+<a href="/playground:playground">Песочница (для любого тестирования)</a>
+<a href="/discussions">Обсуждения</a>
+<!--
+                <a href="https://www.dokuwiki.org/donate" title="Donate" ><img
+            src="/lib/tpl/qspdokuwiki/images/button-donate.gif" width="80" height="15" alt="Donate" /></a>
+        <a href="https://www.php.net" title="Powered by PHP" ><img
+            src="/lib/tpl/qspdokuwiki/images/button-php.gif" width="80" height="15" alt="Powered by PHP" /></a>
+        <a href="https://validator.w3.org/check/referer" title="Valid HTML5" ><img
+            src="/lib/tpl/qspdokuwiki/images/button-html5.png" width="80" height="15" alt="Valid HTML5" /></a>
+        <a href="https://jigsaw.w3.org/css-validator/check/referer?profile=css3" title="Valid CSS" ><img
+            src="/lib/tpl/qspdokuwiki/images/button-css.png" width="80" height="15" alt="Valid CSS" /></a>
+        <a href="https://dokuwiki.org/" title="Driven by DokuWiki" ><img
+            src="/lib/tpl/qspdokuwiki/images/button-dw.png" width="80" height="15" alt="Driven by DokuWiki" /></a>
+    </div>
+-->
+</div></div><!-- /footer -->
+
+    </div></div><!-- /site -->
+
+    <div class="no"><img src="/lib/exe/indexer.php?id=help%3Atxt2gam&amp;1757411646" width="2" height="1" alt="" /></div>
+    <div id="screen__mode" class="no"></div>    <!--[if ( lte IE 7 | IE 8 ) ]></div><![endif]-->
+</body>
+</html>

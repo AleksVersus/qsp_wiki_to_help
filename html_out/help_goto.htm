@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Переходы [Документация QSP]</title>
+<link href="default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="page group">
+<!-- wikipage start -->
+<!-- TOC START -->
+
+<!-- TOC END -->
+<p>
+<a class="wikilink1" href="help_acts.htm" title="help:acts">Назад: Действия</a>
+</p>
+<h1 class="sectionedit1" id="perexody">Переходы</h1>
+<div class="level1">
+<p>
+Игрок исследует игровой мир, или следует по сюжету игры, перемещаясь по локациям. Задача автора игры — правильно прописать эти перемещения.
+</p>
+<p>
+Для перемещения между локациями в <strong>QSP</strong> предусмотрены специальные команды. Эти команды можно использовать в любом месте игры, но как правило, их размещают в действиях, чтобы позволить игроку самому решать, куда он хочет переместиться.
+</p>
+</div>
+<h2 class="sectionedit2" id="komandy_dlja_peremeschenija_mezhdu_lokacijami">Команды для перемещения между локациями</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <code id="statements_GOTO">GOTO [$локация]</code> — переход на локацию с названием <code>[$локация]</code>.</div>
+<ul>
+<li class="level2"><div class="li"> Пример: <pre class="brush: qsp">
+! переход на локацию "Тронный зал"
+goto 'Тронный зал'
+</pre></div>
+</li>
+<li class="level2"><div class="li"> При переходе на указанную локацию с помощью команды <strong>GOTO</strong> происходит следующее:</div>
+<ul>
+<li class="level3"><div class="li"> Очистка <strong>Окна основного описания</strong> и очистка <strong>Окна действий</strong>.</div>
+</li>
+<li class="level3"><div class="li"> Вывод в <strong>Окно основного описания</strong> текста из поля "<strong>Базовое описание</strong>" локации (поле "<strong>Описание</strong>" в <strong>QGen</strong>).</div>
+</li>
+<li class="level3"><div class="li"> Вывод в <strong>Окно действий</strong> действий из поля "<strong>Базовые действия</strong>"</div>
+</li>
+<li class="level3"><div class="li"> Выполнение кода из поля <strong>Выполнить при посещении</strong></div>
+</li>
+</ul>
+</li>
+<li class="level2"><div class="li"> Команда <code>GOTO</code> имеет краткую запись <code>GT</code>. Пример: <pre class="brush: qsp">
+goto "тёмный_лес"
+! эквивалентно
+gt "тёмный_лес"
+</pre></div>
+</li>
+<li class="level2"><div class="li"> При переходе, на локацию можно передавать до девятнадцати значений вместе с командой <code>GOTO</code>. Значения перечисляются по порядку через запятую после названия локации: <pre class="brush: qsp">
+GOTO [$локация],[аргумент 0],[аргумент 1], ... ,[аргумент 18]
+</pre> Передаваемые на локацию значения называются <strong>аргументами</strong> или <strong>параметрами</strong>. Эти значения плеер автоматически помещает в специальный массив <code>ARGS[]</code> в ячейки с нулевой по восемнадцатую. Пример: <pre class="brush: qsp">
+# начало
+! это код локации начало
+act "Начать игру":
+  ! при нажатии на действие игрок перейдёт на локацию "комната"
+  goto "комната","начало" &amp; ! на локацию комната будет передана строка со словом "начало"
+end
+--- начало ---
+
+# комната
+! это код локации комната
+$откуда_пришли=$args[0] &amp; ! из $args[0] получаем значение, переданное с командой goto
+if $откуда_пришли="начало":
+  ! если пришли с локации "начало", выводим душещипательную катсцену
+  pl "Здесь начинается наша история"
+else
+  ! если пришли не с локации "начало", просто выводим описание комнаты
+  pl "Описание комнаты"
+end
+--- комната ---
+</pre></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <code id="statements_XGOTO">XGOTO [$локация]</code> - переход на локацию с названием <code>[$локация]</code> БЕЗ очистки <strong>Окна основного описания</strong>.</div>
+<ul>
+<li class="level2"><div class="li"> Пример: <pre class="brush: qsp">
+! переход на локацию "разговор с начальником"
+xgoto 'разговор с начальником'
+</pre></div>
+</li>
+<li class="level2"><div class="li"> При переходе на указанную локацию с помощью команды <code>XGOTO</code> происходит следующее:</div>
+<ul>
+<li class="level3"><div class="li"> Очистка <strong>Окна действий</strong>.</div>
+</li>
+<li class="level3"><div class="li"> Вывод в <strong>Окно основного описания</strong> текста из поля <strong>Базовое описание</strong> локации (поле <strong>Описание</strong> в <strong>QGen</strong>). Новое описание дополняет уже имеющееся.</div>
+</li>
+<li class="level3"><div class="li"> Вывод в <strong>Окно действий</strong> действий из поля <strong>Базовые действия</strong></div>
+</li>
+<li class="level3"><div class="li"> Выполнение кода из поля <strong>Выполнить при посещении</strong></div>
+</li>
+</ul>
+</li>
+<li class="level2"><div class="li"> Команда <code>XGOTO</code> имеет краткую запись <code>XGT</code>. Пример: <pre class="brush: qsp">
+xgoto "дремучая_чаща"
+! эквивалентно
+xgt "дремучая_чаща"
+</pre></div>
+</li>
+<li class="level2"><div class="li"> При переходе, на локацию можно передавать до девятнадцати значений вместе с командой <code>XGOTO</code>. Значения перечисляются по порядку через запятую после названия локации: <pre class="brush: qsp">
+XGOTO [$локация],[аргумент 0],[аргумент 1], ... ,[аргумент 18]
+</pre> Передаваемые на локацию значения называются <strong>аргументами</strong> или <strong>параметрами</strong>. Эти значения плеер автоматически помещает в специальный массив <code>ARGS[]</code> в ячейки с нулевой по восемнадцатую. Пример: <pre class="brush: qsp">
+! локация "разговор с начальником"
+$вариант = $args[0] &amp; ! первое значение помещаем в переменную вариант
+счётчик = args[1] &amp; ! второе значение — в переменную счётчик
+act "— Можно задать вам вопрос?":
+  *pl 'Я: — Можно задать вам вопрос?'
+  xgoto 'разговор с начальником', 'можно?', счётчик + 1
+end
+
+if $вариант = 'можно?':
+  if счётчик = 1:
+    'Начальник: — Задавайте.'
+  else:
+    'Начальник: — Вы это уже спрашивали.'
+  end
+else:
+  'Начальник: — С чем пожаловали?'
+end
+</pre></div>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit3" id="komandy_poseschenija_lokacij">Команды посещения локаций</h2>
+<div class="level2">
+<p>
+Иногда нам нужно прервать выполнение определённого кода, выполнить код на другой локации, а затем вернуться и продолжить выполнять прерванный код. В таких случаях операторы <code>GOTO</code> и <code>XGOTO</code> нам не подходят, ведь они осуществляют <strong>переход</strong> на локацию и оставляют нас на ней.
+</p>
+<p>
+В <strong>QSP</strong> есть более подходящие для таких ситуаций команды, они подробно описаны в разделе <a class="wikilink1" href="help_organizing.htm" title="help:organizing">"Пользовательские функции и процедуры"</a>.
+</p>
+<p>
+<a class="wikilink1" href="help_objs.htm" title="help:objs">Вперёд: Предметы (инвентарь)</a>
+</p>
+</div>
+
+<!-- wikipage stop -->
+</div></body>
+</html>

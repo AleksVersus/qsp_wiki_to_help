@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr" class="no-js">
+<head>
+    <meta charset="utf-8" />
+    <title>Самоучитель по регулярным выражениям [Документация QSP]</title>
+    <script>(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement)</script>
+    <meta name="generator" content="DokuWiki"/>
+<meta name="robots" content="index,follow"/>
+<meta name="keywords" content="regex,start"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/lib/exe/opensearch.php" title="Документация QSP"/>
+<link rel="start" href="/"/>
+<link rel="contents" href="/regex:start?do=index" title="Все страницы"/>
+<link rel="alternate" type="application/rss+xml" title="Недавние изменения" href="/feed.php"/>
+<link rel="alternate" type="application/rss+xml" title="Текущее пространство имён" href="/feed.php?mode=list&amp;ns=regex"/>
+<link rel="alternate" type="text/html" title="Простой HTML" href="/_export/xhtml/regex:start"/>
+<link rel="alternate" type="text/plain" title="вики-разметка" href="/_export/raw/regex:start"/>
+<link rel="canonical" href="https://wiki.qsp.org/regex:start"/>
+<link rel="stylesheet" type="text/css" href="/lib/exe/css.php?t=qspdokuwiki&amp;tseed=f799b71f6ad814a2c02470a4d20f4250"/>
+<link rel="stylesheet" type="text/css" href="/lib/plugins/syntaxhighlighter3/sxh3/styles/shCore.css"/>
+<link rel="stylesheet" type="text/css" href="/lib/plugins/syntaxhighlighter3/sxh3/styles/shThemeDefault.css"/>
+<script type="text/javascript">/*<![CDATA[*/var NS='regex';var JSINFO = {"id":"regex:start","namespace":"regex"};
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="/lib/exe/js.php?tseed=f799b71f6ad814a2c02470a4d20f4250&amp;template=qspdokuwiki"></script>
+<script type="text/javascript" charset="utf-8">/*<![CDATA[*/NS = "regex";var toolbar = [{"type":"format","title":"\u041f\u043e\u043b\u0443\u0436\u0438\u0440\u043d\u044b\u0439","icon":"bold.png","key":"b","open":"**","close":"**","block":false},{"type":"format","title":"\u041a\u0443\u0440\u0441\u0438\u0432","icon":"italic.png","key":"i","open":"\/\/","close":"\/\/","block":false},{"type":"format","title":"\u041f\u043e\u0434\u0447\u0451\u0440\u043a\u043d\u0443\u0442\u044b\u0439","icon":"underline.png","key":"u","open":"__","close":"__","block":false},{"type":"format","title":"\u0422\u0435\u043a\u0441\u0442 \u043a\u043e\u0434\u0430","icon":"mono.png","key":"m","open":"''","close":"''","block":false},{"type":"format","title":"\u0417\u0430\u0447\u0451\u0440\u043a\u043d\u0443\u0442\u044b\u0439","icon":"strike.png","key":"d","open":"<del>","close":"<\/del>","block":false},{"type":"autohead","title":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a \u0442\u0435\u043a\u0443\u0449\u0435\u0433\u043e \u0443\u0440\u043e\u0432\u043d\u044f","icon":"hequal.png","key":"8","text":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a","mod":0,"block":true},{"type":"autohead","title":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a \u0431\u043e\u043b\u0435\u0435 \u043d\u0438\u0437\u043a\u043e\u0433\u043e \u0443\u0440\u043e\u0432\u043d\u044f (\u043f\u043e\u0434\u0437\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a)","icon":"hminus.png","key":"9","text":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a","mod":1,"block":true},{"type":"autohead","title":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a \u0431\u043e\u043b\u0435\u0435 \u0432\u044b\u0441\u043e\u043a\u043e\u0433\u043e \u0443\u0440\u043e\u0432\u043d\u044f","icon":"hplus.png","key":"0","text":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a","mod":-1,"block":true},{"type":"picker","title":"\u0412\u044b\u0431\u043e\u0440 \u0437\u0430\u0433\u043e\u043b\u043e\u0432\u043a\u0430","icon":"h.png","class":"pk_hl","list":[{"type":"format","title":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a 1-\u0433\u043e \u0443\u0440\u043e\u0432\u043d\u044f","icon":"h1.png","key":"1","open":"====== ","close":" ======\\n"},{"type":"format","title":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a 2-\u0433\u043e \u0443\u0440\u043e\u0432\u043d\u044f","icon":"h2.png","key":"2","open":"===== ","close":" =====\\n"},{"type":"format","title":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a 3-\u0433\u043e \u0443\u0440\u043e\u0432\u043d\u044f","icon":"h3.png","key":"3","open":"==== ","close":" ====\\n"},{"type":"format","title":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a 4-\u0433\u043e \u0443\u0440\u043e\u0432\u043d\u044f","icon":"h4.png","key":"4","open":"=== ","close":" ===\\n"},{"type":"format","title":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a 5-\u0433\u043e \u0443\u0440\u043e\u0432\u043d\u044f","icon":"h5.png","key":"5","open":"== ","close":" ==\\n"}],"block":true},{"type":"format","title":"\u0412\u043d\u0435\u0448\u043d\u044f\u044f \u0441\u0441\u044b\u043b\u043a\u0430","icon":"linkextern.png","open":"[[","close":"]]","sample":"http:\/\/example.com|\u0412\u043d\u0435\u0448\u043d\u044f\u044f \u0441\u0441\u044b\u043b\u043a\u0430","block":false},{"type":"formatln","title":"\u042d\u043b\u0435\u043c\u0435\u043d\u0442 \u043d\u0443\u043c\u0435\u0440\u043e\u0432\u0430\u043d\u043d\u043e\u0433\u043e \u0441\u043f\u0438\u0441\u043a\u0430","icon":"ol.png","open":"  - ","close":"","key":"-","block":true},{"type":"formatln","title":"\u042d\u043b\u0435\u043c\u0435\u043d\u0442 \u043d\u0435\u043d\u0443\u043c\u0435\u0440\u043e\u0432\u0430\u043d\u043d\u043e\u0433\u043e \u0441\u043f\u0438\u0441\u043a\u0430","icon":"ul.png","open":"  * ","close":"","key":".","block":true},{"type":"insert","title":"\u0420\u0430\u0437\u0434\u0435\u043b\u0438\u0442\u0435\u043b\u044c","icon":"hr.png","insert":"\\n----\\n","block":true},{"type":"picker","title":"\u0421\u043c\u0430\u0439\u043b\u0438\u043a\u0438","icon":"smiley.png","list":{"8-)":"icon_cool.gif","8-O":"icon_eek.gif","8-o":"icon_eek.gif",":-(":"icon_sad.gif",":-)":"icon_smile.gif","=)":"icon_smile2.gif",":-\/":"icon_doubt.gif",":-\\":"icon_doubt2.gif",":-?":"icon_confused.gif",":-D":"icon_biggrin.gif",":-P":"icon_razz.gif",":-o":"icon_surprised.gif",":-O":"icon_surprised.gif",":-x":"icon_silenced.gif",":-X":"icon_silenced.gif",":-|":"icon_neutral.gif",";-)":"icon_wink.gif","m(":"facepalm.gif","^_^":"icon_fun.gif",":?:":"icon_question.gif",":!:":"icon_exclaim.gif","LOL":"icon_lol.gif","FIXME":"fixme.gif","DELETEME":"delete.gif"},"icobase":"smileys","block":false},{"type":"picker","title":"\u0421\u043f\u0435\u0446\u0438\u0430\u043b\u044c\u043d\u044b\u0435 \u0441\u0438\u043c\u0432\u043e\u043b\u044b","icon":"chars.png","list":["\u00c0","\u00e0","\u00c1","\u00e1","\u00c2","\u00e2","\u00c3","\u00e3","\u00c4","\u00e4","\u01cd","\u01ce","\u0102","\u0103","\u00c5","\u00e5","\u0100","\u0101","\u0104","\u0105","\u00c6","\u00e6","\u0106","\u0107","\u00c7","\u00e7","\u010c","\u010d","\u0108","\u0109","\u010a","\u010b","\u00d0","\u0111","\u00f0","\u010e","\u010f","\u00c8","\u00e8","\u00c9","\u00e9","\u00ca","\u00ea","\u00cb","\u00eb","\u011a","\u011b","\u0112","\u0113","\u0116","\u0117","\u0118","\u0119","\u0122","\u0123","\u011c","\u011d","\u011e","\u011f","\u0120","\u0121","\u0124","\u0125","\u00cc","\u00ec","\u00cd","\u00ed","\u00ce","\u00ee","\u00cf","\u00ef","\u01cf","\u01d0","\u012a","\u012b","\u0130","\u0131","\u012e","\u012f","\u0134","\u0135","\u0136","\u0137","\u0139","\u013a","\u013b","\u013c","\u013d","\u013e","\u0141","\u0142","\u013f","\u0140","\u0143","\u0144","\u00d1","\u00f1","\u0145","\u0146","\u0147","\u0148","\u00d2","\u00f2","\u00d3","\u00f3","\u00d4","\u00f4","\u00d5","\u00f5","\u00d6","\u00f6","\u01d1","\u01d2","\u014c","\u014d","\u0150","\u0151","\u0152","\u0153","\u00d8","\u00f8","\u0154","\u0155","\u0156","\u0157","\u0158","\u0159","\u015a","\u015b","\u015e","\u015f","\u0160","\u0161","\u015c","\u015d","\u0162","\u0163","\u0164","\u0165","\u00d9","\u00f9","\u00da","\u00fa","\u00db","\u00fb","\u00dc","\u00fc","\u01d3","\u01d4","\u016c","\u016d","\u016a","\u016b","\u016e","\u016f","\u01d6","\u01d8","\u01da","\u01dc","\u0172","\u0173","\u0170","\u0171","\u0174","\u0175","\u00dd","\u00fd","\u0178","\u00ff","\u0176","\u0177","\u0179","\u017a","\u017d","\u017e","\u017b","\u017c","\u00de","\u00fe","\u00df","\u0126","\u0127","\u00bf","\u00a1","\u00a2","\u00a3","\u00a4","\u00a5","\u20ac","\u00a6","\u00a7","\u00aa","\u00ac","\u00af","\u00b0","\u00b1","\u00f7","\u2030","\u00bc","\u00bd","\u00be","\u00b9","\u00b2","\u00b3","\u00b5","\u00b6","\u2020","\u2021","\u00b7","\u2022","\u00ba","\u2200","\u2202","\u2203","\u018f","\u0259","\u2205","\u2207","\u2208","\u2209","\u220b","\u220f","\u2211","\u203e","\u2212","\u2217","\u00d7","\u2044","\u221a","\u221d","\u221e","\u2220","\u2227","\u2228","\u2229","\u222a","\u222b","\u2234","\u223c","\u2245","\u2248","\u2260","\u2261","\u2264","\u2265","\u2282","\u2283","\u2284","\u2286","\u2287","\u2295","\u2297","\u22a5","\u22c5","\u25ca","\u2118","\u2111","\u211c","\u2135","\u2660","\u2663","\u2665","\u2666","\u03b1","\u03b2","\u0393","\u03b3","\u0394","\u03b4","\u03b5","\u03b6","\u03b7","\u0398","\u03b8","\u03b9","\u03ba","\u039b","\u03bb","\u03bc","\u039e","\u03be","\u03a0","\u03c0","\u03c1","\u03a3","\u03c3","\u03a4","\u03c4","\u03c5","\u03a6","\u03c6","\u03c7","\u03a8","\u03c8","\u03a9","\u03c9","\u2605","\u2606","\u260e","\u261a","\u261b","\u261c","\u261d","\u261e","\u261f","\u2639","\u263a","\u2714","\u2718","\u201e","\u201c","\u201d","\u201a","\u2018","\u2019","\u00ab","\u00bb","\u2039","\u203a","\u2014","\u2013","\u2026","\u2190","\u2191","\u2192","\u2193","\u2194","\u21d0","\u21d1","\u21d2","\u21d3","\u21d4","\u00a9","\u2122","\u00ae","\u2032","\u2033","[","]","{","}","~","(",")","%","\u00a7","$","#","|","@"],"block":false}];
+
+/*!]]>*/</script>
+<script type="text/javascript" src="/lib/plugins/syntaxhighlighter3/sxh3/scripts/shCore.js"></script>
+<script type="text/javascript" src="/lib/plugins/syntaxhighlighter3/sxh3/scripts/shAutoloader.js"></script>
+<script type="text/javascript" src="/lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushXml.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="shortcut icon" href="/lib/tpl/qspdokuwiki/images/favicon.ico" />
+<link rel="apple-touch-icon" href="/lib/tpl/qspdokuwiki/images/apple-touch-icon.png" />
+    </head>
+
+<body>
+    <!--[if lte IE 7 ]><div id="IE7"><![endif]--><!--[if IE 8 ]><div id="IE8"><![endif]-->
+    <div id="dokuwiki__site"><div id="dokuwiki__top" class="site dokuwiki mode_show tpl_qspdokuwiki    showSidebar hasSidebar">
+
+        
+<!-- ********** HEADER ********** -->
+<div id="dokuwiki__header"><div class="pad group">
+
+    
+    <div class="headings group">
+        <ul class="a11y skip">
+            <li><a href="#dokuwiki__content">Перейти к содержанию</a></li>
+        </ul>
+
+        <h1><a href="/start"  accesskey="h" title="[H]"><img src="/_media/wiki:logo.png" width="147" height="74" alt="" /></a><a href="/start"  accesskey="h" title="[H]"><span>Документация QSP</span></a><div class='main-site-row'><a href="https://qsp.org" ><span>Сайт</span></a><a href="https://qsp.org/index.php?option=com_agora&Itemid=57" ><span>Форум</span></a></div></h1>
+            </div>
+
+    <div class="tools group">
+        <!-- USER TOOLS -->
+                    <div id="dokuwiki__usertools">
+                <h3 class="a11y">Инструменты пользователя</h3>
+                <ul>
+                    <li><a href="/regex:start?do=login&amp;sectok=3e6ff35dfd333a48df46ef95b66bb2d4"  class="action login" rel="nofollow" title="Войти">Войти</a></li>                </ul>
+            </div>
+        
+        <!-- SITE TOOLS -->
+        <div id="dokuwiki__sitetools">
+            <h3 class="a11y">Инструменты сайта</h3>
+            <form action="/start" accept-charset="utf-8" class="search" id="dw__search" method="get" role="search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" class="edit" title="[F]" /><input type="submit" value="Поиск" class="button" title="Поиск" /><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>            <div class="mobileTools">
+                <form action="/doku.php" method="get" accept-charset="utf-8"><div class="no"><input type="hidden" name="id" value="regex:start" /><select name="do" class="edit quickselect" title="Инструменты"><option value="">Инструменты</option><optgroup label="Инструменты страницы"><option value="edit">Показать исходный текст</option><option value="revisions">История страницы</option><option value="backlink">Ссылки сюда</option></optgroup><optgroup label="Инструменты сайта"><option value="recent">Недавние изменения</option><option value="media">Управление медиафайлами</option><option value="index">Все страницы</option></optgroup><optgroup label="Инструменты пользователя"><option value="login">Войти</option></optgroup></select><input type="submit" value="&gt;" /></div></form>            </div>
+            <ul>
+                <li><a href="/regex:start?do=recent"  class="action recent" accesskey="r" rel="nofollow" title="Недавние изменения [R]">Недавние изменения</a></li><li><a href="/regex:start?do=media&amp;ns=regex"  class="action media" rel="nofollow" title="Управление медиафайлами">Управление медиафайлами</a></li><li><a href="/regex:start?do=index"  class="action index" accesskey="x" rel="nofollow" title="Все страницы [X]">Все страницы</a></li>            </ul>
+        </div>
+
+    </div>
+
+    <!-- BREADCRUMBS -->
+            <div class="breadcrumbs">
+                                        <div class="trace"><span class="bchead">Вы посетили:</span> <span class="bcsep">•</span> <bdi><a href="/help:goto"  class="breadcrumbs" title="help:goto">Переходы</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:sound"  class="breadcrumbs" title="help:sound">Звук</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:arrays"  class="breadcrumbs" title="help:arrays">Массивы</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:qspider_gamecfg"  class="breadcrumbs" title="help:qspider_gamecfg">Конфигурационный файл</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:expressions"  class="breadcrumbs" title="help:expressions">Выражения</a></bdi> <span class="bcsep">•</span> <bdi><a href="/howto:randomize"  class="breadcrumbs" title="howto:randomize">Третий параметр RAND</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:keywords_operator"  class="breadcrumbs" title="help:keywords_operator">Операторы</a></bdi> <span class="bcsep">•</span> <bdi><a href="/glossary:bag"  class="breadcrumbs" title="glossary:bag">Баг</a></bdi> <span class="bcsep">•</span> <bdi><a href="/howto:namedconst"  class="breadcrumbs" title="howto:namedconst">Именованные константы</a></bdi> <span class="bcsep">•</span> <span class="curid"><bdi><a href="/regex:start"  class="breadcrumbs" title="regex:start">Самоучитель по регулярным выражениям</a></bdi></span></div>
+                    </div>
+    
+    
+    <hr class="a11y" />
+</div></div><!-- /header -->
+
+        <div class="wrapper group">
+
+                            <!-- ********** ASIDE ********** -->
+                <div id="dokuwiki__aside"><div class="pad include group">
+                    <h3 class="toggle">Боковая панель</h3>
+                    <div class="content">
+                                                                        <ul>
+<li class="level1"><div class="li">  <strong><a href="/start" class="wikilink1" title="start">В начало</a></strong></div>
+</li>
+<li class="level1"><div class="li">  <strong><a href="/help:qsp" class="wikilink1" title="help:qsp">Что такое QSP?</a></strong></div>
+</li>
+<li class="level1"><div class="li">  <strong><a href="/help:locations" class="wikilink1" title="help:locations">Локации</a></strong></div>
+</li>
+<li class="level1"><div class="li">  <strong>Вывод текста</strong></div>
+<ul>
+<li class="level2"><div class="li">  <a href="/help:main" class="wikilink1" title="help:main">Окно основного описания</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:stat" class="wikilink1" title="help:stat">Окно дополнительного описания</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:msgbox" class="wikilink1" title="help:msgbox">Окно сообщений</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li">  <strong><a href="/help:acts" class="wikilink1" title="help:acts">Действия</a></strong></div>
+</li>
+<li class="level1"><div class="li">  <strong><a href="/help:goto" class="wikilink1" title="help:goto">Переходы</a></strong></div>
+</li>
+<li class="level1"><div class="li">  <strong><a href="/help:objs" class="wikilink1" title="help:objs">Предметы (инвентарь)</a></strong></div>
+</li>
+<li class="level1"><div class="li">  <strong>Программирование</strong></div>
+<ul>
+<li class="level2"><div class="li">  <a href="/help:principle" class="wikilink1" title="help:principle">Порядок работы интерпретатора</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:variables" class="wikilink1" title="help:variables">Переменные</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:expressions" class="wikilink1" title="help:expressions">Выражения</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:coding" class="wikilink1" title="help:coding">Программный код</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:cycle" class="wikilink1" title="help:cycle">Циклы</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:arrays" class="wikilink1" title="help:arrays">Массивы</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:strings" class="wikilink1" title="help:strings">Строки</a></div>
+<ul>
+<li class="level3"><div class="li">  <a href="/help:regexp" class="wikilink1" title="help:regexp">Регулярные выражения</a></div>
+</li>
+</ul>
+</li>
+<li class="level2"><div class="li">  <a href="/help:tuples" class="wikilink1" title="help:tuples">Кортежи</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:conditional" class="wikilink1" title="help:conditional">Условия</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:organizing" class="wikilink1" title="help:organizing">Пользовательские функции и процедуры</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:jump" class="wikilink1" title="help:jump">Переходы внутри локации</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:service_locations" class="wikilink1" title="help:service_locations">Служебные локации, события</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:dynamical" class="wikilink1" title="help:dynamical">Динамический код</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li">  <strong>Оформление</strong></div>
+<ul>
+<li class="level2"><div class="li">  <a href="/help:menu" class="wikilink1" title="help:menu">Меню</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:sound" class="wikilink1" title="help:sound">Звук</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:graphics" class="wikilink1" title="help:graphics">Графика</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:interface" class="wikilink1" title="help:interface">Настройки интерфейса</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:html" class="wikilink1" title="help:html">HTML</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li">  <strong>Расширенные возможности</strong></div>
+<ul>
+<li class="level2"><div class="li">  <a href="/help:inputs" class="wikilink1" title="help:inputs">Ввод текста игроком</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:modules" class="wikilink1" title="help:modules">Работа с файлами игр, модули</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:savegame" class="wikilink1" title="help:savegame">Работа с файлами сохранений</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:realtime" class="wikilink1" title="help:realtime">Реальное время</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li">  <strong>Нюансы написания игр под разные плееры</strong></div>
+<ul>
+<li class="level2"><div class="li">  <a href="/help:classic_qsp" class="wikilink1" title="help:classic_qsp">Классический плеер</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:qspider" class="wikilink1" title="help:qspider">qSpider</a></div>
+<ul>
+<li class="level3"><div class="li"> <a href="/help:qspider_gamecfg" class="wikilink1" title="help:qspider_gamecfg">Конфигурационный файл</a></div>
+</li>
+<li class="level3"><div class="li"> <a href="/help:qspider_aeroqsp" class="wikilink1" title="help:qspider_aeroqsp">Особенности запуска AeroQSP-игр</a></div>
+</li>
+<li class="level3"><div class="li"> <a href="/help:qspider_interface" class="wikilink1" title="help:qspider_interface">Взаимодействие с интерфейсом</a></div>
+</li>
+<li class="level3"><div class="li"> <a href="/help:qspider_themes" class="wikilink1" title="help:qspider_themes">Темы оформления</a></div>
+</li>
+<li class="level3"><div class="li"> <a href="/help:qspider_spectags" class="wikilink1" title="help:qspider_spectags">Специальные теги</a></div>
+</li>
+<li class="level3"><div class="li"> <a href="/help:qspider_inclib" class="wikilink1" title="help:qspider_inclib">Встроенная библиотека</a></div>
+</li>
+<li class="level3"><div class="li"> <a href="/help:qspider_standalone" class="wikilink2" title="help:qspider_standalone" rel="nofollow">Стандалон-сборка</a></div>
+</li>
+</ul>
+</li>
+<li class="level2"><div class="li">  x <a href="/help:navigator" class="wikilink1" title="help:navigator">Quest Navigator</a></div>
+</li>
+<li class="level2"><div class="li">  x <a href="/help:aeroqsp" class="wikilink1" title="help:aeroqsp">AeroQSP</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li">  <strong>Утилиты и средства разработки</strong></div>
+<ul>
+<li class="level2"><div class="li">  <a href="/help:qgen" class="wikilink1" title="help:qgen">Quest Generator</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:debugger" class="wikilink1" title="help:debugger">Отладчик</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:txt2gam" class="wikilink1" title="help:txt2gam">Работа с утилитой TXT2GAM</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:analyzer" class="wikilink1" title="help:analyzer">Анализатор кода QSP</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li">  <strong><a href="/help:limits" class="wikilink1" title="help:limits">Ограничения QSP</a></strong></div>
+</li>
+<li class="level1"><div class="li">  <strong><a href="/howto:start" class="wikilink1" title="howto:start">Как сделать?</a></strong></div>
+</li>
+<li class="level1"><div class="li">  <strong><a href="/help:glossary" class="wikilink1" title="help:glossary">Cловарь терминов</a></strong></div>
+</li>
+<li class="level1"><div class="li">  <strong><a href="/help:keywords" class="wikilink1" title="help:keywords">Ключевые слова. Указатель</a></strong></div>
+</li>
+</ul>
+                                            </div>
+                </div></div><!-- /aside -->
+            
+            <!-- ********** CONTENT ********** -->
+            <div id="dokuwiki__content"><div class="pad group">
+
+                <div class="pageId"><span>regex:start</span></div>
+
+                <div class="page group">
+                                                            <!-- wikipage start -->
+                    <!-- TOC START -->
+<div id="dw__toc">
+<h3 class="toggle">Содержание</h3>
+<div>
+
+<ul class="toc">
+<li class="level2"><div class="li"><a href="#samouchitel_po_reguljarnym_vyrazhenijam">Самоучитель по регулярным выражениям</a></div></li>
+<li class="level2"><div class="li"><a href="#vvedenie_v_reguljarnye_vyrazhenija">Введение в регулярные выражения</a></div>
+<ul class="toc">
+<li class="level3"><div class="li"><a href="#vvedenie">Введение</a></div></li>
+<li class="level3"><div class="li"><a href="#obschaja_informacija">Общая информация</a></div></li>
+<li class="level3"><div class="li"><a href="#sintaksis_reguljarnyx_vyrazhenij">Синтаксис регулярных выражений</a></div></li>
+<li class="level3"><div class="li"><a href="#metasimvoly_dlja_zadanija_simvolov_ne_imejuschix_izobrazhenija">Метасимволы для задания символов, не имеющих изображения</a></div></li>
+<li class="level3"><div class="li"><a href="#metasimvoly_dlja_zadanija_grupp_simvolov">Метасимволы для задания групп символов</a></div></li>
+<li class="level3"><div class="li"><a href="#drugie_metasimvoly">Другие метасимволы</a></div></li>
+<li class="level3"><div class="li"><a href="#modifikatory_reguljarnyx_vyrazhenij">Модификаторы регулярных выражений</a></div></li>
+</ul>
+</li>
+<li class="level1"><div class="li"><a href="#discussion__section">Обсуждение</a></div></li>
+</ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<p>
+<a href="/help:regexp" class="wikilink1" title="help:regexp">Назад: Регулярные выражения (справка)</a>
+</p>
+
+<h2 class="sectionedit1" id="samouchitel_po_reguljarnym_vyrazhenijam">Самоучитель по регулярным выражениям</h2>
+<div class="level2">
+
+<p>
+Здесь когда-нибудь будет самоучитель по регулярным выражениям, а пока копия текста из старой справки &quot;как есть&quot;.
+</p>
+
+</div>
+
+<h2 class="sectionedit2" id="vvedenie_v_reguljarnye_vyrazhenija">Введение в регулярные выражения</h2>
+<div class="level2">
+
+</div>
+
+<h3 class="sectionedit3" id="vvedenie">Введение</h3>
+<div class="level3">
+
+<p>
+QSP отличается наличием очень мощных и гибких механизмов для работы с двумя самыми часто используемыми типами данных: строками и массивами. Однако в QSP есть ещё один механизм обработки строк, который, ввиду своей сложности, был пропущен мною. Я говорю о механизме регулярных выражений (regular expressions). Настало время поговорить о них, потому что в дальнейшем нам, возможно, очень часто потребуется использовать их. Кроме того, использование регулярных выражений во многих ситуациях поможет вам заменить кучу кода всего одной строчкой. Единственная проблема, которая обычно возникает при работе с регулярными выражениями - их очень необычный, и, поначалу, совершенно непонятный синтаксис. Поэтому я постараюсь рассказать о синтаксисе регулярных выражений по возможности более просто и подробно.
+</p>
+
+</div>
+
+<h3 class="sectionedit4" id="obschaja_informacija">Общая информация</h3>
+<div class="level3">
+
+<p>
+Регулярное выражение (regular expression, regexp, регэксп) - механизм, позволяющий задать шаблон для строки и осуществить поиск данных, соответствующих этому шаблону в заданном тексте. 
+</p>
+
+<p>
+Кроме того, дополнительные функции по работе с regexp&#039;ами позволяют получить найденные данные в виде массива строк, произвести замену в тексте по шаблону, разбиение строки по шаблону и т.п. Однако главной их функцией, на которой основаны все остальные, является именно функция поиска в тексте данных, соответствующих шаблону, описанному в синтаксисе регулярных выражений.
+</p>
+
+<p>
+Очень часто регулярные выражения используются для того, чтобы проверить, является ли данная строка строкой в необходимом формате. Например, следующий regexp предназначен для проверки того, что строка содержит корректный e-mail адрес:
+</p>
+<div class="table sectionedit5"><table class="inline">
+	<tr class="row0">
+		<td class="col0"> ^\w+([\.\w]+)*\w@\w((\.\w)*\w+)*\.\w{2,3}$ </td>
+	</tr>
+</table></div>
+
+<p>
+Выглядит, на первый взгляд, довольно страшно <img src="/lib/images/smileys/icon_smile.gif" class="icon" alt=":-)" /> Но, тем не менее, это работает, и работает очень хорошо. А когда вы научитесь писать и использовать regexp&#039;ы в своем коде - это ещё будет и сильно облегчать вам жизнь.
+</p>
+
+<p>
+Регулярные выражения пришли к нам из Unix и Perl. Кстати, необходимо заметить, что полное описание синтаксиса регулярных выражений занимает более 50 килобайт, и, естественно, здесь мы не будем рассматривать весь синтаксис. Нам необходимы только основы, которые помогут вам понять, как именно пишутся регулярные выражения.
+</p>
+
+<p>
+Сутью механизма регулярных выражений является то, что они позволяют задать шаблон для <strong>нечеткого</strong> поиска по тексту. Например, если перед вами стоит задача найти в тексте определённое слово, то с этой задачей хорошо справляются и обычные функции работы со строками. Однако если вам нужно найти &quot;то, не знаю что&quot;, о чем вы можете сказать только то, как <strong>приблизительно</strong> это должно выглядеть - то здесь без регулярных выражений просто не обойтись. Например, вам необходимо найти в тексте информацию, про которую вам известно только то, что это &quot;3 или 4 цифры, после которых через пробел идёт 5 заглавных латинских букв&quot;, то вы сможете сделать это очень просто, воспользовавшись следующим регулярным выражением:
+</p>
+<div class="table sectionedit6"><table class="inline">
+	<tr class="row0">
+		<td class="col0"> \d{3,4}\s[A-Z]{5} </td>
+	</tr>
+</table></div>
+
+</div>
+
+<h3 class="sectionedit7" id="sintaksis_reguljarnyx_vyrazhenij">Синтаксис регулярных выражений</h3>
+<div class="level3">
+
+<p>
+Основой синтаксиса регулярных выражений является тот факт, что некоторые символы, встречающиеся в строке, рассматриваются не как обычные символы, а как имеющие специальное значение (т.н. <strong>метасимволы</strong>). Именно это решение позволяет работать всему механизму регулярных выражений. Каждый метасимвол имеет свою собственную роль в синтаксисе регулярных выражений. Далее мы рассмотрим все эти метасимволы.
+</p>
+
+<p>
+Одним из самых важных метасимволов является символ обратного слэша (&quot;\&quot;). Если в строке встречается этот символ, то парсер рассматривает символ, непосредственно следующий за ним, двояко:
+</p>
+
+<p>
+Если следующий символ в обычном режиме имеет какое-либо специальное значение, то он теряет это свое специальное значение и рассматривается как обычный символ. Это совершенно необходимо для того, чтобы иметь возможность вставлять в строку специальные символы, как обычные. Например, метасимвол &quot;.&quot; в обычном режиме означает &quot;любой единичный символ&quot;, а &quot;\.&quot; означает просто точку. Также можно лишить специального значения и сам этот символ: &quot;\\&quot;.
+</p>
+
+<p>
+Если следующий символ в обычном режиме не имеет никакого специального значения, то он может получить такое значение, будучи соединённым с символом &quot;\&quot;. К примеру символ &quot;d&quot; в обычном режиме воспринимается просто как буква, однако, будучи соединённой с обратным слэшем (&quot;\d&quot;) становится метасимволом, означающим &quot;любая цифра&quot;.
+</p>
+
+<p>
+Существует множество символов, которые образуют метасимволы в паре с обратным слэшем. Как правило, подобные пары используются для того, чтобы показать, что на этом месте в строке должен находиться символ с кодом, который не имеет соответствующего ему изображения или же символ, принадлежащий какой-то определённой группе символов.
+</p>
+
+</div>
+
+<h3 class="sectionedit8" id="metasimvoly_dlja_zadanija_simvolov_ne_imejuschix_izobrazhenija">Метасимволы для задания символов, не имеющих изображения</h3>
+<div class="level3">
+<div class="table sectionedit9"><table class="inline">
+	<tr class="row0">
+		<td class="col0"> <strong>\n</strong> </td><td class="col1"> Символ перевода строки </td>
+	</tr>
+	<tr class="row1">
+		<td class="col0"> <strong>\r</strong> </td><td class="col1"> Символ возврата каретки </td>
+	</tr>
+	<tr class="row2">
+		<td class="col0"> <strong>\t</strong> </td><td class="col1"> Символ табуляции </td>
+	</tr>
+</table></div>
+
+</div>
+
+<h3 class="sectionedit10" id="metasimvoly_dlja_zadanija_grupp_simvolov">Метасимволы для задания групп символов</h3>
+<div class="level3">
+<div class="table sectionedit11"><table class="inline">
+	<tr class="row0">
+		<td class="col0"> <strong>\d</strong> </td><td class="col1"> Цифра (0-9) </td>
+	</tr>
+	<tr class="row1">
+		<td class="col0"> <strong>\D</strong> </td><td class="col1"> Не цифра (любой символ кроме символов 0-9) </td>
+	</tr>
+	<tr class="row2">
+		<td class="col0"> <strong>\s</strong> </td><td class="col1"> Пустой символ (обычно пробел и символ табуляции) </td>
+	</tr>
+	<tr class="row3">
+		<td class="col0"> <strong>\S</strong> </td><td class="col1"> Непустой символ (всё, кроме символов, определяемых метасимволом <strong>\s</strong>) </td>
+	</tr>
+	<tr class="row4">
+		<td class="col0"> <strong>\w</strong> </td><td class="col1"> &quot;Словесный&quot; символ (символ, который используется в словах. Обычно все буквы, все цифры и символ подчёркивания (&quot;_&quot;)) </td>
+	</tr>
+	<tr class="row5">
+		<td class="col0"> <strong>\W</strong> </td><td class="col1"> Всё, кроме символов, определяемых метасимволом <strong>\w</strong> </td>
+	</tr>
+</table></div>
+
+<p>
+Приведу несколько простейших примеров для того, чтобы вы понимали, о чем идёт речь. Сразу оговорюсь, что примеры несколько громоздки и некрасивы, но лишь потому, что я не стал использовать в них метасимволы, о которых ещё не рассказал и которые сделали бы их намного проще.
+</p>
+<div class="table sectionedit12"><table class="inline">
+	<tr class="row0">
+		<td class="col0"> <strong>\d\d\d</strong> </td><td class="col1"> Любое трехзначное число (&quot;123&quot;, &quot;719&quot;, &quot;001&quot;) </td>
+	</tr>
+	<tr class="row1">
+		<td class="col0"> <strong>\w\s\d\d</strong> </td><td class="col1"> Буква, пробел (или табуляция) и двузначное число (&quot;A 01&quot;, &quot;z 45&quot;, &quot;S 18&quot;) </td>
+	</tr>
+	<tr class="row2">
+		<td class="col0"> <strong>\d and \d</strong> </td><td class="col1"> Любая из следующих строк: &quot;1 and 2&quot;, &quot;9 and 5&quot;, &quot;3 and 4&quot; </td>
+	</tr>
+</table></div>
+
+<p>
+Синтаксис регулярных выражений имеет средства для определения собственных подмножеств символов. Например, вам может понадобиться задать условие, что в этом месте строки должна находиться шестнадцатеричная цифра или ещё что-то подобное. Для описания таких подмножеств применяются <strong>символы квадратных скобок &quot;[&quot; и &quot;]&quot;</strong>. Квадратные скобки, встреченные внутри регулярного выражения считаются одним символом, который может принимать значения, перечисленные внутри этих скобок.
+</p>
+
+<p>
+Есть небольшая тонкость в том, как работают метасимволы внутри квадратных скобок. Дело в том, что в синтаксисе регулярных выражений существует ещё множество метасимволов, но практически все они работают только <strong>вне</strong> секций описаний подмножеств. Единственные метасимволы, которые работают внутри этих секций это:
+</p>
+<div class="table sectionedit13"><table class="inline">
+	<tr class="row0">
+		<td class="col0"> <strong>Обратный слэш (&quot;\&quot;)</strong> </td><td class="col1"> Т.е. все метасимволы из приведённой ранее таблицы будут работать. </td>
+	</tr>
+	<tr class="row1">
+		<td class="col0"> <strong>Минус (&quot;-&quot;)</strong> </td><td class="col1"> Используется для задания набора символов из одного промежутка (например, все цифры могут быть заданы как &quot;0-9&quot;). </td>
+	</tr>
+	<tr class="row2">
+		<td class="col0"> <strong>Символ &quot;^&quot;</strong> </td><td class="col1"> Если этот символ стоит первым в секции задания подмножества символов (и только в этом случае!) он будет рассматриваться как символ отрицания. Т.о. можно задать все символы, которые не описаны в данной секции. </td>
+	</tr>
+</table></div>
+
+<p>
+Несколько примеров, чтобы было понятно, как это работает:
+</p>
+<div class="table sectionedit14"><table class="inline">
+	<tr class="row0">
+		<td class="col0"> <strong>[0-9A-Fa-f]</strong> </td><td class="col1"> Цифра в шестнадцатеричной системе счисления </td>
+	</tr>
+	<tr class="row1">
+		<td class="col0"> <strong>[\dA-Fa-f]</strong> </td><td class="col1"> То же самое, но с использованием метасимвола </td>
+	</tr>
+	<tr class="row2">
+		<td class="col0"> <strong>[02468]</strong> </td><td class="col1"> Четная цифра </td>
+	</tr>
+	<tr class="row3">
+		<td class="col0"> <strong>[^\d]</strong> </td><td class="col1"> Всё, кроме цифр (аналог метасимвола <strong>\D</strong>) </td>
+	</tr>
+	<tr class="row4">
+		<td class="col0"> <strong>[a^b]</strong> </td><td class="col1"> Любой из символов &quot;a&quot;, &quot;b&quot;, &quot;^&quot;. Заметьте, что здесь символ &quot;^&quot; не имеет какого-либо специального значения, потому что стоит не на первой позиции внутри квадратных скобок </td>
+	</tr>
+</table></div>
+
+</div>
+
+<h3 class="sectionedit15" id="drugie_metasimvoly">Другие метасимволы</h3>
+<div class="level3">
+
+<p>
+Теперь необходимо рассмотреть ещё несколько метасимволов. Как уже было сказано ранее, все они работают только вне секций описаний подмножеств символов (вне квадратных скобок).
+</p>
+
+<p>
+<strong>Символы &quot;^&quot; и &quot;$&quot;</strong>. Они используются для того, чтобы указать парсеру регулярных выражений на положение искомого текста в строке. Символ &quot;<strong>^</strong>&quot; указывает, что искомый текст должен находиться в начале строки, символ &quot;<strong>$</strong>&quot; наоборот, указывает, что искомый текст должен находиться в конце строки. Посмотрим, как это работает на примере:
+</p>
+
+<p>
+Допустим, у нас есть текст:<br/>
+
+12 aaa bbb<br/>
+
+aaa 27 ccc<br/>
+
+aaa aaa 45<br/>
+
+</p>
+
+<p>
+И регулярное выражение для поиска чисел в этом тексте: &quot;(?m)\d\d&quot; (не обращайте пока внимание на &quot;(?m)&quot;). Поиск по этому регулярному выражению вернёт нам 3 значения: &quot;12&quot;, &quot;27&quot;, &quot;45&quot;. Теперь ограничим поиск, указав, где именно внутри строки должен располагаться текст: &quot;(?m)^\d\d&quot;. Здесь результат будет только один - &quot;12&quot;, потому что только это число располагается в начале строки. Аналогично, регулярное выражение &quot;(?m)\d\d$&quot; вернёт результат &quot;45&quot;.
+</p>
+
+<p>
+<strong>Символ точки (&quot;.&quot;)</strong>. Этот метасимвол указывает, что на данном месте в строке может находиться любой символ (за исключением символа перевода строки). Очень удобно использовать его, если вам нужно &quot;пропустить&quot; какую-нибудь букву в слове при проверке. Например, регулярное выражение &quot;.bc&quot; найдёт в тексте и &quot;abc&quot; и &quot;Abc&quot; и &quot;Zbc&quot; и &quot;5bc&quot;.
+</p>
+
+<p>
+<strong>Символ вертикальной черты (&quot;|&quot;)</strong>. Используется для задания списка альтернатив. Например, регулярное выражение &quot;(красное|зелёное) яблоко&quot; найдёт в тексте все словосочетания &quot;красное яблоко&quot; и &quot;зелёное яблоко&quot;. О значении круглых скобок в этом выражении см. далее.
+</p>
+
+<p>
+<strong>Символы круглых скобок (&quot;(&quot; и &quot;)&quot;)</strong>. Эти символы позволяют получить из искомой строки дополнительную информацию. Обычно, если парсер регулярных выражений ищет в тексте информацию по заданному выражению и находит её - он просто возвращает найденную строку. Однако, если он встречает внутри регулярного выражения круглые скобки, то он рассматривает содержимое этих скобок как ещё одно регулярное выражение, по которому необходимо произвести поиск. Парсер рекурсивно вызывает сам себя для поиска по новому регулярному выражению и использует результаты поиска для дальнейшей обработки основного регулярного выражения. При этом, если поиск хотя бы по одному из внутренних регулярных выражений не увенчался успехом - поиск по всему регулярному выражению считается безуспешным.
+</p>
+
+<p>
+Чтобы было понятнее, о чем я только что рассказал - рассмотрим в качестве примера то, как работает парсер регулярных выражений в случае приведённого выше регулярного выражения о яблоках: &quot;(красное|зелёное) яблоко&quot;.
+</p>
+<ul>
+<li class="level1"><div class="li"> Парсер начинает разбор регулярного выражения и встречает выражение в скобках: &quot;(красное|зелёное)&quot;.</div>
+</li>
+<li class="level1"><div class="li"> Парсер вызывает себя для поиска по найденному регулярному выражению.</div>
+</li>
+<li class="level1"><div class="li"> Получив результаты поиска, парсер подставляет по очереди каждый из полученных результатов на место выражения в скобках и смотрит, удовлетворяет ли найденный результат всем условиям основного регулярного выражения (в данном случае смотрит, есть ли после найденного слова слово &quot;яблоко&quot;).</div>
+</li>
+<li class="level1"><div class="li"> Если всё в порядке - результаты поиска по каждому из имеющихся регулярных выражений для этого случая возвращаются, если нет - парсер просто переходит к следующему найденному фрагменту. Результат поиска внутреннего регулярного выражения для этого фрагмента при этом теряется.</div>
+</li>
+</ul>
+
+<p>
+В качестве примера возьмем строку:
+</p>
+<div class="table sectionedit16"><table class="inline">
+	<tr class="row0">
+		<td class="col0"> яблоко красное и зелёное яблоко и ещё одно красное яблоко и ещё одно яблоко, зелёное </td>
+	</tr>
+</table></div>
+
+<p>
+Поиск по внутреннему регулярному выражению даст 4 результата (выделены жирным шрифтом):
+</p>
+<div class="table sectionedit17"><table class="inline">
+	<tr class="row0">
+		<td class="col0"> яблоко <strong>красное</strong> и <strong>зелёное</strong> яблоко и ещё одно <strong>красное</strong> яблоко и ещё одно яблоко, <strong>зелёное</strong> </td>
+	</tr>
+</table></div>
+
+<p>
+Однако поиск по всему регулярному выражению даст всего 2 результата, потому как в остальных случаях условия основного регулярного выражения не выполняются:
+</p>
+<div class="table sectionedit18"><table class="inline">
+	<tr class="row0">
+		<td class="col0"> яблоко красное и <strong>зелёное яблоко</strong> и ещё одно <strong>красное яблоко</strong> и ещё одно яблоко, зелёное </td>
+	</tr>
+</table></div>
+
+<p>
+Необходимо заметить, что для этих двух случаев будет возвращён не только результат поиска по основному регулярному выражению, но и результат поиска по внутреннему регулярному выражению для каждого из найденных фрагментов. В большинстве случаев это полезно (пример - чуть позднее), но иногда наоборот, лучше избавиться от лишних результатов. В этом случае необходимо добавить <strong>символы &quot;?:&quot;</strong> непосредственно после открывающейся круглой скобки: &quot;(?:красное|зелёное) яблоко&quot;.
+</p>
+
+<p>
+Теперь пример, когда получение результатов внутренних регулярных выражений может быть полезным. Допустим, нам необходимо проверить, является ли строка семизначным телефонным номером с указанием кода города, и получить из неё код города и номер телефона:
+</p>
+<div class="table sectionedit19"><table class="inline">
+	<tr class="row0">
+		<td class="col0"> \((\d{3,5})\)\s+(\d{3}-\d{2}-\d{2}) </td>
+	</tr>
+</table></div>
+
+<p>
+Некоторые из примененных здесь метасимволов вам ещё неизвестны и будут рассмотрены чуть позднее. Давайте рассмотрим этот regexp подробнее.
+</p>
+
+<p>
+Первая круглая скобка здесь теряет свое специальное значение и будет рассматриваться как обычный символ:
+</p>
+<div class="table sectionedit20"><table class="inline">
+	<tr class="row0">
+		<td class="col0"> <strong>\(</strong>(\d{3,5})\)\s+(\d{3}-\d{2}-\d{2}) </td>
+	</tr>
+</table></div>
+
+<p>
+Далее идёт регулярное выражение в скобках (проверка кода города):
+</p>
+<div class="table sectionedit21"><table class="inline">
+	<tr class="row0">
+		<td class="col0"> \(<strong>(\d{3,5})</strong>\)\s+(\d{3}-\d{2}-\d{2}) </td>
+	</tr>
+</table></div>
+
+<p>
+После этого идёт закрывающая круглая скобка, которая также лишена своего специального значения из-за символа обратного слэша, стоящего перед ней:
+</p>
+<div class="table sectionedit22"><table class="inline">
+	<tr class="row0">
+		<td class="col0"> \((\d{3,5})<strong>\)</strong>\s+(\d{3}-\d{2}-\d{2}) </td>
+	</tr>
+</table></div>
+
+<p>
+Затем идёт пропуск пустого места:
+</p>
+<div class="table sectionedit23"><table class="inline">
+	<tr class="row0">
+		<td class="col0"> \((\d{3,5})\)<strong>\s+</strong>(\d{3}-\d{2}-\d{2}) </td>
+	</tr>
+</table></div>
+
+<p>
+И ещё одно регулярное выражение в скобках, которое проверяет номер телефона:
+</p>
+<div class="table sectionedit24"><table class="inline">
+	<tr class="row0">
+		<td class="col0"> \((\d{3,5})\)\s+<strong>(\d{3}-\d{2}-\d{2})</strong> </td>
+	</tr>
+</table></div>
+
+<p>
+Как видите, здесь есть 3 регулярных выражения - основное и два внутренних. При этом основное выражение позволяет нам проверить, имеет ли строка необходимый нам формат, а два внутренних - получить соответственно код города и номер телефона. Т.е. одним регулярным выражением мы можем решить сразу несколько задач!
+</p>
+
+<p>
+Посмотрим, как работает это регулярное выражение. Пусть у нас есть строка: &quot;My phone is (095) 123-45-67&quot;. <br/>
+ Результатами поиска будут 3 строки:<br/>
+
+&quot;(095) 123-45-67&quot;<br/>
+
+&quot;095&quot;<br/>
+
+&quot;123-45-67&quot;
+</p>
+
+<p>
+Нам осталось рассмотреть ещё одну группу метасимволов, определяющих количественные показатели (т.н. <strong>квантификаторы</strong>). Как вы уже могли заметить ранее - очень часто бывает необходимо указать, что какой-то символ должен повторяться определённое количество раз. Конечно, можно просто указать его необходимое количество раз непосредственно в строке, но это, естественно не выход. Тем более, что очень часто встречаются ситуации, когда точное количество символов неизвестно. Поэтому синтаксис регулярных выражений содержит набор метасимволов, предназначенных именно для решения подобных задач. Каждый из описанных ниже метасимволов определяет количественную характеристику символа, который находится <strong>непосредственно</strong> перед ним.
+</p>
+
+<p>
+<strong>Звездочка (&quot;*&quot;)</strong>. Указывает, что символ должен быть повторен 0 или более раз (т.е. символ может отсутствовать или присутствовать в любых количествах). Пример: выражение &quot;ab*c&quot; найдёт строки &quot;ac&quot;, &quot;abc&quot;, &quot;abbc&quot; и т.д.
+</p>
+
+<p>
+<strong>Плюс (&quot;+&quot;)</strong>. Указывает, что символ должен быть повторен 1 или более раз (т.е. символ обязан присутствовать, и может присутствовать в любых количествах). Пример: выражение &quot;ab+c&quot; найдёт строки &quot;abc&quot;, &quot;abbc&quot;, &quot;abbbc&quot; и т.д., но не найдёт строку &quot;ac&quot;.
+</p>
+
+<p>
+<strong>Символ вопроса (&quot;?&quot;)</strong>. Указывает, что символ может как присутствовать, так и нет, но при этом не может повторяться более одного раза. Пример: выражение &quot;ab?c&quot; найдёт строки &quot;ac&quot; и &quot;abc&quot;, но не найдёт строку &quot;abbc&quot;.
+</p>
+
+<p>
+<strong>Фигурные скобки (&quot;{&quot; и &quot;}&quot;)</strong>. Определяют количественную характеристику символа. Внутри скобок через запятую перечисляются минимальное и максимальное количество повторений символа. При этом любой из параметров может быть опущен, а, кроме того, можно задать точное количество повторений, указав только одно число.
+</p>
+
+<p>
+Примеры:
+</p>
+<ul>
+<li class="level1"><div class="li"> {2,4} - символ должен повториться минимум 2 раза, но не более 4.</div>
+</li>
+<li class="level1"><div class="li"> {,5} - символ может отсутствовать (т.к. не задано минимальное количество повторений), но если присутствует, то не должен повторяться более 5 раз.</div>
+</li>
+<li class="level1"><div class="li"> {3,} - символ должен повторяться минимум 3 раза, но может быть и больше.</div>
+</li>
+<li class="level1"><div class="li"> {4} - символ должен повторяться ровно 4 раза.</div>
+</li>
+</ul>
+
+<p>
+Есть ещё одна тонкость в использовании метасимвола &quot;<strong>?</strong>&quot;. Посмотрите на такое выражение: &quot;.+a&quot;. Ожидается, что оно вернёт нам часть текста до первого вхождения символа &quot;a&quot; в этот текст. На самом деле оно будет работать несколько не так, как ожидается и результатом поиска будет весь текст до <strong>последнего</strong> вхождения символа &quot;a&quot;. Дело в том, что по умолчанию количественные метасимволы &quot;жадничают&quot; и пытаются захватить как можно больший кусок текста. Если это не нужно (как в нашем случае), то необходимо &quot;отучить&quot; их от жадности, указав символ &quot;?&quot; после количественного метасимвола: &quot;.+<strong>?</strong>a&quot;. После этого выражение будет работать так как надо.
+</p>
+
+</div>
+
+<h3 class="sectionedit25" id="modifikatory_reguljarnyx_vyrazhenij">Модификаторы регулярных выражений</h3>
+<div class="level3">
+
+<p>
+Механизм регулярных выражений позволяет добавлять модификаторы, влияющие на обработку регулярного выражения.
+</p>
+
+<p>
+Запись модификаторов производится посредством указания последовательности &quot;(?модификатор)&quot;. Для отмены действия модификатора используется запись &quot;(?-модификатор)&quot;.
+</p>
+<div class="table sectionedit26"><table class="inline">
+	<tr class="row0">
+		<td class="col0"> <strong>i</strong> </td><td class="col1"> Включение режима case-insensitive, т.е. большие и маленькие буквы в выражении не различаются. </td>
+	</tr>
+	<tr class="row1">
+		<td class="col0"> <strong>m</strong> </td><td class="col1"> Указывает на то, что текст, по которому ведётся поиск, должен рассматриваться как состоящий из нескольких строк. По умолчанию механизм регулярных выражений рассматривает текст как одну строку вне зависимости от того, чем она является на самом деле. Соответственно метасимволы &quot;<strong>^</strong>&quot; и &quot;<strong>$</strong>&quot; указывают на начало и конец всего текста. Если же этот модификатор указан, то они будут указывать соответственно на начало и конец каждой строки текста. </td>
+	</tr>
+	<tr class="row2">
+		<td class="col0"> <strong>s</strong> </td><td class="col1"> По-умолчанию, метасимвол &quot;.&quot; не включает в свое определение символ перевода строки. Т.е. для многострочного текста выражение &quot;.+&quot; вернёт только первую строку, а не весь текст, как ожидается. Указание этого модификатора снимает это ограничение. </td>
+	</tr>
+</table></div>
+
+<p>
+<a href="/help:regexp" class="wikilink1" title="help:regexp">Назад: Регулярные выражения (справка)</a>
+</p>
+
+</div>
+
+<script type='text/javascript'>
+  SyntaxHighlighter.autoloader(
+    'applescript /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushAppleScript.js',
+    'actionscript3 as3 /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushAS3.js',
+    'bash shell /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushBash.js',
+    'coldfusion cf /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushColdFusion.js',
+    'cpp c /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushCpp.js',
+    'c# c-sharp csharp /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushCSharp.js',
+    'css /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushCss.js',
+    'delphi pascal /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushDelphi.js',
+    'diff patch pas /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushDiff.js',
+    'erl erlang /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushErlang.js',
+    'groovy /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushGroovy.js',
+    'java /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushJava.js',
+    'jfx javafx /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushJavaFX.js',
+    'js jscript javascript /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushJScript.js',
+    'perl pl /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushPerl.js',
+    'php /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushPhp.js',
+    'text plain /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushPlain.js',
+    'ps powershell /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushPowerShell.js',
+    'py python /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushPython.js',
+    'ruby rails ror rb /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushRuby.js',
+    'sass scss /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushSass.js',
+    'scala /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushScala.js',
+    'sql /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushSql.js',
+    'vb vbnet /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushVb.js',
+    'xml xhtml xslt html /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushXml.js',
+    ' qsp /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushQsp.js'
+  );
+  SyntaxHighlighter.all();
+</script>
+
+                    <!-- wikipage stop -->
+                                    </div>
+
+                <div class="docInfo"><bdi>regex/start.txt</bdi> · Последние изменения: 2014/10/26 10:31 (внешнее изменение)</div>
+
+                            </div></div><!-- /content -->
+
+            <hr class="a11y" />
+
+            <!-- PAGE ACTIONS -->
+            <div id="dokuwiki__pagetools">
+                <h3 class="a11y">Инструменты страницы</h3>
+                <div class="tools">
+                    <ul>
+                        <li><a href="/regex:start?do=edit"  class="action source" accesskey="v" rel="nofollow" title="Показать исходный текст [V]"><span>Показать исходный текст</span></a></li><li><a href="/regex:start?do=revisions"  class="action revs" accesskey="o" rel="nofollow" title="История страницы [O]"><span>История страницы</span></a></li><li><a href="/regex:start?do=backlink"  class="action backlink" rel="nofollow" title="Ссылки сюда"><span>Ссылки сюда</span></a></li><li><a href="#dokuwiki__top"  class="action top" accesskey="t" rel="nofollow" title="Наверх [T]"><span>Наверх</span></a></li>                    </ul>
+                </div>
+            </div>
+        </div><!-- /wrapper -->
+
+        
+<!-- ********** FOOTER ********** -->
+<div id="dokuwiki__footer"><div class="pad">
+    
+    <div class="buttons">
+<a href="https://www.dokuwiki.org/ru:tips:good_style">Как писать хорошие вики-статьи</a>
+<a href="https://www.dokuwiki.org/ru:wiki:syntax">Вики-синтаксис</a>
+<a href="https://www.dokuwiki.org/ru:manual">Руководство пользователя</a>
+<a href="/playground:playground">Песочница (для любого тестирования)</a>
+<a href="/discussions">Обсуждения</a>
+<!--
+                <a href="https://www.dokuwiki.org/donate" title="Donate" ><img
+            src="/lib/tpl/qspdokuwiki/images/button-donate.gif" width="80" height="15" alt="Donate" /></a>
+        <a href="https://www.php.net" title="Powered by PHP" ><img
+            src="/lib/tpl/qspdokuwiki/images/button-php.gif" width="80" height="15" alt="Powered by PHP" /></a>
+        <a href="https://validator.w3.org/check/referer" title="Valid HTML5" ><img
+            src="/lib/tpl/qspdokuwiki/images/button-html5.png" width="80" height="15" alt="Valid HTML5" /></a>
+        <a href="https://jigsaw.w3.org/css-validator/check/referer?profile=css3" title="Valid CSS" ><img
+            src="/lib/tpl/qspdokuwiki/images/button-css.png" width="80" height="15" alt="Valid CSS" /></a>
+        <a href="https://dokuwiki.org/" title="Driven by DokuWiki" ><img
+            src="/lib/tpl/qspdokuwiki/images/button-dw.png" width="80" height="15" alt="Driven by DokuWiki" /></a>
+    </div>
+-->
+</div></div><!-- /footer -->
+
+    </div></div><!-- /site -->
+
+    <div class="no"><img src="/lib/exe/indexer.php?id=regex%3Astart&amp;1757411657" width="2" height="1" alt="" /></div>
+    <div id="screen__mode" class="no"></div>    <!--[if ( lte IE 7 | IE 8 ) ]></div><![endif]-->
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Quest Navigator [Документация QSP]</title>
+<link href="default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="page group">
+<!-- wikipage start -->
+<!-- TOC START -->
+
+<!-- TOC END -->
+<h1 class="sectionedit1" id="quest_navigator">Quest Navigator</h1>
+<div class="level1">
+<p>
+Плеер <strong>Quest Navigator</strong> создавался как следующий шаг развития платформы <strong>QSP</strong>, на смену устаревшим <strong>классическому плееру</strong> и <strong>AeroQSP</strong>. Однако уже много лет <strong>Quest Navigator</strong> не обновляется и не развивается.
+</p>
+<p>
+В настоящий момент мы не рекомендуем пользоваться этим плеером, так как существует более современный, развивающийся плеер <a class="wikilink1" href="help_qspider.htm" title="help:qspider">qSpider</a>.
+</p>
+</div>
+<h2 class="sectionedit2" id="principialnye_otlichija">Принципиальные отличия</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> Содержимое отрисовывается средствами браузера, благодаря этому есть полная поддержка <abbr title="HyperText Markup Language">HTML</abbr>, <abbr title="Cascading Style Sheets">CSS</abbr> и Javascript (к сожалению, <abbr title="HyperText Markup Language">HTML</abbr>-движок <strong>Quest Navigator</strong>а морально устарел и не соответствует современным стандартам).</div>
+</li>
+<li class="level1"><div class="li"> Оформление отделено от кода игры.</div>
+</li>
+<li class="level1"><div class="li"> Облегчено портирование плеера благодаря перемещению платформонезависимой части логики в общий Javascript-фреймворк.</div>
+</li>
+<li class="level1"><div class="li"> Поддержка мобильных платформ (Android, iOS).</div>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit3" id="dostupen_na_platformax">Доступен на платформах</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> Android</div>
+</li>
+<li class="level1"><div class="li"> iOS</div>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit4" id="buduschie_platformy">Будущие платформы</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> Windows Phone 8 (разработка не начата)</div>
+</li>
+<li class="level1"><div class="li"> Десктопные версии Windows (в разработке). Тема на форуме: <a class="urlextern" href="https://qsp.org/index.php?option=com_agora&amp;task=topic&amp;id=633" rel="nofollow" target="_blank" title="https://qsp.org/index.php?option=com_agora&amp;task=topic&amp;id=633">Quest Navigator для Windows</a></div>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit5" id="isxodnyj_kod">Исходный код</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> Универсальный плеер для Windows на движке Awesomium <a class="urlextern" href="https://github.com/Nex-Otaku/quest-navigator-awesomium" rel="nofollow" target="_blank" title="https://github.com/Nex-Otaku/quest-navigator-awesomium">GitHub</a></div>
+</li>
+<li class="level1"><div class="li"> Ветка библиотеки QSP, модифицированная для <strong>Quest Navigator</strong> <a class="urlextern" href="https://github.com/Nex-Otaku/qsplib-experimental" rel="nofollow" target="_blank" title="https://github.com/Nex-Otaku/qsplib-experimental">GitHub</a></div>
+</li>
+<li class="level1"><div class="li"> JS framework (ядро) <a class="urlextern" href="https://github.com/Nex-Otaku/quest-navigator-core" rel="nofollow" target="_blank" title="https://github.com/Nex-Otaku/quest-navigator-core">GitHub</a></div>
+</li>
+<li class="level1"><div class="li"> Библиотечный проект для standalone-приложений Android <a class="urlextern" href="https://github.com/Nex-Otaku/quest-navigator-library-android" rel="nofollow" target="_blank" title="https://github.com/Nex-Otaku/quest-navigator-library-android">GitHub</a></div>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit6" id="stati_po_teme">Статьи по теме</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_navigator_game_files.htm" title="help:navigator_game_files">Файлы игры на Quest Navigator</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_navigator_command_line.htm" title="help:navigator_command_line">Параметры запуска Quest Navigator</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_navigator_game_template.htm" title="help:navigator_game_template">Шаблон игры на Quest Navigator</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_sozdanie_igr_na_quest_navigator.htm" title="help:sozdanie_igr_na_quest_navigator">Создание игр для плеера Quest Navigator</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_ispolzovanie_shriftov_v_quest_navigator.htm" title="help:ispolzovanie_shriftov_v_quest_navigator">Использование шрифтов в Quest Navigator</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_fajl_nastroek_igry_v_quest_navigator.htm" title="help:fajl_nastroek_igry_v_quest_navigator">Файл настроек игры в Quest Navigator</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_navigator_standalone.htm" title="help:navigator_standalone">Независимая сборка игры для Quest Navigator</a></div>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit7" id="otvety_po_quest_navigator_v_faq">Ответы по Quest Navigator в F.A.Q.</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://aleksversus.github.io/howdo_faq/docs/informarch/navigator/layout_templates" rel="nofollow" target="_blank" title="https://aleksversus.github.io/howdo_faq/docs/informarch/navigator/layout_templates">Пишу несколько игр в Quest Navigator. Как сделать, чтобы у каждой игры было собственное оформление?</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://aleksversus.github.io/howdo_faq/docs/informarch/navigator/add_user_font" rel="nofollow" target="_blank" title="https://aleksversus.github.io/howdo_faq/docs/informarch/navigator/add_user_font">Как подключить свой шрифт к игре?</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://aleksversus.github.io/howdo_faq/docs/informarch/navigator/change_background_color" rel="nofollow" target="_blank" title="https://aleksversus.github.io/howdo_faq/docs/informarch/navigator/change_background_color">Пишу bcolor=rgb(255,200,200), но это не меняет цвет фона игры. Как изменить цвет фона из кода QSP?</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://aleksversus.github.io/howdo_faq/docs/informarch/navigator/change_cursor" rel="nofollow" target="_blank" title="https://aleksversus.github.io/howdo_faq/docs/informarch/navigator/change_cursor">Хочу прописать игре собственный вид курсора, как это сделать?</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://aleksversus.github.io/howdo_faq/docs/informarch/navigator/template_settings" rel="nofollow" target="_blank" title="https://aleksversus.github.io/howdo_faq/docs/informarch/navigator/template_settings">Скопировал шаблон оформления в папку со своей игрой, но что с ним теперь делать?</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://aleksversus.github.io/howdo_faq/docs/informarch/navigator/proverka_pleera" rel="nofollow" target="_blank" title="https://aleksversus.github.io/howdo_faq/docs/informarch/navigator/proverka_pleera">Как узнать, на каком плеере запущена игра: на классическом QSP, или на Quest Navigator?</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://aleksversus.github.io/howdo_faq/docs/informarch/navigator/video" rel="nofollow" target="_blank" title="https://aleksversus.github.io/howdo_faq/docs/informarch/navigator/video">Как вставить видео в игру на Навигаторе?</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://aleksversus.github.io/howdo_faq/docs/informarch/navigator/standalone" rel="nofollow" target="_blank" title="https://aleksversus.github.io/howdo_faq/docs/informarch/navigator/standalone">Как делать standalone-сборку на Навигаторе?</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://aleksversus.github.io/howdo_faq/docs/informarch/navigator/windows_size" rel="nofollow" target="_blank" title="https://aleksversus.github.io/howdo_faq/docs/informarch/navigator/windows_size">Где в Quest Navigator править размер окна с игрой?</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://aleksversus.github.io/howdo_faq/docs/informarch/navigator/exec_js" rel="nofollow" target="_blank" title="https://aleksversus.github.io/howdo_faq/docs/informarch/navigator/exec_js">Как выполнить JavaScript прямо из кода QSP?</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://aleksversus.github.io/howdo_faq/docs/informarch/navigator/change_interface" rel="nofollow" target="_blank" title="https://aleksversus.github.io/howdo_faq/docs/informarch/navigator/change_interface">Инструкция от Nex'а, позволяющая сменить оформление из кода игры</a></div>
+</li>
+</ul>
+</div>
+
+<!-- wikipage stop -->
+</div></body>
+</html>

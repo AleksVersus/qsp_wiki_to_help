@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Взаимодействие с интерфейсом (расширенные возможности qSpider) [Документация QSP]</title>
+<link href="default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="page group">
+<!-- wikipage start -->
+<!-- TOC START -->
+
+<!-- TOC END -->
+<h1 class="sectionedit1" id="vzaimodejstvie_s_interfejsom_rasshirennye_vozmozhnosti_qspider">Взаимодействие с интерфейсом (расширенные возможности qSpider)</h1>
+<div class="level1">
+<p>
+<strong>qSpider</strong> в отличие от классического плеера позволяет авторам более широко работать с выводимой на экран <abbr title="HyperText Markup Language">HTML</abbr>-разметкой.
+</p>
+<p>
+Управление интерфейсом и <abbr title="HyperText Markup Language">HTML</abbr>-разметкой из кода игры осуществляется с помощью <a class="wikilink1" href="help_qspider_inclib.htm" title="help:qspider_inclib">встроенной в плеер библиотеки</a> "<code>qspider</code>". Чтобы воспользоваться этой библиотекой, необходимо подключить её в начале игры, как обычный модуль QSP:
+</p>
+<p>
+</p><pre class="brush: qsp">
+inclib 'qspider'
+</pre>
+<p>
+В <strong>qSpider</strong> вы можете:
+</p>
+<ul>
+<li class="level1"><div class="li"> Создавать собственные <a class="wikilink1" href="help_qspider_themes.htm" title="help:qspider_themes">темы оформления</a> и управлять ими.</div>
+</li>
+<li class="level1"><div class="li"> Взаимодействовать с <abbr title="HyperText Markup Language">HTML</abbr> через <a class="wikilink1" href="help_qspider_spectags.htm" title="help:qspider_spectags">специальные теги</a>.</div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="#privjazka_ehlementov_html-form_k_qsp-peremennym" title="help:qspider_interface ↵">Связывать элементы форм HTML</a> со значениями переменных QSP.</div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="#vyzov_qsp-koda_po_sobytiju_v_pleere" title="help:qspider_interface ↵">Вызывать код QSP по событию</a> в браузере (плеере).</div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="#vyzov_komand_pleera" title="help:qspider_interface ↵">Вызывать встроенную команду плеера</a> при клике по <abbr title="HyperText Markup Language">HTML</abbr>-элементу.</div>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit2" id="privjazka_ehlementov_html-form_k_qsp-peremennym">Привязка элементов HTML-форм к QSP-переменными</h2>
+<div class="level2">
+<p>
+В <strong>qSpider</strong> Элементы <abbr title="HyperText Markup Language">HTML</abbr>-форм (<code>input</code>, <code>select</code>, <code>textarea</code> и др.) можно связать с QSP-переменной. Для этого нужно использовать специальный атрибут <code>qsp-bind</code>.
+</p>
+<p>
+Связь двунаправленая — изменение переменной обновит элемент и изменение элемента (ввод текста или выбор опции) записываются в переменную.
+</p>
+<p>
+Примеры использования атрибута <code>qsp-bind</code>:
+</p>
+<p>
+</p><pre class="brush: html">
+&lt;input type="text" qsp-bind="$username"&gt;
+&lt;input type="password" qsp-bind="$form_password"&gt;
+&lt;input type="color" value="#e66465" qsp-bind="$color"&gt;
+&lt;input type="checkbox" value="1" qsp-bind="enable"&gt;
+&lt;select qsp-bind="$car"&gt;
+    &lt;option value="mercedes"&gt;Mercedes&lt;/option&gt;
+    &lt;option value="audi"&gt;Audi&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+<p>
+Это позволяет быстрее и проще создавать собственные диалоговые окна для взаимодействия с игроком.
+</p>
+</div>
+<h2 class="sectionedit3" id="vyzov_qsp-koda_po_sobytiju_v_pleere">Вызов QSP-кода по событию в плеере</h2>
+<div class="level2">
+<p>
+Вы можете вызывать код QSP при определённых событиях в плеере с помощью новых атрибутов, начинающихся с префикса <code>qsp-on:</code>.
+</p>
+<p>
+Поддерживаются следующие атрибуты:
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>qsp-on:click</code> — одинарный клик</div>
+</li>
+<li class="level1"><div class="li"> <code>qsp-on:dblclick</code> — двойной клик</div>
+</li>
+<li class="level1"><div class="li"> <code>qsp-on:contextmenu</code> — клик правой кнопкой</div>
+</li>
+<li class="level1"><div class="li"> <code>qsp-on:mouseenter</code> — наведение курсора</div>
+</li>
+<li class="level1"><div class="li"> <code>qsp-on:mouseleave</code> — выход курсора за пределы элемента</div>
+</li>
+</ul>
+<p>
+Содержимым атрибутов должен быть валидный код QSP. Примеры использования атрибутов:
+</p>
+<p>
+</p><pre class="brush: html">
+&lt;div qsp-on:click="exec: msg 'click'" qsp-on:dblclick="exec: msg 'dblclick'"&gt;Click me&lt;/div&gt;
+&lt;div qsp-on:contextmenu="exec: menu '$context_menu'"&gt;Right Click me&lt;/div&gt;
+&lt;div qsp-on:mouseenter="exec: pl 'enter'" qsp-on:mouseleave="exec: pl 'leave'"&gt;Hover me&lt;/div&gt;
+</pre>
+</div>
+<h2 class="sectionedit4" id="vyzov_komand_pleera">Вызов команд плеера</h2>
+<div class="level2">
+<p>
+Вы можете вызывать множество команд плеера по клику на <abbr title="HyperText Markup Language">HTML</abbr>-элемент, используя специальный атрибут <code>qsp-command</code>.
+</p>
+<p>
+Пример использования атрибута:
+</p>
+<p>
+</p><pre class="brush: html">
+&lt;button qsp-command="resume"&gt;Resume&lt;/button&gt;
+</pre>
+<p>
+Поддерживаются следующие команды плеера:
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>quit</code> — выход из игры на полку игр</div>
+</li>
+<li class="level1"><div class="li"> <code>restart</code> — перезапуск игры</div>
+</li>
+<li class="level1"><div class="li"> <code>resume</code> — продолжить игру (закрытие меню паузы)</div>
+</li>
+<li class="level1"><div class="li"> <code>mute</code> — выключить звук</div>
+</li>
+<li class="level1"><div class="li"> <code>unmute</code> — включить звук</div>
+</li>
+<li class="level1"><div class="li"> <code>quicksave</code> — быстрое сохранение</div>
+</li>
+<li class="level1"><div class="li"> <code>quickload</code> — быстрая загрузка</div>
+</li>
+<li class="level1"><div class="li"> <code>pause:saves</code> — открыть меню сохранения</div>
+</li>
+<li class="level1"><div class="li"> <code>pause:preferences</code> — открыть настройки</div>
+</li>
+<li class="level1"><div class="li"> <code>scroll:main:bottom</code> и <code>scroll:main:top</code> — прокрутка окна основного описания</div>
+</li>
+<li class="level1"><div class="li"> <code>scroll:stats:bottom</code> и <code>scroll:stats:top</code> — прокуртка окна доп описания</div>
+</li>
+</ul>
+<p>
+Эти команды можно вызывать и непосредственно из кода QSP, если подключить <a class="wikilink1" href="help_qspider_inclib.htm" title="help:qspider_inclib">встроенную библиотеку</a> <code>qspider</code>.
+</p>
+<p>
+Пример вызова команд из кода QSP:
+</p>
+<p>
+</p><pre class="brush: qsp">
+inclib 'qspider'
+@qspider_quit()
+@qspider_open_pause_screen('saves')
+</pre>
+</div>
+<h2 class="sectionedit5" id="drugie_stati_po_qspider">Другие статьи по qSpider</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider.htm" title="help:qspider">qSpider — общая информация</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_gamecfg.htm" title="help:qspider_gamecfg">Конфигурационный файл</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_aeroqsp.htm" title="help:qspider_aeroqsp">Особенности запуска и работы игр AeroQSP на qSpider</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_themes.htm" title="help:qspider_themes">Темы оформления</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_spectags.htm" title="help:qspider_spectags">Специальные теги</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_inclib.htm" title="help:qspider_inclib">Встроенная библиотека</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink2" href="help_qspider_standalone.htm" rel="nofollow" title="help:qspider_standalone">Стандалон-сборка игры на qSpider</a></div>
+</li>
+</ul>
+</div>
+
+<!-- wikipage stop -->
+</div></body>
+</html>

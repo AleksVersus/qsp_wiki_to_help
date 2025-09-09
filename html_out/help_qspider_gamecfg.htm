@@ -1,0 +1,394 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Конфигурационный файл [Документация QSP]</title>
+<link href="default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="page group">
+<!-- wikipage start -->
+<!-- TOC START -->
+
+<!-- TOC END -->
+<p>
+<a class="wikilink1" href="help_qspider.htm" title="help:qspider">Назад: qSpider - основная информация</a>
+</p>
+<h1 class="sectionedit1" id="konfiguracionnyj_fajl">Конфигурационный файл</h1>
+<div class="level1">
+<p>
+Конфигурационный файл "<code>game.cfg</code>" определяет поведение плеера во время запуска той или иной игры.
+</p>
+<p>
+Данный файл нужно размещать рядом с файлом "<code>.qsp</code>" запускаемой игры.
+</p>
+<ul>
+<li class="level1"><div class="li"> Если игра упакована в архив "<code>.zip</code>" или "<code>.aqsp</code>", конфигурационный файл должен быть упакован в тот же самый архив рядом с файлом "<code>.qsp</code>" самого верхнего уровня.</div>
+</li>
+</ul>
+<p>
+Для web-версии плеера можно написать один конфигурационный файл для всех игр и разместить его в папке "<code>game</code>", при этом конфигурационные файлы, которые находятся рядом с файлами игр, будут иметь приоритет над общим.
+</p>
+<p>
+<strong>Внимание!</strong> Запускаться в web-версии плеера будет только первая игра, описанная в конфигурационном файле. Поэтому если вы хотите дать игрокам возможность запускать несколько игр, размещённых у вас на сайте, первую запускаемую игру сделайте в виде каталога или launcher'а. В качестве примера смотрите <a class="urlextern" href="https://aleksversus.github.io/QSP-storage/" rel="nofollow" target="_blank" title="https://aleksversus.github.io/QSP-storage/">Хранилище QSP-игр</a>.
+</p>
+</div>
+<h2 class="sectionedit2" id="struktura_konfiguracionnogo_fajla">Структура конфигурационного файла</h2>
+<div class="level2">
+<p>
+Конфигурационный файл (конфиг, конфиг-файл) состоит из секций, каждая из которых описывает одну игру. Таким образом в конфиге должна быть хотя бы одна секция, описывающая игру.
+</p>
+<ul>
+<li class="level1"><div class="li"> Для десктопной версии плеера в конфиге указывается только одна секция игры.</div>
+</li>
+<li class="level1"><div class="li"> Для стандалон-сборки имеет смысл указывать только одну секцию игры.</div>
+</li>
+<li class="level1"><div class="li"> Несколько игр в конфиге нужно указывать, если игры распространяются пакетом (в виде сборника).</div>
+</li>
+</ul>
+</div>
+<h3 class="sectionedit3" id="opisanie_igry">Описание игры</h3>
+<div class="level3">
+<p>
+Секция, описывающая игру, начинается с заголовка <code>[[game]]</code> и заканчивается там, где начинается следующая секция, описывающая игру, либо заканчивается с концом файла.
+</p>
+<p>
+Заголовок секции пишется отдельной строкой.
+</p>
+<p>
+Структура конфиг-файла для трёх игр может выглядеть примерно так:
+</p>
+<p>
+</p><pre class="brush: text">
+[[game]]
+id = "7466df3b-4236-4668-b0df-2a70477da67b"
+title = "Сказочка на ночь"
+description = """описание первой игры"""
+file = "skazka/skazka.qsp"
+
+[[game]]
+id = "30c8aebe-1690-4e6d-8b42-47c4be381748"
+title = "Куртуазная Баллада"
+description = """описание второй игры"""
+file = "ballad/ballad.zip"
+
+[[game]]
+id = "c2cb4b5b-6a1c-482e-bb47-9ef207fb0dcd"
+mode = "aero"
+title = "Город туманов"
+description = """описание третьей игры"""
+file = "cityofmists.aqsp"
+</pre>
+<p>
+Как видно из приведённого примера, следом за заголовком секции идёт ряд параметров. Сначала записывается название параметра (ключ), затем ставится знак равенства, а после в кавычках (или без них, если это число) указывается значение параметра. Если значение пишется в несколько строк, оно помещается в тройные кавычки.
+</p>
+<p>
+Для описания игры используются следующие параметры, ключи:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>id</strong> — уникальный идентификатор игры (используется для сохранений, поэтому технически можно использовать любой набор символов, однако лучше сгенерировать собственный уникальный айди по образцу из примера, воспользовавшись онлайн-генератором <a class="urlextern" href="https://www.uuidgenerator.net" rel="nofollow" target="_blank" title="https://www.uuidgenerator.net">https://www.uuidgenerator.net</a>);</div>
+</li>
+<li class="level1"><div class="li"> <strong>title</strong> — название игры (будет показано в заголовке плеера и на вкладке браузера);</div>
+</li>
+<li class="level1"><div class="li"> <strong>description</strong> — необязательное краткое описание игры, аннотация;</div>
+</li>
+<li class="level1"><div class="li"> <strong>file</strong> — путь к файлу с игрой относительно файла "game.cfg", или внешняя ссылка (например <code>file = "https://qspfoundation.github.io/qspider/game/skazka/skazka.qsp"</code>, для браузерной версии;</div>
+</li>
+<li class="level1"><div class="li"> <strong>mode</strong> — если ваша игра написана для AeroQSP, данному параметру назначается значение "aero".</div>
+</li>
+<li class="level1"><div class="li"> <strong>themes</strong> — в этом параметре перечисляются кастомные темы оформления. См. <a class="wikilink1" href="help_qspider_interface.htm" title="help:qspider_interface">Взаимодействие с интерфейсом</a>.</div>
+</li>
+<li class="level1"><div class="li"> <strong>defaultTheme</strong> — в этом параметре указывается тема, используемая по умолчанию. См. <a class="wikilink1" href="help_qspider_interface.htm" title="help:qspider_interface">Взаимодействие с интерфейсом</a>.</div>
+</li>
+<li class="level1"><div class="li"> <strong>save_slots</strong> — в этом параметре указывается доступное игроку для сохранений число слотов</div>
+</li>
+</ul>
+<p>
+Для десктопной версии плеера все параметры, кроме "id", не обязательны. Тем не менее рекомендуется их проставлять для удобства чтения конфигурационного файла. Для игр, написанных для AeroQSP, параметр "mode" обязателен.
+</p>
+<p>
+Далее каждая секция игры может содержать подсекции, расширяющие возможности управления плеером и игрой.
+</p>
+</div>
+<h3 class="sectionedit4" id="naznachenie_gorjachix_klavish_gamehotkeys">Назначение горячих клавиш [game.hotkeys]</h3>
+<div class="level3">
+<p>
+Для каждой игры можно назначить собственные комбинации горячих клавиш. Для этого в секции игры прописываем подсекцию с заголовком <code>[game.hotkeys]</code>. После заголовка перечисляем клавиши или их сочетания в качестве ключей, а в качестве значений прописываем названия локаций, код которых будет выполнен при нажатии на горячие клавиши. Пример:
+</p>
+<p>
+</p><pre class="brush: text">
+[game.hotkeys]
+i = "Инвентарь"
+"ctrl+shift+m" = "карта"
+"up up down down left right left right b a" = "konami"
+</pre>
+<p>
+Для одиночного нажатия клавиш в качестве ключа указывается её обозначение:
+</p>
+<p>
+</p><pre class="brush: text">
+i="Инвентарь"
+</pre>
+<p>
+Для того, чтобы указать одновременное нажатие нескольких клавиш, их обозначения перечисляются через "+" (плюс):
+</p>
+<p>
+</p><pre class="brush: text">
+"ctrl+shift+m" = "карта"
+</pre>
+<p>
+Для того, чтобы задействовать последовательное нажатие клавиш, их обозначения перечисляются через пробел:
+</p>
+<p>
+</p><pre class="brush: text">
+"up up down down left right left right b a" = "konami"
+</pre>
+<p>
+Можно использовать следующие обозначения:
+</p>
+</div>
+<h4 id="klavishi-modifikatory">Клавиши-модификаторы</h4>
+<div class="level4">
+<ul>
+<li class="level1"><div class="li"> <strong>shift</strong></div>
+</li>
+<li class="level1"><div class="li"> <strong>ctrl</strong></div>
+</li>
+<li class="level1"><div class="li"> <strong>alt</strong></div>
+</li>
+<li class="level1"><div class="li"> <strong>meta</strong> — для поддержки на macOs лучше использовать этот модификатор вместо ctrl</div>
+</li>
+</ul>
+</div>
+<h4 id="specialnye_klavishi">Специальные клавиши</h4>
+<div class="level4">
+<ul>
+<li class="level1"><div class="li"> <strong>backspace</strong></div>
+</li>
+<li class="level1"><div class="li"> <strong>tab</strong></div>
+</li>
+<li class="level1"><div class="li"> <strong>enter</strong></div>
+</li>
+<li class="level1"><div class="li"> <strong>capslock</strong></div>
+</li>
+<li class="level1"><div class="li"> <strong>esc</strong></div>
+</li>
+<li class="level1"><div class="li"> <strong>space</strong></div>
+</li>
+<li class="level1"><div class="li"> <strong>pageup</strong></div>
+</li>
+<li class="level1"><div class="li"> <strong>pagedown</strong></div>
+</li>
+<li class="level1"><div class="li"> <strong>end</strong></div>
+</li>
+<li class="level1"><div class="li"> <strong>home</strong></div>
+</li>
+<li class="level1"><div class="li"> <strong>left</strong></div>
+</li>
+<li class="level1"><div class="li"> <strong>up</strong></div>
+</li>
+<li class="level1"><div class="li"> <strong>right</strong></div>
+</li>
+<li class="level1"><div class="li"> <strong>down</strong></div>
+</li>
+<li class="level1"><div class="li"> <strong>ins</strong></div>
+</li>
+<li class="level1"><div class="li"> <strong>del</strong></div>
+</li>
+<li class="level1"><div class="li"> <strong>plus</strong></div>
+</li>
+<li class="level1"><div class="li"> <strong>f1</strong> - <strong>f19</strong></div>
+</li>
+</ul>
+<p>
+Остальные клавиши можно определять просто по символу <code>a</code>, <code>$</code>, <code>*</code>, или <code>=</code>.
+</p>
+</div>
+<h3 class="sectionedit5" id="podkljuchenie_dopolnitelnyx_resursov_gameresources">Подключение дополнительных ресурсов [game.resources]</h3>
+<div class="level3">
+<p>
+Есть возможность подключить к каждой отдельной игре дополнительные ресурсы. Например, собственные css-файлы, скрипты, шрифты и т.д. Для этого в секции игры нужно создать подсекцию с заголовком <code>[game.resources]</code>. Пример:
+</p>
+<p>
+</p><pre class="brush: text">
+[game.resources]
+styles = [
+  "https://fonts.googleapis.com/css?family=Sofia",
+  "styles.css"
+]
+scripts = [
+  "script.js"
+]
+fonts = [
+  ["Shelter", "fonts/shelter.woff2"]
+]
+icon = "icon.png"
+</pre>
+</div>
+<h4 id="css">CSS</h4>
+<div class="level4">
+<p>
+Для подключения css-файлов используем ключ "<code>styles</code>", значением которого выступает список ссылок на необходимые нам файлы css. Это могут быть как внешние ссылки, так и пути относительно файла "<code>game.cfg</code>".
+</p>
+<p>
+Список обязательно помещается в квадратные скобки! Его элементы разделяются запятыми. Отступы между элементами и скобками ни на что не влияют. За последним значением списка нельзя ставить запятую. Пример:
+</p>
+<p>
+</p><pre class="brush: text">
+styles = ["skins/game.css","lewis.css"]
+</pre>
+<p>
+К основным элементам интерфейса добавлен атрибут <code>data-qsp</code> (например, <code>data-qsp="main"</code>, <code>data-qsp="actions"</code> и т.д.), который позволит вам стилизовать данные элементы, или взаимодействовать с ними через скрипты.
+</p>
+</div>
+<h4 id="javascript">JavaScript</h4>
+<div class="level4">
+<p>
+Для подключения JavaScript используется ключ "<code>scripts</code>". Его значением так же выступает список ссылок на нужные скрипты. Поскольку нет возможности автоматически удалить JS код из памяти (при переключении на другую игру, например) — это надо делать вручную. Подробнее об этом можно почитать в <a class="urlextern" href="https://ifhub.club/2021/05/23/qspider-0100.html" rel="nofollow" target="_blank" title="https://ifhub.club/2021/05/23/qspider-0100.html">статье Werewolf-а, посвящённой выходу qSpider 0.10.0</a>.
+</p>
+<p>
+<strong>Пример подключения скриптов:</strong>
+</p>
+<p>
+</p><pre class="brush: text">
+scripts=["skins/js/game.js","skins/js/QspLibBrowserTest.js"]
+</pre>
+</div>
+<h4 id="fonts">fonts</h4>
+<div class="level4">
+<p>
+Ключ "<code>fonts</code>" предназначен для подключения шрифтов к игре. Его значением является список, элементами которого являются другие списки — каждый такой отвечает за подключение одного шрифта. Пример подключения:
+</p>
+<p>
+</p><pre class="brush: text">
+fonts=[
+  ["GoodVibesPro","skins/fonts/good-vibes-pro.woff2"],
+  ["AstronBold","skins/fonts/astron-bold.woff2"]
+]
+</pre>
+<p>
+Как видите, в данном примере подключаются два шрифта. Здесь "<code>GoodVibesPro</code>" и "<code>AstronBold</code>" — это имена шрифтов, которые вы можете использовать при стилизации текста в вашей игре. Вы можете сами назначать эти имена. Вторым элементом для каждого из шрифтов указывается путь к конкретному файлу шрифта. Рекомендуемый формат — <code>woff2</code>, он поддерживается всеми современными браузерами. В сети полно онлайн конверторов из <code>ttf</code> в <code>woff2</code>.
+</p>
+<p>
+Если у шрифта есть <strong>Bold</strong>, <em>Italic</em> и <strong><em>BoldItalic</em></strong> варианты в отдельных файлах, то подключение может выглядеть так:
+</p>
+<p>
+</p><pre class="brush: text">
+fonts = [
+  ["Shelter", "fonts/shelter.woff2"],
+  ["Shelter", "fonts/shelter-bold.woff2", "bold"],
+  ["Shelter", "fonts/shelter-italic.woff2", "normal", "italic"],
+  ["Shelter", "fonts/shelter-bold-italic.woff2", "bold", "italic"]
+]
+</pre>
+</div>
+<h4 id="favicon">FavIcon</h4>
+<div class="level4">
+<p>
+Параметр "<code>icon</code>" дает возможность заменить иконку во вкладке браузера, так называемый "favicon". По умолчанию там находится логотип QSP. Пример использования:
+</p>
+<p>
+</p><pre class="brush: text">
+icon="skins/gfx/doctor.png"
+</pre>
+</div>
+<h3 class="sectionedit6" id="podderzhka_igr_aeroqsp_gameaero">Поддержка игр AeroQSP [game.aero]</h3>
+<div class="level3">
+<p>
+Для того, чтобы запускать AeroQSP-игру, нужно в секции игры выставить параметр "<code>mode</code>":
+</p>
+<p>
+</p><pre class="brush: text">
+mode="aero"
+</pre>
+<p>
+Так же, если используется размер игры, отличающийся от дефолтного 800х600, необходимо добавить секцию <code>[game.aero]</code> с размерами:
+</p>
+<p>
+</p><pre class="brush: text">
+[game.aero]
+width = 504
+height = 680
+</pre>
+<p>
+Смотрите так же раздел <a class="wikilink1" href="help_qspider_aeroqsp.htm" title="help:qspider_aeroqsp">"Особенности работы игр AeroQSP на qSpider"</a>
+</p>
+</div>
+<h3 class="sectionedit7" id="nastrojka_okna_desktop-pleera_gamewindow">Настройка окна desktop-плеера [game.window]</h3>
+<div class="level3">
+<p>
+Вы можете настраивать окно плеера в десктопной версии. Для этого в основной секции игры нужно объявить подсекцию с заголовком <code>[game.window]</code>, и проставить необходимые параметры:
+</p>
+<p>
+</p><pre class="brush: text">
+[game.window]
+width = 1280
+height = 960
+resizable = true
+minWidth = 1024
+minHeight = 768
+</pre>
+<ul>
+<li class="level1"><div class="li"> <strong>width</strong> и <strong>height</strong> задают размер окна при старте игры;</div>
+</li>
+<li class="level1"><div class="li"> <strong>minWidth</strong> и <strong>minHeight</strong> дают возможность задать минимально возможные размеры, если игрок попытается изменить размеры окна;</div>
+</li>
+<li class="level1"><div class="li"> <strong>resizable</strong> — позволяет запретить изменения размера в принципе (автоматически включается в aero-режиме).</div>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit8" id="primer_fajla_gamecfg_dlja_otdelnoj_igry">Пример файла "game.cfg" для отдельной игры</h2>
+<div class="level2">
+<p>
+</p><pre class="brush: text">
+[[game]]
+id = "50458ae2-c07d-ca43-4a81-7bf480eedcf6"
+title = "Вереница миров, или Выводы из закона Мёрфи"
+description = """В Лаборатории Мерфи опять неприятности. Похищен опытный образец бета-аннигилятора, и похититель скрылся в Веренице Миров - сложной системе межпространственных порталов. Кому предстоит расхлёбывать это дельце? Ну конечно же вам, майор!"""
+file = "merphy_law.qn.qsp"
+
+[game.hotkeys]
+b = "back.varriors"
+"ctrl+shift+m"="карта"
+"up up down down left right left right" = "konami"
+
+[game.resources]
+styles = ["skins/qspidergame.css"]
+fonts=[
+  ["GoodVibesPro","skins/fonts/good-vibes-pro.woff2"],
+  ["AstronBold","skins/fonts/astron-bold.woff2"]
+]
+icon="skins/gfx/doctor.png"
+
+[game.window]
+width = 1280
+height = 720
+resizable = true
+minWidth = 848
+minHeight = 480
+</pre>
+</div>
+<h2 class="sectionedit9" id="drugie_stati_po_qspider">Другие статьи по qSpider</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider.htm" title="help:qspider">qSpider — общая информация</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_aeroqsp.htm" title="help:qspider_aeroqsp">Особенности запуска и работы игр AeroQSP на qSpider</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_interface.htm" title="help:qspider_interface">Взаимодействие с интерфейсом</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_themes.htm" title="help:qspider_themes">Темы оформления</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_spectags.htm" title="help:qspider_spectags">Специальные теги</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_inclib.htm" title="help:qspider_inclib">Встроенная библиотека</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink2" href="help_qspider_standalone.htm" rel="nofollow" title="help:qspider_standalone">Стандалон-сборка игры на qSpider</a></div>
+</li>
+</ul>
+</div>
+
+<!-- wikipage stop -->
+</div></body>
+</html>

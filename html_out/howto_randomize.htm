@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Третий параметр RAND [Документация QSP]</title>
+<link href="default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="page group">
+<!-- wikipage start -->
+<h1 class="sectionedit1" id="tretij_parametr_rand">Третий параметр RAND</h1>
+<div class="level1">
+<p>
+Эта статья ещё не написана, но я уже работаю над этим.
+</p>
+<p>
+Пока что можете почитать статьи в интернете:
+</p>
+<p>
+<a class="urlextern" href="https://ru.wikipedia.org/wiki/Мода_(статистика)" rel="nofollow" target="_blank" title="https://ru.wikipedia.org/wiki/Мода_(статистика)">Мода</a>
+</p>
+<p>
+<a class="urlextern" href="https://ru.wikipedia.org/wiki/Нормальное_распределение" rel="nofollow" target="_blank" title="https://ru.wikipedia.org/wiki/Нормальное_распределение">Нормальное распределение</a>
+</p>
+<p>
+код для тестов распределения:
+</p>
+<p>
+</p><pre class="brush: qsp">
+local left, right, med = arrpack('args')
+
+killvar 'd'
+
+N=1000000
+
+loop i=0 while i &lt; N step i+=1:
+    x = rand(LEFT, RIGHT, MED)
+    d[x]+=1
+end
+stars=300
+total=0
+loop i=LEFT while i&lt;=RIGHT step i+=1:
+    items = d[i] * stars / N
+    
+    loop while items &gt; 0 step items-=1:
+        *p '*'
+    end
+    perc=d[i]*10000/N
+    *pl ' &lt;&lt;perc/100&gt;&gt;.&lt;&lt;perc MOD 100&gt;&gt;% &lt;&lt;d[i]&gt;&gt;'
+    total += d[i]
+end
+'================== TOTAL: &lt;&lt;total&gt;&gt;'
+</pre>
+</div>
+
+<!-- wikipage stop -->
+</div></body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Настройки интерфейса [Документация QSP]</title>
+<link href="default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="page group">
+<!-- wikipage start -->
+<!-- TOC START -->
+
+<!-- TOC END -->
+<p>
+<a class="wikilink1" href="help_graphics.htm" title="help:graphics">Назад: Графика</a>
+</p>
+<h1 class="sectionedit1" id="nastrojki_interfejsa">Настройки интерфейса</h1>
+<div class="level1">
+<p>
+Возможности работы с интерфейсом отличаются для различных версий плееров. В данном разделе будет рассказано об основных возможностях, реализованных в классическом плеере и <strong>qSpider</strong>.
+</p>
+</div>
+<h2 class="sectionedit2" id="funkcija_kodirovanija_cveta">Функция кодирования цвета</h2>
+<div class="level2">
+<p>
+Прежде всего следует ознакомиться с функцией кодирования цвета <code>RGB</code>, поскольку именно она используется при работе с переменными, задающими основные цвета интерфейса.
+</p>
+<ul>
+<li class="level1"><div class="li"> <code id="func_RGB">RGB</code> — возвращает числовой код цвета на основе четырёх числовых аргументов, каждый из которых соответствует составляющей требуемого цвета и составляющей прозрачности. Общая запись: <pre class="brush: qsp">
+RGB([#красный],[#зелёный],[#синий],[#альфа])
+</pre> , где <code>[#красный]</code>,<code>[#зелёный]</code> и <code>[#синий]</code> — числовое выражение трёх составляющих цвета соответственно красной, зелёной и синей; <code>[#альфа]</code> — составляющая прозрачности; должны принимать значения от 0 до 255.<br/>
+Данная функция обычно используется совместно с системными переменными <code>BCOLOR</code>, <code>FCOLOR</code>, <code>LCOLOR</code>. Пример: <pre class="brush: qsp">
+! гиперссылки светло-жёлтого цвета
+lcolor = rgb(255,255,100)
+! фон тёмно-серого цвета
+bcolor = rgb(25,25,25)
+! текст светло-зелёного цвета
+fcolor = rgb(100,255,100)
+</pre> Пример полупрозрачного цвета ссылок: <pre class="brush: qsp">
+lcolor = rgb(0,255,255,128)
+</pre> Прозрачность (альфа-канал) может не работать в классическом плеере.</div>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit3" id="obschie_nastrojki_otobrazhenija_teksta">Общие настройки отображения текста</h2>
+<div class="level2">
+<p>
+Для того, чтобы задавать общие настройки отображения текста в QSP используется ряд системных переменных.
+</p>
+</div>
+<h3 class="sectionedit4" id="peremennye_zadajuschie_cveta">Переменные, задающие цвета</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <code id="variable_BCOLOR">BCOLOR</code> — содержит цвет текущего фона. Если равна 0, то используется цвет, заданный в настройках программы. Примеры: <pre class="brush: qsp">
+! чёрный цвет фона
+bcolor=-16777216
+! красный цвет фона
+bcolor=-16776961
+! белый цвет фона
+bcolor=-1
+</pre> Поскольку цвет фона кодируется специальным числом, а вычислять это число самостоятельно неудобно, следует пользоваться функцией <code>RGB</code>, которой в качестве аргументов передаются три составляющие цвета: <pre class="brush: qsp">
+! задаём цвет фона через функцию rgb(red,green,blue)
+! фон синего цвета
+bcolor=rgb(0,0,255)
+! фон жёлтого цвета
+bcolor=rgb(255,255,0)
+! фон оранжевого цвета
+bcolor=rgb(255,130,0)
+! фон голубого цвета
+bcolor=rgb(0,255,255)
+! фон малинового цвета
+bcolor=rgb(255,0,255)
+</pre></div>
+</li>
+<li class="level1"><div class="li"> <code id="variable_FCOLOR">FCOLOR</code> — содержит цвет используемого в данный момент шрифта. Если равна 0, то используется цвет, заданный в настройках программы. Изменение значения переменной меняет цвет всего текста игры, кроме гиперссылок и текста, цвет которого переназначен через <abbr title="HyperText Markup Language">HTML</abbr>. Пример: <pre class="brush: qsp">
+! чёрный цвет текста
+fcolor=-16777216
+! красный цвет текста
+fcolor=-16776961
+! белый цвет текста
+fcolor=-1
+</pre> Поскольку цвет шрифта кодируется специальным числом, а вычислять это число самостоятельно неудобно, следует пользоваться функцией <code>RGB</code>, которой в качестве аргументов передаются три составляющие цвета: <pre class="brush: qsp">
+! задаём цвет текста через функцию rgb(red,green,blue)
+! текст чёрного цвета
+fcolor=rgb(0,0,0)
+! текст белого цвета
+fcolor=rgb(255,255,255)
+! текст красного цвета
+fcolor=rgb(255,0,0)
+! текст зелёного цвета
+fcolor=rgb(0,255,0)
+</pre></div>
+</li>
+<li class="level1"><div class="li"> <code id="variable_LCOLOR">LCOLOR</code> — содержит текущий цвет шрифта гиперссылок. Если равна 0, то используется цвет, заданный в настройках программы. Изменение значения переменной меняет цвет текста всех гиперссылок, кроме тех, цвет которых переназначен через <abbr title="HyperText Markup Language">HTML</abbr>. Пример: <pre class="brush: qsp">
+! чёрный цвет гиперссылок
+lcolor=-16777216
+! красный цвет гиперссылок
+lcolor=-16776961
+! белый цвет гиперссылок
+lcolor=-1
+</pre> Поскольку цвет в QSP кодируется специальным числом, а вычислять это число самостоятельно неудобно, следует пользоваться функцией <code>RGB</code>, которой в качестве аргументов передаются три составляющие цвета: <pre class="brush: qsp">
+! задаём цвет  гиперссылок через функцию rgb(red,green,blue)
+!  гиперссылки синего цвета
+lcolor=rgb(0,0,255)
+! гиперссылки жёлтого цвета
+lcolor=rgb(255,255,0)
+! гиперссылки оранжевого цвета
+lcolor=rgb(255,130,0)
+! гиперссылки голубого цвета
+lcolor=rgb(0,255,255)
+! гиперссылки малинового цвета
+lcolor=rgb(255,0,255)
+</pre></div>
+</li>
+</ul>
+</div>
+<h3 class="sectionedit5" id="peremennye_zadajuschie_shrift">Переменные, задающие шрифт</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <code id="variable_FSIZE">FSIZE</code> — содержит размер используемого в данный момент шрифта. Если равна <strong>0</strong>, то используется размер, заданный в настройках программы. Относительно данного значения в <abbr title="HyperText Markup Language">HTML</abbr>-режиме вычисляются размеры шрифтов тега <code>&lt;font&gt;</code>. Пример: <pre class="brush: qsp">
+fsize=18
+</pre> Размер шрифта устанавливается для всего текста в игре, кроме текста, размер которого переназначен через <abbr title="HyperText Markup Language">HTML</abbr>.</div>
+</li>
+<li class="level1"><div class="li"> <code id="variable_FNAME">$FNAME</code> — содержит название используемого в данный момент шрифта во всей игре. Если равна <code>""</code> (пустая строка), то используется шрифт, заданный в настройках программы. Пример: <pre class="brush: qsp">
+! устанавливаем для всей игры шрифт Courier New
+$fname = "Courier New"
+</pre></div>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit6" id="nastrojki_otobrazhenija_okon">Настройки отображения окон</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <code>SHOWSTAT [#выражение]</code> - если значение выражения отлично от 0, то показывает <strong>Окно дополнительного описания</strong>, иначе скрывает его. Пример: <pre class="brush: qsp">
+showstat 0 &amp; ! скрываем окно дополнительного описания
+showstat 1 &amp; ! окно дополнительного описания снова отображается
+</pre> Для удобства чтения кода можно заранее определить переменные <code>on</code> и <code>off</code> с соответствующими значениями: <pre class="brush: qsp">
+on, off = 1, 0
+showstat on &amp; ! включаем окно дополнительного описания
+showstat off &amp; ! выключаем окно дополнительного описания
+</pre></div>
+</li>
+<li class="level1"><div class="li"> <code>SHOWACTS [#выражение]</code> - если значение выражения отлично от 0, то показывает <strong>Список действий</strong>, иначе скрывает его.<br/>
+</div>
+</li>
+</ul>
+<p>
+Пример: </p><pre class="brush: qsp">
+showacts 0 &amp; ! скрываем Окно действий
+showacts 1 &amp; ! выводим Окно действий на экран
+</pre> Для удобства чтения кода можно заранее определить переменные <code>on</code> и <code>off</code> с соответствующими значениями: <pre class="brush: qsp">
+on, off = 1, 0
+showacts on &amp; ! включаем окно дополнительного описания
+showacts off &amp; ! выключаем окно дополнительного описания
+</pre>
+<ul>
+<li class="level1"><div class="li"> <code>SHOWOBJS [#выражение]</code> - если значение выражения отлично от 0, то показывает <strong>Список предметов</strong>, иначе скрывает его.<br/>
+</div>
+</li>
+</ul>
+<p>
+Пример: </p><pre class="brush: qsp">
+showobjs 0 &amp; ! скрываем Окно предметов
+showobjs 1 &amp; ! выводим Окно предметов на экран
+</pre> Для удобства чтения кода можно заранее определить переменные <code>on</code> и <code>off</code> с соответствующими значениями: <pre class="brush: qsp">
+on, off = 1, 0
+showobjs on &amp; ! включаем окно дополнительного описания
+showobjs off &amp; ! выключаем окно дополнительного описания
+</pre>
+<ul>
+<li class="level1"><div class="li"> <code>SHOWINPUT</code> — управляет отображением строки ввода на экране. Общая запись: <pre class="brush: qsp">
+SHOWINPUT [#выражение]
+</pre> , где <code>[#выражение]</code> — это число. Обычно используются значения 0 и 1. Если значение выражения <code>[#выражение]</code> отлично от нуля, строка ввода отображается. Если значение выражения <code>[#выражение]</code> равно нулю, строка ввода скрыта. Примеры: <pre class="brush: qsp">
+showinput 1 &amp; ! показывает строку ввода
+showinput 0 &amp; ! скрывает строку ввода
+</pre> Для удобства чтения кода можно заранее определить переменные <code>on</code> и <code>off</code> и использовать их: <pre class="brush: qsp">
+on, off = 1, 0
+showinput on &amp; ! показывает строку ввода
+showinput off &amp; ! скрывает строку ввода
+</pre></div>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit7" id="obnovlenie_nastroek_interfejsa">Обновление настроек интерфейса</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <code id="statement_REFINT">REFINT</code> — принудительное обновление интерфейса (в т.ч. смена цветов, шрифтов, назначенных с помощью системных переменных). По умолчанию обновление интерфейса происходит 2 раза в секунду (каждые 500 мс). Также см. оператор <a class="wikilink1" href="help_service_locations.htm" title="help:service_locations">SETTIMER</a>.</div>
+</li>
+</ul>
+<p>
+<a class="wikilink1" href="help_html.htm" title="help:html">Вперёд: HTML</a>
+</p>
+</div>
+
+<!-- wikipage stop -->
+</div></body>
+</html>

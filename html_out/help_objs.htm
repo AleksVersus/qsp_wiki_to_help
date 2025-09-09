@@ -1,0 +1,228 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Предметы (инвентарь) [Документация QSP]</title>
+<link href="default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="page group">
+<!-- wikipage start -->
+<!-- TOC START -->
+
+<!-- TOC END -->
+<p>
+<a class="wikilink1" href="help_acts.htm" title="help:acts">Назад: Действия</a>
+</p>
+<h1 class="sectionedit1" id="predmety_inventar">Предметы (инвентарь)</h1>
+<div class="level1">
+<p>
+Очень часто главному герою даётся возможность носить с собой разные предметы, которые можно по разному применять в различных ситуациях. Например, на деньги можно купить оружие, оружием кого-нибудь победить, ключом открыть дверь, и так далее. Герой может нести предметы в руках, в карманах, в заплечном мешке, даже катить, но в общем случае говорят, что предметы помещаются в "инвентарь".
+</p>
+<p>
+Иными словами, инвентарь - это список всех предметов, что есть у героя в данный момент.
+</p>
+<p>
+В <strong>QSP</strong> предусмотрено отдельное окно для вывода списка предметов, которое так и называется <strong>Окно предметов</strong> (в плеере — <strong>Предметы</strong>). Иногда его называют <strong>Списком предметов</strong>, <strong>Инвентарём</strong> или <strong>Рюкзаком</strong>. С этим окном, в зависимости от нужд вашей игры, вы можете проделывать разные манипуляции. Вы можете:
+</p>
+<ul>
+<li class="level1"><div class="li"> Отключать и включать <strong>Окно предметов</strong> по своему желанию</div>
+</li>
+<li class="level1"><div class="li"> Добавлять предметы в <strong>Окно предметов</strong></div>
+</li>
+<li class="level1"><div class="li"> Удалять предметы из <strong>Окна предметов</strong></div>
+</li>
+<li class="level1"><div class="li"> Полностью очищать <strong>Окно предметов</strong></div>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit2" id="komandy_dlja_raboty_s_oknom_predmetov">Команды для работы с Окном предметов</h2>
+<div class="level2">
+</div>
+<h3 class="sectionedit3" id="vkljuchenie_i_vykljuchenie_okna_predmetov">Включение и выключение Окна предметов</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <strong><code id="statement_SHOWOBJS">SHOWOBJS [#выражение]</code></strong> - если значение выражения отлично от 0, то показывает <strong>Список предметов</strong>, иначе скрывает его. Пример: <pre class="brush: qsp">
+showobjs 0 &amp; ! скрываем Окно предметов
+showobjs 1 &amp; ! выводим Окно предметов на экран
+</pre> Для удобства чтения кода можно заранее определить переменные <strong><code>on</code></strong> и <strong><code>off</code></strong> с соответствующими значениями: <pre class="brush: qsp">
+on,off = 1,0
+showobjs on &amp; ! включаем Окно предметов
+showobjs off &amp; ! выключаем Окно предметов
+</pre></div>
+</li>
+</ul>
+</div>
+<h3 class="sectionedit4" id="komandy_dlja_upravlenija_predmetami">Команды для управления предметами</h3>
+<div class="level3">
+<ul>
+<li class="level1" id="statement_ADDOBJ"><div class="li"> <code><strong>ADDOBJ</strong> [$название],[$путь к файлу изображения],[#индекс]</code> - добавление предмета с названием <code>[$название]</code> и изображением <code>[$путь к файлу изображения]</code> в <strong>Инвентарь</strong>, на место с номером <code>[#индекс]</code>. Пример: <pre class="brush: qsp">
+! добавляем в четвёртую позицию предмет с названием "Апельсин" и картинкой
+addobj 'Апельсин','image/orange.png',4
+</pre></div>
+<ul>
+<li class="level2"><div class="li"> Предметы можно добавлять только в уже существующие позиции, либо в конец списка. Например, если вы уже добавили три предмета в список, вы можете указать для добавляения четвёртого предмета только позиции 1, 2, 3 и 4; если вы укажете больший номер позиции, то предмет просто не добавится.</div>
+</li>
+<li class="level2"><div class="li"> Параметр <code>[#индекс]</code> может отсутствовать. По умолчанию предметы добавляются в конец списка. <pre class="brush: qsp">
+! в конец списка добавляем предмет "Отвёртка"
+addobj 'Отвёртка'
+</pre></div>
+</li>
+<li class="level2"><div class="li"> Индексация (нумерация) предметов в <strong>Окне предметов</strong> начинается с 1: <pre class="brush: qsp">
+! добавляем предмет с картинкой в начало списка
+addobj 'Гаечный ключ','image/wrench.png',1
+</pre></div>
+</li>
+<li class="level2"><div class="li"> Параметр <code>[$путь к файлу изображения]</code> может отсутствовать, значение по умолчанию - <code>""</code> (пустая строка). <pre class="brush: qsp">
+! добавляем предмет без картинки в конец списка
+addobj 'Радиоактивный пепел'
+! добавляем предмет без картинки в начало списка
+addobj 'Светящийся шар','',1
+</pre></div>
+</li>
+<li class="level2"><div class="li"> В названиях предметов не важен регистр букв, т.е. "ДеньГи" и "деньги" - один и тот же предмет.</div>
+</li>
+<li class="level2"><div class="li"> Обратите внимание - для использования одинаковых предметов инвентаря, например денег, патронов и т.п., лучше использовать дополнительную переменную, обозначающую количество этих предметов, чтобы не загромождать инвентарь списком из 137 предметов Рубль/Патрон. <pre class="brush: qsp">
+! действие, которое добавляет предмет "Патроны" лишь в том случае,
+! если у героя нет ещё ни одного патрона
+act "Взять десять патронов":
+  if no obj("Патроны"):
+    addobj "Патроны"
+  end
+  патроны += 10 &amp; ! увеличиваем число патронов у героя
+end
+</pre> Для хранения числа предметов можно использовать массивы, индексируемые через строки: <pre class="brush: qsp">
+! так мы добавляем сами предметы
+addobj "Деньги"
+addobj "Патроны"
+! так мы помещаем число этих предметов в массив
+OBJECTS['деньги'] = 12
+OBJECTS['патроны'] = 137
+! а так мы выводим предметы и их количество на экран:
+loop i=1 while i &lt; countobj+1 step i += 1:
+  *pl $getobj(i)+' (&lt;&lt;OBJECTS[$lcase($getobj(i))]&gt;&gt; шт.)'
+end
+</pre></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <code id="statement_DELOBJ"><strong>DELOBJ</strong> [$название]</code> - удаление предмета из <strong>Окна предметов</strong> по названию. Если существует предмет с названием <code>[$название]</code>, он будет удалён. <pre class="brush: qsp">
+delobj "Апельсин" &amp; ! удаляем предмет с названием "Апельсин"
+</pre></div>
+</li>
+<li class="level1"><div class="li"> <code id="statement_KILLOBJ"><strong>KILLOBJ</strong> [#номер]</code> - удаление предмета по номеру в <strong>Списке предметов</strong>. Если параметр <code>[#номер]</code> не указан, то полная очистка <strong>Окна предметов</strong>. <pre class="brush: qsp">
+killobj 3 &amp; ! удаляем предмет из третьей позиции, не важно, как он называется
+</pre></div>
+<ul>
+<li class="level2"><div class="li"> Индексация (нумерация) предметов в <strong>Окне предметов</strong> начинается с 1.</div>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h3 class="sectionedit5" id="komandy_ochistki_okna_predmetov">Команды очистки Окна предметов</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <strong><code>KILLOBJ</code></strong> - данная команда без указания параметров удаляет все предметы из <strong>Окна предметов</strong>. <pre class="brush: qsp">
+killobj &amp; ! очищаем Окно предметов
+</pre></div>
+<ul>
+<li class="level2"><div class="li"> Можно указать номер предмета, тогда данная команда удалит предмет в указанной позиции: <pre class="brush: qsp">
+killobj 5 &amp; ! удаляем из списка пятый предмет
+</pre></div>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> <strong><code>KILLALL</code></strong> - данная команда эквивалентна конструкции "<strong><code>KILLVAR &amp; KILLOBJ</code></strong>", т.е. очищает <strong>Окно предметов</strong> и уничтожает все переменные игры.</div>
+</li>
+</ul>
+</div>
+<h3 class="sectionedit6" id="funkcii_dlja_obrabotki_predmetov">Функции для обработки предметов</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <strong><code id="func_SELOBJ">$SELOBJ</code></strong> - возвращает название выделенного предмета <strong>в любом месте игры</strong>. Выделение предмета происходит в момент нажатия (щелчка мышью по предмету) и не снимается до применения команды <strong><code>UNSELECT</code></strong>.</div>
+</li>
+<li class="level1"><div class="li"> <strong><code id="func_COUNTOBJ">COUNTOBJ</code></strong> - функция возвращает количество предметов в рюкзаке.</div>
+</li>
+<li class="level1"><div class="li"> <code id="func_GETOBJ"><strong>$GETOBJ</strong>([#номер])</code> - возвращает название предмета в рюкзаке, расположенного в заданной позиции.</div>
+<ul>
+<li class="level2"><div class="li"> Индексация предметов рюкзака ведётся с 1.</div>
+</li>
+<li class="level2"><div class="li"> Если предмета с заданным индексом не существует, возвращается пустая строка (<code>""</code>).</div>
+</li>
+<li class="level2"><div class="li"> Примеры: <pre class="brush: qsp">
+$getobj(1) &amp; ! вернёт название первого предмета в рюкзаке
+$getobj(countobj) &amp; ! вернёт название последнего добавленного предмета
+</pre></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <strong><code id="func_CUROBJS">$CUROBJS</code></strong> - данная функция возвращает список выведенных на экран предметов в виде QSP-кода.</div>
+<ul>
+<li class="level2"><div class="li"> Предметы сохраняются в виде набора операторов <strong><code>ADDOBJ</code></strong> с ответствующими параметрами и операциями.</div>
+</li>
+<li class="level2"><div class="li"> Записав возвращённое функцией значение в переменную, можно восстановить предметы с помощью оператора <strong><a class="wikilink1" href="help_dynamical.htm" title="help:dynamical">DYNAMIC</a></strong>. Пример: <pre class="brush: qsp">
+! сохраняем список предметов как код QSP:
+$old_objects = $CUROBJS
+! удаляем все предметы из окна предметов:
+KILLOBJ
+! восстанавливаем все предметы в окне предметов:
+DYNAMIC $old_objects
+</pre></div>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h3 class="sectionedit7" id="snjat_vydelenie_s_predmeta">Снять выделение с предмета</h3>
+<div class="level3">
+<p>
+Предметы в <strong>QSP</strong> выделяются с помощью нажатия (щелчка "мышью" по предмету), и выделение не снимается до применения специальной команды:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong><code id="statement_UNSEL">UNSELECT</code></strong> — снимает выделение с предмета в <strong>Окне предметов</strong>. Имеет краткую форму <strong><code>UNSEL</code></strong>.</div>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit8" id="drugie_primery">Другие примеры:</h2>
+<div class="level2">
+<p>
+Код, подсчитывающий в массиве <strong>OBJECTS</strong> число предметов с одинаковыми названиями:
+</p>
+<p>
+</p><pre class="brush: qsp">
+local i = 1
+loop while i &lt;= countobj step i += 1:
+  OBJECTS[$GETOBJ(i)] += 1
+end
+</pre>
+</div>
+<h2 class="sectionedit9" id="sobytie_vydelenie_predmeta">Событие "Выделение предмета"</h2>
+<div class="level2">
+<p>
+Когда вы щёлкаете мышью по предмету, в классическом плеере этот предмет подсвечивается голубым цветом, и это означает, что предмет становится выделенным. При этом функция <strong><code>$SELOBJ</code></strong>, вызванная в любом месте игры, будет возвращать название такого выделенного предмета.
+</p>
+<p>
+<strong>Выделение предмета</strong> — это событие, которое происходит в момент нажатия на предмет, и к этому событию вы можете привязать автоматическое выполнение кода. Делается это с помощью системной переменной <strong><code>$ONOBJSEL</code></strong>:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong><code>$ONOBJSEL</code></strong> — системная переменная, куда можно прописать название локации, код на которой будет выполняться при очередном выделении предмета.</div>
+</li>
+</ul>
+<p>
+Более подробная информация в разделе <a class="wikilink1" href="help_service_locations.htm" title="help:service_locations">"Служебные локации"</a>.
+</p>
+<p>
+Если предмет уже выделен, повторное выделение при нажатии не происходит. Чтобы повторно выделить предмет, нужно предварительно снять с него выделение с помощью команды <strong><code>UNSELECT</code></strong>.
+</p>
+<p>
+<a class="wikilink1" href="help_principle.htm" title="help:principle">Вперёд: Порядок работы интерпретатора</a>
+</p>
+</div>
+
+<!-- wikipage stop -->
+</div></body>
+</html>

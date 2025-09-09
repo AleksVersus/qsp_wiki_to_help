@@ -1,0 +1,201 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Графика [Документация QSP]</title>
+<link href="default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="page group">
+<!-- wikipage start -->
+<!-- TOC START -->
+
+<!-- TOC END -->
+<p>
+<a class="wikilink1" href="help_sound.htm" title="help:sound">Назад: Звук</a>
+</p>
+<h1 class="sectionedit1" id="grafika">Графика</h1>
+<div class="level1">
+<p>
+Возможности работы с графическими элементами в <strong>QSP</strong> существенно отличаются для разных версий плееров. В данном разделе будут перечислены основные возможности, реализованные в классическом плеере и <strong>qSpider</strong>. Внимательно читайте документацию к плееру, чтобы узнать, какие возможности он предоставляет.
+</p>
+</div>
+<h2 class="sectionedit2" id="spisok_osnovnyx_vozmozhnostej">Список основных возможностей</h2>
+<div class="level2">
+</div>
+<h3 class="sectionedit3" id="ustanovka_kartinki_fonom_v_okno_osnovnogo_opisanija">Установка картинки фоном в окно основного описания.</h3>
+<div class="level3">
+<p>
+Чтобы установить изображение фоном в окно основного описания, воспользуйтесь системной переменной <code>$BACKIMAGE</code>:
+</p>
+<p>
+</p><pre class="brush: qsp">
+$backimage = 'image/picture.png'
+</pre>
+<p>
+Подробнее об использовании системной переменной <code>$BACKIMAGE</code> можно почитать в разделе <a class="wikilink1" href="help_main.htm" title="help:main">"Окно основного описания"</a>.
+</p>
+</div>
+<h3 class="sectionedit4" id="vyvod_izobrazhenija_v_otdelnom_okne">Вывод изображения в отдельном окне.</h3>
+<div class="level3">
+<p>
+Чтобы вывести изображение в отдельном окне, которое называется "<strong>Окно предпросмотра</strong>", используйте оператор <code>VIEW</code>:
+</p>
+<p>
+</p><pre class="brush: qsp">
+view 'content/monster.png'
+</pre>
+<p>
+Подробнее об операторе <code>VIEW</code> можно прочитать в разделе "<strong>Операторы для работы с графической частью</strong>" на данной странице ниже.
+</p>
+</div>
+<h3 class="sectionedit5" id="dobavlenie_ikonki_v_punkt_vsplyvajuschego_menju">Добавление иконки в пункт всплывающего меню.</h3>
+<div class="level3">
+<p>
+Чтобы добавить иконку к пункту всплывающего меню, необходимо прописать путь к файлу иконки при заполнении массива, отвечающего за формирование пунктов меню:
+</p>
+<ul>
+<li class="level1"><div class="li"> Для массива кортежей третьим значением в кортеже: <pre class="brush: qsp">
+! нет иконки
+%usr_menu[0] = ['Взять предмет','take_item']
+! иконка задана gif-файлом
+%usr_menu[1] = ['Положить предмет','put_item','images/put_item.gif']
+</pre></div>
+</li>
+<li class="level1"><div class="li"> Для массива строк — через двоеточие после названия локации-обработчика пункта меню: <pre class="brush: qsp">
+! нет иконки
+$usr_menu[0] = 'Взять предмет:take_item'
+! иконка задана gif-файлом
+$usr_menu[1] = 'Положить предмет:put_item:images/put_item.gif'
+</pre></div>
+</li>
+</ul>
+<p>
+Подробнее о добавлении иконок к пунктам меню можно почитать в разделе <a class="wikilink1" href="help_menu.htm" title="help:menu">"Меню"</a>.
+</p>
+</div>
+<h3 class="sectionedit6" id="dobavlenie_kartinki_k_dejstvijam">Добавление картинки к действиям</h3>
+<div class="level3">
+<p>
+Чтобы добавить картинку к действию, не изменяя фактического названия действия, нужно прописать путь к изображению вторым параметром к оператору <code>ACT</code>.
+</p>
+<p>
+</p><pre class="brush: qsp">
+! действие в многострочной форме записи, с изображением
+act "Сорвать арбуз с куста", "img/watermelon.png":
+  арбуз += 1
+  *pl "Вы сорвали арбуз с куста"
+end
+</pre>
+<p>
+Подробнее об операторе <code>ACT</code> можно прочитать в разделе <a class="wikilink1" href="help_acts.htm" title="help:acts">"Действия"</a>.
+</p>
+</div>
+<h3 class="sectionedit7" id="dobavlenie_kartinki_k_predmetu_v_inventare">Добавление картинки к предмету в инвентаре</h3>
+<div class="level3">
+<p>
+Чтобы добавить картинку к предмету в инвентаре, не изменяя фактического названия предмета, нужно прописать путь к изображению вторым параметром к оператору <code>ADDOBJ</code>.
+</p>
+<p>
+</p><pre class="brush: qsp">
+! добавляем предмет с картинкой в конец списка
+addobj 'Гаечный ключ','image/wrench.png'
+</pre>
+<p>
+Подробнее об операторе <code>ADDOBJ</code> можно прочитать в разделе <a class="wikilink1" href="help_objs.htm" title="help:objs">"Предметы (инвентарь)"</a>.
+</p>
+</div>
+<h3 class="sectionedit8" id="vstavka_kartinok_v_ljubuju_chast_teksta_s_pomoschju_html">Вставка картинок в любую часть текста с помощью HTML</h3>
+<div class="level3">
+<p>
+Вы можете вставлять изображения в любую часть текста, используя <abbr title="HyperText Markup Language">HTML</abbr>-тег <code>&lt;img&gt;</code> при включённом режиме распознавания <abbr title="HyperText Markup Language">HTML</abbr>.
+</p>
+<p>
+Примеры:
+</p>
+<p>
+</p><pre class="brush: qsp">
+! включаем режим распознавания HTML
+usehtml=1
+! вывод изображения в окно основного описания:
+*p '&lt;img src="images/pic_01.png"&gt;'
+! вывод изображения в окне дополнительного описания:
+p '&lt;img src="icons/note_btn.ico"&gt;'
+</pre>
+<p>
+Так же есть возможность вставлять изображения в названия действий и предметов с помощью <abbr title="HyperText Markup Language">HTML</abbr>.
+</p>
+<p>
+</p><pre class="brush: qsp">
+! добавляем предмет с картинкой в названии
+addobj '&lt;img src="res/ico/back_arrow.png"&gt; Назад...'
+! добавляем действие с картинкой в названии
+act "Улыбнуться &lt;img src=""res/emoji/smile.gif""&gt;": goto 'smile'
+</pre>
+<p>
+<strong>Обратите внимание!</strong> При этом фактически изменяются названия действий и предметов. Например, при выборе действия "Назад…" в окне предметов <code>$SELOBJ</code> будет возвращать не только слово "<code>Назад...</code>",а всю строку "<code>&lt;img src="res/ico/back_arrow.png"&gt; Назад...</code>".
+</p>
+<p>
+С помощью <abbr title="HyperText Markup Language">HTML</abbr> можно вставлять изображения в модальные окошки <code>MSG</code> и <code>$INPUT</code>. Следует учитывать, что при этом окошко выводится в определённом размере, и если изображение окажется по размеру больше окошка, то появятся полосы прокрутки.
+</p>
+<p>
+</p><pre class="brush: qsp">
+! выводим изображение в окне сообщения
+msg '&lt;img src="res/message/error.png"&gt;'
+! выводим изображение в окне ввода
+$name = $input('Введите своё имя? &lt;img src="res/face/elph.jpg"&gt;')
+</pre>
+<p>
+Более подробно о возможностях <abbr title="HyperText Markup Language">HTML</abbr> читайте в соответствующем <a class="wikilink1" href="help_html.htm" title="help:html">разделе</a>.
+</p>
+</div>
+<h2 class="sectionedit9" id="operatory_dlja_raboty_s_izobrazhenijami">Операторы для работы с изображениями</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <code id="statement_VIEW">VIEW</code> — выводит на экран указанное изображение. В классическом плеере изображение выводися в отдельном окошке (окно предпросмотра). Общая запись: <pre class="brush: qsp">
+VIEW [$путь к графическому файлу]
+</pre> , где <code>[$путь к графическому файлу]</code> — путь к файлу картинки. Если параметр <code>[$путь к графическому файлу]</code> отсутствует, или задан как <code>""</code> (пустая строка), окно предпросмотра закрывается. Примеры: <pre class="brush: qsp">
+! выводим изображение в окне предпросмотра
+view 'content/monster.png'
+! закрываем окно предпросмотра
+view ''
+! закрыть окно предпросмотра можно и так
+view
+</pre></div>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit10" id="puti_k_graficheskim_fajlam">Пути к графическим файлам</h2>
+<div class="level2">
+<p>
+Пути к графическим файлам указываются относительно файла игры. Например, если файл игры лежит по адресу "<code>D:\QSP\game\game.qsp</code>", а картинка - по адресу "<code>D:\QSP\game\content\picture.jpg</code>", то путь нужно указывать, как "<code>content/picture.jpg</code>".
+</p>
+<p>
+Это не зависит от того, где именно вы хотите вывести изображение:
+</p>
+<p>
+</p><pre class="brush: qsp">
+*p "&lt;img src=""content/picture.jpg""&gt;"
+
+addobj "Контент","content/picture.jpg"
+
+view 'content/monster.gif'
+</pre>
+</div>
+<h2 class="sectionedit11" id="podderzhivaemye_formaty_izobrazhenij">Поддерживаемые форматы изображений</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> Классический плеер поддерживает большинство распространнных форматов: <code>.jpg</code>, <code>.png</code>, <code>.bmp</code>, <code>.gif</code>, <code>.ico</code>.</div>
+</li>
+<li class="level1"><div class="li"> <strong>qSpider</strong> поддерживает все форматы изображений, которые поддерживает современный браузер, в т.ч. и "<code>svg</code>".</div>
+</li>
+</ul>
+<p>
+<a class="wikilink1" href="help_interface.htm" title="help:interface">Вперёд: Настройки интерфейса</a>
+</p>
+</div>
+
+<!-- wikipage stop -->
+</div></body>
+</html>

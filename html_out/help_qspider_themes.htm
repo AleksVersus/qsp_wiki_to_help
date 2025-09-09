@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Темы оформления [Документация QSP]</title>
+<link href="default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="page group">
+<!-- wikipage start -->
+<!-- TOC START -->
+
+<!-- TOC END -->
+<h1 class="sectionedit1" id="temy_oformlenija">Темы оформления</h1>
+<div class="level1">
+<p>
+<strong>qSpider</strong> позволяет вам писать собственные темы оформления, которые затем можно переключать прямо из кода игры. Таким образом вы можете написать несколько тем для различных нужд, и включать их по мере необходимости.
+</p>
+<p>
+Например, у вас могут быть различные темы для локаций-помещений и локаций-пустошей. У вас могут быть отдельные темы для локаций-страниц, где вы представляете информацию об игре. Можно оформить темы для визуализации чтения книг, взаимодействия с хранилищами и так далее.
+</p>
+<p>
+Отделение интерфейса от кода игры — это полезная практика, позволяющая разнести оформление и логику. Так код становится более читаемым и понятным.
+</p>
+<p>
+Тема в qSpider представляет собой <abbr title="HyperText Markup Language">HTML</abbr>-код, где для каждого элемента плеера используется свой <abbr title="HyperText Markup Language">HTML</abbr>-тег.
+</p>
+</div>
+<h2 class="sectionedit2" id="sozdanie_tem">Создание тем</h2>
+<div class="level2">
+<p>
+Свою тему вы можете создать, модифицируя шаблон одной из встроенных тем:
+</p>
+<ul>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://github.com/QSPFoundation/qspider/blob/master/public/themes/classic.html" rel="nofollow" target="_blank" title="https://github.com/QSPFoundation/qspider/blob/master/public/themes/classic.html">Классическая</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://github.com/QSPFoundation/qspider/blob/master/public/themes/aero.html" rel="nofollow" target="_blank" title="https://github.com/QSPFoundation/qspider/blob/master/public/themes/aero.html">Aero</a></div>
+</li>
+</ul>
+<p>
+Если вы когда-нибудь стилизовали <abbr title="HyperText Markup Language">HTML</abbr>-разметку с помощью <abbr title="Cascading Style Sheets">CSS</abbr>, отредактировать тему для вас не составит труда.
+</p>
+<p>
+Обратите внимание на первые строки темы (ниже пример из встроенной классической темы):
+</p>
+<p>
+</p><pre class="brush: html">
+&lt;qspider-theme name="qspider:classic"&gt;
+&lt;css-link src="qspider:themes/common.css"&gt;&lt;/css-link&gt;
+&lt;css-link src="qspider:themes/classic.css"&gt;&lt;/css-link&gt;
+</pre>
+<p>
+В теге <code>qspider-theme</code> в атрибуте <code>name</code> указывается название темы. Именно это название в дальнейшем будет использоваться для указания темы по умолчанию и при переключении тем.
+</p>
+<p>
+Префикс <code>qspider:</code> в этом атрибуте указывает на то, что тема встроена в плеер, а значит <strong>qSpider</strong> будет искать эту тему в своих внутренних ресурсах. Названия созданных вами тем должны указываться без префикса <code>qspider:</code>.
+</p>
+<p>
+Теги <code>css-link</code> содержат ссылки на <abbr title="Cascading Style Sheets">CSS</abbr>-файлы со стилями для темы. Точно так же: обратите внимание на атрибут <code>src</code>. Префикс <code>qspider:</code> указывает, что <abbr title="Cascading Style Sheets">CSS</abbr> будет браться из внутренних ресурсов плеера. Вам нужно указывать пути без префикса <code>qspider:</code> для реально существующих в игре файлов. Пути к <abbr title="Cascading Style Sheets">CSS</abbr> файлам указываются в темах <strong>относительно конфигурационного файла игры</strong> (<code>game.cfg</code>), в котором эти темы подключаются.
+</p>
+</div>
+<h2 class="sectionedit3" id="podkljuchenie_tem">Подключение тем</h2>
+<div class="level2">
+<p>
+Для подключения своих тем к игре, пропишите в файле конфигурации параметры <strong>themes</strong> и <strong>defaultTheme</strong>:
+</p>
+<p>
+</p><pre class="brush: text">
+[[game]]
+id = "test-asset-qspider"
+title = "Суппер-пуппер-мега-игра"
+file="game_start.qsps"
+themes = ["themes/intro_page.html", "themes/game_main.html"]
+defaultTheme = "intro-page"
+</pre>
+<p>
+В параметре <strong>themes</strong> размещается список путей к темам относительно файла конфигурации.
+</p>
+<p>
+В параметре <strong>defaultTheme</strong> указывается название темы, которая будет использоваться по умолчанию (атрибут <code>name</code> тега <code>qspider-theme</code>).
+</p>
+</div>
+<h2 class="sectionedit4" id="perekljuchenie_tem">Переключение тем</h2>
+<div class="level2">
+<p>
+Переключение темы можно производить непосредственно из кода игры, используя <a class="wikilink1" href="help_qspider_inclib.htm" title="help:qspider_inclib">встроенную библиотеку</a> "<code>qspider</code>":
+</p>
+<p>
+</p><pre class="brush: qsp">
+inclib 'qspider'
+@qspider_change_theme('game-main')
+</pre>
+</div>
+<h2 class="sectionedit5" id="drugie_stati_po_qspider">Другие статьи по qSpider</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider.htm" title="help:qspider">qSpider — общая информация</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_gamecfg.htm" title="help:qspider_gamecfg">Конфигурационный файл</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_aeroqsp.htm" title="help:qspider_aeroqsp">Особенности запуска и работы игр AeroQSP на qSpider</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_interface.htm" title="help:qspider_interface">Взаимодействие с интерфейсом</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_spectags.htm" title="help:qspider_spectags">Специальные теги</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_qspider_inclib.htm" title="help:qspider_inclib">Встроенная библиотека</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink2" href="help_qspider_standalone.htm" rel="nofollow" title="help:qspider_standalone">Стандалон-сборка игры на qSpider</a></div>
+</li>
+</ul>
+</div>
+
+<!-- wikipage stop -->
+</div></body>
+</html>

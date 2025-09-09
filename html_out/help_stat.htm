@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Окно дополнительного описан [Документация QSP]</title>
+<link href="default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="page group">
+<!-- wikipage start -->
+<!-- TOC START -->
+
+<!-- TOC END -->
+<p>
+<a class="wikilink1" href="help_main.htm" title="help:main">Назад: Окно основного описания</a>
+</p>
+<h1 class="sectionedit1" id="okno_dopolnitelnogo_opisan">Окно дополнительного описан</h1>
+<div class="level1">
+<p>
+Чаще всего <strong>Окно дополнительного описания</strong> используется для вывода сопроводительной информации, игровой статистики, логов и других сообщений, которые не требуется постоянно менять. Оно не очищается автоматически при смене локации, в отличие от <strong>Окна основного описания</strong>, и чтобы его очистить нужно использовать специальные команды.
+</p>
+<p>
+Использование этого окна <strong>без необходимости</strong> считается дурным тоном, т.к. это перегружает интерфейс и создаёт проблемы отображения игры на Android и iOS.
+</p>
+<p>
+<strong>ВНИМАНИЕ!</strong> При написании кроссплатформенных игр использовать дополнительное окно описания настоятельно не рекомендуется <strong>Nex</strong>-ом.
+</p>
+</div>
+<h2 class="sectionedit2" id="komandy_dlja_raboty_s_oknom_dopolnitelnogo_opisanija">Команды для работы с Окном дополнительного описания</h2>
+<div class="level2">
+<p>
+Под обозначением <code>[$текст]</code> ниже на странице понимается любая строка текста, число, значение выражения, переменной или функции.
+</p>
+</div>
+<h3 class="sectionedit3" id="vkljuchenie_i_vykljuchenie_okna_dopolnitelnogo_opisanija">Включение и выключение Окна дополнительного описания</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <code id="statement_SHOWSTAT">SHOWSTAT [#выражение]</code> - если значение выражения отлично от 0, то показывает <strong>Окно дополнительного описания</strong>, иначе скрывает его. Пример: <pre class="brush: qsp">
+showstat 0 &amp; ! скрываем окно дополнительного описания
+showstat 1 &amp; ! окно дополнительного описания снова отображается
+</pre> Для удобства чтения кода можно заранее определить переменные <code>on</code> и <code>off</code> с соответствующими значениями: <pre class="brush: qsp">
+on, off = 1, 0
+showstat on &amp; ! включаем окно дополнительного описания
+showstat off &amp; ! выключаем окно дополнительного описания
+</pre></div>
+</li>
+</ul>
+</div>
+<h3 class="sectionedit4" id="komandy_dlja_vyvoda_teksta_v_okno_dopolnitelnogo_opisanija">Команды для вывода текста в Окно дополнительного описания</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <code id="statement_P">P [$текст]</code> - простой вывод текста. Выводит текст в <strong>Окно дополнительного описания</strong> без перехода на новую строку. Пример: <pre class="brush: qsp">
+p 'Бобр'
+p 'Добр'
+p 'До'
+p 'Бобрят'
+</pre> После выполнения кода (если запустим игру) — в <strong>Окне дополнительного описания</strong> мы увидим: <pre class="brush: text">
+БобрДобрДоБобрят
+</pre></div>
+</li>
+<li class="level1"><div class="li"> <code id="statement_PL">PL [$текст]</code> - вывод текста, затем переход на новую строку. Пример: <pre class="brush: qsp">
+p 'Бобр' &amp; ! выводим текст без перевода на новую строку
+p 'Добр' &amp; ! и здесь тоже
+pl 'До'
+pl 'Бобрят'
+</pre> После выполнения кода (если запустим игру) — в <strong>Окне дополнительного описания</strong> мы увидим: <pre class="brush: text">
+БобрДобрДо
+Бобрят
+</pre></div>
+<ul>
+<li class="level2"><div class="li"> Если не указать <code>[$текст]</code>, то команда просто создаст переход на новую строку: <pre class="brush: qsp">
+p 'Бобр Добр'
+pl
+p 'До Бобрят'
+</pre> В <strong>Окне дополнительного описания</strong> мы увидим: <pre class="brush: qsp">
+  Бобр Добр
+  До Бобрят
+</pre></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <code id="statement_NL">NL [$текст]</code> - переход на новую строку, а затем вывод текста. Пример: <pre class="brush: qsp">
+p 'Бобр' &amp; ! здесь выводим текст без перехода на новую строку
+p 'Добр' &amp; ! и здесь тоже
+nl 'До'
+nl 'Бобрят'
+</pre> После выполнения кода — в <strong>Окне дополнительного описания</strong> мы увидим: <pre class="brush: qsp">
+БобрДобр
+До
+Бобрят
+</pre></div>
+<ul>
+<li class="level2"><div class="li"> Если не указать <code>[$текст]</code>, то команда просто совершит переход на новую строку: <pre class="brush: qsp">
+  *p 'Бобр Добр'
+  *nl
+  *p 'До Бобрят'
+</pre> В <strong>Окне дополнительного описания</strong> мы увидим: <pre class="brush: qsp">
+  Бобр Добр
+  До Бобрят
+</pre></div>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h3 class="sectionedit5" id="komandy_dlja_ochistki_okna_dopolnitelnogo_opisanija">Команды для очистки Окна дополнительного описания</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <code id="statement_CLEAR">CLEAR</code> или <code>CLR</code> - очищает <strong>Окно дополнительного описания</strong>. Пример: <pre class="brush: qsp">
+*p 'Бобр'    &amp; ! выводим текст без перехода на новую строку
+*pl 'Добр'  &amp; ! выводим текст и переходим на новую строку
+*nl 'До'    &amp; ! переходим на новую строку и выводим текст
+*nl 'Бобрят' &amp; ! переходим на новую строку и выводим текст
+*clear
+ &amp; ! очищаем окно дополнительного описания от всего текста
+</pre> В результате работы этого кода <strong>Окно дополнительного описания</strong> окажется пустым.</div>
+</li>
+<li class="level1"><div class="li"> <code>CLS</code> - эквивалентно конструкции “<code>CLEAR &amp; *CLEAR &amp; CLA &amp; CMDCLEAR</code>”, т.е. очищает все окна, кроме списка предметов.</div>
+</li>
+</ul>
+</div>
+<h3 class="sectionedit6" id="funkcii_dlja_raboty_s_oknom_dopolnitelnogo_opisanija">Функции для работы с Окном дополнительного описания</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <code id="func_STATTXT">$STATTXT</code> - эта функция возвращает текст, выведенный в окно дополнительного описания. Пример: <pre class="brush: qsp">
+p 'Вёз Корабль Карамель'
+nl 'Наскочил Корабль На Мель'
+$string = $stattxt
+</pre> В данном случае при выполнении кода в переменную <code>$string</code> запишутся две строки текста: <pre class="brush: qsp">
+Вёз Корабль Карамель
+Наскочил Корабль На Мель
+</pre></div>
+</li>
+</ul>
+</div>
+<h3 class="sectionedit7" id="sistemnye_peremennye_dlja_upravlenija_oknom_dopolnitelnogo_opisanija">Системные переменные для управления Окном дополнительного описания</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <code>DISABLESCROLL</code> - если значение переменной не равно 0, то запрещает автопрокрутку текста при его выводе в окно основного или дополнительное описания.<br/>
+<strong>Что это значит</strong>. Предположим, мы вывели на экран большой объём текста, а затем при нажатии на <strong>действие</strong> у нас выводится ещё один фрагментик текста. Если <code>DISABLESCROLL = 0</code>, этот фрагментик текста при выводе заставит экран прокрутиться вниз. Если мы не хотим, чтобы экран прокручивался вниз в этом случае, мы присваиваем переменной <code>DISABLESCROLL</code> единицу.</div>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit8" id="drugie_primery">Другие примеры</h2>
+<div class="level2">
+<p>
+</p><pre class="brush: qsp">
+P '1'
+PL '23'
+NL '456'
+'78'
+</pre>
+<p>
+После выполнения кода в <strong>Окно дополнительного описания</strong> будет выведено:
+</p>
+<p>
+</p><pre class="brush: text">
+123
+
+45678
+</pre>
+<p>
+Можно выводить не только строки, но и числа, и значения переменных, функций и результаты вычисления выражений:
+</p>
+<p>
+</p><pre class="brush: qsp">
+p 'I ♥ QSP!'
+pl 256 / 12 * 9
+pl 137 + (2 * 9)
+p $curloc
+nl rand(999)
+x = 15 &amp; ! присваиваем значение переменной
+nl x
+</pre>
+<p>
+<a class="wikilink1" href="help_msgbox.htm" title="help:msgbox">Вперёд: Окно сообщений</a>
+</p>
+</div>
+
+<!-- wikipage stop -->
+</div></body>
+</html>

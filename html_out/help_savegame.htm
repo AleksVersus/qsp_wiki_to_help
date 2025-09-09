@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Сохранения [Документация QSP]</title>
+<link href="default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="page group">
+<!-- wikipage start -->
+<!-- TOC START -->
+
+<!-- TOC END -->
+<p>
+<a class="wikilink1" href="help_modules.htm" title="help:modules">Назад: Работа с файлами игр, использование модулей</a>
+</p>
+<h1 class="sectionedit1" id="soxranenija">Сохранения</h1>
+<div class="level1">
+<p>
+QSP позволяет сохранять и загружать состояния игры из файлов сохранений не только средствами самого плеера, но и непосредственно из кода игры.
+</p>
+</div>
+<h2 class="sectionedit2" id="operatory_dlja_raboty_s_soxranenijami">Операторы для работы с сохранениями</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <code id="statement_SAVEGAME">SAVEGAME</code> — сохраняет состояние игры в указанный файл. Общая запись: <pre class="brush: qsp">
+SAVEGAME [$путь]
+</pre> , где <code>[$путь]</code> — путь к создаваемому файлу сохранения. Если параметр <code>[$путь]</code> отсутствует, то вызывается окно сохранения игры.<br/>
+</div>
+</li>
+</ul>
+<p>
+Пример: </p><pre class="brush: qsp">
+! сохраняем состояние в файл 1.sav
+savegame "1.sav"
+! открываем окно сохранения
+savegame
+</pre> См. также локацию-обработчик события "<strong>cохранение состояния игры</strong>" (<a class="wikilink1" href="help_service_locations.htm" title="help:service_locations">ONGSAVE</a>).
+
+<ul>
+<li class="level1"><div class="li"> <code id="statement_OPENGAME">OPENGAME</code> — загрузка указанного файла сохранения. Общая запись: <pre class="brush: qsp">
+OPENGAME [$путь]
+</pre> , где <code>[$путь]</code> — путь к файлу сохранения. Если параметр <code>[$путь]</code> отсутствует, то вызывается окно загрузки состояния игры.<br/>
+Пример: <pre class="brush: qsp">
+! загрузка состояния из файла 1.sav
+opengame "1.sav"
+! открываем окно загрузки состояния
+opengame
+</pre> См. также локацию-обработчик события "<strong>загрузка состояния игры</strong>" (<a class="wikilink1" href="help_service_locations.htm" title="help:service_locations">ONGLOAD</a>).</div>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit3" id="sistemnye_peremennye_otvechajuschie_za_nastrojku_soxranenij">Системные переменные, отвечающие за настройку сохранений</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <code id="variable_NOSAVE">NOSAVE</code> — если значение данной переменной отлично от <strong>0</strong>, пункт меню плеера "<strong>Сохранить состояние игры</strong>" игроку становится недоступен, т.е. игрок не может самостоятельно сохранить игру. В то же время на уровне кода QSP продолжает работать оператор <code>SAVEGAME</code>. Пример: <pre class="brush: qsp">
+! отключаем возможность сохранения игры
+nosave=1
+act "Бросить кости":
+    cubes=rand(1,6)
+    ! включаем возможность сохранений обратно
+    nosave=0
+    delact $selact
+end
+</pre></div>
+</li>
+<li class="level1"><div class="li"> <code id="variable_DEBUG">DEBUG</code> — если значение переменной отлично от нуля, отключается проверка идентификатора игры при загрузке состояния. Иначе при каждом изменении файла игры нельзя будет использовать файлы сохранений, сделанные до изменения игры.<br/>
+<strong>Совет:</strong> во время разработки и тестов игры значение переменной <code>DEBUG</code> всегда должно быть отлично от нуля, а когда вы выпускаете финальную версию игры (релиз), нужно выставить переменной <code>DEBUG</code> значение 0, чтобы игроки не смогли загрузить файлы сохранений от других игр. <pre class="brush: qsp">
+! отключаем проверку игры на
+! совместимость с сохранениями
+debug = 1
+</pre></div>
+</li>
+</ul>
+<p>
+<a class="wikilink1" href="help_realtime.htm" title="help:realtime">Вперёд: Реальное время</a>
+</p>
+</div>
+
+<!-- wikipage stop -->
+</div></body>
+</html>

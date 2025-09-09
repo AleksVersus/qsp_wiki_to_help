@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Quest Generator [Документация QSP]</title>
+<link href="default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="page group">
+<!-- wikipage start -->
+<!-- TOC START -->
+
+<!-- TOC END -->
+<p>
+<a class="wikilink1" href="help_qspider.htm" title="help:qspider">Назад: qSpider</a>
+</p>
+<h1 class="sectionedit1" id="quest_generator">Quest Generator</h1>
+<div class="level1">
+<p>
+Статья актуализирована для <strong>Quest Generator</strong> версии <strong>4.0.0 Beta</strong>.
+</p>
+</div>
+<h2 class="sectionedit2" id="chto_takoe_qgen">Что такое QGen?</h2>
+<div class="level2">
+<p>
+<strong>QGen</strong>, он же <strong>Quest Generator</strong>, — является основным средством разработки текстовых игр и квестов на платформе <strong>QSP</strong>.
+</p>
+<p>
+Если вы новичок в написании игр на <strong>QSP</strong> или в принципе новичок в программировании, рекомендуем для начала научиться работать в <strong>Quest Generator</strong> и лишь затем, если это будет необходимо, переходить на работу в текстовом редакторе с использованием утилиты <strong><a class="wikilink1" href="help_txt2gam.htm" title="help:txt2gam">TXT2GAM</a></strong>.
+</p>
+<p>
+<a class="urlextern" href="https://qsp.org/index.php?option=com_content&amp;task=view&amp;id=59&amp;Itemid=56" rel="nofollow" target="_blank" title="https://qsp.org/index.php?option=com_content&amp;task=view&amp;id=59&amp;Itemid=56">Учебник по QGen</a>
+</p>
+</div>
+<h2 class="sectionedit3" id="vozmozhnosti">Возможности</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> Автосохранение через определенные промежутки времени (по умолчанию отключено).</div>
+</li>
+<li class="level1"><div class="li"> Возможность сконвертировать игру в текстовый и <strong>TXT2GAM</strong> форматы для альтернативной разработки, а так же отладки кода (см.<a class="wikilink1" href="help_analyzer.htm" title="help:analyzer">Анализатор</a>).</div>
+</li>
+<li class="level1"><div class="li"> Гибкие настройки подсветки кода (подсветки синтакса).</div>
+</li>
+<li class="level1"><div class="li"> Гибкие настройки интерфейса.</div>
+</li>
+<li class="level1"><div class="li"> Поддержка макросов (<a class="wikilink2" href="glossary_snippet.htm" rel="nofollow" title="glossary:snippet">сниппетов</a>).</div>
+</li>
+<li class="level1"><div class="li"> Простая работа с локациями (локация — как отдельный блок кода).</div>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit4" id="interfejs">Интерфейс</h2>
+<div class="level2">
+<p>
+<img alt=" qgen" class="media" src="help_qgen.png" title=" qgen" width="450"/>
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>Панель инструментов</strong> — дает вам возможность не запоминать комбинации клавиш для тех или иных действий. Если автору удобней работать горячими клавишами с клавиатуры, то панель можно отключить за ненадобностью. Меню "Вид → Список окон → Панель инструментов".</div>
+</li>
+<li class="level1"><div class="li"> <strong>Список локаций</strong> — здесь можно создавать папки для удобной сортировки локаций. Так же отключается через "Вид → Список окон → Окно списка локаций", или нажатием на крестик на самом окне.</div>
+</li>
+<li class="level1"><div class="li"> <strong>Окно "Описание"</strong>. Оно же <strong>"Базовое описание локации"</strong>, или просто <strong>"Описание локации"</strong>. Использовать не обязательно, можно отключить в меню "Настройки → Основные", где нужно убрать галочку с "Показывать базовые описания локаций."</div>
+</li>
+<li class="level1"><div class="li"> <strong>Окно "Выполнить при посещении"</strong>. Основное окно <strong>QGen</strong>а. В нём пишется весь код игры. Некоторые авторы предпочитают пользоваться только этим окном, так как использование окон <strong>"Описание локаций"</strong> и <strong>"Базовые действия"</strong> не обязательно, а более гибкое управление выводом текста и действий (например, действие по условию) возможно только через окно <strong>"Выполнить при посещении"</strong>.</div>
+</li>
+<li class="level1"><div class="li"> <strong>Окно "Базовые действия"</strong>. Позволяет быстро создавать, удалять, редактировать действия доступные игроку. Использовать не обязательно. Можно закрыть через меню "Настройки → Основные", где нужно убрать галочку с пункта "Показывать базовые действия локаций".</div>
+</li>
+<li class="level1"><div class="li"> <strong>Строка состояния</strong> показывает описание последнего оператора введенного автором. Отключить можно через меню "Вид → Список окон → Строка состояния".</div>
+</li>
+<li class="level1"><div class="li"> <strong>Вкладки локаций</strong> — появляются только после открытия тех или иных локаций. Позволяют быстро перемещаться между редактируемыми локациям. Вкладки можно редактировать в режиме разделённого экрана. Для этого откройте хотя бы две локации, ухватите одну из вкладок курсором мыши и перетащите в нужную часть экрана. Когда увидите синий прямоугольник, показывающий, где будет располагаться новая секция экрана, отпустите вкладку. Две локации окажутся открыты одновременно на одном экране. Вновь открытые локации будут добавляться на экран к активной вкладке.</div>
+</li>
+</ul>
+<p>
+Какие из окон редактора использовать, решает сам автор. По факту можно отключить все окна и писать игру только в окне <strong>"Выполнить при посещении"</strong>, и переключаться между локациями с помощью <strong>"Списка локаций"</strong>. Кроме этого есть возможность регулировать размеры всех окон через меню "Настройки → Размеры".
+</p>
+</div>
+<h2 class="sectionedit5" id="osnovnye_gorjachie_klavishi">Основные горячие клавиши</h2>
+<div class="level2">
+<p>
+Нет необходимости запоминать все горячие клавиши, тем более некоторые из них дублирует <strong>"Панель инструментов"</strong>, однако их использование существенно упрощает и ускоряет работу в редакторе.
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>Ctrl+Z</strong> - отмена последнего действия.</div>
+</li>
+<li class="level1"><div class="li"> <strong>Ctrl+F</strong> - поиск текста по всем локациям.</div>
+</li>
+<li class="level1"><div class="li"> <strong>Ctrl+S</strong> - сохранение игры.</div>
+</li>
+<li class="level1"><div class="li"> <strong>F5</strong> - быстрый запуск игры в плеере.</div>
+</li>
+</ul>
+<p>
+Не дублируются "Панелью инструментов":
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>Ctrl + Spacebar</strong> - вставка ключевого слова. Работает, если введён хотя бы один символ. Например, если ввести <code>t</code> и нажать данное сочетание клавиш, вставится <code>TRIM</code>.</div>
+</li>
+<li class="level1"><div class="li"> <strong>TAB</strong> - сдвиг выделенных строк кода на один отступ вправо.</div>
+</li>
+<li class="level1"><div class="li"> <strong>Shift + TAB</strong> - сдвиг выделенных строк кода на один отступ влево.</div>
+</li>
+<li class="level1"><div class="li"> <strong>Home</strong> - перемещение в начало строки.</div>
+</li>
+<li class="level1"><div class="li"> <strong>End</strong> - перемещение в конец строки.</div>
+</li>
+<li class="level1"><div class="li"> <strong>PgUp</strong> - перемещение курсора к первому абзацу.</div>
+</li>
+<li class="level1"><div class="li"> <strong>PgDn</strong> - перемещение курсора к последнему абзацу.</div>
+</li>
+</ul>
+<p>
+Вы можете настроить полезное сочетание клавиш самостоятельно для вставки повторяющихся фрагментов кода. Для этого зайдите в "Настройки (<strong>Ctrl+P</strong>) → Комбинации клавиш → Добавить".
+</p>
+</div>
+<h2 class="sectionedit6" id="otvety_na_voprosy_po_qgen">Ответы на вопросы по QGen</h2>
+<div class="level2">
+<p>
+<strong>Для чего нужен файл с расширением <code>.qproj</code> в папке с игрой?</strong>
+</p>
+<p>
+Он хранит информацию о папках локаций. Если вы его удалите, с самой игрой ничего не случится, но в <strong>Quest Generator</strong> вам придётся снова создавать папки и рассортировывать по ним локации.
+</p>
+<p>
+<strong>Как запустить справку по QSP?</strong>
+</p>
+<p>
+<code>Скачать → ПКМ → Разблокировать</code>, в QGen <code>Помощь → указать путь к файлу справки</code>.
+</p>
+<p>
+<strong>Не подсвечиваются некоторые операторы и функции, что делать?</strong>
+</p>
+<p>
+Скачайте свежую таблицу ключевых слов с гитхаба: <a class="urlextern" href="https://github.com/QSPFoundation/qgen/blob/master/misc/common/keywords.xml" rel="nofollow" target="_blank" title="https://github.com/QSPFoundation/qgen/blob/master/misc/common/keywords.xml">keywords.xml</a>
+</p>
+</div>
+<h2 class="sectionedit7" id="drugie_voprosy">Другие вопросы</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://aleksversus.github.io/howdo_faq/docs/howdo/contents/quest%20generator/keybindings" rel="nofollow" target="_blank" title="https://aleksversus.github.io/howdo_faq/docs/howdo/contents/quest%20generator/keybindings">Мне часто приходится вставлять одинаковые или почти одинаковые кусочки кода. Как автоматизировать этот процесс?</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://aleksversus.github.io/howdo_faq/docs/howdo/contents/quest%20generator/keybindings" rel="nofollow" target="_blank" title="https://aleksversus.github.io/howdo_faq/docs/howdo/contents/quest%20generator/keybindings">Делаю преформатирование пробелами, чтобы появлялась вертикальная полоска, так нагляднее. Нет ли какой-то комбинации клавиш, чтобы не тыкать пробел по пять раз?</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://aleksversus.github.io/howdo_faq/docs/howdo/contents/quest%20generator/code_folding" rel="nofollow" target="_blank" title="https://aleksversus.github.io/howdo_faq/docs/howdo/contents/quest%20generator/code_folding">Как свернуть кусочек кода, написанный под комментарием?</a></div>
+</li>
+</ul>
+<p>
+<a class="wikilink1" href="help_debugger.htm" title="help:debugger">Вперёд: Отладчик</a>
+</p>
+</div>
+
+<!-- wikipage stop -->
+</div></body>
+</html>

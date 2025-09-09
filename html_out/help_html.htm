@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HTML [Документация QSP]</title>
+<link href="default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="page group">
+<!-- wikipage start -->
+<!-- TOC START -->
+
+<!-- TOC END -->
+<p>
+<a class="wikilink1" href="help_interface.htm" title="help:interface">Назад: Настройки интерфейса</a>
+</p>
+<h1 class="sectionedit1" id="html">HTML</h1>
+<div class="level1">
+<p>
+При использовании <abbr title="HyperText Markup Language">HTML</abbr> мы можем более гибко управлять внешним видом нашей игры, встраивать в неё изображения и использовать гиперссылки. Это позволяет разгрузить интерфейс от ненужных текстовых элементов, уменьшить число кнопок, и сделать управление игрой более гибким.
+</p>
+<p>
+Иными словами <abbr title="HyperText Markup Language">HTML</abbr> помогает нам сделать игру внешне привлекательной и удобной для игрока.
+</p>
+</div>
+<h2 class="sectionedit2" id="vkljuchenie_rezhima_raspoznavanija_html">Включение режима распознавания HTML</h2>
+<div class="level2">
+<p>
+Чтобы мы могли использовать <abbr title="HyperText Markup Language">HTML</abbr> в нашей игре, необходимо включить режим раcпознавания <abbr title="HyperText Markup Language">HTML</abbr>. Это делается с помощью системной переменной <code>USEHTML</code>.
+</p>
+<p>
+<code>USEHTML</code> — если значение данной переменной отлично от 0, включает возможность использования <abbr title="HyperText Markup Language">HTML</abbr> в окне основного описания, в окне дополнительного описания, в списках действий и предметов, а также в диалоговых окнах, вызываемых функцией <code>$INPUT</code> и оператором <code>MSG</code>. Выводимый текст распознаётся как <abbr title="HyperText Markup Language">HTML</abbr>.
+</p>
+<p>
+</p><pre class="brush: qsp">
+usehtml = 1 &amp; ! включаем режим распознавания HTML
+</pre>
+<p>
+По умолчанию в любом плеере <strong>QSP</strong> отключено распознавание <abbr title="HyperText Markup Language">HTML</abbr>, поскольку на старте игры все переменные равны нулю, в т.ч. и <code>USEHTML</code>. Из-за этого все <abbr title="HyperText Markup Language">HTML</abbr>-теги, выводимые в тексте с помощью соответствующих команд, или в названиях предметов, действий или диалоговых окон <code>$INPUT</code> и <code>MSG</code>, будут отображены на экране, как есть. <sup><a class="fn_top" href="start.htm#fn__1" id="fnt__1">1)</a></sup>.
+</p>
+<p>
+При изменении значения <code>USEHTML</code> на число, отличное от нуля, распознавание <abbr title="HyperText Markup Language">HTML</abbr> включится, и сами теги будут скрыты от игрока, а к тексту, выводимому на экран, будет применено форматирование, соответствующее этим тегам.
+</p>
+</div>
+<h2 class="sectionedit3" id="kod_v_giperssylkax">Код в гиперссылках</h2>
+<div class="level2">
+<p>
+В <strong>QSP</strong> есть возможность запускать код по щелчку на гиперссылке. Для этого мы должны изменить содержимое атрибута <strong><code>href</code></strong>.
+</p>
+<p>
+В этом атрибуте мы прописываем ключевое слово <code>EXEC</code>, затем без пробелов ставим двоеточие, а после двоеточия в одну строку пишем обычный код <strong>QSP</strong>. Вот пример вставленной в текст гиперссылки, которая ведёт игрока на другую локацию:
+</p>
+<p>
+</p><pre class="brush: qsp">
+usehtml=1
+
+*pl 'В тени сумрачного леса приютился маленький &lt;a href="EXEC: goto ''пряничный_домик'' "&gt;пряничный домик&lt;/a&gt;.'
+</pre>
+<p>
+Обратите внимание на используемые в строке кавычки. Поскольку для записи строки мы использовали одинарные кавычки (апострофы), а двойные кавычки использовали для атрибута <strong>href</strong>, пришлось экранировать одинарные кавычки в строке дублированием, чтобы название локации <code>пряничный_домик</code> так же было заключено в кавычки. Сравните эту запись со следующей:
+</p>
+<p>
+</p><pre class="brush: qsp">
+*pl "В тени сумрачного леса приютился маленький &lt;a href=""EXEC: goto 'пряничный_домик' ""&gt;пряничный домик&lt;/a&gt;."
+</pre>
+<p>
+В гиперссылках нельзя размещать многострочный код, поскольку это нарушает чтение гиперссылок в плеерах, поддерживающих полноценный <abbr title="HyperText Markup Language">HTML</abbr>. Записывайте все команды в одну строку:
+</p>
+<p>
+</p><pre class="brush: qsp">
+if был_здесь = 0:
+    яблоки = 10
+    был_здесь = 1
+end
+*pl "&lt;a href=""EXEC: if яблоки &gt; 0: яблоки-=1 &amp; gt $curloc else: pl 'Яблок больше нет.' ""&gt;Яблоки (&lt;&lt;яблоки&gt;&gt; шт.)&lt;/a&gt;"
+</pre>
+<p>
+Если нужно выполнить из гиперссылки сложный многострочный код, разместите этот код на отдельной локации, а затем уже вызывайте локацию с помощью <code>GOSUB</code> из гиперссылки:
+</p>
+<p>
+</p><pre class="brush: qsp">
+*pl "&lt;a href=""EXEC: gosub ''взять_яблоко'' ""&gt;Яблоки (&lt;&lt;яблоки&gt;&gt; шт.)&lt;/a&gt;"
+</pre>
+<p>
+Или поместите код в текстовую переменную, а потом выполняйте из гиперссылки с помощью оператора <code>DYNAMIC</code>:
+</p>
+<p>
+</p><pre class="brush: qsp">
+$code = {
+  if яблоки &gt; 0:
+    яблоки -= 1
+    pl 'Вы взяли одно яблоко.'
+    gt $curloc
+  else:
+    pl 'Яблок больше нет.' 
+  end
+}
+*pl "&lt;a href='EXEC: dynamic $code '&gt;Яблоки (&lt;&lt;яблоки&gt;&gt; шт.)&lt;/a&gt;"
+</pre>
+</div>
+<h2 class="sectionedit4" id="osobennosti_raboty_html_v_raznyx_pleerax">Особенности работы HTML в разных плеерах</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> Классический плеер поддерживает лишь некоторые <abbr title="HyperText Markup Language">HTML</abbr>-теги. Полный список можно посмотреть на странице <a class="wikilink1" href="help_html_classic.htm" title="help:html_classic">HTML-теги поддерживаемые Классическим плеером</a>.</div>
+</li>
+<li class="level1"><div class="li"> Плеер <strong>qSpider</strong> работает с полноценным браузером, а значит поддерживает все <abbr title="HyperText Markup Language">HTML</abbr>-теги современного стандарта. В том числе и <abbr title="HyperText Markup Language">HTML</abbr>-теги для встраивания видео.</div>
+</li>
+<li class="level1"><div class="li"> Плеер <strong>Quest Navigator</strong> имеет устаревший браузерный движок, который не соответствует современным стандартам, но поддерживает большинство <abbr title="HyperText Markup Language">HTML</abbr>-тегов.</div>
+</li>
+<li class="level1"><div class="li"> Устаревший плеер <strong>AeroQSP</strong> поддерживает почти все <abbr title="HyperText Markup Language">HTML</abbr>-теги, но поддерживает не все атрибуты, в основном только атрибут <strong><code>style</code></strong>.</div>
+</li>
+</ul>
+<p>
+<a class="wikilink1" href="help_inputs.htm" title="help:inputs">Вперёд: Ввод текста игроком</a>
+</p>
+</div>
+<div class="footnotes">
+<div class="fn"><sup><a class="fn_bot" href="start.htm#fnt__1" id="fn__1">1)</a></sup> 
+Из этого правила есть исключения. Например, в <strong>qSpider</strong> распознавание <abbr title="HyperText Markup Language">HTML</abbr> включено всегда и не зависит от значения переменной <code>usehtml</code></div>
+</div>
+
+<!-- wikipage stop -->
+</div></body>
+</html>

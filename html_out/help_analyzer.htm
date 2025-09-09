@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Анализатор кода QSP [Документация QSP]</title>
+<link href="default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="page group">
+<!-- wikipage start -->
+<!-- TOC START -->
+
+<!-- TOC END -->
+<p>
+<a class="wikilink1" href="help_txt2gam.htm" title="help:txt2gam">Назад: Краткое руководство по TXT2GAM</a>
+</p>
+<h1 class="sectionedit1" id="analizator_koda_qsp">Анализатор кода QSP</h1>
+<div class="level1">
+<p>
+Эта утилита предназначена для анализа кода игры для QSP, записанного в формате <strong>TXT2GAM</strong> (<strong>QSPS</strong>).
+</p>
+<p>
+Для работы этой программы необходимо установить <strong>.Net Framework</strong> версии не ниже 2.0.
+</p>
+<p>
+Если при запуске появляется "Ошибка при инициализации приложения (0xc0000135)", значит у вас не установлен <strong>.Net Framework</strong>.
+</p>
+<p>
+Анализатор выполняет проверку на двух уровнях:
+</p>
+<ol>
+<li class="level1"><div class="li"> Проверка синтаксиса. Все ошибки, которые можно однозначно определить по соответствию синтаксическим правилам языка QSP.<br/>
+<strong>Пример:</strong> незакрытые многострочные операторы, незакрытые скобки, неверное количество аргументов функции и т.д.</div>
+</li>
+<li class="level1"><div class="li"> Предупреждения. Предположения об ошибках, основанные на анализе структуры игры - переменные, локации, предметы, действия.<br/>
+<strong>Пример:</strong> локации, на которые нет перехода, использование неинициализированных переменных, попытка удалить предмет, который нигде не добавляется, и т.д.</div>
+</li>
+</ol>
+<p>
+<strong><a class="urlextern" href="https://code.google.com/archive/p/qsp-analyser/downloads" rel="nofollow" target="_blank" title="https://code.google.com/archive/p/qsp-analyser/downloads">Скачать анализатор со страницы релизов</a></strong>
+</p>
+<p>
+Ссылка на проект, для тех, кому интересно: <a class="urlextern" href="https://code.google.com/p/qsp-analyser/" rel="nofollow" target="_blank" title="https://code.google.com/p/qsp-analyser/">https://code.google.com/p/qsp-analyser/</a>
+</p>
+<p>
+Главная ценность проекта - исходный код, который полностью открыт. Его можно обновлять и дополнять под изменения в QSP.
+</p>
+</div>
+<h2 class="sectionedit2" id="primenenie">Применение</h2>
+<div class="level2">
+</div>
+<h3 class="sectionedit3" id="pri_razrabotke_igr_posredstvom_qgen">При разработке игр посредством qGen</h3>
+<div class="level3">
+<p>
+Анализатор работает только с файлами формата <strong>TXT2GAM</strong> (<strong>QSPS</strong>). Поэтому, если вы работаете в <strong>Quest Generator</strong>, вам придётся экспортировать игру в <strong>TXT2GAM</strong> для проверки в Анализаторе:
+</p>
+<ul>
+<li class="level1"><div class="li"> Открываете меню "Игра → Экспорт → Текстовый файл формата TXT2GAM…"</div>
+</li>
+<li class="level1"><div class="li"> Выбираете место сохранения и название файла.</div>
+</li>
+</ul>
+<p>
+После этого запускаете "<code>QSP_Analyser.exe</code>", указываете путь к вашему файлу, и нажимаете кнопку "Перечитать".
+</p>
+<p>
+Анализатор выводит список ошибок в следующем виде:
+</p>
+<p>
+</p><pre class="brush: text">
+Ошибок: 1, предупреждений: 0
+Ошибка, локация "Диалог_А", строка #220 : Многострочный IF без END
+</pre>
+<p>
+Номер строки соответствует номеру в текстовом файле, все исправления вносятся в него через любой текстовый редактор. Для быстрого переключения к нужной строке используйте сочетание клавиш <strong>Ctrl+G</strong>.
+</p>
+</div>
+<h2 class="sectionedit4" id="ehksport_tekstovyx_konstant_v_csv-fajl_i_perevod">Экспорт текстовых констант в CSV-файл и перевод</h2>
+<div class="level2">
+<p>
+Сделано для удобства перевода игры на другой язык. Работает так: открываем утилиту, выбираем исходный код квеста. Открываем вкладку "Конвертация". Жмем "Экспорт в CSV". Если в исходном файле нет ошибок, генерируется CSV-файл, в котором записана таблица из четырех колонок. В первой - номер строки таблицы и название локации, из которой взят текст. Во второй - исходный текст. В третьей - нужно вписать перевод. В четвертой можно писать любые комментарии, ее содержимое не учитывается.
+</p>
+<p>
+CSV-файл можно редактировать во многих офисных программах. Точно он поддерживается программами OpenOffice Calc и MS Excel. Когда перевод готов, нажимаем кнопку "Сделать перевод, используя CSV". Сгенерируется файл с именем таким как у исходного квеста + указанный суффикс(пример: исходный квест "<code>game.txt</code>", CSV-файл "<code>game.csv</code>", файл перевода "<code>game_tr.txt</code>"). Получили переведенную игру.
+</p>
+<p>
+Для чего это нужно?
+</p>
+<p>
+Во-первых, наглядное представление не даст пропустить непереведенных строк.
+</p>
+<p>
+Во-вторых, можно будет поручить перевод человеку, не знакомому с языком QSP.
+</p>
+<p>
+Ну и еще это может служить удобным средством для проверки орфографии, до тех пор пока она не будет-таки реализована в кугене.
+</p>
+</div>
+<h2 class="sectionedit5" id="faq">F.A.Q.</h2>
+<div class="level2">
+<p>
+<strong>— Что такое "потерянные локации"?</strong>
+</p>
+<p>
+Потерянные - те, на которые нет явно заданных переходов.
+</p>
+<p>
+Пример:
+</p>
+<p>
+</p><pre class="brush: qsp">
+$nextloc = 'Победа'
+...
+GOTO $nextloc
+</pre>
+<p>
+В такой ситуации, анализатор не засчитает это за переход (обращение к локации). Но можно внести <code>"$nextloc"</code> в специальный список переменных в панели настроек, тогда присваивание значения будет считаться за переход.
+</p>
+<p>
+<strong>— Зачем переводить игры?</strong>
+</p>
+<p>
+Кроме очевидных:
+</p>
+<ul>
+<li class="level1"><div class="li"> Увеличение аудитории игры.</div>
+</li>
+<li class="level1"><div class="li"> Хорошо оформленную игру на Aero, переведенную на английский, можно собрать в stand-alone swf и продать на рынке flash-игр. При этом весь контент в игре не должен нарушать чьих-либо авторских прав.</div>
+</li>
+<li class="level1"><div class="li"> Теоретически можно публиковать игры на <strong>Steam</strong> и других площадках для продажи игр.</div>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit6" id="ssylki">Ссылки</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://qsp.org/index.php?option=com_agora&amp;task=topic&amp;id=365" rel="nofollow" target="_blank" title="https://qsp.org/index.php?option=com_agora&amp;task=topic&amp;id=365">Обсуждение на форуме.</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://mega.nz/folder/jXwXlSRJ#TF7P-soOJOWIC8MrBA-L1A" rel="nofollow" target="_blank" title="https://mega.nz/folder/jXwXlSRJ#TF7P-soOJOWIC8MrBA-L1A">Две версии анализатора и другие программы на Mega.nz</a></div>
+</li>
+</ul>
+<p>
+<a class="wikilink1" href="help_limits.htm" title="help:limits">Вперёд: Ограничения QSP</a>
+</p>
+</div>
+
+<!-- wikipage stop -->
+</div></body>
+</html>

@@ -1,8 +1,4 @@
 /.obsidian/
-/html_src/*
-/html_out/*
-!/html_out/qsp.hhc
-!/html_out/qsp.hhk
-!/html_out/qsp.hhp
+/html_out/*.chm
 */wiki_download.log
 *.sublime-workspace

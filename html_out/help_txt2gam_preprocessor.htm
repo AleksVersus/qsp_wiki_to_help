@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Тем, кто применяет TXT2GAM (использование препроцессора) [Документация QSP]</title>
+<link href="default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="page group">
+<!-- wikipage start -->
+<!-- TOC START -->
+
+<!-- TOC END -->
+<p>
+<a class="wikilink1" href="help_txt2gam.htm" title="help:txt2gam">Назад: Краткое руководство по TXT2GAM</a>
+</p>
+<h1 class="sectionedit1" id="tem_kto_primenjaet_txt2gam_ispolzovanie_preprocessora">Тем, кто применяет TXT2GAM (использование препроцессора)</h1>
+<div class="level1">
+<p>
+При написании игры без использования QGen, исходный текст не зашифрован и может редактироваться любым текстовым редактором.
+</p>
+<p>
+Это также дает возможность обработать текстовый файл игры перед тем, как он будет превращен в QSP-файл - например, удалить отладочный код или неиспользуемые фрагменты текста, а также собрать один файл из нескольких мелких.
+</p>
+<p>
+В мире программирования на Си эта возможность называется "препроцессинг" и выполняется утилитой cpp, которая идет в пакете с компиляторами C.
+</p>
+<p>
+В нашем случае удобно использовать утилиту, которая не привязана к языку С и и может быть использована отдельно от компилятора — GPP для Win32.
+</p>
+<p>
+Чтобы воспользоваться этим, нужно добавить в текст специальные инструкции и обработать текст утилитой GPP. После такой обработки текст уже не будет содержать инструкции и может быть преобразован в QSP-файл без ошибок.
+</p>
+</div>
+<h2 class="sectionedit2" id="instrukcii_osnovnye">Инструкции (основные)</h2>
+<div class="level2">
+<p>
+<strong>#mode quote</strong> — отключает обработку символа "\" как служебного, рекомендуется поставить первой строчкой файла
+</p>
+<p>
+<strong>#define</strong> &lt;имя&gt; — определить флажок, на который можно будет позже ссылаться
+</p>
+<p>
+<strong>#define</strong> &lt;имя&gt; &lt;значение&gt; — определить значение, на которое можно будет позже ссылаться
+</p>
+<p>
+<strong>#undef</strong> &lt;имя&gt; — удаление значения или флажка
+</p>
+<p>
+<strong>#ifdef</strong> &lt;имя&gt; — если флаг или значение определены, то весь текст после этого условия до <strong>#endif</strong> или до <strong>#else</strong> будет выведен в итоговый файл
+</p>
+<p>
+<strong>#else</strong> — окончание фрагмента, регулируемого инструкцией <strong>#ifdef</strong> - последующий текст выводится, если условие в <strong>#ifdef</strong> не выполнено
+</p>
+<p>
+<strong>#endif</strong> — окончание фрагмента, регулируемого инструкцией <strong>#ifdef</strong> или <strong>#else</strong>
+</p>
+<p>
+<strong>#ifndef</strong> — аналогично <strong>#ifdef,</strong> однако проверяется, что флаг или значение не определены - весь текст после этого условия до <strong>#endif</strong> или до <strong>#else</strong> будет выведен в итоговый файл
+</p>
+<p>
+<strong>#include</strong> "&lt;имя файла&gt;" — в выходной файл вставляет текст из указанного файла (из той же папки) - если файл содержит инструкции, то он также будет обработан
+</p>
+<p>
+Поскольку в <strong>txt2gam</strong>, по умолчанию, для обозначения начала локации используется символ "#", то важно, чтобы имена локаций не назывались по имени инструкции (<strong>define</strong>, <strong>ifdef</strong>, и т.п.). Также не стоит включать инструкции в комментарии и строки, лучше их записывать на отдельных строчках.
+</p>
+<p>
+Доступны также и другие инструкции, о них можно узнать в документации или спросить на форуме.
+</p>
+<p>
+Для запуска текста игры на обработку нужно открыть консоль и набрать команду:
+gpp.exe &lt;входной файл&gt; -o &lt;выходной файл&gt;
+Другие ключи запуска можно узнать, запустив как: gpp.exe –help
+</p>
+</div>
+<h2 class="sectionedit3" id="primer_ispolzovanija">Пример использования</h2>
+<div class="level2">
+<p>
+Исходный файл:
+</p>
+<p>
+</p><pre class="brush: qsp">
+#define HTML
+
+# Start
+
+#ifdef HTML
+USEHTML=1
+#endif
+
+- Start
+</pre>
+<p>
+После обработки в выходной файл запишется:
+</p>
+<p>
+</p><pre class="brush: qsp">
+# Start
+
+USEHTML=1
+
+- Start
+</pre>
+<p>
+Если же убрать инструкцию <strong>#define</strong> - например, заменив на <strong>#undef,</strong> то после обработки в выходной файл запишется:
+</p>
+<p>
+</p><pre class="brush: qsp">
+# Start
+
+- Start
+</pre>
+<p>
+То есть текст, регулируемый инструкцией <strong>#ifdef,</strong> был удален из конечного результата.
+</p>
+<p>
+Прошу задавать вопросы на форуме.
+</p>
+<p>
+Ссылки:
+</p>
+<ul>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://yumbrik.ru/gpp-2.24.o1.win32.zip" rel="nofollow" target="_blank" title="https://yumbrik.ru/gpp-2.24.o1.win32.zip">Скачать GPP</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://files.nothingisreal.com/software/gpp/gpp.html" rel="nofollow" target="_blank" title="https://files.nothingisreal.com/software/gpp/gpp.html">Документация на английском</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://RU.nothingisreal.com/wiki/GPP" rel="nofollow" target="_blank" title="https://RU.nothingisreal.com/wiki/GPP">Домашний сайт GPP</a></div>
+</li>
+</ul>
+<p>
+АВТОР: <strong>NTROPY</strong>
+07.04.2010 18:47
+</p>
+</div>
+
+<!-- wikipage stop -->
+</div></body>
+</html>

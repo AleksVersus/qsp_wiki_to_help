@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Отладчик [Документация QSP]</title>
+<link href="default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="page group">
+<!-- wikipage start -->
+<p>
+<a class="wikilink1" href="help_qgen.htm" title="help:qgen">Назад: Quest Generator</a>
+</p>
+<h1 class="sectionedit1" id="otladchik">Отладчик</h1>
+<div class="level1">
+<p>
+Здесь вы можете скачать готовый отладчик от <strong>WEREWOLF</strong>, который позволит в любое время выполнить произвольный кусок кода или просмотреть значения переменных из указанного списка:
+</p>
+<p>
+<a class="urlextern" href="https://qsp.org/index.php?option=com_content&amp;id=71&amp;Itemid=56" rel="nofollow" target="_blank" title="https://qsp.org/index.php?option=com_content&amp;id=71&amp;Itemid=56">Отладчик от **Werewolf**а</a>
+</p>
+<p>
+Простейший отладчик можно сделать самому. Для этого в самой первой локации игры пишем следующие команды:
+</p>
+<p>
+</p><pre class="brush: qsp">
+! включаем отображение строки ввода:
+showinput 1
+! задаём локацию-обработчик строки ввода:
+$usercom = "userCom"
+</pre>
+<p>
+Название локации, которую используем в качестве <a class="wikilink1" href="help_service_locations.htm" title="help:service_locations">локации-обработчика строки ввода</a>, может быть любым, но его необходимо обязательно присвоить переменной <code><strong>$USERCOM</strong></code>, чтобы игра поняла, какую именно локацию использовать в качестве локации-обработчика строки ввода.
+</p>
+<p>
+Создаём локацию с именем "userCom" (либо с тем именем, что вы указали в <code><strong>$USERCOM</strong></code>), где пишем следующее:
+</p>
+<p>
+</p><pre class="brush: qsp">
+dynamic $user_text
+</pre>
+<p>
+Вот и всё. Теперь любая команда, введённая в строку ввода, будет выполнена, как обычный код. Например, если вам потребуется получить значение переменной, вы просто вводите название этой переменной в строку ввода и нажимаете "Enter". Если необходимо срочно попасть на другую локацию во время теста игры, просто вводите в строку ввода goto "название_локации_на_которую_хотите_попасть" и нажимаете "Enter".
+</p>
+<p>
+<a class="wikilink1" href="help_txt2gam.htm" title="help:txt2gam">Вперёд: Пишем игры в текстовом редакторе. TXT2GAM</a>
+</p>
+</div>
+
+<!-- wikipage stop -->
+</div></body>
+</html>

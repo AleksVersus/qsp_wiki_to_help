@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr" class="no-js">
+<head>
+    <meta charset="utf-8" />
+    <title>Ввод текста игроком [Документация QSP]</title>
+    <script>(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement)</script>
+    <meta name="generator" content="DokuWiki"/>
+<meta name="robots" content="index,follow"/>
+<meta name="keywords" content="help,inputs"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/lib/exe/opensearch.php" title="Документация QSP"/>
+<link rel="start" href="/"/>
+<link rel="contents" href="/help:inputs?do=index" title="Все страницы"/>
+<link rel="alternate" type="application/rss+xml" title="Недавние изменения" href="/feed.php"/>
+<link rel="alternate" type="application/rss+xml" title="Текущее пространство имён" href="/feed.php?mode=list&amp;ns=help"/>
+<link rel="alternate" type="text/html" title="Простой HTML" href="/_export/xhtml/help:inputs"/>
+<link rel="alternate" type="text/plain" title="вики-разметка" href="/_export/raw/help:inputs"/>
+<link rel="canonical" href="https://wiki.qsp.org/help:inputs"/>
+<link rel="stylesheet" type="text/css" href="/lib/exe/css.php?t=qspdokuwiki&amp;tseed=f799b71f6ad814a2c02470a4d20f4250"/>
+<link rel="stylesheet" type="text/css" href="/lib/plugins/syntaxhighlighter3/sxh3/styles/shCore.css"/>
+<link rel="stylesheet" type="text/css" href="/lib/plugins/syntaxhighlighter3/sxh3/styles/shThemeDefault.css"/>
+<script type="text/javascript">/*<![CDATA[*/var NS='help';var JSINFO = {"id":"help:inputs","namespace":"help"};
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="/lib/exe/js.php?tseed=f799b71f6ad814a2c02470a4d20f4250&amp;template=qspdokuwiki"></script>
+<script type="text/javascript" charset="utf-8">/*<![CDATA[*/NS = "help";var toolbar = [{"type":"format","title":"\u041f\u043e\u043b\u0443\u0436\u0438\u0440\u043d\u044b\u0439","icon":"bold.png","key":"b","open":"**","close":"**","block":false},{"type":"format","title":"\u041a\u0443\u0440\u0441\u0438\u0432","icon":"italic.png","key":"i","open":"\/\/","close":"\/\/","block":false},{"type":"format","title":"\u041f\u043e\u0434\u0447\u0451\u0440\u043a\u043d\u0443\u0442\u044b\u0439","icon":"underline.png","key":"u","open":"__","close":"__","block":false},{"type":"format","title":"\u0422\u0435\u043a\u0441\u0442 \u043a\u043e\u0434\u0430","icon":"mono.png","key":"m","open":"''","close":"''","block":false},{"type":"format","title":"\u0417\u0430\u0447\u0451\u0440\u043a\u043d\u0443\u0442\u044b\u0439","icon":"strike.png","key":"d","open":"<del>","close":"<\/del>","block":false},{"type":"autohead","title":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a \u0442\u0435\u043a\u0443\u0449\u0435\u0433\u043e \u0443\u0440\u043e\u0432\u043d\u044f","icon":"hequal.png","key":"8","text":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a","mod":0,"block":true},{"type":"autohead","title":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a \u0431\u043e\u043b\u0435\u0435 \u043d\u0438\u0437\u043a\u043e\u0433\u043e \u0443\u0440\u043e\u0432\u043d\u044f (\u043f\u043e\u0434\u0437\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a)","icon":"hminus.png","key":"9","text":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a","mod":1,"block":true},{"type":"autohead","title":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a \u0431\u043e\u043b\u0435\u0435 \u0432\u044b\u0441\u043e\u043a\u043e\u0433\u043e \u0443\u0440\u043e\u0432\u043d\u044f","icon":"hplus.png","key":"0","text":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a","mod":-1,"block":true},{"type":"picker","title":"\u0412\u044b\u0431\u043e\u0440 \u0437\u0430\u0433\u043e\u043b\u043e\u0432\u043a\u0430","icon":"h.png","class":"pk_hl","list":[{"type":"format","title":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a 1-\u0433\u043e \u0443\u0440\u043e\u0432\u043d\u044f","icon":"h1.png","key":"1","open":"====== ","close":" ======\\n"},{"type":"format","title":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a 2-\u0433\u043e \u0443\u0440\u043e\u0432\u043d\u044f","icon":"h2.png","key":"2","open":"===== ","close":" =====\\n"},{"type":"format","title":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a 3-\u0433\u043e \u0443\u0440\u043e\u0432\u043d\u044f","icon":"h3.png","key":"3","open":"==== ","close":" ====\\n"},{"type":"format","title":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a 4-\u0433\u043e \u0443\u0440\u043e\u0432\u043d\u044f","icon":"h4.png","key":"4","open":"=== ","close":" ===\\n"},{"type":"format","title":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a 5-\u0433\u043e \u0443\u0440\u043e\u0432\u043d\u044f","icon":"h5.png","key":"5","open":"== ","close":" ==\\n"}],"block":true},{"type":"format","title":"\u0412\u043d\u0435\u0448\u043d\u044f\u044f \u0441\u0441\u044b\u043b\u043a\u0430","icon":"linkextern.png","open":"[[","close":"]]","sample":"http:\/\/example.com|\u0412\u043d\u0435\u0448\u043d\u044f\u044f \u0441\u0441\u044b\u043b\u043a\u0430","block":false},{"type":"formatln","title":"\u042d\u043b\u0435\u043c\u0435\u043d\u0442 \u043d\u0443\u043c\u0435\u0440\u043e\u0432\u0430\u043d\u043d\u043e\u0433\u043e \u0441\u043f\u0438\u0441\u043a\u0430","icon":"ol.png","open":"  - ","close":"","key":"-","block":true},{"type":"formatln","title":"\u042d\u043b\u0435\u043c\u0435\u043d\u0442 \u043d\u0435\u043d\u0443\u043c\u0435\u0440\u043e\u0432\u0430\u043d\u043d\u043e\u0433\u043e \u0441\u043f\u0438\u0441\u043a\u0430","icon":"ul.png","open":"  * ","close":"","key":".","block":true},{"type":"insert","title":"\u0420\u0430\u0437\u0434\u0435\u043b\u0438\u0442\u0435\u043b\u044c","icon":"hr.png","insert":"\\n----\\n","block":true},{"type":"picker","title":"\u0421\u043c\u0430\u0439\u043b\u0438\u043a\u0438","icon":"smiley.png","list":{"8-)":"icon_cool.gif","8-O":"icon_eek.gif","8-o":"icon_eek.gif",":-(":"icon_sad.gif",":-)":"icon_smile.gif","=)":"icon_smile2.gif",":-\/":"icon_doubt.gif",":-\\":"icon_doubt2.gif",":-?":"icon_confused.gif",":-D":"icon_biggrin.gif",":-P":"icon_razz.gif",":-o":"icon_surprised.gif",":-O":"icon_surprised.gif",":-x":"icon_silenced.gif",":-X":"icon_silenced.gif",":-|":"icon_neutral.gif",";-)":"icon_wink.gif","m(":"facepalm.gif","^_^":"icon_fun.gif",":?:":"icon_question.gif",":!:":"icon_exclaim.gif","LOL":"icon_lol.gif","FIXME":"fixme.gif","DELETEME":"delete.gif"},"icobase":"smileys","block":false},{"type":"picker","title":"\u0421\u043f\u0435\u0446\u0438\u0430\u043b\u044c\u043d\u044b\u0435 \u0441\u0438\u043c\u0432\u043e\u043b\u044b","icon":"chars.png","list":["\u00c0","\u00e0","\u00c1","\u00e1","\u00c2","\u00e2","\u00c3","\u00e3","\u00c4","\u00e4","\u01cd","\u01ce","\u0102","\u0103","\u00c5","\u00e5","\u0100","\u0101","\u0104","\u0105","\u00c6","\u00e6","\u0106","\u0107","\u00c7","\u00e7","\u010c","\u010d","\u0108","\u0109","\u010a","\u010b","\u00d0","\u0111","\u00f0","\u010e","\u010f","\u00c8","\u00e8","\u00c9","\u00e9","\u00ca","\u00ea","\u00cb","\u00eb","\u011a","\u011b","\u0112","\u0113","\u0116","\u0117","\u0118","\u0119","\u0122","\u0123","\u011c","\u011d","\u011e","\u011f","\u0120","\u0121","\u0124","\u0125","\u00cc","\u00ec","\u00cd","\u00ed","\u00ce","\u00ee","\u00cf","\u00ef","\u01cf","\u01d0","\u012a","\u012b","\u0130","\u0131","\u012e","\u012f","\u0134","\u0135","\u0136","\u0137","\u0139","\u013a","\u013b","\u013c","\u013d","\u013e","\u0141","\u0142","\u013f","\u0140","\u0143","\u0144","\u00d1","\u00f1","\u0145","\u0146","\u0147","\u0148","\u00d2","\u00f2","\u00d3","\u00f3","\u00d4","\u00f4","\u00d5","\u00f5","\u00d6","\u00f6","\u01d1","\u01d2","\u014c","\u014d","\u0150","\u0151","\u0152","\u0153","\u00d8","\u00f8","\u0154","\u0155","\u0156","\u0157","\u0158","\u0159","\u015a","\u015b","\u015e","\u015f","\u0160","\u0161","\u015c","\u015d","\u0162","\u0163","\u0164","\u0165","\u00d9","\u00f9","\u00da","\u00fa","\u00db","\u00fb","\u00dc","\u00fc","\u01d3","\u01d4","\u016c","\u016d","\u016a","\u016b","\u016e","\u016f","\u01d6","\u01d8","\u01da","\u01dc","\u0172","\u0173","\u0170","\u0171","\u0174","\u0175","\u00dd","\u00fd","\u0178","\u00ff","\u0176","\u0177","\u0179","\u017a","\u017d","\u017e","\u017b","\u017c","\u00de","\u00fe","\u00df","\u0126","\u0127","\u00bf","\u00a1","\u00a2","\u00a3","\u00a4","\u00a5","\u20ac","\u00a6","\u00a7","\u00aa","\u00ac","\u00af","\u00b0","\u00b1","\u00f7","\u2030","\u00bc","\u00bd","\u00be","\u00b9","\u00b2","\u00b3","\u00b5","\u00b6","\u2020","\u2021","\u00b7","\u2022","\u00ba","\u2200","\u2202","\u2203","\u018f","\u0259","\u2205","\u2207","\u2208","\u2209","\u220b","\u220f","\u2211","\u203e","\u2212","\u2217","\u00d7","\u2044","\u221a","\u221d","\u221e","\u2220","\u2227","\u2228","\u2229","\u222a","\u222b","\u2234","\u223c","\u2245","\u2248","\u2260","\u2261","\u2264","\u2265","\u2282","\u2283","\u2284","\u2286","\u2287","\u2295","\u2297","\u22a5","\u22c5","\u25ca","\u2118","\u2111","\u211c","\u2135","\u2660","\u2663","\u2665","\u2666","\u03b1","\u03b2","\u0393","\u03b3","\u0394","\u03b4","\u03b5","\u03b6","\u03b7","\u0398","\u03b8","\u03b9","\u03ba","\u039b","\u03bb","\u03bc","\u039e","\u03be","\u03a0","\u03c0","\u03c1","\u03a3","\u03c3","\u03a4","\u03c4","\u03c5","\u03a6","\u03c6","\u03c7","\u03a8","\u03c8","\u03a9","\u03c9","\u2605","\u2606","\u260e","\u261a","\u261b","\u261c","\u261d","\u261e","\u261f","\u2639","\u263a","\u2714","\u2718","\u201e","\u201c","\u201d","\u201a","\u2018","\u2019","\u00ab","\u00bb","\u2039","\u203a","\u2014","\u2013","\u2026","\u2190","\u2191","\u2192","\u2193","\u2194","\u21d0","\u21d1","\u21d2","\u21d3","\u21d4","\u00a9","\u2122","\u00ae","\u2032","\u2033","[","]","{","}","~","(",")","%","\u00a7","$","#","|","@"],"block":false}];
+
+/*!]]>*/</script>
+<script type="text/javascript" src="/lib/plugins/syntaxhighlighter3/sxh3/scripts/shCore.js"></script>
+<script type="text/javascript" src="/lib/plugins/syntaxhighlighter3/sxh3/scripts/shAutoloader.js"></script>
+<script type="text/javascript" src="/lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushXml.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="shortcut icon" href="/lib/tpl/qspdokuwiki/images/favicon.ico" />
+<link rel="apple-touch-icon" href="/lib/tpl/qspdokuwiki/images/apple-touch-icon.png" />
+    </head>
+
+<body>
+    <!--[if lte IE 7 ]><div id="IE7"><![endif]--><!--[if IE 8 ]><div id="IE8"><![endif]-->
+    <div id="dokuwiki__site"><div id="dokuwiki__top" class="site dokuwiki mode_show tpl_qspdokuwiki    showSidebar hasSidebar">
+
+        
+<!-- ********** HEADER ********** -->
+<div id="dokuwiki__header"><div class="pad group">
+
+    
+    <div class="headings group">
+        <ul class="a11y skip">
+            <li><a href="#dokuwiki__content">Перейти к содержанию</a></li>
+        </ul>
+
+        <h1><a href="/start"  accesskey="h" title="[H]"><img src="/_media/wiki:logo.png" width="147" height="74" alt="" /></a><a href="/start"  accesskey="h" title="[H]"><span>Документация QSP</span></a><div class='main-site-row'><a href="https://qsp.org" ><span>Сайт</span></a><a href="https://qsp.org/index.php?option=com_agora&Itemid=57" ><span>Форум</span></a></div></h1>
+            </div>
+
+    <div class="tools group">
+        <!-- USER TOOLS -->
+                    <div id="dokuwiki__usertools">
+                <h3 class="a11y">Инструменты пользователя</h3>
+                <ul>
+                    <li><a href="/help:inputs?do=login&amp;sectok=3e6ff35dfd333a48df46ef95b66bb2d4"  class="action login" rel="nofollow" title="Войти">Войти</a></li>                </ul>
+            </div>
+        
+        <!-- SITE TOOLS -->
+        <div id="dokuwiki__sitetools">
+            <h3 class="a11y">Инструменты сайта</h3>
+            <form action="/start" accept-charset="utf-8" class="search" id="dw__search" method="get" role="search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" class="edit" title="[F]" /><input type="submit" value="Поиск" class="button" title="Поиск" /><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>            <div class="mobileTools">
+                <form action="/doku.php" method="get" accept-charset="utf-8"><div class="no"><input type="hidden" name="id" value="help:inputs" /><select name="do" class="edit quickselect" title="Инструменты"><option value="">Инструменты</option><optgroup label="Инструменты страницы"><option value="edit">Показать исходный текст</option><option value="revisions">История страницы</option><option value="backlink">Ссылки сюда</option></optgroup><optgroup label="Инструменты сайта"><option value="recent">Недавние изменения</option><option value="media">Управление медиафайлами</option><option value="index">Все страницы</option></optgroup><optgroup label="Инструменты пользователя"><option value="login">Войти</option></optgroup></select><input type="submit" value="&gt;" /></div></form>            </div>
+            <ul>
+                <li><a href="/help:inputs?do=recent"  class="action recent" accesskey="r" rel="nofollow" title="Недавние изменения [R]">Недавние изменения</a></li><li><a href="/help:inputs?do=media&amp;ns=help"  class="action media" rel="nofollow" title="Управление медиафайлами">Управление медиафайлами</a></li><li><a href="/help:inputs?do=index"  class="action index" accesskey="x" rel="nofollow" title="Все страницы [X]">Все страницы</a></li>            </ul>
+        </div>
+
+    </div>
+
+    <!-- BREADCRUMBS -->
+            <div class="breadcrumbs">
+                                        <div class="trace"><span class="bchead">Вы посетили:</span> <span class="bcsep">•</span> <bdi><a href="/discussions"  class="breadcrumbs" title="discussions">Обсуждения</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:strings"  class="breadcrumbs" title="help:strings">Строки</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:qspider_interface"  class="breadcrumbs" title="help:qspider_interface">Взаимодействие с интерфейсом (расширенные возможности qSpider)</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:glossary"  class="breadcrumbs" title="help:glossary">Словарь терминов</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:modules"  class="breadcrumbs" title="help:modules">Работа с файлами игр, использование модулей</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:service_locations"  class="breadcrumbs" title="help:service_locations">Служебные локации</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:main"  class="breadcrumbs" title="help:main">Окно основного описания</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:classic_qsp"  class="breadcrumbs" title="help:classic_qsp">Особенности написания игр для классического плеера</a></bdi> <span class="bcsep">•</span> <bdi><a href="/howto:start"  class="breadcrumbs" title="howto:start">Как сделать</a></bdi> <span class="bcsep">•</span> <span class="curid"><bdi><a href="/help:inputs"  class="breadcrumbs" title="help:inputs">Ввод текста игроком</a></bdi></span></div>
+                    </div>
+    
+    
+    <hr class="a11y" />
+</div></div><!-- /header -->
+
+        <div class="wrapper group">
+
+                            <!-- ********** ASIDE ********** -->
+                <div id="dokuwiki__aside"><div class="pad include group">
+                    <h3 class="toggle">Боковая панель</h3>
+                    <div class="content">
+                                                                        <ul>
+<li class="level1"><div class="li">  <strong><a href="/start" class="wikilink1" title="start">В начало</a></strong></div>
+</li>
+<li class="level1"><div class="li">  <strong><a href="/help:qsp" class="wikilink1" title="help:qsp">Что такое QSP?</a></strong></div>
+</li>
+<li class="level1"><div class="li">  <strong><a href="/help:locations" class="wikilink1" title="help:locations">Локации</a></strong></div>
+</li>
+<li class="level1"><div class="li">  <strong>Вывод текста</strong></div>
+<ul>
+<li class="level2"><div class="li">  <a href="/help:main" class="wikilink1" title="help:main">Окно основного описания</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:stat" class="wikilink1" title="help:stat">Окно дополнительного описания</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:msgbox" class="wikilink1" title="help:msgbox">Окно сообщений</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li">  <strong><a href="/help:acts" class="wikilink1" title="help:acts">Действия</a></strong></div>
+</li>
+<li class="level1"><div class="li">  <strong><a href="/help:goto" class="wikilink1" title="help:goto">Переходы</a></strong></div>
+</li>
+<li class="level1"><div class="li">  <strong><a href="/help:objs" class="wikilink1" title="help:objs">Предметы (инвентарь)</a></strong></div>
+</li>
+<li class="level1"><div class="li">  <strong>Программирование</strong></div>
+<ul>
+<li class="level2"><div class="li">  <a href="/help:principle" class="wikilink1" title="help:principle">Порядок работы интерпретатора</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:variables" class="wikilink1" title="help:variables">Переменные</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:expressions" class="wikilink1" title="help:expressions">Выражения</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:coding" class="wikilink1" title="help:coding">Программный код</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:cycle" class="wikilink1" title="help:cycle">Циклы</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:arrays" class="wikilink1" title="help:arrays">Массивы</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:strings" class="wikilink1" title="help:strings">Строки</a></div>
+<ul>
+<li class="level3"><div class="li">  <a href="/help:regexp" class="wikilink1" title="help:regexp">Регулярные выражения</a></div>
+</li>
+</ul>
+</li>
+<li class="level2"><div class="li">  <a href="/help:tuples" class="wikilink1" title="help:tuples">Кортежи</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:conditional" class="wikilink1" title="help:conditional">Условия</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:organizing" class="wikilink1" title="help:organizing">Пользовательские функции и процедуры</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:jump" class="wikilink1" title="help:jump">Переходы внутри локации</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:service_locations" class="wikilink1" title="help:service_locations">Служебные локации, события</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:dynamical" class="wikilink1" title="help:dynamical">Динамический код</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li">  <strong>Оформление</strong></div>
+<ul>
+<li class="level2"><div class="li">  <a href="/help:menu" class="wikilink1" title="help:menu">Меню</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:sound" class="wikilink1" title="help:sound">Звук</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:graphics" class="wikilink1" title="help:graphics">Графика</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:interface" class="wikilink1" title="help:interface">Настройки интерфейса</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:html" class="wikilink1" title="help:html">HTML</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li">  <strong>Расширенные возможности</strong></div>
+<ul>
+<li class="level2"><div class="li">  <a href="/help:inputs" class="wikilink1" title="help:inputs">Ввод текста игроком</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:modules" class="wikilink1" title="help:modules">Работа с файлами игр, модули</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:savegame" class="wikilink1" title="help:savegame">Работа с файлами сохранений</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:realtime" class="wikilink1" title="help:realtime">Реальное время</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li">  <strong>Нюансы написания игр под разные плееры</strong></div>
+<ul>
+<li class="level2"><div class="li">  <a href="/help:classic_qsp" class="wikilink1" title="help:classic_qsp">Классический плеер</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:qspider" class="wikilink1" title="help:qspider">qSpider</a></div>
+<ul>
+<li class="level3"><div class="li"> <a href="/help:qspider_gamecfg" class="wikilink1" title="help:qspider_gamecfg">Конфигурационный файл</a></div>
+</li>
+<li class="level3"><div class="li"> <a href="/help:qspider_aeroqsp" class="wikilink1" title="help:qspider_aeroqsp">Особенности запуска AeroQSP-игр</a></div>
+</li>
+<li class="level3"><div class="li"> <a href="/help:qspider_interface" class="wikilink1" title="help:qspider_interface">Взаимодействие с интерфейсом</a></div>
+</li>
+<li class="level3"><div class="li"> <a href="/help:qspider_themes" class="wikilink1" title="help:qspider_themes">Темы оформления</a></div>
+</li>
+<li class="level3"><div class="li"> <a href="/help:qspider_spectags" class="wikilink1" title="help:qspider_spectags">Специальные теги</a></div>
+</li>
+<li class="level3"><div class="li"> <a href="/help:qspider_inclib" class="wikilink1" title="help:qspider_inclib">Встроенная библиотека</a></div>
+</li>
+<li class="level3"><div class="li"> <a href="/help:qspider_standalone" class="wikilink2" title="help:qspider_standalone" rel="nofollow">Стандалон-сборка</a></div>
+</li>
+</ul>
+</li>
+<li class="level2"><div class="li">  x <a href="/help:navigator" class="wikilink1" title="help:navigator">Quest Navigator</a></div>
+</li>
+<li class="level2"><div class="li">  x <a href="/help:aeroqsp" class="wikilink1" title="help:aeroqsp">AeroQSP</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li">  <strong>Утилиты и средства разработки</strong></div>
+<ul>
+<li class="level2"><div class="li">  <a href="/help:qgen" class="wikilink1" title="help:qgen">Quest Generator</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:debugger" class="wikilink1" title="help:debugger">Отладчик</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:txt2gam" class="wikilink1" title="help:txt2gam">Работа с утилитой TXT2GAM</a></div>
+</li>
+<li class="level2"><div class="li">  <a href="/help:analyzer" class="wikilink1" title="help:analyzer">Анализатор кода QSP</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li">  <strong><a href="/help:limits" class="wikilink1" title="help:limits">Ограничения QSP</a></strong></div>
+</li>
+<li class="level1"><div class="li">  <strong><a href="/howto:start" class="wikilink1" title="howto:start">Как сделать?</a></strong></div>
+</li>
+<li class="level1"><div class="li">  <strong><a href="/help:glossary" class="wikilink1" title="help:glossary">Cловарь терминов</a></strong></div>
+</li>
+<li class="level1"><div class="li">  <strong><a href="/help:keywords" class="wikilink1" title="help:keywords">Ключевые слова. Указатель</a></strong></div>
+</li>
+</ul>
+                                            </div>
+                </div></div><!-- /aside -->
+            
+            <!-- ********** CONTENT ********** -->
+            <div id="dokuwiki__content"><div class="pad group">
+
+                <div class="pageId"><span>help:inputs</span></div>
+
+                <div class="page group">
+                                                            <!-- wikipage start -->
+                    <!-- TOC START -->
+<div id="dw__toc">
+<h3 class="toggle">Содержание</h3>
+<div>
+
+<ul class="toc">
+<li class="level1"><div class="li"><a href="#vvod_teksta_igrokom">Ввод текста игроком</a></div>
+<ul class="toc">
+<li class="level2"><div class="li"><a href="#operatory_i_funkcii_dlja_raboty_so_strokoj_vvoda">Операторы и функции для работы со строкой ввода</a></div></li>
+<li class="level2"><div class="li"><a href="#dialogovoe_okno">Диалоговое окно</a></div></li>
+</ul>
+</li>
+<li class="level1"><div class="li"><a href="#discussion__section">Обсуждение</a></div></li>
+</ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<p>
+<a href="/help:html" class="wikilink1" title="help:html">Назад: HTML</a>
+</p>
+
+<h1 class="sectionedit1" id="vvod_teksta_igrokom">Ввод текста игроком</h1>
+<div class="level1">
+
+<p>
+Ввод текста игроком можно сделать двумя способами: использовать строку ввода текста, либо диалоговое окно для ввода.
+</p>
+
+<p>
+Рекомендуется использовать диалоговое окно, кроме тех случаев, в которых требуется вводить текст много раз подряд, например, при реализации парсерной игры - в таких случаях рекомендуется использовать строку ввода.
+</p>
+
+</div>
+
+<h2 class="sectionedit2" id="operatory_i_funkcii_dlja_raboty_so_strokoj_vvoda">Операторы и функции для работы со строкой ввода</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <code>SHOWINPUT</code> — данный оператор управляет отображением строки ввода на экране. Общая запись: <pre class="brush: qsp">
+SHOWINPUT [#выражение]
+</pre> , где <code>[#выражение]</code> — это число. Обычно используются значения 0 и 1. Если значение выражения <code>[#выражение]</code> отлично от нуля, строка ввода отображается. Если значение выражения <code>[#выражение]</code> равно нулю, строка ввода скрыта. Примеры: <pre class="brush: qsp">
+showinput 1 &amp; ! показывает строку ввода
+showinput 0 &amp; ! скрывает строку ввода
+</pre> Для удобства чтения кода можно заранее определить переменные <code>on</code> и <code>off</code> и использовать их: <pre class="brush: qsp">
+on, off = 1, 0
+showinput on &amp; ! показывает строку ввода
+showinput off &amp; ! скрывает строку ввода
+</pre></div>
+</li>
+<li class="level1"><div class="li"> <code>CMDCLEAR</code> — оператор очистки строки ввода. Имеет краткую форму <code>CMDCLR</code>. Удаляет весь текст из строки ввода. <pre class="brush: qsp">
+cmdclear
+</pre></div>
+</li>
+<li class="level1"><div class="li"> <code>$USER_TEXT</code> — данная функция в ЛЮБОМ месте игры возвращает текст, который находится в строке ввода (поле ввода). Имеет краткую форму <code>$USRTXT</code>. Пример использования совместно с обработчиком строки ввода можно посмотреть в разделе <a href="/help:service_locations" class="wikilink1" title="help:service_locations">&quot;Служебные локации&quot;</a>. Пример действия, по нажатию на которое в окно дополнительного описания будет выводиться текст, введённый в строку ввода: <pre class="brush: qsp">
+act &quot;Что я написал?&quot;: pl &#039;Я написал: &quot;&lt;&lt;$user_text&gt;&gt;&quot;.&#039;
+</pre></div>
+</li>
+</ul>
+
+</div>
+
+<h2 class="sectionedit3" id="dialogovoe_okno">Диалоговое окно</h2>
+<div class="level2">
+
+<p>
+<code>$INPUT</code> — данная функция выводит на экран диалоговое окно с указанным текстом, а затем возвращает интерпретатору введённый игроком текст, либо <code>&quot;&quot;</code> (пустая строка), если была нажата кнопка &quot;<strong>Отмена</strong>&quot;. Общая запись:
+</p>
+
+<p>
+<pre class="brush: qsp">
+$INPUT([$текст])
+</pre>
+</p>
+
+<p>
+, где <code>[$текст]</code> — это приглашение в диалоговом окне, которое видит игрок. Например:
+</p>
+
+<p>
+<pre class="brush: qsp">
+$name = $input(&#039;Как звать тебя, герой?&#039;)
+</pre>
+</p>
+
+<p>
+При выполнении данной команды на экране появится диалоговое окно с текстом &quot;Как звать тебя, герой?&quot;, а выполнение остального кода приостановится, пока игрок не провзаимодействует с диалоговым окном.
+</p>
+
+<p>
+Игрок может ввести или не ввести текст, и нажать кнопки &quot;<strong>ОК</strong>&quot; или &quot;<strong>Отмена</strong>&quot;. Если игрок ввёл текст и нажал кнопку &quot;<strong>ОК</strong>&quot;, функция <code>$INPUT</code> вернёт переменной <code>$name</code> введённый игроком текст. Во всех остальных случаях после закрытия диалогового окна функция вернёт пустую строку (<code>&quot;&quot;</code>).
+</p>
+
+<p>
+Другие примеры:
+</p>
+
+<p>
+<pre class="brush: qsp">
+! Вопрос с одним правильным ответом. 
+if $input(&#039;Что приходит после тьмы?&#039;)=&#039;свет&#039;:
+  msg &#039;Все верно.&#039;
+else
+  msg &#039;Ответ не верный.&#039;
+end
+
+! Пример реализации вопроса с несколькими вариантами ответа из которых любой будет правильным.
+$answer=$trim($lcase($input(&#039;Ответить&#039;)))
+if instr($answer,&#039;красный&#039;) or instr($answer,&#039;желтый&#039;) or instr($answer,&#039;зеленый&#039;): gt &#039;win&#039;
+! Введя красный или зеленый ил желтый произойдет переход на локацию &#039;win&#039;
+</pre>
+</p>
+
+<p>
+Допустимо, но не одобряется, использовать функцию для возвращения числовых значений:
+</p>
+
+<p>
+<pre class="brush: qsp">
+INPUT([$приглашение])
+</pre>
+</p>
+
+<p>
+Это может привести к различным ошибкам в игре, если игрок введёт в диалоговом окне не только цифры. Например:
+</p>
+
+<p>
+<pre class="brush: qsp">
+age=input(&#039;Сколько вам лет?&#039;)
+</pre>
+</p>
+
+<p>
+Если игрок введёт вместо числа строку &quot;<code>24 года</code>&quot;, плеер выдаст ошибку <strong>101 &quot;Несоответствие типов данных&quot;</strong>. Подобные ситуации должен предусматривать автор игры, а значит правильно будет озаботиться проверкой введённого значения уже после того, как функция <code>$INPUT</code> будет выполнена.
+</p>
+
+<p>
+<pre class="brush: qsp">
+:enter_text
+! предлагаем игроку ответить на вопрос
+! и присваиваем введённый текст переменной:
+$text=$input(&#039;Сколько вам лет?&#039;)
+! если во введённом тексте содержатся не только
+!  цифры, либо игрок не ввёл ответ:
+if $text=&quot;&quot; or no isnum($text):
+    ! предлагаем игроку снова ответить на вопрос:
+    jump &#039;enter_text&#039;
+else
+    age=val($text)
+end
+</pre>
+</p>
+
+<p>
+<a href="/help:modules" class="wikilink1" title="help:modules">Вперёд: Работа с файлами игр, использование модулей</a>
+</p>
+
+</div>
+
+<script type='text/javascript'>
+  SyntaxHighlighter.autoloader(
+    'applescript /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushAppleScript.js',
+    'actionscript3 as3 /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushAS3.js',
+    'bash shell /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushBash.js',
+    'coldfusion cf /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushColdFusion.js',
+    'cpp c /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushCpp.js',
+    'c# c-sharp csharp /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushCSharp.js',
+    'css /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushCss.js',
+    'delphi pascal /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushDelphi.js',
+    'diff patch pas /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushDiff.js',
+    'erl erlang /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushErlang.js',
+    'groovy /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushGroovy.js',
+    'java /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushJava.js',
+    'jfx javafx /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushJavaFX.js',
+    'js jscript javascript /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushJScript.js',
+    'perl pl /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushPerl.js',
+    'php /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushPhp.js',
+    'text plain /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushPlain.js',
+    'ps powershell /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushPowerShell.js',
+    'py python /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushPython.js',
+    'ruby rails ror rb /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushRuby.js',
+    'sass scss /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushSass.js',
+    'scala /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushScala.js',
+    'sql /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushSql.js',
+    'vb vbnet /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushVb.js',
+    'xml xhtml xslt html /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushXml.js',
+    ' qsp /lib/plugins/syntaxhighlighter3/sxh3/scripts/shBrushQsp.js'
+  );
+  SyntaxHighlighter.all();
+</script>
+
+                    <!-- wikipage stop -->
+                                    </div>
+
+                <div class="docInfo"><bdi>help/inputs.txt</bdi> · Последние изменения: 2024/10/14 12:41  — <bdi>aleks_versus</bdi></div>
+
+                            </div></div><!-- /content -->
+
+            <hr class="a11y" />
+
+            <!-- PAGE ACTIONS -->
+            <div id="dokuwiki__pagetools">
+                <h3 class="a11y">Инструменты страницы</h3>
+                <div class="tools">
+                    <ul>
+                        <li><a href="/help:inputs?do=edit"  class="action source" accesskey="v" rel="nofollow" title="Показать исходный текст [V]"><span>Показать исходный текст</span></a></li><li><a href="/help:inputs?do=revisions"  class="action revs" accesskey="o" rel="nofollow" title="История страницы [O]"><span>История страницы</span></a></li><li><a href="/help:inputs?do=backlink"  class="action backlink" rel="nofollow" title="Ссылки сюда"><span>Ссылки сюда</span></a></li><li><a href="#dokuwiki__top"  class="action top" accesskey="t" rel="nofollow" title="Наверх [T]"><span>Наверх</span></a></li>                    </ul>
+                </div>
+            </div>
+        </div><!-- /wrapper -->
+
+        
+<!-- ********** FOOTER ********** -->
+<div id="dokuwiki__footer"><div class="pad">
+    
+    <div class="buttons">
+<a href="https://www.dokuwiki.org/ru:tips:good_style">Как писать хорошие вики-статьи</a>
+<a href="https://www.dokuwiki.org/ru:wiki:syntax">Вики-синтаксис</a>
+<a href="https://www.dokuwiki.org/ru:manual">Руководство пользователя</a>
+<a href="/playground:playground">Песочница (для любого тестирования)</a>
+<a href="/discussions">Обсуждения</a>
+<!--
+                <a href="https://www.dokuwiki.org/donate" title="Donate" ><img
+            src="/lib/tpl/qspdokuwiki/images/button-donate.gif" width="80" height="15" alt="Donate" /></a>
+        <a href="https://www.php.net" title="Powered by PHP" ><img
+            src="/lib/tpl/qspdokuwiki/images/button-php.gif" width="80" height="15" alt="Powered by PHP" /></a>
+        <a href="https://validator.w3.org/check/referer" title="Valid HTML5" ><img
+            src="/lib/tpl/qspdokuwiki/images/button-html5.png" width="80" height="15" alt="Valid HTML5" /></a>
+        <a href="https://jigsaw.w3.org/css-validator/check/referer?profile=css3" title="Valid CSS" ><img
+            src="/lib/tpl/qspdokuwiki/images/button-css.png" width="80" height="15" alt="Valid CSS" /></a>
+        <a href="https://dokuwiki.org/" title="Driven by DokuWiki" ><img
+            src="/lib/tpl/qspdokuwiki/images/button-dw.png" width="80" height="15" alt="Driven by DokuWiki" /></a>
+    </div>
+-->
+</div></div><!-- /footer -->
+
+    </div></div><!-- /site -->
+
+    <div class="no"><img src="/lib/exe/indexer.php?id=help%3Ainputs&amp;1757411617" width="2" height="1" alt="" /></div>
+    <div id="screen__mode" class="no"></div>    <!--[if ( lte IE 7 | IE 8 ) ]></div><![endif]-->
+</body>
+</html>
