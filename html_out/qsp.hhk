@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//RU">
 <html>
 <head>
 </head><body>
@@ -7,274 +7,276 @@
 </object><ul>
 <li><OBJECT type="text/sitemap"><param name="Name" value="! комментарий"/><param name="Local" value="help_coding.htm#kommentarii"/></OBJECT>
 </li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="@ не€вный вызов функции"/><param name="Local" value="help_organizing.htm#func_IMPLICIT"/></OBJECT>
+</li>
 <li><OBJECT type="text/sitemap"><param name="Name" value="ACT"/><param name="Local" value="help_acts.htm#statement_ACT"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="x ADDLIB - больше не поддерживаетс€"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="ADDOBJ"/><param name="Local" value="help_objs.htm#statement_ADDOBJ"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="ADDOBJ"/><param name="Local" value="help_objs.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="AND"/><param name="Local" value="help_expressions.htm#operator_AND"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="x ADDQST - больше не поддерживаетс€"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="ARRCOMP"/><param name="Local" value="help_arrays.htm#func_ARRCOMP"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="AND"/><param name="Local" value="help_expressions.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="ARRPOS"/><param name="Local" value="help_arrays.htm#func_ARRPOS"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="ARRCOMP"/><param name="Local" value="help_arrays.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="ARRPACK"/><param name="Local" value="help_tuples.htm#func_ARRPACK"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="ARRPOS"/><param name="Local" value="help_arrays.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="ARRSIZE"/><param name="Local" value="help_arrays.htm#func_ARRSIZE"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="ARRPACK"/><param name="Local" value="help_tuples.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="ARRTYPE"/><param name="Local" value="help_arrays.htm#func_ARRTYPE"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="ARRSIZE"/><param name="Local" value="help_arrays.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="$BACKIMAGE"/><param name="Local" value="help_main.htm#variable_BACKIMAGE"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="ARRTYPE"/><param name="Local" value="help_arrays.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="BCOLOR"/><param name="Local" value="help_interface.htm#variable_BCOLOR"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="$BACKIMAGE"/><param name="Local" value="help_main.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="CLA"/><param name="Local" value="help_acts.htm#statement_CLA"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="BCOLOR"/><param name="Local" value="help_interface.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="CLEAR"/><param name="Local" value="help_stat.htm#statement_CLEAR"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="CLA"/><param name="Local" value="help_acts.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="*CLEAR"/><param name="Local" value="help_main.htm#statement_STAR_CLEAR"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="CLEAR"/><param name="Local" value="help_stat.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="CLOSE"/><param name="Local" value="help_sound.htm#statement_CLOSE"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="*CLEAR"/><param name="Local" value="help_main.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="CLR"/><param name="Local" value="help_stat.htm#statement_CLEAR"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="CLOSE"/><param name="Local" value="help_sound.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="*CLR"/><param name="Local" value="help_main.htm#statement_STAR_CLEAR"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="CLR"/><param name="Local" value="help_stat.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="CLS"/><param name="Local" value="help_main.htm#statement_CLS"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="*CLR"/><param name="Local" value="help_main.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="CMDCLEAR"/><param name="Local" value="help_inputs.htm#statement_CMDCLEAR"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="CLS"/><param name="Local" value="help_main.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="CMDCLR"/><param name="Local" value="help_inputs.htm#statement_CMDCLEAR"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="CMDCLEAR"/><param name="Local" value="help_inputs.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="COPYARR"/><param name="Local" value="help_arrays.htm#statement_COPYARR"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="CMDCLR"/><param name="Local" value="help_inputs.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="$COUNTER"/><param name="Local" value="help_service_locations.htm#variable_COUNTER"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="COPYARR"/><param name="Local" value="help_arrays.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="COUNTOBJ"/><param name="Local" value="help_objs.htm#func_COUNTOBJ"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="$COUNTER"/><param name="Local" value="help_service_locations.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="$CURACTS"/><param name="Local" value="help_acts.htm#func_CURACTS"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="COUNTOBJ"/><param name="Local" value="help_objs.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="$CUROBJS"/><param name="Local" value="help_objs.htm#func_CUROBJS"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="$CURACTS"/><param name="Local" value="help_acts.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="$CURLOC"/><param name="Local" value="help_locations.htm#func_CURLOC"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="$CUROBJS"/><param name="Local" value="help_objs.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="DEBUG"/><param name="Local" value="help_savegame.htm#variable_DEBUG"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="CURLOC"/><param name="Local" value="help_coding.htm"/></OBJECT>
-</li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="DEBUG"/><param name="Local" value="help_modules.htm"/></OBJECT>
-</li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="DELACT"/><param name="Local" value="help_acts.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="DELACT"/><param name="Local" value="help_acts.htm#statement_DELACT"/></OBJECT>
 </li>
 <li><OBJECT type="text/sitemap"><param name="Name" value="x DELLIB - больше не поддерживаетс€"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="DELOBJ"/><param name="Local" value="help_objs.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="DELOBJ"/><param name="Local" value="help_objs.htm#statement_DELOBJ"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="DESC"/><param name="Local" value="help_main.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="DESC"/><param name="Local" value="help_main.htm#func_DESC"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="DISABLESCROLL"/><param name="Local" value="help_main.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="DISABLESCROLL"/><param name="Local" value="help_main.htm#variable_DISABLESCROLL"/></OBJECT>
 </li>
 <li><OBJECT type="text/sitemap"><param name="Name" value="x DISABLESUBEX Ч больше не поддерживаетс€"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="DYNAMIC"/><param name="Local" value="help_dynamical.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="DYNAMIC"/><param name="Local" value="help_dynamical.htm#statement_DYNAMIC"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="DYNEVAL"/><param name="Local" value="help_dynamical.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="DYNEVAL"/><param name="Local" value="help_dynamical.htm#func_DYNEVAL"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="ELSE"/><param name="Local" value="help_conditional.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="ELSE"/><param name="Local" value="help_conditional.htm#statement_ELSE"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="ELSEIF"/><param name="Local" value="help_conditional.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="ELSEIF"/><param name="Local" value="help_conditional.htm#statement_ELSEIF"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="EXIT"/><param name="Local" value="help_organizing.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="END (END ACT)"/><param name="Local" value="help_acts.htm#statement_END"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="FCOLOR"/><param name="Local" value="help_interface.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="END (END IF)"/><param name="Local" value="help_conditional.htm#statement_END"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="$FNAME"/><param name="Local" value="help_interface.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="EXIT"/><param name="Local" value="help_organizing.htm#statement_EXIT"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="FREELIB"/><param name="Local" value="help_modules.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="FCOLOR"/><param name="Local" value="help_interface.htm#variable_FCOLOR"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="FSIZE"/><param name="Local" value="help_interface.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="$FNAME"/><param name="Local" value="help_interface.htm#variable_FNAME"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="FUNC"/><param name="Local" value="help_organizing.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="FREELIB"/><param name="Local" value="help_modules.htm#statement_FREELIB"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="GETOBJ"/><param name="Local" value="help_objs.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="FSIZE"/><param name="Local" value="help_interface.htm#variable_FSIZE"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="GOSUB"/><param name="Local" value="help_organizing.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="FUNC"/><param name="Local" value="help_organizing.htm#func_FUNC"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="GOTO"/><param name="Local" value="help_locations.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="GETOBJ"/><param name="Local" value="help_objs.htm#func_GETOBJ"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="GS"/><param name="Local" value="help_organizing.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="GOSUB"/><param name="Local" value="help_organizing.htm#statement_GOSUB"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="GT"/><param name="Local" value="help_locations.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="GOTO"/><param name="Local" value="help_goto.htm#statement_GOTO"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="IF"/><param name="Local" value="help_conditional.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="GS"/><param name="Local" value="help_organizing.htm#statement_GOSUB"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="IIF"/><param name="Local" value="help_conditional.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="GT"/><param name="Local" value="help_goto.htm#statement_GOTO"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="INCLIB"/><param name="Local" value="help_modules.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="IF"/><param name="Local" value="help_conditional.htm#statement_IF"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="INPUT"/><param name="Local" value="help_inputs.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="IIF"/><param name="Local" value="help_conditional.htm#func_IIF"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="INSTR"/><param name="Local" value="help_strings.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="INCLIB"/><param name="Local" value="help_modules.htm#statement_INCLIB"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="ISNUM"/><param name="Local" value="help_strings.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="INPUT"/><param name="Local" value="help_inputs.htm#func_INPUT"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="ISPLAY"/><param name="Local" value="help_sound.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="INSTR"/><param name="Local" value="help_strings.htm#func_INSTR"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="ISNUM"/><param name="Local" value="help_strings.htm#func_ISNUM"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="ISPLAY"/><param name="Local" value="help_sound.htm#func_ISPLAY"/></OBJECT>
 </li>
 <li><OBJECT type="text/sitemap"><param name="Name" value="JUMP"/><param name="Local" value="help_jump.htm"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="KILLALL"/><param name="Local" value="help_arrays.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="KILLALL"/><param name="Local" value="help_arrays.htm#statement_KILLALL"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="KILLOBJ"/><param name="Local" value="help_objs.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="KILLOBJ"/><param name="Local" value="help_objs.htm#statement_KILLOBJ"/></OBJECT>
 </li>
 <li><OBJECT type="text/sitemap"><param name="Name" value="x KILLQST - больше не поддерживаетс€"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="KILLVAR"/><param name="Local" value="help_arrays.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="KILLVAR"/><param name="Local" value="help_arrays.htm#statement_KILLVAR"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="LCASE"/><param name="Local" value="help_strings.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="$LCASE"/><param name="Local" value="help_strings.htm#func_LCASE"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="LCOLOR"/><param name="Local" value="help_interface.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="LCOLOR"/><param name="Local" value="help_interface.htm#variable_LCOLOR"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="LEN"/><param name="Local" value="help_strings.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="LEN"/><param name="Local" value="help_strings.htm#func_LEN"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="LET"/><param name="Local" value="help_variables.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="LET"/><param name="Local" value="help_variables.htm#statement_LET"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="LOC"/><param name="Local" value="help_expressions.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="LOC"/><param name="Local" value="help_expressions.htm#operator_LOC"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="LOCAL"/><param name="Local" value="help_variables.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="LOCAL"/><param name="Local" value="help_variables.htm#statement_LOCAL"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="LOOP"/><param name="Local" value="help_cycle.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="LOOP"/><param name="Local" value="help_cycle.htm#statement_LOOP"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="$MAINTXT"/><param name="Local" value="help_main.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="$MAINTXT"/><param name="Local" value="help_main.htm#func_MAINTXT"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="MAX"/><param name="Local" value="help_coding.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="MAX"/><param name="Local" value="help_coding.htm#func_MAX"/></OBJECT>
 </li>
 <li><OBJECT type="text/sitemap"><param name="Name" value="MENU"/><param name="Local" value="help_menu.htm"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="MID"/><param name="Local" value="help_strings.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="$MID"/><param name="Local" value="help_strings.htm#func_MID"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="MIN"/><param name="Local" value="help_coding.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="MIN"/><param name="Local" value="help_coding.htm#func_MIN"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="MOD"/><param name="Local" value="help_expressions.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="MOD"/><param name="Local" value="help_expressions.htm#operator_MOD"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="MSECSCOUNT"/><param name="Local" value="help_realtime.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="MSECSCOUNT"/><param name="Local" value="help_realtime.htm#func_MSECSCOUNT"/></OBJECT>
 </li>
 <li><OBJECT type="text/sitemap"><param name="Name" value="MSG"/><param name="Local" value="help_msgbox.htm"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="NL"/><param name="Local" value="help_stat.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="NL"/><param name="Local" value="help_stat.htm#statement_NL"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="*NL"/><param name="Local" value="help_main.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="*NL"/><param name="Local" value="help_main.htm#statement_STAR_NL"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="NO"/><param name="Local" value="help_expressions.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="NO"/><param name="Local" value="help_expressions.htm#operator_NO"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="NOSAVE"/><param name="Local" value="help_modules.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="NOSAVE"/><param name="Local" value="help_savegame.htm#variable_NOSAVE"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="OBJ"/><param name="Local" value="help_expressions.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="OBJ"/><param name="Local" value="help_expressions.htm#operator_OBJ"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="$ONACTSEL"/><param name="Local" value="help_service_locations.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="$ONACTSEL"/><param name="Local" value="help_service_locations.htm#variable_ONACTSEL"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="$ONGLOAD"/><param name="Local" value="help_service_locations.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="$ONGLOAD"/><param name="Local" value="help_service_locations.htm#variable_ONGLOAD"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="$ONGSAVE"/><param name="Local" value="help_service_locations.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="$ONGSAVE"/><param name="Local" value="help_service_locations.htm#variable_ONGSAVE"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="$ONNEWLOC"/><param name="Local" value="help_service_locations.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="$ONNEWLOC"/><param name="Local" value="help_service_locations.htm#variable_ONNEWLOC"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="$ONOBJADD"/><param name="Local" value="help_service_locations.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="$ONOBJADD"/><param name="Local" value="help_service_locations.htm#variable_ONOBJADD"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="$ONOBJDEL"/><param name="Local" value="help_service_locations.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="$ONOBJDEL"/><param name="Local" value="help_service_locations.htm#variable_ONOBJDEL"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="$ONOBJSEL"/><param name="Local" value="help_service_locations.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="$ONOBJSEL"/><param name="Local" value="help_service_locations.htm#variable_ONOBJSEL"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="OPENGAME"/><param name="Local" value="help_savegame.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="OPENGAME"/><param name="Local" value="help_savegame.htm#statement_OPENGAME"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="OPENQST"/><param name="Local" value="help_modules.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="OPENQST"/><param name="Local" value="help_modules.htm#statement_OPENQST"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="OR"/><param name="Local" value="help_expressions.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="OR"/><param name="Local" value="help_expressions.htm#operator_OR"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="P"/><param name="Local" value="help_stat.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="P"/><param name="Local" value="help_stat.htm#statement_P"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="*P"/><param name="Local" value="help_main.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="*P"/><param name="Local" value="help_main.htm#statement_STAR_P"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="PL"/><param name="Local" value="help_stat.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="PL"/><param name="Local" value="help_stat.htm#statement_PL"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="*PL"/><param name="Local" value="help_main.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="*PL"/><param name="Local" value="help_main.htm#statement_STAR_PL"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="PLAY"/><param name="Local" value="help_sound.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="PLAY"/><param name="Local" value="help_sound.htm#statement_PLAY"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="QSPVER"/><param name="Local" value="help_coding.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="QSPVER"/><param name="Local" value="help_coding.htm#func_QSPVER"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="RAND"/><param name="Local" value="help_coding.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="RAND"/><param name="Local" value="help_coding.htm#func_RAND"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="REFINT"/><param name="Local" value="help_graphics.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="REFINT"/><param name="Local" value="help_interface.htm#statement_REFINT"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="REPLACE"/><param name="Local" value="help_strings.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="$REPLACE"/><param name="Local" value="help_strings.htm#func_REPLACE"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="RGB"/><param name="Local" value="help_interface.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="RGB"/><param name="Local" value="help_interface.htm#func_RGB"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="RND"/><param name="Local" value="help_coding.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="RND"/><param name="Local" value="help_coding.htm#func_RND"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="SAVEGAME"/><param name="Local" value="help_savegame.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="SAVEGAME"/><param name="Local" value="help_savegame.htm#statement_SAVEGAME"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="SCANSTR"/><param name="Local" value="help_arrays.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="SCANSTR"/><param name="Local" value="help_arrays.htm#statement_SCANSTR"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="SELACT"/><param name="Local" value="help_service_locations.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="$SELACT"/><param name="Local" value="help_acts.htm#func_SELACT"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="SELOBJ"/><param name="Local" value="help_service_locations.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="$SELOBJ"/><param name="Local" value="help_objs.htm#func_SELOBJ"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="SET"/><param name="Local" value="help_variables.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="SET"/><param name="Local" value="help_variables.htm#statement_SET"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="SETTIMER"/><param name="Local" value="help_service_locations.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="SETTIMER"/><param name="Local" value="help_realtime.htm#statement_SETTIMER"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="SETVAR"/><param name="Local" value="help_arrays.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="SETVAR"/><param name="Local" value="help_arrays.htm#statement_SETVAR"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="SHOWACTS"/><param name="Local" value="help_acts.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="SHOWACTS"/><param name="Local" value="help_acts.htm#statement_SHOWACTS"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="SHOWINPUT"/><param name="Local" value="help_inputs.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="SHOWINPUT"/><param name="Local" value="help_inputs.htm#statement_INPUT"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="SHOWOBJS"/><param name="Local" value="help_objs.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="SHOWOBJS"/><param name="Local" value="help_objs.htm#statement_SHOWOBJS"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="SHOWSTAT"/><param name="Local" value="help_stat.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="SHOWSTAT"/><param name="Local" value="help_stat.htm#statement_SHOWSTAT"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="SORTARR"/><param name="Local" value="help_arrays.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="SORTARR"/><param name="Local" value="help_arrays.htm#statement_SORTARR"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="$STATTXT"/><param name="Local" value="help_stat.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="$STATTXT"/><param name="Local" value="help_stat.htm#func_STATTXT"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="STEP"/><param name="Local" value="help_cycle.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="STEP"/><param name="Local" value="help_cycle.htm#statement_LOOP"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="STR"/><param name="Local" value="help_strings.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="$STR"/><param name="Local" value="help_strings.htm#func_STR"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="STRCOMP"/><param name="Local" value="help_strings.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="STRCOMP"/><param name="Local" value="help_regexp.htm#func_STRCOMP"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="STRFIND"/><param name="Local" value="help_strings.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="$STRFIND"/><param name="Local" value="help_regexp.htm#func_STRFIND"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="STRPOS"/><param name="Local" value="help_strings.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="STRPOS"/><param name="Local" value="help_regexp.htm#func_STRPOS"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="TRIM"/><param name="Local" value="help_strings.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="$TRIM"/><param name="Local" value="help_strings.htm#func_TRIM"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="UCASE"/><param name="Local" value="help_strings.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="$UCASE"/><param name="Local" value="help_strings.htm#func_UCASE"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="UNPACKARR"/><param name="Local" value="help_tuples.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="UNPACKARR"/><param name="Local" value="help_tuples.htm#statement_UNPACKARR"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="UNSEL"/><param name="Local" value="help_service_locations.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="UNSEL"/><param name="Local" value="help_objs.htm#statement_UNSEL"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="UNSELECT"/><param name="Local" value="help_service_locations.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="UNSELECT"/><param name="Local" value="help_objs.htm#statement_UNSEL"/></OBJECT>
 </li>
 <li><OBJECT type="text/sitemap"><param name="Name" value="USEHTML"/><param name="Local" value="help_html.htm"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="$USERCOM"/><param name="Local" value="help_service_locations.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="$USERCOM"/><param name="Local" value="help_service_locations.htm#variable_USERCOM"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="USER_TEXT"/><param name="Local" value="help_inputs.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="USER_TEXT"/><param name="Local" value="help_inputs.htm#func_USER_TEXT"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="USRTXT"/><param name="Local" value="help_inputs.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="USRTXT"/><param name="Local" value="help_inputs.htm#func_USER_TEXT"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="VAL"/><param name="Local" value="help_strings.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="VAL"/><param name="Local" value="help_strings.htm#func_VAL"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="VIEW"/><param name="Local" value="help_graphics.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="VIEW"/><param name="Local" value="help_graphics.htm#statement_VIEW"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="WAIT"/><param name="Local" value="help_realtime.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="WAIT"/><param name="Local" value="help_realtime.htm#statement_WAIT"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="WHILE"/><param name="Local" value="help_cycle.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="WHILE"/><param name="Local" value="help_cycle.htm#statement_LOOP"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="XGOTO"/><param name="Local" value="help_locations.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="XGOTO"/><param name="Local" value="help_goto.htm#statement_XGOTO"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="XGT"/><param name="Local" value="help_locations.htm"/></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="XGT"/><param name="Local" value="help_goto.htm#statement_XGOTO"/></OBJECT>
 </li>
 </ul></body></html>

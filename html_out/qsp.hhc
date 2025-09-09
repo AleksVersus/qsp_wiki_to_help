@@ -1,343 +1,134 @@
-<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//RU">
 <html>
 <body>
 <object type="text/site properties">
 <param name="Window Styles" value="0x800025"/>
 </object>
 <ul>
-	<li>
-		<OBJECT type="text/sitemap">
-			<param name="Name" value="В начало"/>
-			<param name="Local" value="start.htm"/>
-		</OBJECT>
-	</li>
-	<li>
-		<OBJECT type="text/sitemap">
-			<param name="Name" value="Что такое QSP?"/>
-			<param name="Local" value="help_qsp.htm"/>
-		</OBJECT>
-	</li>
-	<li>
-		<OBJECT type="text/sitemap">
-			<param name="Name" value="Локации"/>
-			<param name="Local" value="help_locations.htm"/>
-		</OBJECT>
-	</li>
-	<li>
-		<OBJECT type="text/sitemap">
-			<param name="Name" value="Вывод текста"/>
-		</OBJECT>
-		<ul>
-			<li>
-				<OBJECT type="text/sitemap">
-					<param name="Name" value="Окно основного описания"/>
-					<param name="Local" value="help_main.htm"/>
-				</OBJECT>
-			</li>
-			<li>
-				<OBJECT type="text/sitemap">
-					<param name="Name" value="Окно дополнительного описания"/>
-					<param name="Local" value="help_stat.htm"/>
-				</OBJECT>
-			</li>
-			<li>
-				<OBJECT type="text/sitemap">
-					<param name="Name" value="Окно сообщений"/>
-					<param name="Local" value="help_msgbox.htm"/>
-				</OBJECT>
-			</li>
-		</ul>
-	</li>
-	<li>
-		<OBJECT type="text/sitemap">
-			<param name="Name" value="Действия"/>
-			<param name="Local" value="help_acts.htm"/>
-		</OBJECT>
-	</li>
-	<li>
-		<OBJECT type="text/sitemap">
-			<param name="Name" value="Переходы"/>
-			<param name="Local" value="help_goto.htm"/>
-		</OBJECT>
-	</li>
-	<li>
-		<OBJECT type="text/sitemap">
-			<param name="Name" value="Предметы (инвентарь)"/>
-			<param name="Local" value="help_objs.htm"/>
-		</OBJECT>
-	</li>
-	<li>
-		<OBJECT type="text/sitemap">
-			<param name="Name" value="Программирование"/>
-		</OBJECT>
-		<ul>
-			<li>
-				<OBJECT type="text/sitemap">
-					<param name="Name" value="Порядок работы интерпретатора"/>
-					<param name="Local" value="help_principle.htm"/>
-				</OBJECT>
-			</li>
-			<li>
-				<OBJECT type="text/sitemap">
-					<param name="Name" value="Переменные"/>
-					<param name="Local" value="help_variables.htm"/>
-				</OBJECT>
-			</li>
-			<li>
-				<OBJECT type="text/sitemap">
-					<param name="Name" value="Выражения"/>
-					<param name="Local" value="help_expressions.htm"/>
-				</OBJECT>
-			</li>
-			<li>
-				<OBJECT type="text/sitemap">
-					<param name="Name" value="Программный код"/>
-					<param name="Local" value="help_coding.htm"/>
-				</OBJECT>
-			</li>
-			<li>
-				<OBJECT type="text/sitemap">
-					<param name="Name" value="Циклы"/>
-					<param name="Local" value="help_cycle.htm"/>
-				</OBJECT>
-			</li>
-			<li>
-				<OBJECT type="text/sitemap">
-					<param name="Name" value="Массивы"/>
-					<param name="Local" value="help_arrays.htm"/>
-				</OBJECT>
-			</li>
-			<li>
-				<OBJECT type="text/sitemap">
-					<param name="Name" value="Строки"/>
-					<param name="Local" value="help_strings.htm"/>
-				</OBJECT>
-				<ul>
-					<li>
-						<OBJECT type="text/sitemap">
-							<param name="Name" value="Регулярные выражения"/>
-							<param name="Local" value="help_regexp.htm"/>
-						</OBJECT>
-					</li>
-				</ul>
-			</li>
-			<li>
-				<OBJECT type="text/sitemap">
-					<param name="Name" value="Кортежи"/>
-					<param name="Local" value="help_tuples.htm"/>
-				</OBJECT>
-			</li>
-			<li>
-				<OBJECT type="text/sitemap">
-					<param name="Name" value="Условия"/>
-					<param name="Local" value="help_conditional.htm"/>
-				</OBJECT>
-			</li>
-			<li>
-				<OBJECT type="text/sitemap">
-					<param name="Name" value="Пользовательские функции и процедуры"/>
-					<param name="Local" value="help_organizing.htm"/>
-				</OBJECT>
-			</li>
-			<li>
-				<OBJECT type="text/sitemap">
-					<param name="Name" value="Переходы внутри локации"/>
-					<param name="Local" value="help_jump.htm"/>
-				</OBJECT>
-			</li>
-			<li>
-				<OBJECT type="text/sitemap">
-					<param name="Name" value="Служебные локации, события"/>
-					<param name="Local" value="help_service_locations.htm"/>
-				</OBJECT>
-			</li>
-			<li>
-				<OBJECT type="text/sitemap">
-					<param name="Name" value="Динамический код"/>
-					<param name="Local" value="help_dynamical.htm"/>
-				</OBJECT>
-			</li>
-		</ul>
-	</li>
-	<li>
-		<OBJECT type="text/sitemap">
-			<param name="Name" value="Оформление"/>
-		</OBJECT>
-		<ul>
-			<li>
-				<OBJECT type="text/sitemap">
-					<param name="Name" value="Меню"/>
-					<param name="Local" value="help_menu.htm"/>
-				</OBJECT>
-			</li>
-			<li>
-				<OBJECT type="text/sitemap">
-					<param name="Name" value="Звук"/>
-					<param name="Local" value="help_sound.htm"/>
-				</OBJECT>
-			</li>
-			<li>
-				<OBJECT type="text/sitemap">
-					<param name="Name" value="Графика"/>
-					<param name="Local" value="help_graphics.htm"/>
-				</OBJECT>
-			</li>
-			<li>
-				<OBJECT type="text/sitemap">
-					<param name="Name" value="Настройки интерфейса"/>
-					<param name="Local" value="help_interface.htm"/>
-				</OBJECT>
-			</li>
-			<li>
-				<OBJECT type="text/sitemap">
-					<param name="Name" value="HTML"/>
-					<param name="Local" value="help_html.htm"/>
-				</OBJECT>
-			</li>
-		</ul>
-	</li>
-	<li>
-		<OBJECT type="text/sitemap">
-			<param name="Name" value="Расширенные возможности"/>
-		</OBJECT>
-		<ul>
-			<li>
-				<OBJECT type="text/sitemap">
-					<param name="Name" value="Ввод текста игроком"/>
-					<param name="Local" value="help_inputs.htm"/>
-				</OBJECT>
-			</li>
-			<li>
-				<OBJECT type="text/sitemap">
-					<param name="Name" value="Работа с файлами игр, модули"/>
-					<param name="Local" value="help_modules.htm"/>
-				</OBJECT>
-			</li>
-			<li>
-				<OBJECT type="text/sitemap">
-					<param name="Name" value="Работа с файлами сохранений"/>
-					<param name="Local" value="help_savegame.htm"/>
-				</OBJECT>
-			</li>
-			<li>
-				<OBJECT type="text/sitemap">
-					<param name="Name" value="Реальное время"/>
-					<param name="Local" value="help_realtime.htm"/>
-				</OBJECT>
-			</li>
-		</ul>
-	</li>
-	<li>
-		<OBJECT type="text/sitemap">
-			<param name="Name" value="Нюансы написания игр под разные плееры"/>
-		</OBJECT>
-		<ul>
-			<li>
-				<OBJECT type="text/sitemap">
-					<param name="Name" value="Классический плеер"/>
-					<param name="Local" value="help_classic_qsp.htm"/>
-				</OBJECT>
-			</li>
-			<li>
-				<OBJECT type="text/sitemap">
-					<param name="Name" value="qSpider"/>
-					<param name="Local" value="help_qspider.htm"/>
-				</OBJECT>
-				<ul>
-					<li>
-						<OBJECT type="text/sitemap">
-							<param name="Name" value="Конфигурационный файл"/>
-							<param name="Local" value="help_qspider_gamecfg.htm"/>
-						</OBJECT>
-					</li>
-					<li>
-						<OBJECT type="text/sitemap">
-							<param name="Name" value="Особенности запуска AeroQSP-игр"/>
-							<param name="Local" value="help_qspider_aeroqsp.htm"/>
-						</OBJECT>
-					</li>
-					<li>
-						<OBJECT type="text/sitemap">
-							<param name="Name" value="Взаимодействие с интерфейсом"/>
-							<param name="Local" value="help_qspider_interface.htm"/>
-						</OBJECT>
-					</li>
-					<li>
-						<OBJECT type="text/sitemap">
-							<param name="Name" value="Темы оформления"/>
-							<param name="Local" value="help_qspider_themes.htm"/>
-						</OBJECT>
-					</li>
-					<li>
-						<OBJECT type="text/sitemap">
-							<param name="Name" value="Специальные теги"/>
-							<param name="Local" value="help_qspider_spectags.htm"/>
-						</OBJECT>
-					</li>
-					<li>
-						<OBJECT type="text/sitemap">
-							<param name="Name" value="Встроенная библиотека"/>
-							<param name="Local" value="help_qspider_inclib.htm"/>
-						</OBJECT>
-					</li>
-					<li>
-						<OBJECT type="text/sitemap">
-					        <param name="Name" value="Стандалон-сборка" />
-					        <param name="Local" value="help_qspider_standalone.htm" />
-					    </OBJECT>
-					</li>
-				</ul>
-			</li>
-		</ul>
-	</li>
-	<li>
-		<OBJECT type="text/sitemap">
-			<param name="Name" value="Утилиты и средства разработки"/>
-		</OBJECT>
-		<ul>
-			<li>
-				<OBJECT type="text/sitemap">
-					<param name="Name" value="Quest Generator"/>
-					<param name="Local" value="help_qgen.htm"/>
-				</OBJECT>
-			</li>
-			<li>
-				<OBJECT type="text/sitemap">
-					<param name="Name" value="Отладчик"/>
-					<param name="Local" value="help_debugger.htm"/>
-				</OBJECT>
-			</li>
-			<li>
-				<OBJECT type="text/sitemap">
-					<param name="Name" value="Работа с утилитой TXT2GAM"/>
-					<param name="Local" value="help_txt2gam.htm"/>
-				</OBJECT>
-			</li>
-			<li>
-				<OBJECT type="text/sitemap">
-					<param name="Name" value="Анализатор кода QSP"/>
-					<param name="Local" value="help_analyzer.htm"/>
-				</OBJECT>
-			</li>
-		</ul>
-	</li>
-	<li>
-		<OBJECT type="text/sitemap">
-			<param name="Name" value="Ограничения QSP"/>
-			<param name="Local" value="help_limits.htm"/>
-		</OBJECT>
-	</li>
-	<li>
-		<OBJECT type="text/sitemap">
-			<param name="Name" value="Как сделать?"/>
-			<param name="Local" value="howto_start.htm"/>
-		</OBJECT>
-	</li>
-	<li>
-		<OBJECT type="text/sitemap">
-			<param name="Name" value="Cловарь терминов"/>
-			<param name="Local" value="help_glossary.htm"/>
-		</OBJECT>
-	</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="В начало"/><param name="Local" value="start.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Что такое QSP?"/><param name="Local" value="help_qsp.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Локации"/><param name="Local" value="help_locations.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Вывод текста"/></OBJECT>
+<ul>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Окно основного описания"/><param name="Local" value="help_main.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Окно дополнительного описания"/><param name="Local" value="help_stat.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Окно сообщений"/><param name="Local" value="help_msgbox.htm"/></OBJECT>
+</li>
+</ul>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Действия"/><param name="Local" value="help_acts.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Переходы"/><param name="Local" value="help_goto.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Предметы (инвентарь)"/><param name="Local" value="help_objs.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Программирование"/></OBJECT>
+<ul>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Порядок работы интерпретатора"/><param name="Local" value="help_principle.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Переменные"/><param name="Local" value="help_variables.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Выражения"/><param name="Local" value="help_expressions.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Программный код"/><param name="Local" value="help_coding.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Циклы"/><param name="Local" value="help_cycle.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Массивы"/><param name="Local" value="help_arrays.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Строки"/><param name="Local" value="help_strings.htm"/>
+</OBJECT>
+<ul>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Регулярные выражения"/><param name="Local" value="help_regexp.htm"/></OBJECT>
+</li>
+</ul>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Кортежи"/><param name="Local" value="help_tuples.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Условия"/><param name="Local" value="help_conditional.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Пользовательские функции и процедуры"/><param name="Local" value="help_organizing.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Переходы внутри локации"/><param name="Local" value="help_jump.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Служебные локации, события"/><param name="Local" value="help_service_locations.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Динамический код"/><param name="Local" value="help_dynamical.htm"/></OBJECT>
+</li>
+</ul>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Оформление"/></OBJECT>
+<ul>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Меню"/><param name="Local" value="help_menu.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Звук"/><param name="Local" value="help_sound.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Графика"/><param name="Local" value="help_graphics.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Настройки интерфейса"/><param name="Local" value="help_interface.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="HTML"/><param name="Local" value="help_html.htm"/></OBJECT>
+</li>
+</ul>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Расширенные возможности"/></OBJECT>
+<ul>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Ввод текста игроком"/><param name="Local" value="help_inputs.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Работа с файлами игр, модули"/><param name="Local" value="help_modules.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Работа с файлами сохранений"/><param name="Local" value="help_savegame.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Реальное время"/><param name="Local" value="help_realtime.htm"/></OBJECT>
+</li>
+</ul>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Нюансы написания игр под разные плееры"/></OBJECT>
+<ul>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Классический плеер"/><param name="Local" value="help_classic_qsp.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="qSpider"/><param name="Local" value="help_qspider.htm"/></OBJECT>
+<ul>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Конфигурационный файл"/><param name="Local" value="help_qspider_gamecfg.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Особенности запуска AeroQSP-игр"/><param name="Local" value="help_qspider_aeroqsp.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Взаимодействие с интерфейсом"/><param name="Local" value="help_qspider_interface.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Темы оформления"/><param name="Local" value="help_qspider_themes.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Специальные теги"/><param name="Local" value="help_qspider_spectags.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Встроенная библиотека"/><param name="Local" value="help_qspider_inclib.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Стандалон-сборка" /><param name="Local" value="help_qspider_standalone.htm" /></OBJECT>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Утилиты и средства разработки"/></OBJECT>
+<ul>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Quest Generator"/><param name="Local" value="help_qgen.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Отладчик"/><param name="Local" value="help_debugger.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Работа с утилитой TXT2GAM"/><param name="Local" value="help_txt2gam.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Анализатор кода QSP"/><param name="Local" value="help_analyzer.htm"/></OBJECT>
+</li>
+</ul>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Ограничения QSP"/><param name="Local" value="help_limits.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Как сделать?"/><param name="Local" value="howto_start.htm"/></OBJECT>
+</li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Cловарь терминов"/><param name="Local" value="help_glossary.htm"/></OBJECT>
+</li>
 </ul>
 </body></html>
