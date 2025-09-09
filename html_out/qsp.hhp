@@ -1,0 +1,76 @@
+[OPTIONS]
+Compatibility=1.1 or later
+Compiled file=qsp.chm
+Contents file=qsp.hhc
+Default Font=Arial,16,1
+Default topic=start.htm
+Display compile progress=No
+Full-text search=Yes
+Index file=qsp.hhk
+Language=0x419 Русский (Россия)
+Title=QSP Help 5.9.3
+
+
+[FILES]
+glossary_bag.htm
+glossary_snippet.htm
+help_acts.htm
+help_analyzer.htm
+help_arrays.htm
+help_classic_qsp.htm
+help_classic_standalone.htm
+help_coding.htm
+help_conditional.htm
+help_cycle.htm
+help_debugger.htm
+help_dynamical.htm
+help_expressions.htm
+help_glossary.htm
+help_goto.htm
+help_graphics.htm
+help_html.htm
+help_html_classic.htm
+help_inputs.htm
+help_interface.htm
+help_jump.htm
+help_keywords_operator.htm
+help_limits.htm
+help_locations.htm
+help_main.htm
+help_menu.htm
+help_modules.htm
+help_msgbox.htm
+help_objs.htm
+help_organizing.htm
+help_principle.htm
+help_qgen.htm
+help_qsp.htm
+help_qspider.htm
+help_qspider_aeroqsp.htm
+help_qspider_gamecfg.htm
+help_qspider_inclib.htm
+help_qspider_interface.htm
+help_qspider_spectags.htm
+help_qspider_standalone.htm
+help_qspider_themes.htm
+help_realtime.htm
+help_regexp.htm
+help_savegame.htm
+help_service_locations.htm
+help_sound.htm
+help_stat.htm
+help_strings.htm
+help_tuples.htm
+help_txt2gam.htm
+help_txt2gam_manual.htm
+help_txt2gam_preprocessor.htm
+help_variables.htm
+howto_arrays.htm
+howto_namedconst.htm
+howto_randomize.htm
+howto_start.htm
+regex_start.htm
+start.htm
+
+[INFOTYPES]
+
