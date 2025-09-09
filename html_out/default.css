@@ -7681,6 +7681,7 @@ em em.u {
 
     img.media {
         margin: .2em 0;
+        width: 800px;
     }
 
     img.medialeft {
