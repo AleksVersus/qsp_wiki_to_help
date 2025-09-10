@@ -2,13 +2,12 @@
 Compatibility=1.1 or later
 Compiled file=qsp.chm
 Contents file=qsp.hhc
-Default Font=,,1
 Default topic=start.htm
 Display compile progress=No
 Full-text search=Yes
 Index file=qsp.hhk
 Language=0x419 Русский (Россия)
-Title=QSP Help 5.9.3
+Title=QSP Help 5.9.2
 
 
 [FILES]
