@@ -54,7 +54,7 @@
                     <div id="dokuwiki__usertools">
                 <h3 class="a11y">Инструменты пользователя</h3>
                 <ul>
-                    <li><a href="/help:arrays?do=login&amp;sectok=3e6ff35dfd333a48df46ef95b66bb2d4"  class="action login" rel="nofollow" title="Войти">Войти</a></li>                </ul>
+                    <li><a href="/help:arrays?do=login&amp;sectok=509a4c38c40dcff5f21c3a227d2c3a39"  class="action login" rel="nofollow" title="Войти">Войти</a></li>                </ul>
             </div>
         
         <!-- SITE TOOLS -->
@@ -70,7 +70,7 @@
 
     <!-- BREADCRUMBS -->
             <div class="breadcrumbs">
-                                        <div class="trace"><span class="bchead">Вы посетили:</span> <span class="bcsep">•</span> <bdi><a href="/help:cycle"  class="breadcrumbs" title="help:cycle">Циклы</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:interface"  class="breadcrumbs" title="help:interface">Настройки интерфейса</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:qspider"  class="breadcrumbs" title="help:qspider">qSpider — плеер с поддержкой HTML</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:navigator"  class="breadcrumbs" title="help:navigator">Quest Navigator</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:txt2gam"  class="breadcrumbs" title="help:txt2gam">TXT2GAM. Краткое руководство</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:html"  class="breadcrumbs" title="help:html">HTML</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:stat"  class="breadcrumbs" title="help:stat">Окно дополнительного описан</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:goto"  class="breadcrumbs" title="help:goto">Переходы</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:sound"  class="breadcrumbs" title="help:sound">Звук</a></bdi> <span class="bcsep">•</span> <span class="curid"><bdi><a href="/help:arrays"  class="breadcrumbs" title="help:arrays">Массивы</a></bdi></span></div>
+                                        <div class="trace"><span class="bchead">Вы посетили:</span> <span class="bcsep">•</span> <bdi><a href="/help:classic_qsp"  class="breadcrumbs" title="help:classic_qsp">Особенности написания игр для классического плеера</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:keywords"  class="breadcrumbs" title="help:keywords">Ключевые слова</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:acts"  class="breadcrumbs" title="help:acts">Действия</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:sound"  class="breadcrumbs" title="help:sound">Звук</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:qgen"  class="breadcrumbs" title="help:qgen">Quest Generator</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:strings"  class="breadcrumbs" title="help:strings">Строки</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:main"  class="breadcrumbs" title="help:main">Окно основного описания</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:limits"  class="breadcrumbs" title="help:limits">Ограничения QSP</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:savegame"  class="breadcrumbs" title="help:savegame">Сохранения</a></bdi> <span class="bcsep">•</span> <span class="curid"><bdi><a href="/help:arrays"  class="breadcrumbs" title="help:arrays">Массивы</a></bdi></span></div>
                     </div>
     
     
@@ -400,8 +400,14 @@ $встреченные_неписи[3] = &quot;Баба Яга&quot;
 </p>
 
 <p>
-И точно так же это работает для числовых значений и кортежей: - Если нам нужно присвоить ячейке массива, или получить из неё, числовое значение, никаких символов мы перед именем массива не ставим (без префикса типа). - Если нам нужно присвоить ячейке массива, или получить из неё, кортеж, ставим символ <code>%</code> перед именем массива (указываем префикс типа).
+И точно так же это работает для числовых значений и кортежей:
 </p>
+<ul>
+<li class="level1"><div class="li"> Если нам нужно присвоить ячейке массива, или получить из неё, числовое значение, никаких символов мы перед именем массива не ставим (без префикса типа).</div>
+</li>
+<li class="level1"><div class="li"> Если нам нужно присвоить ячейке массива, или получить из неё, кортеж, ставим символ <code>%</code> перед именем массива (указываем префикс типа).</div>
+</li>
+</ul>
 
 <p>
 Примеры:
@@ -535,7 +541,7 @@ $любимый_сорт[&#039;иван&#039;] = &#039;Антоновка&#039;
 <ul>
 <li class="level1"><div class="li"> Плеер создаёт новую ячейку с новым числовым индексом, следующим по порядку. Например, если в массиве уже были созданы три ячейки, создаётся ячейка с числовым индексом <code>3</code>.</div>
 </li>
-<li class="level1"><div class="li"> Затем плеер &quot;прикрепляет&quot; указанный строковый индекс к числовому.</div>
+<li class="level1"><div class="li"> Затем плеер &quot;прикрепляет&quot; указанный строковый индекс к этой ячейке.</div>
 </li>
 </ul>
 
@@ -627,7 +633,7 @@ $map[12,14,&#039;слой_подземелья&#039;]=&quot;стена&quot;
 <ul>
 <li class="level1"><div class="li"> Плеер создаёт новую ячейку с новым <strong>числовым</strong> индексом, следующим по порядку. Например, если в массиве уже были созданы семь ячеек, создаётся ячейка с числовым индексом <code>7</code>.</div>
 </li>
-<li class="level1"><div class="li"> Затем плеер &quot;прикрепляет&quot; указанный многомерный индекс к числовому.</div>
+<li class="level1"><div class="li"> Затем плеер &quot;прикрепляет&quot; указанный многомерный индекс к ячейке.</div>
 </li>
 </ul>
 
@@ -656,12 +662,16 @@ $map[12,14,&#039;слой_подземелья&#039;]=&quot;стена&quot;
 Поскольку многомерные индексы - это кортежи: - можно использовать переменные типа <strong>кортеж</strong> для подстановок в индексах таких массивов: <pre class="brush: qsp">
 %coords = [120, 450, -37]
 $map[%coords] = &#039;Alien&#039;
-</pre> - Запись с дополнительным набором скобок эквивалентна записи с одним набором скобок при указании индекса ячейки массива: <pre class="brush: qsp">
+</pre>
+</p>
+<ul>
+<li class="level1"><div class="li"> Запись с дополнительным набором скобок эквивалентна записи с одним набором скобок при указании индекса ячейки массива: <pre class="brush: qsp">
 $array[1, 2, 137]
 ! эквивалентно
 $array[[1, 2, 137]]
-</pre>
-</p>
+</pre></div>
+</li>
+</ul>
 
 </div>
 
@@ -725,7 +735,7 @@ $objs[] = &#039;Доска&#039;
 <h2 class="sectionedit10" id="funkcii_i_operatory_dlja_raboty_s_massivami">Функции и операторы для работы с массивами</h2>
 <div class="level2">
 <ul>
-<li class="level1"><div class="li"> <code>KILLVAR [$имя_массива], [индекс_элемента]</code> - удаление элемента с индексом <code>[индекс_элемента]</code> из массива с названием <code>[$имя_массива]</code>. Название массива всегда нужно писать в кавычках. Пример: <pre class="brush: qsp">
+<li class="level1"><div class="li"> <code><strong>KILLVAR</strong> [$имя_массива], [индекс_элемента]</code> - удаление элемента с индексом <code>[индекс_элемента]</code> из массива с названием <code>[$имя_массива]</code>. Название массива всегда нужно писать в кавычках. Пример: <pre class="brush: qsp">
 ! удаление по числовому индексу
 killvar &#039;яблоко&#039;,3
 ! удаление элемента по строковому индексу
@@ -758,9 +768,9 @@ a[2]=15
 </li>
 </ul>
 </li>
-<li class="level1"><div class="li"> <code>KILLALL</code> - оператор эквивалентен конструкции &quot;<code>KILLVAR &amp; KILLOBJ</code>&quot;, то есть удаляет все переменные/массивы в игре, а так же очищает Окно предметов. Обычно применяется в начале игры, чтобы при возврате в начальную локацию после неудачного прохождения какого-то этапа игры обнулить все переменные (в противном случае, может оказаться, что запертые двери уже открыты, жена похищена до свадьбы, а Баба-Яга уже отдала кому-то нужный клубочек).</div>
+<li class="level1"><div class="li"> <code><strong>KILLALL</strong></code> - оператор эквивалентен конструкции &quot;<code>KILLVAR &amp; KILLOBJ</code>&quot;, то есть удаляет все переменные/массивы в игре, а так же очищает Окно предметов. Обычно применяется в начале игры, чтобы при возврате в начальную локацию после неудачного прохождения какого-то этапа игры обнулить все переменные (в противном случае, может оказаться, что запертые двери уже открыты, жена похищена до свадьбы, а Баба-Яга уже отдала кому-то нужный клубочек).</div>
 </li>
-<li class="level1"><div class="li"> <code>COPYARR [$приёмник],[$источник],[#начало],[#количество]</code> - копирование в массив-приёмник <code>[#количество]</code> элементов из массива-источника начиная с элемента под номером <code>[#начало]</code>. Размер массива-приёмника при копировании не имеет значения.</div>
+<li class="level1"><div class="li"> <code><strong>COPYARR</strong> [$приёмник],[$источник],[#начало],[#количество]</code> - копирование в массив-приёмник <code>[#количество]</code> элементов из массива-источника начиная с элемента под номером <code>[#начало]</code>. Размер массива-приёмника при копировании не имеет значения.</div>
 <ul>
 <li class="level2"><div class="li"> Параметр <code>[#количество]</code> является необязательным. По умолчанию - до конца массива-источника.</div>
 </li>
@@ -778,7 +788,7 @@ COPYARR &#039;a&lt;&lt;$arrname1&gt;&gt;&#039;,&#039;a&lt;&lt;$arrname2&gt;&gt;&
 </li>
 </ul>
 </li>
-<li class="level1"><div class="li"> <code>SORTARR [$имя_массива], [#порядок]</code> — Данный оператор сортирует указанный массив. Параметр <code>[#порядок]</code> опционален. Если не указан или равен 0, то сортирует массив по возрастанию (от меньшего к большему). Если равен 1, то сортирует массив по убыванию (от большего к меньшему).</div>
+<li class="level1"><div class="li"> <code><strong>SORTARR</strong> [$имя_массива], [#порядок]</code> — Данный оператор сортирует указанный массив. Параметр <code>[#порядок]</code> опционален. Если не указан или равен 0, то сортирует массив по возрастанию (от меньшего к большему). Если равен 1, то сортирует массив по убыванию (от большего к меньшему).</div>
 <ul>
 <li class="level2"><div class="li"> Может сортировать массивы любых типов (числа, строки, кортежи), но не допускается смешивать значения разных типов в одном массиве.</div>
 </li>
@@ -797,7 +807,7 @@ end
 </li>
 </ul>
 </li>
-<li class="level1"><div class="li"> <code>SCANSTR [$имя_массива], [$текст_для_разбора], [$регэксп], [#номер_группы]</code> — в массив <code>[$имя_массива]</code> помещаются строки, соответствующие <a href="/help:regexp" class="wikilink1" title="help:regexp">регулярному выражению</a> <code>[$регэксп]</code>, которые будут найдены в строке <code>[$текст_для_разбора]</code>. Если указан параметр <code>[#номер_группы]</code>, в массив будет помещаться не вся строка, соответствующая регулярному выражению, а лишь часть, соответствующая указанной группе в этом регулярном выражении. Примеры: <pre class="brush: qsp">
+<li class="level1"><div class="li"> <code><strong>SCANSTR</strong> [$имя_массива], [$текст_для_разбора], [$регэксп], [#номер_группы]</code> — в массив <code>[$имя_массива]</code> помещаются строки, соответствующие <a href="/help:regexp" class="wikilink1" title="help:regexp">регулярному выражению</a> <code>[$регэксп]</code>, которые будут найдены в строке <code>[$текст_для_разбора]</code>. Если указан параметр <code>[#номер_группы]</code>, в массив будет помещаться не вся строка, соответствующая регулярному выражению, а лишь часть, соответствующая указанной группе в этом регулярном выражении. Примеры: <pre class="brush: qsp">
 ! вытаскиваем из строки все слова:
 $text = &#039;Шла Саша по шоссе, а Грека через реку.&#039;
 scanstr &#039;$words&#039;, $text, &#039;\b\w+\b&#039;
@@ -814,7 +824,7 @@ scanstr &#039;$words&#039;, $text, &#039;\[(.*?)\]&#039;, 1
 !В массиве $words окажутся значения: &#039;first&#039;, &#039;second&#039;, &#039;third&#039;
 </pre></div>
 </li>
-<li class="level1"><div class="li"> <code>ARRITEM([$имя_массива],[индекс_элемента])</code> — возвращает значение элемента массива с названием <code>[$имя_массива]</code> по указанному индексу. То есть функция извлекает значение из указанной ячейки массива. Примеры: <pre class="brush: qsp">
+<li class="level1"><div class="li"> <code><strong>ARRITEM(</strong>[$имя_массива],[индекс_элемента]<strong>)</strong></code> — возвращает значение элемента массива с названием <code>[$имя_массива]</code> по указанному индексу. То есть функция извлекает значение из указанной ячейки массива. Примеры: <pre class="brush: qsp">
 ! выводим значение элемента с индексом 3
 *pl $arritem(&#039;$mass&#039;, 3)
 ! выводим значение элемента с текстовым индексом
@@ -838,7 +848,7 @@ loop local j=0 while j&lt;arrsize(&#039;$array_name&#039;) step j+=1:
 end
 </pre></div>
 </li>
-<li class="level1"><div class="li"> <code>SETVAR [$имя_массива], [значение], [индекс]</code> — устанавливает значение элемента массива с названием <code>[$имя_массива]</code> по указанному индексу. То есть оператор присваивает значение указанной ячейке массива. Префикс имени переменной указывает тип значения, которое нужно записать в элемент массива (как с обычными присваиваниями). Параметр <code>[индекс]</code> опционален. Если этот параметр не указан, то значение присваивается 0-му элементу. Значение и индекс могут быть любых типов. Примеры: <pre class="brush: qsp">
+<li class="level1"><div class="li"> <code><strong>SETVAR</strong> [$имя_массива], [значение], [индекс]</code> — устанавливает значение элемента массива с названием <code>[$имя_массива]</code> по указанному индексу. То есть оператор присваивает значение указанной ячейке массива. Префикс имени переменной указывает тип значения, которое нужно записать в элемент массива (как с обычными присваиваниями). Параметр <code>[индекс]</code> опционален. Если этот параметр не указан, то значение присваивается 0-му элементу. Значение и индекс могут быть любых типов. Примеры: <pre class="brush: qsp">
 SETVAR &#039;A&#039;, 65
 SETVAR &#039;$X&#039;, &#039;name&#039;, 4
 SETVAR &#039;$X&#039;, &#039;name&#039;, &#039;string index&#039;
@@ -846,7 +856,7 @@ SETVAR &#039;%Q&#039;, [&#039;пример&#039;, &#039;кортежа&#039;], 3
 SETVAR &#039;%Q&#039;, [&#039;пример&#039;, &#039;кортежа&#039;], [x, y]
 </pre> Данный оператор дополняет функцию <code><strong>ARRITEM</strong></code> и позволяет избегать использования <code>DYNAMIC</code> в некоторых случаях.</div>
 </li>
-<li class="level1"><div class="li"> <code>ARRSIZE([$имя_массива])</code> - функция возвращает число элементов массива с названием <code>[$имя_массива]</code>.</div>
+<li class="level1"><div class="li"> <code><strong>ARRSIZE(</strong>[$имя_массива]<strong>)</strong></code> - функция возвращает число элементов массива с названием <code>[$имя_массива]</code>.</div>
 <ul>
 <li class="level2"><div class="li"> Не имеет значения, указываете ли вы <code>$</code> или <code>%</code> перед названием массива или нет. Подсчитывается общее число ячеек и со значениями любых типов.</div>
 </li>
@@ -876,33 +886,85 @@ n = ARRSIZE(&#039;$a&#039;)
 </li>
 <li class="level2"><div class="li"> Пример: <pre class="brush: qsp">
 $ddd = &#039;text&#039;
-arrtype(&#039;ddd&#039;) &amp; ! &#039;$&#039;
+$arrtype(&#039;ddd&#039;) &amp; ! &#039;$&#039;
 
 $g = &#039;text&#039; &amp; g = 13
-arrtype(&#039;g&#039;) &amp; ! &#039;#&#039;
+$arrtype(&#039;g&#039;) &amp; ! &#039;#&#039;
 
 %tuple[&#039;index&#039;] = [12, &#039;string&#039;]
-arrtype(&#039;tuple&#039;, &#039;index&#039;) &amp; ! &#039;%&#039;
+$arrtype(&#039;tuple&#039;, &#039;index&#039;) &amp; ! &#039;%&#039;
 
 ! $empty not exist
-arrtype(&#039;$empty&#039;) &amp; ! &#039;&#039;
+$arrtype(&#039;$empty&#039;) &amp; ! &#039;&#039;
 </pre></div>
 </li>
 </ul>
 </li>
-<li class="level1"><div class="li"> <code>MAX([выр1],[выр2], …)</code> - возвращает максимальное из значений выражений-аргументов. Если передан один аргумент, то считается, что указано имя массива: <pre class="brush: qsp">
+<li class="level1"><div class="li"> <code><strong>ARRPOS(</strong>[$имя_массива], [значение], [#старт]<strong>)</strong></code> — возвращает индекс элемента массива равного указанному значению.</div>
+<ul>
+<li class="level2"><div class="li"> Поиск начинается с элемента с заданным номером <code>[#старт]</code>.</div>
+</li>
+<li class="level2"><div class="li"> Индексация элементов массива ведётся с нуля.</div>
+</li>
+<li class="level2"><div class="li"> Если указанное значение не найдено, функция возвращает -1.</div>
+</li>
+<li class="level2"><div class="li"> Пример: <pre class="brush: qsp">
+$color[0] = &#039;красный&#039;
+$color[1] = &#039;жёлтый&#039;
+$color[2] = &#039;зелёный&#039;
+$color[3] = &#039;синий&#039;
+$color[4] = &#039;жёлтый&#039;
+
+arrpos(&#039;$color&#039;, &#039;жёлтый&#039;) &amp; ! вернёт значение 1
+arrpos(&#039;$color&#039;, &#039;жёлтый&#039;, 2) &amp; ! вернёт значение 4
+arrpos(&#039;$color&#039;,&#039;голубой&#039;) &amp; ! вернёт значение -1
+</pre></div>
+</li>
+<li class="level2"><div class="li"> Другие примеры: <pre class="brush: qsp">
+! поиск строки &#039;this&#039; в текстовом массиве &quot;$a&quot;
+arrpos(&#039;$a&#039;, &#039;this&#039;, 0)
+! поиск числа 65 в массиве &quot;a&quot; (два элемента массива игнорируются)
+arrpos(&#039;a&#039;, 65, 2)
+! поиск строки &#039;test&#039; среди значений массива &quot;$b&quot;
+arrpos(&#039;$b&#039;, &#039;test&#039;)
+</pre></div>
+</li>
+<li class="level2"><div class="li"> Можно искать значения любого типа, однако:</div>
+<ul>
+<li class="level3"><div class="li"> если вы ищете среди текстовых значений массива, нужно указывать префикс типа <code>$</code> перед названием массива;</div>
+</li>
+<li class="level3"><div class="li"> если вы ищете среди кортежей в массиве, нужно указывать префикс типа <code>%</code>.</div>
+</li>
+<li class="level3"><div class="li"> Пример: <pre class="brush: qsp">
+$a[0] = &#039;12&#039;
+a[1] = 12
+%a[2] = [12]
+%a[3] = [&#039;12&#039;]
+arrpos(&#039;$a&#039;, 12)     &amp;  ! 0
+arrpos(&#039;a&#039;, 12)      &amp;  ! 1 
+arrpos(&#039;%a&#039;, 12)     &amp;  ! 2
+arrpos(&#039;%a&#039;, &#039;12&#039;)   &amp;  ! 2 &lt;---
+arrpos(&#039;%a&#039;, [12])   &amp;  ! 2
+arrpos(&#039;%a&#039;, [&#039;12&#039;]) &amp;  ! 2 &lt;---
+</pre></div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <code><strong>MAX(</strong>[выр1],[выр2], …<strong>)</strong></code> - возвращает максимальное из значений выражений-аргументов. Если передан один аргумент, то считается, что указано имя массива: <pre class="brush: qsp">
 MAX(&#039;a&#039;) &amp;! вернёт максимальное из числовых значений элементов массива &quot;a&quot;
 MAX(&#039;$b&#039;) &amp;! вернёт максимальное из текстовых значений элементов массива &quot;$b&quot;
 MAX(&#039;%d&#039;) &amp;! вернёт максимальный из кортежей в массиве &#039;%d&#039;
 </pre></div>
 </li>
-<li class="level1"><div class="li"> <code>MIN([выр1],[выр2], …)</code> - возвращает минимальное из значений выражений-аргументов. Если передан один аргумент, то считается, что указано имя массива: <pre class="brush: qsp">
+<li class="level1"><div class="li"> <code><strong>MIN(</strong>[выр1],[выр2], …<strong>)</strong></code> - возвращает минимальное из значений выражений-аргументов. Если передан один аргумент, то считается, что указано имя массива: <pre class="brush: qsp">
 MIN(&#039;a&#039;) &amp;! вернёт минимальное из числовых значений элементов массива &quot;a&quot;
 MIN(&#039;$b&#039;) &amp;! вернёт минимальное из текстовых значений элементов массива &quot;$b&quot;
 MIN(&#039;%d&#039;) &amp;! вернёт минимальный из кортежей в массиве &#039;%d&#039;
 </pre></div>
 </li>
-<li class="level1"><div class="li"> <code>ARRCOMP([$имя_массива],[$шаблон],[#начало])</code> - возвращает номер элемента массива <code>[$имя_массива]</code>, соответствующего регулярному выражению <code>[$шаблон]</code>. Поиск начинается с элемента с номером <code>[#начало]</code>; индексация элементов массива ведётся с нуля. Если указанное значение не найдено, функция возвращает <code>-1</code>.</div>
+<li class="level1"><div class="li"> <code><strong>ARRCOMP(</strong>[$имя_массива],[$шаблон],[#начало]<strong>)</strong></code> - возвращает номер элемента массива <code>[$имя_массива]</code>, соответствующего регулярному выражению <code>[$шаблон]</code>. Поиск начинается с элемента с номером <code>[#начало]</code>; индексация элементов массива ведётся с нуля. Если указанное значение не найдено, функция возвращает <code>-1</code>.</div>
 <ul>
 <li class="level2"><div class="li"> Поиск работает только по текстовым массивам (символ <code>$</code> в названии массива можно опустить).</div>
 </li>
@@ -971,7 +1033,7 @@ ARRCOMP(&#039;$A&#039;,&#039;This&#039;) &amp;! эквивалентно 1му �
                     <!-- wikipage stop -->
                                     </div>
 
-                <div class="docInfo"><bdi>help/arrays.txt</bdi> · Последние изменения: 2025/04/19 06:41  — <bdi>aleks_versus</bdi></div>
+                <div class="docInfo"><bdi>help/arrays.txt</bdi> · Последние изменения: 2025/09/28 06:39  — <bdi>aleks_versus</bdi></div>
 
                             </div></div><!-- /content -->
 
@@ -1014,7 +1076,7 @@ ARRCOMP(&#039;$A&#039;,&#039;This&#039;) &amp;! эквивалентно 1му �
 
     </div></div><!-- /site -->
 
-    <div class="no"><img src="/lib/exe/indexer.php?id=help%3Aarrays&amp;1757411651" width="2" height="1" alt="" /></div>
+    <div class="no"><img src="/lib/exe/indexer.php?id=help%3Aarrays&amp;1760112119" width="2" height="1" alt="" /></div>
     <div id="screen__mode" class="no"></div>    <!--[if ( lte IE 7 | IE 8 ) ]></div><![endif]-->
 </body>
 </html>

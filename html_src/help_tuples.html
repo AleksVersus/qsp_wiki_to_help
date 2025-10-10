@@ -54,7 +54,7 @@
                     <div id="dokuwiki__usertools">
                 <h3 class="a11y">Инструменты пользователя</h3>
                 <ul>
-                    <li><a href="/help:tuples?do=login&amp;sectok=3e6ff35dfd333a48df46ef95b66bb2d4"  class="action login" rel="nofollow" title="Войти">Войти</a></li>                </ul>
+                    <li><a href="/help:tuples?do=login&amp;sectok=509a4c38c40dcff5f21c3a227d2c3a39"  class="action login" rel="nofollow" title="Войти">Войти</a></li>                </ul>
             </div>
         
         <!-- SITE TOOLS -->
@@ -70,7 +70,7 @@
 
     <!-- BREADCRUMBS -->
             <div class="breadcrumbs">
-                                        <div class="trace"><span class="bchead">Вы посетили:</span> <span class="bcsep">•</span> <bdi><a href="/help:menu"  class="breadcrumbs" title="help:menu">Меню</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:analyzer"  class="breadcrumbs" title="help:analyzer">Анализатор кода QSP</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:qgen"  class="breadcrumbs" title="help:qgen">Quest Generator</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:variables"  class="breadcrumbs" title="help:variables">Переменные</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:limits"  class="breadcrumbs" title="help:limits">Ограничения QSP</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:debugger"  class="breadcrumbs" title="help:debugger">Отладчик</a></bdi> <span class="bcsep">•</span> <bdi><a href="/start"  class="breadcrumbs" title="start">Справочная информация о платформе Quest Soft Player</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:qspider_inclib"  class="breadcrumbs" title="help:qspider_inclib">Встроенная библиотека qspider</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:qsp"  class="breadcrumbs" title="help:qsp">Что такое QSP?</a></bdi> <span class="bcsep">•</span> <span class="curid"><bdi><a href="/help:tuples"  class="breadcrumbs" title="help:tuples">Кортежи</a></bdi></span></div>
+                                        <div class="trace"><span class="bchead">Вы посетили:</span> <span class="bcsep">•</span> <bdi><a href="/help:principle"  class="breadcrumbs" title="help:principle">Порядок работы интерпретатора</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:variables"  class="breadcrumbs" title="help:variables">Переменные</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:glossary"  class="breadcrumbs" title="help:glossary">Словарь терминов</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:organizing"  class="breadcrumbs" title="help:organizing">Пользовательские функции и процедуры</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:html"  class="breadcrumbs" title="help:html">HTML</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:coding"  class="breadcrumbs" title="help:coding">Программный код</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:qspider_interface"  class="breadcrumbs" title="help:qspider_interface">Взаимодействие с интерфейсом (расширенные возможности qSpider)</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:qspider"  class="breadcrumbs" title="help:qspider">qSpider — плеер с поддержкой HTML</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:qspider_inclib"  class="breadcrumbs" title="help:qspider_inclib">Встроенная библиотека qspider</a></bdi> <span class="bcsep">•</span> <span class="curid"><bdi><a href="/help:tuples"  class="breadcrumbs" title="help:tuples">Кортежи</a></bdi></span></div>
                     </div>
     
     
@@ -240,9 +240,11 @@
 <li class="level3"><div class="li"><a href="#umenshenie_znachenij_kortezha">Уменьшение значений кортежа -</a></div></li>
 <li class="level3"><div class="li"><a href="#uvelichenie_znachenij_kortezha1">Увеличение значений кортежа *</a></div></li>
 <li class="level3"><div class="li"><a href="#sokraschenie_znachenij_kortezha">Сокращение значений кортежа /</a></div></li>
+<li class="level3"><div class="li"><a href="#otricanie_kortezhej_-_unarnyj_minus">Отрицание кортежей (&#039;&#039;-&#039;&#039; унарный минус)</a></div></li>
 <li class="level3"><div class="li"><a href="#operacii_s_prisvaivaniem">Операции с присваиванием</a></div></li>
 </ul>
 </li>
+<li class="level2"><div class="li"><a href="#sravnenie_kortezhej">Сравнение кортежей</a></div></li>
 <li class="level2"><div class="li"><a href="#funkcii_i_operatory_rabotajuschie_s_kortezhami">Функции и операторы, работающие с кортежами</a></div></li>
 <li class="level2"><div class="li"><a href="#indeksacija_jacheek_massivov_cherez_kortezhi">Индексация ячеек массивов через кортежи</a></div></li>
 <li class="level2"><div class="li"><a href="#kortezh_iz_odnogo_znachenija">Кортеж из одного значения</a></div></li>
@@ -370,6 +372,18 @@ local %q = 65,&#039;ddd&#039;,33
 </pre>
 </p>
 
+<p>
+Эта же операция используется для добавления отдельных значений в кортеж:
+</p>
+
+<p>
+<pre class="brush: qsp">
+%tpl = [1, 2, 3, 4]
+%tpl = (%tpl &amp; 5)
+%tpl &amp; ! [1,2,3,4,5]
+</pre>
+</p>
+
 </div>
 
 <h3 class="sectionedit4" id="uvelichenie_znachenij_kortezha">Увеличение значений кортежа +</h3>
@@ -489,7 +503,38 @@ local %q = 65,&#039;ddd&#039;,33
 
 </div>
 
-<h3 class="sectionedit8" id="operacii_s_prisvaivaniem">Операции с присваиванием</h3>
+<h3 class="sectionedit8" id="otricanie_kortezhej_-_unarnyj_minus">Отрицание кортежей (&#039;&#039;-&#039;&#039; унарный минус)</h3>
+<div class="level3">
+
+<p>
+Общая запись:
+</p>
+
+<p>
+<pre class="brush: qsp">
+[%новый_кортеж] = -[%кортеж_1]
+</pre>
+</p>
+
+<p>
+Эта операция эквивалентна умножению кортежа на -1. Т.е. значения всех элементов кортежа будут умножены на -1. Примеры:
+</p>
+
+<p>
+<pre class="brush: qsp">
+%tpl = -[2] &amp; ! [-2]
+-[5,6,7] &amp; ! [-5,-6,-7]
+! a = 12
+-[a, a+2, a+4] &amp; ! [-12,-14,-16]
+-[5,6,7]+3 &amp; ! [-2,-3,-4]
+-([5,6,7]+3) &amp; ! [-8,-9,-10]
+-[1,[2,-3],-4] &amp; ! [-1,[-2,3],4]
+</pre>
+</p>
+
+</div>
+
+<h3 class="sectionedit9" id="operacii_s_prisvaivaniem">Операции с присваиванием</h3>
 <div class="level3">
 
 <p>
@@ -520,7 +565,44 @@ local %q = 65,&#039;ddd&#039;,33
 
 </div>
 
-<h2 class="sectionedit9" id="funkcii_i_operatory_rabotajuschie_s_kortezhami">Функции и операторы, работающие с кортежами</h2>
+<h2 class="sectionedit10" id="sravnenie_kortezhej">Сравнение кортежей</h2>
+<div class="level2">
+
+<p>
+Любые <a href="/help:expressions" class="wikilink1" title="help:expressions">операции сравнения</a> можно использовать и для сравнения кортежей. При этом:
+</p>
+<ul>
+<li class="level1"><div class="li"> Кортежи сравниваются поэлементно, и большим оказывается тот кортеж, элемент которого оказался большим. Примеры: <pre class="brush: qsp">
+%one = [12, 13, 14]
+%two = [12, 13, 99]
+! %one &lt; %two т.к. 14 &lt; 99
+%three = [13]
+! %three &gt; %one т.к. 13 &gt; 12
+</pre></div>
+</li>
+<li class="level1"><div class="li"> Любой непустой кортеж, всегда больше пустого кортежа. Отсюда следует, что если кортежи разной длины, можно представить недостающие элементы более короткого кортежа, как пустые элементы, а они всегда меньше непустых. Примеры: <pre class="brush: qsp">
+%one = [12]
+%two = [&#039;&#039;]
+%empty = []
+! %one &gt; %empty
+! %two &gt; %empty
+
+%three = [12, &#039;&#039;]
+! %three &gt; %one
+</pre></div>
+</li>
+<li class="level1"><div class="li"> при сравнении кортежа с числом или строкой, число или строка воспринимаются движком как кортеж из одного элемента: <pre class="brush: qsp">
+%one = [12, 13]
+! %one &gt; 12
+! %one &lt; 13
+! [] &lt; 0 т.к. [0] - не пустой кортеж
+</pre></div>
+</li>
+</ul>
+
+</div>
+
+<h2 class="sectionedit11" id="funkcii_i_operatory_rabotajuschie_s_kortezhami">Функции и операторы, работающие с кортежами</h2>
 <div class="level2">
 <ul>
 <li class="level1"><div class="li"> <code>LEN([%кор])</code> - возвращает число элементов кортежа <code>[%кор]</code>. <pre class="brush: qsp">
@@ -585,7 +667,7 @@ UNPACKARR &#039;A&#039;, %tpl, 3, 1
 
 </div>
 
-<h2 class="sectionedit10" id="indeksacija_jacheek_massivov_cherez_kortezhi">Индексация ячеек массивов через кортежи</h2>
+<h2 class="sectionedit12" id="indeksacija_jacheek_massivov_cherez_kortezhi">Индексация ячеек массивов через кортежи</h2>
 <div class="level2">
 
 <p>
@@ -621,7 +703,7 @@ $map[[0,-1]] = &#039;hero&#039;
 
 </div>
 
-<h2 class="sectionedit11" id="kortezh_iz_odnogo_znachenija">Кортеж из одного значения</h2>
+<h2 class="sectionedit13" id="kortezh_iz_odnogo_znachenija">Кортеж из одного значения</h2>
 <div class="level2">
 
 <p>
@@ -648,7 +730,7 @@ $line_map[[-1]] = &#039;personage&#039;
 
 </div>
 
-<h2 class="sectionedit12" id="vozvraschenie_neskolkix_znachenij_iz_funkcii">Возвращение нескольких значений из функции</h2>
+<h2 class="sectionedit14" id="vozvraschenie_neskolkix_znachenij_iz_funkcii">Возвращение нескольких значений из функции</h2>
 <div class="level2">
 
 <p>
@@ -667,7 +749,7 @@ x, y = @foo()
 
 </div>
 
-<h2 class="sectionedit13" id="ogranichenija_kortezhej">Ограничения кортежей</h2>
+<h2 class="sectionedit15" id="ogranichenija_kortezhej">Ограничения кортежей</h2>
 <div class="level2">
 <ul>
 <li class="level1"><div class="li"> Используя лишь одну пару квадратных скобок нельзя создать кортеж из более чем двадцати элементов. Пример попытки создать кортеж из 21 элемента: <pre class="brush: qsp">
@@ -739,7 +821,7 @@ weight, $sports = %tale
                     <!-- wikipage stop -->
                                     </div>
 
-                <div class="docInfo"><bdi>help/tuples.txt</bdi> · Последние изменения: 2025/07/20 15:02  — <bdi>aleks_versus</bdi></div>
+                <div class="docInfo"><bdi>help/tuples.txt</bdi> · Последние изменения: 2025/09/28 14:51  — <bdi>aleks_versus</bdi></div>
 
                             </div></div><!-- /content -->
 
@@ -782,7 +864,7 @@ weight, $sports = %tale
 
     </div></div><!-- /site -->
 
-    <div class="no"><img src="/lib/exe/indexer.php?id=help%3Atuples&amp;1757411633" width="2" height="1" alt="" /></div>
+    <div class="no"><img src="/lib/exe/indexer.php?id=help%3Atuples&amp;1760112105" width="2" height="1" alt="" /></div>
     <div id="screen__mode" class="no"></div>    <!--[if ( lte IE 7 | IE 8 ) ]></div><![endif]-->
 </body>
 </html>

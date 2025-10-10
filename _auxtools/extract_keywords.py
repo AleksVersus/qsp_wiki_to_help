@@ -45,7 +45,11 @@ class ExtractKeyword:
             match = re.search(rf'id="{anchor}"', file_text)
             if match is None: continue
             string_number = len(file_text[0:match.end()].split('\n'))
-            lin[anchor] = [file_path, string_number]
+            file_name = os.path.splitext(file)[0]
+            if file_name in lin:
+                lin[file_name][anchor] = [string_number, point_name]
+            else:
+                lin[file_name] = {anchor:[string_number, point_name]}
 
     def save_json(self, folder_src:str="..\\html_src") -> None:
         json_file = os.path.join(folder_src, 'anchors.json')

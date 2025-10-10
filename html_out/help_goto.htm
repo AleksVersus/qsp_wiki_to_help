@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html lang="ru">
 <head>
 <meta charset="utf-8"/>
@@ -27,7 +27,7 @@
 <h2 class="sectionedit2" id="komandy_dlja_peremeschenija_mezhdu_lokacijami">Команды для перемещения между локациями</h2>
 <div class="level2">
 <ul>
-<li class="level1"><div class="li"> <code id="statements_GOTO">GOTO [$локация]</code> — переход на локацию с названием <code>[$локация]</code>.</div>
+<li class="level1"><div class="li"> <code>GOTO [$локация]</code> — переход на локацию с названием <code>[$локация]</code>.</div>
 <ul>
 <li class="level2"><div class="li"> Пример: <pre class="brush: qsp">
 ! переход на локацию "Тронный зал"
@@ -78,7 +78,7 @@ end
 </li>
 </ul>
 </li>
-<li class="level1"><div class="li"> <code id="statements_XGOTO">XGOTO [$локация]</code> - переход на локацию с названием <code>[$локация]</code> БЕЗ очистки <strong>Окна основного описания</strong>.</div>
+<li class="level1"><div class="li"> <code>XGOTO [$локация]</code> - переход на локацию с названием <code>[$локация]</code> БЕЗ очистки <strong>Окна основного описания</strong>.</div>
 <ul>
 <li class="level2"><div class="li"> Пример: <pre class="brush: qsp">
 ! переход на локацию "разговор с начальником"
@@ -129,7 +129,43 @@ end
 </li>
 </ul>
 </div>
-<h2 class="sectionedit3" id="komandy_poseschenija_lokacij">Команды посещения локаций</h2>
+<h2 class="sectionedit3" id="ispolzovanie_massiva_args_dlja_dejstvij_i_giperssylok">Использование массива ARGS для действий и гиперссылок</h2>
+<div class="level2">
+<p>
+Вы можете использовать значения из массива <code>ARGS</code> не только в коде локации, на которую был осуществлён переход, но так же и в гиперссылках, выведенных на экран и в действиях. Примеры: </p><pre class="brush: qsp">
+args[0] = 12
+act 'Show args[0]':
+   *pl args[0] &amp; ! на экране увидим 12
+end
+
+! щелчки по гиперссылке будут увеличивать значение args[1]
+'&lt;a href="EXEC:args[1] += 1"&gt;Прибавить число&lt;/a&gt;'
+! а если щёлкнуть по этой гиперссылке,
+! значение args[1] появится в дополнительном описании:
+'&lt;a href="EXEC:pl args[1]"&gt;Узнать число&lt;/a&gt;'
+</pre>
+<p>
+Точно так же, как и для любой другой локации, массив <code>ARGS</code> уникален для текущей локации, и будет полностью уничтожаться при переходе на новую локацию.
+</p>
+<p>
+Это позволяет хранить и использовать необходимые данные только на одной локации. Например, можно записывать в <code>ARGS</code> многострочный код QSP и выполнять его из гиперссылок с помощью dynamic.
+</p>
+<p>
+</p><pre class="brush: qsp">
+$args[21] = {
+  if no деньги&lt;100:
+    addobj 'Кружка имбирного эля' 
+    кружка_эля += 1 
+    деньги -= 100
+    *pl "Я приобрёл кружку имбирного эля."
+  else
+     *pl "Мне не хватает денег на эль."
+  end
+}
+*pl "&lt;a href='exec:dynamic $args[21]'&gt;Купить кружку имбирного эля&lt;/a&gt;"
+</pre>
+</div>
+<h2 class="sectionedit4" id="komandy_poseschenija_lokacij">Команды посещения локаций</h2>
 <div class="level2">
 <p>
 Иногда нам нужно прервать выполнение определённого кода, выполнить код на другой локации, а затем вернуться и продолжить выполнять прерванный код. В таких случаях операторы <code>GOTO</code> и <code>XGOTO</code> нам не подходят, ведь они осуществляют <strong>переход</strong> на локацию и оставляют нас на ней.

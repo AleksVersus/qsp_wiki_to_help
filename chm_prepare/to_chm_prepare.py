@@ -1,5 +1,6 @@
 import os, json
 from bs4 import BeautifulSoup, Tag
+from typing import List, Dict, Union
 
 from urllib.parse import urljoin, urlparse, ParseResult
 
@@ -57,7 +58,8 @@ class ChmPrepare:
             'scheme': os.path.join(workdir, 'html_src/urls_links_to_files.json'),
             'base_url': 'https://wiki.qsp.org',
             'hhc': 'sidebar.htm',
-            'hhk': 'help_keywords.htm'
+            'hhk': 'help_keywords.htm',
+            'anchors': os.path.join(workdir, 'html_src/anchors.json')
         }
         if settings: self.sets.update(settings)
 
@@ -83,12 +85,47 @@ class ChmPrepare:
         self.base_url = self.sets['base_url']
 
         # схема сборки
-        self.scheme = json_load(self.sets['scheme'])        
+        self.scheme = json_load(self.sets['scheme'])
+
+        # якоря
+        self.anchors_files:Dict[str, Dict[str, List[Union[int, str]]]]  = None
+        with open(self.sets['anchors'], 'r', encoding='utf-8') as fp:
+            self.anchors_files = json.load(fp)
+
+        self.keywords_anchors:Dict[str, str] = {} # title: href
+
+        for file_name, kwrds in self.anchors_files.items():
+            for anchor, line_title in kwrds.items():
+                _, title = line_title
+                self.keywords_anchors[title] = f'{file_name}.htm#{anchor}'
+
+        # имена файлов к удалению
+        self.files_to_del = [
+            'discussions',
+            'help_aeroqsp',
+            'help_fajl_css_igry_v_quest_navigator',
+            'help_fajl_js_igry_v_quest_navigator',
+            'help_fajl_nastroek_igry_v_quest_navigator',
+            'help_ispolzovanie_shriftov_v_quest_navigator',
+            'help_navigator_command_line',
+            'help_navigator_game_files',
+            'help_navigator_game_template',
+            'help_navigator_standalone',
+            'help_sozdanie_igr_na_quest_navigator',
+            'playground_contents_what_dif_goto_gosub.md',
+            'index',
+            'playground_playground',
+            'help_navigator'
+        ]
 
     def prepare_html_files(self):
         """ Подготовка html-файлов к компиляции """
         for f in self.files_pathes:
             self.prepare_htm(f)
+
+        for f in self.files_to_del:
+            file_path = os.path.join(self.out_html_folder, f'{f}.htm')
+            if os.path.isfile(file_path): os.remove(file_path)
 
     def prepare_htm(self, file_path:str):
         """ Подготовка отдельного htm файла к публикации """
@@ -96,14 +133,47 @@ class ChmPrepare:
         # извлекаем имена
         file_name = os.path.splitext(os.path.basename(file_path))[0]
         output_path = os.path.join(self.out_html_folder, f'{file_name}.htm')
+        if file_name in self.files_to_del: return
 
         soup = BeautifulSoup(read_file(file_path), 'lxml')
         # извлекаем страницу
-        page = soup.select('div.page.group')[0]
+        page = soup.select_one('div.page.group')
         # удаляем ненужные элементы
         for el in page.select('div#dw__toc'): el.decompose()
         for el in page.select('dic.docInfo'): el.decompose()
         for el in page.select('script'): el.decompose()
+
+        # если страница start
+        if file_name == 'start':
+            # , добавляем лого в заголовок
+            el = page.select_one('h1')
+            if el:
+                new_tag = soup.new_tag('img')
+                new_tag['src'] = 'help_wiki_logo.png'
+                new_tag['alt'] = 'QSP Logo'
+                el.insert(0, new_tag)
+            # избавляемся от несуществующих ссылок
+            els = page.find_all('a', {'href': '/help:keywords'})
+            for el in els:
+                el.unwrap()
+            # добавляем ссылку на онлайн
+            el = page.select_one('h2#offlajn-versija')
+            if el:
+                for d in el.next_siblings:
+                    if d.name == 'div':
+                        div = d
+                        break
+                el.clear()
+                el.append('Онлайн-Версия')
+                div.clear()
+                p = soup.new_tag('p')
+                a = soup.new_tag('a', href="https://wiki.qsp.org", target="_blank")
+                a.append('онлайн')
+                p.append('Свежая версия справки доступна ')
+                p.append(a)
+                p.append('.')
+                div.append(p)
+
         # заменяем ссылки на внутренние
         self.replace_links(page)
 
@@ -114,7 +184,17 @@ class ChmPrepare:
         new_soup.body.append(page)
         new_soup.title.replace_with(soup.title)
 
-        write_file(output_path, str(new_soup))
+        # добавляем якоря
+        file_lines = str(new_soup).split('\n')
+        anchors_files = self.anchors_files
+
+        if file_name in anchors_files:
+            anchors = anchors_files[file_name]
+            for anchor, line_keyword in anchors.items():
+                line, _ = line_keyword
+                file_lines[line] = f'<a id="{anchor}"></a>{file_lines[line]}'
+
+        write_file(output_path, '\n'.join(file_lines))
 
     def extract_images(self, el:Tag):
         """ Извлечение изображений """
@@ -123,10 +203,19 @@ class ChmPrepare:
             if src.startswith('https://wiki.qsp.org'):
                 img['src'] = self.replace_href(src, scheme_type='images')
 
-    def replace_links(self, el):
+        for img in el.select('img.icon'):
+            if img.has_attr('alt'):
+                alt = img['alt']
+                img.replace_with(str(alt))
+            else:
+                img.decompose()
+
+    def replace_links(self, el:Tag):
         """ Замена ссылок на внутренние, используя схему """
         for link in el.find_all('a', href=True):
             href = link['href']
+            if link.has_attr('target') and link['target'] == '_blank':
+                continue
 
             href = str(urljoin(self.base_url, href))
             if href.startswith('https://wiki.qsp.org'):
@@ -161,12 +250,17 @@ class ChmPrepare:
         new_soup = BeautifulSoup(HHC_PAGE, 'lxml')
         new_soup.body.append(ul)
 
+        # удаляем 
+
         with open(self.hhc_dst_path, 'w', encoding='windows-1251') as fp:
             fp.write(str(new_soup))
         os.remove(self.hhc_src_path)
 
     def hhc_ul_rebuild_li(self, ul:Tag, soup:BeautifulSoup):
         """ Перестройка ul """
+        exclude_links = self.files_to_del[:]
+        exclude_links.extend([
+            'help_keywords'])
         for li in ul.select('li'):
             del li['class']
             div = li.div
@@ -180,6 +274,9 @@ class ChmPrepare:
                 a = anchors[0]
                 name = a.string
                 href = a['href']
+                if href[:-4] in exclude_links:
+                    li.decompose()
+                    continue
                 param_name = soup.new_tag('param',  attrs={'name':'Name', 'value':name})
                 param_local = soup.new_tag('param', attrs={'name':'Local', 'value':href})
                 div.clear()
@@ -190,19 +287,60 @@ class ChmPrepare:
                 div.clear()
                 div.append(param_name)
 
+    def extract_hhk_data(self, table:Tag, soup:BeautifulSoup) -> Dict[str, str]:
+        params = {
+            # title: href
+        }
+        for tr in table.select('tr'):
+            td = tr.select_one('td.col0')
+            link = td.a
+            if not link: continue
+            params[link.text] = link['href']
+
+        return params
+
     def prepare_hhk(self):
         """ Подготавливает файл указателя. """
         soup = BeautifulSoup(read_file(self.hhk_src_path), 'lxml')
-        ul = soup.select('div.page.group')[0].ul
+        page = soup.select_one('div.page.group')
 
-        self.hhc_ul_rebuild_li(ul, soup)
+        params = self.extract_hhk_data(page.table, soup)
         
         new_soup = BeautifulSoup(HHK_PAGE, 'lxml')
+        ul = new_soup.new_tag('ul')
+        for title, new_href in params.items():
+            li = new_soup.new_tag('li')
+            obj = new_soup.new_tag('OBJECT')
+            obj['type'] = 'text/sitemap'
+            param_title = new_soup.new_tag('param')
+            param_title['name'] = "Name"
+            param_title['value'] = title
+            if title in self.keywords_anchors:
+                old_href = self.keywords_anchors[title]
+                new_href = self._href_compare(old_href, new_href)
+            param_href = new_soup.new_tag('param')
+            param_href['name'] = "Local"
+            param_href['value'] = new_href
+            obj.append(param_title)
+            obj.append(param_href)
+            li.append(obj)
+            ul.append(li)
+
         new_soup.body.append(ul)
 
+        file_text = str(new_soup)
+        file_text = file_text.replace('</li><li>', '</li>\n<li>')
+
         with open(self.hhk_dst_path, 'w', encoding='windows-1251') as fp:
-            fp.write(str(new_soup))
+            fp.write(file_text)
         os.remove(self.hhk_src_path)
+
+    def _href_compare(self, old_href:str, new_href:str) -> str:
+        if old_href.startswith(new_href):
+            return old_href
+        else:
+            ancor = old_href.split('#')[1]
+            return f"{new_href}#{ancor}"
 
 
 def main():

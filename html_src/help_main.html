@@ -54,7 +54,7 @@
                     <div id="dokuwiki__usertools">
                 <h3 class="a11y">Инструменты пользователя</h3>
                 <ul>
-                    <li><a href="/help:main?do=login&amp;sectok=3e6ff35dfd333a48df46ef95b66bb2d4"  class="action login" rel="nofollow" title="Войти">Войти</a></li>                </ul>
+                    <li><a href="/help:main?do=login&amp;sectok=509a4c38c40dcff5f21c3a227d2c3a39"  class="action login" rel="nofollow" title="Войти">Войти</a></li>                </ul>
             </div>
         
         <!-- SITE TOOLS -->
@@ -70,7 +70,7 @@
 
     <!-- BREADCRUMBS -->
             <div class="breadcrumbs">
-                                        <div class="trace"><span class="bchead">Вы посетили:</span> <span class="bcsep">•</span> <bdi><a href="/help:qspider_aeroqsp"  class="breadcrumbs" title="help:qspider_aeroqsp">Особенности работы AeroQSP-игр на qSpider</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:keywords"  class="breadcrumbs" title="help:keywords">Ключевые слова</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:objs"  class="breadcrumbs" title="help:objs">Предметы (инвентарь)</a></bdi> <span class="bcsep">•</span> <bdi><a href="/discussions"  class="breadcrumbs" title="discussions">Обсуждения</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:strings"  class="breadcrumbs" title="help:strings">Строки</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:qspider_interface"  class="breadcrumbs" title="help:qspider_interface">Взаимодействие с интерфейсом (расширенные возможности qSpider)</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:glossary"  class="breadcrumbs" title="help:glossary">Словарь терминов</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:modules"  class="breadcrumbs" title="help:modules">Работа с файлами игр, использование модулей</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:service_locations"  class="breadcrumbs" title="help:service_locations">Служебные локации</a></bdi> <span class="bcsep">•</span> <span class="curid"><bdi><a href="/help:main"  class="breadcrumbs" title="help:main">Окно основного описания</a></bdi></span></div>
+                                        <div class="trace"><span class="bchead">Вы посетили:</span> <span class="bcsep">•</span> <bdi><a href="/help:modules"  class="breadcrumbs" title="help:modules">Работа с файлами игр, использование модулей</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:aeroqsp"  class="breadcrumbs" title="help:aeroqsp">AeroQSP</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:locations"  class="breadcrumbs" title="help:locations">Локации</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:classic_qsp"  class="breadcrumbs" title="help:classic_qsp">Особенности написания игр для классического плеера</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:keywords"  class="breadcrumbs" title="help:keywords">Ключевые слова</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:acts"  class="breadcrumbs" title="help:acts">Действия</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:sound"  class="breadcrumbs" title="help:sound">Звук</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:qgen"  class="breadcrumbs" title="help:qgen">Quest Generator</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:strings"  class="breadcrumbs" title="help:strings">Строки</a></bdi> <span class="bcsep">•</span> <span class="curid"><bdi><a href="/help:main"  class="breadcrumbs" title="help:main">Окно основного описания</a></bdi></span></div>
                     </div>
     
     
@@ -326,8 +326,8 @@
 
 ! эквивалентно
 
-pl &#039;Во поле&#039;
-pl &#039;берёзка&#039;
+*pl &#039;Во поле&#039;
+*pl &#039;берёзка&#039;
 *pl &#039;стояла&#039;
 </pre></div>
 </li>
@@ -390,8 +390,13 @@ $text = $maintxt
 Видит Грека В Реке Рак
 </pre></div>
 </li>
-<li class="level1"><div class="li"> <code>$DESC([$локация])</code> - возвращает текст базового описания локации с названием <code>[$локация]</code>. Обратите внимание! Функция возвращает текст, написанный только в поле “Описание” (<strong>Базовое описание</strong>) редактора <strong>Quest Generator</strong>. При работе в текстовом редакторе данное поле вам недоступно и функция будет всегда возвращать пустую строку.<br/>
-В <strong>Базовом описании</strong> можно использовать <a href="/help:strings#podvyrazhenija" class="wikilink1" title="help:strings">подвыражения</a>, функция <strong><code>$DESC</code></strong> автоматически “раскроет” их.</div>
+<li class="level1"><div class="li"> <code>$DESC([$локация])</code> - возвращает текст базового описания локации с названием <code>[$локация]</code>.</div>
+<ul>
+<li class="level2"><div class="li"> <strong>Обратите внимание!</strong> Функция возвращает текст, написанный только в поле “Описание” (<strong>Базовое описание</strong>) редактора <strong>Quest Generator</strong>. При работе в текстовом редакторе данное поле преобразуется в команды <code>*p</code> между тегами <code>! BASE</code> и <code>! END BASE</code>. Функция всегда будет возвращать сумму строк этих команд.</div>
+</li>
+<li class="level2"><div class="li"> В <strong>Базовом описании</strong> можно использовать <a href="/help:strings#podvyrazhenija" class="wikilink1" title="help:strings">подвыражения</a>, функция <strong><code>$DESC</code></strong> автоматически “раскроет” их.</div>
+</li>
+</ul>
 </li>
 </ul>
 
@@ -506,7 +511,7 @@ x = 15
                     <!-- wikipage stop -->
                                     </div>
 
-                <div class="docInfo"><bdi>help/main.txt</bdi> · Последние изменения: 2024/10/10 17:35  — <bdi>aleks_versus</bdi></div>
+                <div class="docInfo"><bdi>help/main.txt</bdi> · Последние изменения: 2025/09/27 18:20  — <bdi>aleks_versus</bdi></div>
 
                             </div></div><!-- /content -->
 
@@ -549,7 +554,7 @@ x = 15
 
     </div></div><!-- /site -->
 
-    <div class="no"><img src="/lib/exe/indexer.php?id=help%3Amain&amp;1757411614" width="2" height="1" alt="" /></div>
+    <div class="no"><img src="/lib/exe/indexer.php?id=help%3Amain&amp;1760112116" width="2" height="1" alt="" /></div>
     <div id="screen__mode" class="no"></div>    <!--[if ( lte IE 7 | IE 8 ) ]></div><![endif]-->
 </body>
 </html>

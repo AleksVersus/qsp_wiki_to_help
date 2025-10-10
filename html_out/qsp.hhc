@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//RU">
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
 <html>
 <body>
 <object type="text/site properties">
@@ -41,8 +41,7 @@
 </li>
 <li><OBJECT type="text/sitemap"><param name="Name" value="Массивы"/><param name="Local" value="help_arrays.htm"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="Строки"/><param name="Local" value="help_strings.htm"/>
-</OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Строки"/><param name="Local" value="help_strings.htm"/></OBJECT>
 <ul>
 <li><OBJECT type="text/sitemap"><param name="Name" value="Регулярные выражения"/><param name="Local" value="help_regexp.htm"/></OBJECT>
 </li>
@@ -106,10 +105,12 @@
 </li>
 <li><OBJECT type="text/sitemap"><param name="Name" value="Встроенная библиотека"/><param name="Local" value="help_qspider_inclib.htm"/></OBJECT>
 </li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="Стандалон-сборка" /><param name="Local" value="help_qspider_standalone.htm" /></OBJECT>
+<li><OBJECT type="text/sitemap"><param name="Name" value="Стандалон-сборка"/><param name="Local" value="help_qspider_standalone.htm"/></OBJECT>
 </li>
 </ul>
 </li>
+
+
 </ul>
 </li>
 <li><OBJECT type="text/sitemap"><param name="Name" value="Утилиты и средства разработки"/></OBJECT>
@@ -130,5 +131,5 @@
 </li>
 <li><OBJECT type="text/sitemap"><param name="Name" value="Cловарь терминов"/><param name="Local" value="help_glossary.htm"/></OBJECT>
 </li>
-</ul>
-</body></html>
+
+</ul></body></html>

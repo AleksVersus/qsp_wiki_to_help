@@ -54,7 +54,7 @@
                     <div id="dokuwiki__usertools">
                 <h3 class="a11y">Инструменты пользователя</h3>
                 <ul>
-                    <li><a href="/help:objs?do=login&amp;sectok=3e6ff35dfd333a48df46ef95b66bb2d4"  class="action login" rel="nofollow" title="Войти">Войти</a></li>                </ul>
+                    <li><a href="/help:objs?do=login&amp;sectok=509a4c38c40dcff5f21c3a227d2c3a39"  class="action login" rel="nofollow" title="Войти">Войти</a></li>                </ul>
             </div>
         
         <!-- SITE TOOLS -->
@@ -70,7 +70,7 @@
 
     <!-- BREADCRUMBS -->
             <div class="breadcrumbs">
-                                        <div class="trace"><span class="bchead">Вы посетили:</span> <span class="bcsep">•</span> <bdi><a href="/help:conditional"  class="breadcrumbs" title="help:conditional">Условия</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:regexp"  class="breadcrumbs" title="help:regexp">Регулярные выражения</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:msgbox"  class="breadcrumbs" title="help:msgbox">Окно сообщений</a></bdi> <span class="bcsep">•</span> <bdi><a href="/playground:playground"  class="breadcrumbs" title="playground:playground">PlayGround</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:graphics"  class="breadcrumbs" title="help:graphics">Графика</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:realtime"  class="breadcrumbs" title="help:realtime">Реальное время</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:acts"  class="breadcrumbs" title="help:acts">Действия</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:qspider_aeroqsp"  class="breadcrumbs" title="help:qspider_aeroqsp">Особенности работы AeroQSP-игр на qSpider</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:keywords"  class="breadcrumbs" title="help:keywords">Ключевые слова</a></bdi> <span class="bcsep">•</span> <span class="curid"><bdi><a href="/help:objs"  class="breadcrumbs" title="help:objs">Предметы (инвентарь)</a></bdi></span></div>
+                                        <div class="trace"><span class="bchead">Вы посетили:</span> <span class="bcsep">•</span> <bdi><a href="/help:main"  class="breadcrumbs" title="help:main">Окно основного описания</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:limits"  class="breadcrumbs" title="help:limits">Ограничения QSP</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:savegame"  class="breadcrumbs" title="help:savegame">Сохранения</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:arrays"  class="breadcrumbs" title="help:arrays">Массивы</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:expressions"  class="breadcrumbs" title="help:expressions">Выражения</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:conditional"  class="breadcrumbs" title="help:conditional">Условия</a></bdi> <span class="bcsep">•</span> <bdi><a href="/howto:start"  class="breadcrumbs" title="howto:start">Как сделать</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:cycle"  class="breadcrumbs" title="help:cycle">Циклы</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:qsp"  class="breadcrumbs" title="help:qsp">Что такое QSP?</a></bdi> <span class="bcsep">•</span> <span class="curid"><bdi><a href="/help:objs"  class="breadcrumbs" title="help:objs">Предметы (инвентарь)</a></bdi></span></div>
                     </div>
     
     
@@ -357,8 +357,9 @@ end
 </li>
 </ul>
 </li>
-<li class="level1"><div class="li"> <code><strong>DELOBJ</strong> [$название]</code> - удаление предмета из <strong>Окна предметов</strong> по названию. Если существует предмет с названием <code>[$название]</code>, он будет удалён. <pre class="brush: qsp">
+<li class="level1"><div class="li"> <code><strong>DELOBJ</strong> [$название], [#количество]</code> - удаление предмета из <strong>Окна предметов</strong> по названию. Если существует предмет с названием <code>[$название]</code>, он будет удалён. Если указан аргумент <code>[#количество]</code>, удалится только указанное количество одноимённых предметов. Если аргумент не указан, удалится один самый первый предмет с указанным названием.<pre class="brush: qsp">
 delobj &quot;Апельсин&quot; &amp; ! удаляем предмет с названием &quot;Апельсин&quot;
+delobj &quot;Яблоко&quot;, 7 &amp; ! удаляем семь предметов с названием &quot;Яблоко&quot;
 </pre></div>
 </li>
 <li class="level1"><div class="li"> <code><strong>KILLOBJ</strong> [#номер]</code> - удаление предмета по номеру в <strong>Списке предметов</strong>. Если параметр <code>[#номер]</code> не указан, то полная очистка <strong>Окна предметов</strong>. <pre class="brush: qsp">
@@ -368,6 +369,23 @@ killobj 3 &amp; ! удаляем предмет из третьей позици
 <li class="level2"><div class="li"> Индексация (нумерация) предметов в <strong>Окне предметов</strong> начинается с 1.</div>
 </li>
 </ul>
+</li>
+<li class="level1"><div class="li"> <code><strong>MODOBJ</strong> [$название], [$описание], [$изображение]</code> - замена описания (текста) предмета с названием <code>[$название]</code> и его изображения на указанные.</div>
+<ul>
+<li class="level2"><div class="li"> Данная операция помогает легко заменять отображаемое наименование предмета и его иконку в окне предметов. При этом название предмета не меняется, то есть <code>$selobj</code> продолжает возвращать название предмета, которое было использовано при создании предмета командой <code>ADDOBJ</code>. Пример: <pre class="brush: qsp">
+addobj &quot;Апельсин&quot; &amp; ! создаём предмет &quot;Апельсин&quot;
+modobj &quot;Апельсин&quot;, &quot;Апельсин (1 шт.)&quot; &amp; ! заменяем отображаемое наименование
+! на экране видим &quot;Апельсин (1 шт.)&quot;, но когда кликаем по этому предмету:
+*pl $selobj &amp; ! $selobj возвращает &quot;Апельсин&quot;
+</pre></div>
+</li>
+<li class="level2"><div class="li"> <strong>Обратите внимание!!!</strong> Если вы добавили в окно предметов несколько предметов с одинаковыми названиями, при использовании <code>modobj</code> отображаемое наименование поменяется у всех предметов.</div>
+</li>
+<li class="level2"><div class="li"> Практический смысл данного оператора заключается в том, чтобы не проводить поиск, получение позиции, удаление старого предмета и замену его новым, если вы делаете &quot;стакающиеся&quot; предметы. Достаточно просто заменить отображаемое наименование (title) предмета на нужный с помощью данного оператора.</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <code><strong>RESETOBJ</strong> [$название]</code> — сбрасывает отображаемое наименование и иконку предметов с названием <code>[$название]</code> до состояния на момент добавления с помощью <code>ADDOBJ</code>.</div>
 </li>
 </ul>
 
@@ -428,6 +446,17 @@ DYNAMIC $old_objects
 </pre></div>
 </li>
 </ul>
+</li>
+<li class="level1"><div class="li"> <code><strong>OBJ</strong> [$название]</code> - возвращает число одинаковых предметов с названием <code>[$название]</code> в <strong>Инвентаре</strong>. <pre class="brush: qsp">
+addobj &quot;Отвёртка&quot;
+*pl obj &quot;Отвёртка&quot; &amp; ! на экране будет число 1, так как предмет **Отвёртка** есть в окне предметов 
+*pl obj &quot;Апельсин&quot; &amp;! на экране будет число 0, так как предмета **Апельсин** нет в окне предметов
+if obj &quot;Отвёртка&quot;: 
+  *pl &quot;У вас есть отвёртка.&quot;
+else 
+  *pl &quot;У вас нет отвёртки.&quot;
+end
+</pre></div>
 </li>
 </ul>
 
@@ -528,7 +557,7 @@ end
                     <!-- wikipage stop -->
                                     </div>
 
-                <div class="docInfo"><bdi>help/objs.txt</bdi> · Последние изменения: 2024/10/14 07:22  — <bdi>aleks_versus</bdi></div>
+                <div class="docInfo"><bdi>help/objs.txt</bdi> · Последние изменения: 2025/10/03 11:32  — <bdi>aleks_versus</bdi></div>
 
                             </div></div><!-- /content -->
 
@@ -571,7 +600,7 @@ end
 
     </div></div><!-- /site -->
 
-    <div class="no"><img src="/lib/exe/indexer.php?id=help%3Aobjs&amp;1757411607" width="2" height="1" alt="" /></div>
+    <div class="no"><img src="/lib/exe/indexer.php?id=help%3Aobjs&amp;1760112129" width="2" height="1" alt="" /></div>
     <div id="screen__mode" class="no"></div>    <!--[if ( lte IE 7 | IE 8 ) ]></div><![endif]-->
 </body>
 </html>

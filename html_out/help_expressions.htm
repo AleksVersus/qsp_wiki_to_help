@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html lang="ru">
 <head>
 <meta charset="utf-8"/>
@@ -46,7 +46,7 @@
 Операции в выражении выполняются в порядке приоритета. Операции с одинаковым приоритетом выполняются по порядку слева направо.
 </p>
 <p>
-Вот список операций для плееров <strong>QSP</strong> версии 5.9.2 в порядке повышения приоритета (от меньшего к большему):
+Вот список операций для плееров <strong>QSP</strong> версии 5.9.0 в порядке повышения приоритета (от меньшего к большему):
 </p>
 <ul>
 <li class="level1"><div class="li"> <strong><code>OR</code></strong></div>
@@ -84,11 +84,57 @@
 </div>
 <h2 class="sectionedit4" id="opisanie_operacij">Описание операций</h2>
 <div class="level2">
-<p>
-<strong>Важно!</strong> Поскольку в <strong>QSP</strong> нет булевого типа данных, истинность или ложность выражения определяется по его числовому значению. Верным считается числовое выражение, значение которого отлично от <code>0</code>. При значении <code>0</code> выражение считается ложным. Для значения "верно" настоятельно рекомендуется использовать число <code>1</code>, т.к. операции сравнения и логические операции возвращают именно это значение в случае истинности выражения.
-</p>
 </div>
-<h3 class="sectionedit5" id="matematicheskie_operacii">Математические операции</h3>
+<h3 class="sectionedit5" id="pravda_ili_lozh">Правда или Ложь?</h3>
+<div class="level3">
+<p>
+Поскольку в <strong>QSP</strong> нет булевого типа данных, истинность или ложность выражения определяется по его числовому значению. Верным считается числовое выражение, значение которого отлично от <code><strong>0</strong></code>. При значении <code><strong>0</strong></code> выражение считается ложным. Для значения "верно" настоятельно рекомендуется использовать число <code><strong>1</strong></code>, т.к. операции сравнения и логические операции возвращают именно это значение в случае истинности выражения.
+</p>
+<p>
+Начиная с версии 5.9.4 верными так же считаются:
+</p>
+<ul>
+<li class="level1"><div class="li"> строковые значения, отличные от пустой строки (<code><strong>""</strong></code>).</div>
+<ul>
+<li class="level2"><div class="li"> Примеры: <pre class="brush: qsp">
+if '': *pl 'Пустая строка. Надпись не увидим.'
+if 'непустая строка': *pl 'Условие выполняется. Надпись увидим.'
+</pre></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> непустые кортежи, в т.ч. содержащие пустые кортежи.</div>
+<ul>
+<li class="level2"><div class="li"> Примеры: <pre class="brush: qsp">
+if []:  *pl 'Пустой кортеж. Надпись не увидим.'
+if [[]]: *pl 'Не пустой кортеж. Надпись увидим.'
+<a id="operator_MOD"></a></pre></div>
+</li>
+</ul>
+</li>
+</ul>
+<p>
+Благодаря этому вы можете использовать логические операции со значениями любого типа и не проводить явного сравнения со значениями по умолчанию.
+</p>
+<p>
+Пример со строками:
+</p>
+<ul>
+<li class="level1"><div class="li"> В QSP 5.9.3 и ниже: <pre class="brush: qsp">
+loop while $name = '':
+  $name = $input('Введите имя:')
+end
+</pre></div>
+</li>
+<li class="level1"><div class="li"> В QSP 5.9.4 и выше: <pre class="brush: qsp">
+loop while no $name:
+  $name = $input('Введите имя:')
+end
+</pre></div>
+</li>
+</ul>
+</div>
+<h3 class="sectionedit6" id="matematicheskie_operacii">Математические операции</h3>
 <div class="level3">
 <ul>
 <li class="level1"><div class="li"> <strong><code>-[#выр]</code></strong> - унарный минус. Можно поставить перед числовым выражением и таким образом поменять знак этого выражения на противоположный: <pre class="brush: qsp">
@@ -106,7 +152,7 @@ x = -12
 15/2*5 &amp;! (15/2)*5 = 7*5 = 35
 </pre></div>
 </li>
-<li class="level1"><div class="li"> <strong><code id="operator_MOD">[#выр1] MOD [#выр2]</code></strong> - остаток от деления. Это операция, которой нас учат ещё в начальной школе. Если мы вычисляем, сколько раз число делится нацело на другое число, то в результате может остаться некая неучтённая часть. Например, если мы хотим разделить <strong>10</strong> на <strong>3</strong>, то число <strong>10</strong> нацело делится на <strong>3</strong> только три раза. Но <strong>3</strong> умножить на <strong>3</strong> - это <strong>9</strong>. Значит, от десяти осталась часть, которая не делится на <strong>3</strong>, это <strong>1</strong> (<strong>10 - 9 = 1</strong>). Эта часть и называется остатком от деления. Для числа <strong>12</strong> остаток от деления на <strong>3</strong> составляет ноль, поскольку двенадцать делится на <strong>3</strong> ровно четыре раза. Примеры: <pre class="brush: qsp">
+<li class="level1"><div class="li"> <strong><code>[#выр1] MOD [#выр2]</code></strong> - остаток от деления. Это операция, которой нас учат ещё в начальной школе. Если мы вычисляем, сколько раз число делится нацело на другое число, то в результате может остаться некая неучтённая часть. Например, если мы хотим разделить <strong>10</strong> на <strong>3</strong>, то число <strong>10</strong> нацело делится на <strong>3</strong> только три раза. Но <strong>3</strong> умножить на <strong>3</strong> - это <strong>9</strong>. Значит, от десяти осталась часть, которая не делится на <strong>3</strong>, это <strong>1</strong> (<strong>10 - 9 = 1</strong>). Эта часть и называется остатком от деления. Для числа <strong>12</strong> остаток от деления на <strong>3</strong> составляет ноль, поскольку двенадцать делится на <strong>3</strong> ровно четыре раза. Примеры: <pre class="brush: qsp">
 10 mod 2 &amp; ! 10/2 = 5 -&gt; 2*5=10 -&gt; 10-10 = 0 -&gt; остаток от деления 10 на 2 равен 0
 10 mod 3 &amp; ! 10/3 = 3 -&gt; 3*3=9  -&gt; 10-9 = 1  -&gt; остаток от деления 10 на 3 равен 1
 10 mod 4 &amp; ! 10/4 = 2 -&gt; 4*2=8  -&gt; 10-8 = 2  -&gt; остаток от деления 10 на 4 равен 2
@@ -117,8 +163,11 @@ x = -12
 </li>
 </ul>
 </div>
-<h3 class="sectionedit6" id="operacii_sravnenija">Операции сравнения</h3>
+<h3 class="sectionedit7" id="operacii_sravnenija">Операции сравнения</h3>
 <div class="level3">
+<p>
+Сравнивать можно данные любых типов. Подробнее о сравнении <a class="wikilink1" href="help_strings.htm" title="help:strings">строк</a> и <a class="wikilink1" href="help_tuples.htm" title="help:tuples">кортежей</a> читайте в соответствующих разделах.
+</p>
 <ul>
 <li class="level1"><div class="li"> <strong><code>[выр1] = [выр2]</code></strong> - операция <strong>равно</strong>. Верно, если значения рядом стоящих выражений равны. Данную операцию не стоит путать с операцией присваивания, хотя на первый взгляд они похожи. Чтобы операция <strong>равно</strong> корректно вернула значение, она должна быть записана после ключевого слова <strong><code>IF</code></strong>, <strong><code>ELSEIF</code></strong>, <strong><code>WHILE</code></strong> или в первом аргументе функции <strong><code>IIF</code></strong>, или стоять после явного оператора вывода текста вроде <strong><code>*PL</code></strong>, или если используется с неявным оператором, быть заключённой в скобки. Примеры: <pre class="brush: qsp">
 ! операция сравнения **равно** с явным указанием оператора перед ней:
@@ -167,7 +216,7 @@ end
 *pl 226 ! 15*15 &amp; ! 226 = 15*15 -&gt; 226=225 -&gt; на экране увидим **1**, так как **226** не равно **225**.
 ! операция сравнения **равно** с неявным оператором
 *pl 'ab'+'cd' &lt;&gt; 'abc'+'d' &amp; ! на экране увидим 0, так как 'ab'+'cd' равно 'abc'+'d'
-*pl 13*9 &lt;&gt; 19*3 &amp; ! на экране увидим 1, так как 13*9 равно 19*3
+<a id="operator_LOC"></a>*pl 13*9 &lt;&gt; 19*3 &amp; ! на экране увидим 1, так как 13*9 равно 19*3
 ! операция сравнения в условии
 if x &lt;&gt; y:
   *pl "Числа не равны"
@@ -177,7 +226,7 @@ end
 </pre> <strong>Примечание.</strong> Во избежание путаницы с оператором комментария <strong><code>!</code></strong> лучше не использовать для записи операции <strong>не равно</strong> восклицательный знак.</div>
 </li>
 <li class="level1"><div class="li"> <code>[выр1] <strong>&lt;=</strong> [выр2], [выр1] <strong>=&lt;</strong> [выр2]</code> - операция <strong>меньше либо равно</strong>. Верно, если значение выражения слева меньше или равно значению выражения справа. <pre class="brush: qsp">
-*pl 37&lt;=56 &amp; ! на экране будет число 1, так как 37 меньше 56 
+<a id="operator_NO"></a>*pl 37&lt;=56 &amp; ! на экране будет число 1, так как 37 меньше 56 
 *pl 45&lt;=23 &amp; ! на экране будет число 0, так как 45 не меньше и не равно 23
 *pl 45&lt;=45 &amp; ! на экране будет число 1, так как 45 равно 45
 if x &lt;= y:
@@ -189,7 +238,7 @@ end
 </li>
 <li class="level1"><div class="li"> <code>[выр1] <strong>&gt;=</strong> [выр2], [выр1] <strong>=&gt;</strong> [выр2]</code> - операция <strong>больше либо равно</strong>. Верно, если значение выражения слева больше или равно значению выражения справа. <pre class="brush: qsp">
 *pl 37&gt;=56 &amp; ! на экране будет число 0, так как 37 не больше и не равно 56 
-*pl 45&gt;=23 &amp; ! на экране будет число 1, так как 45 больше 23
+<a id="operator_OR"></a>*pl 45&gt;=23 &amp; ! на экране будет число 1, так как 45 больше 23
 *pl 45&gt;=45 &amp; ! на экране будет число 1, так как 45 равно 45
 if x &gt;= y:
   "X больше либо равно Y"
@@ -200,21 +249,12 @@ end
 </li>
 </ul>
 </div>
-<h3 class="sectionedit7" id="logicheskie_operacii">Логические операции</h3>
+<h3 class="sectionedit8" id="logicheskie_operacii">Логические операции</h3>
 <div class="level3">
 <ul>
-<li class="level1"><div class="li"> <code><strong>OBJ</strong> [$выр]</code> - операция проверки наличия предмета в <strong>Инвентаре</strong>. Верно, если в <strong>Окне предметов</strong> есть предмет с названием <code>[$выр]</code>. <pre class="brush: qsp">
-addobj "Отвёртка"
-*pl obj "Отвёртка" &amp; ! на экране будет число 1, так как предмет **Отвёртка** есть в окне предметов 
-*pl obj "Апельсин" &amp;! на экране будет число 0, так как предмета **Апельсин** нет в окне предметов
-if obj "Отвёртка": 
-  *pl "У вас есть отвёртка."
-else 
-  *pl "У вас нет отвёртки."
-end
-</pre></div>
+<a id="operator_AND"></a><li class="level1"><div class="li"> <code><strong>OBJ</strong> [$название]</code> - возвращает число предметов с названием <code>[$выр]</code>. Подробнее в разделе <a class="wikilink1" href="help_objs.htm" title="help:objs">Предметы (инвентарь)</a></div>
 </li>
-<li class="level1"><div class="li"> <code id="operator_LOC"><strong>LOC</strong> [$выр]</code> - операция проверки наличия локации в игре. Верно, если в игре есть локация с названием <code>[$выр]</code>. <pre class="brush: qsp">
+<li class="level1"><div class="li"> <code><strong>LOC</strong> [$выр]</code> - операция проверки наличия локации в игре. Верно, если в игре есть локация с названием <code>[$выр]</code>. <pre class="brush: qsp">
 ! в игре создана локация "Густая чаща"
 *pl loc "Густая чаща" &amp; ! на экране мы увидим число 1
 if loc "Дом": 
@@ -224,7 +264,7 @@ else
 end
 </pre></div>
 </li>
-<li class="level1"><div class="li"> <code id="operator_NO"><strong>NO</strong> [$выр]</code> - операция отрицания, логическое отрицание, или логическая инверсия. Если <code>[#выр]</code> верно, операция возвращает <strong>0</strong>, а если <code>[#выр]</code> не верно, операция возвращает <strong>1</strong>. Примеры: <pre class="brush: qsp">
+<li class="level1"><div class="li"> <code><strong>NO</strong> [$выр]</code> - операция отрицания, логическое отрицание, или логическая инверсия. Если <code>[#выр]</code> верно, операция возвращает <strong>0</strong>, а если <code>[#выр]</code> не верно, операция возвращает <strong>1</strong>. Примеры: <pre class="brush: qsp">
 *pl no 1 &amp; ! на экране увидим 0, так как 1 соответвует верному выражению 
 *pl no 7 &amp; ! на экране увидим 0, так как 7 соответвует верному выражению
 *pl no 0 &amp; ! на экране увидим 1, так как 0 соответствует неверному выражению
@@ -236,7 +276,7 @@ else
 end
 </pre></div>
 </li>
-<li class="level1"><div class="li"> <code id="operator_OR">[#выр1] OR [#выр2]</code> - операция логического "или". Всё выражение верно, если хотя бы одна из его частей верна: <code>[#выр1]</code> или <code>[#выр2]</code>. Примеры: <pre class="brush: qsp">
+<li class="level1"><div class="li"> <code>[#выр1] OR [#выр2]</code> - операция логического "или". Всё выражение верно, если хотя бы одна из его частей верна: <code>[#выр1]</code> или <code>[#выр2]</code>. Примеры: <pre class="brush: qsp">
 *pl 1 or 1 &amp; ! на экране увидим 1, так как обе части выражения равны 1 
 *pl 1 or 0 &amp; ! на экране увидим 1, так как левая часть равна 1 
 *pl 0 or 1 &amp; ! на экране увидим 1, так как правая часть равна 1 
@@ -250,7 +290,7 @@ end
 (2&lt;&gt;2) or (3=2) &amp; ! выражение вернёт 0 (ложь)
 </pre> Если <code>[#выр1]</code> верно, значение <code>[#выр2]</code> не вычисляется.</div>
 </li>
-<li class="level1"><div class="li"> <code id="operator_AND">[#выр1] <strong>AND</strong> [#выр2]</code> - операция побитового "и". Всё выражение верно, только если обе его части верны: и <code>[#выр1]</code>, и <code>[#выр2]</code>. Примеры: <pre class="brush: qsp">
+<li class="level1"><div class="li"> <code>[#выр1] <strong>AND</strong> [#выр2]</code> - операция логического "и". Всё выражение верно, только если обе его части верны: и <code>[#выр1]</code>, и <code>[#выр2]</code>. Примеры: <pre class="brush: qsp">
 *pl 1 and 1 &amp; ! на экране увидим 1, так как обе части выражения равны 1 
 *pl 1 and 0 &amp; ! на экране увидим 0, так как только левая часть равна 1 
 *pl 0 and 1 &amp; ! на экране увидим 0, так как только правая часть равна 1 
@@ -266,7 +306,7 @@ end
 </li>
 </ul>
 </div>
-<h3 class="sectionedit8" id="operacii_so_strokami">Операции со строками</h3>
+<h3 class="sectionedit9" id="operacii_so_strokami">Операции со строками</h3>
 <div class="level3">
 <p>
 Операции сравнения строк, а так же функции для работы со строками описаны в разделе <a class="wikilink1" href="help_strings.htm" title="help:strings">Строки</a>.
@@ -286,7 +326,7 @@ end
 </li>
 </ul>
 </div>
-<h3 class="sectionedit9" id="operacii_s_kortezhami">Операции с кортежами</h3>
+<h3 class="sectionedit10" id="operacii_s_kortezhami">Операции с кортежами</h3>
 <div class="level3">
 <p>
 Другие операции и функции для работы с кортежами представлены в разделе <a class="wikilink1" href="help_tuples.htm" title="help:tuples">Кортежи</a>.
@@ -329,7 +369,7 @@ end
 </li>
 </ul>
 </div>
-<h3 class="sectionedit10" id="operacii_s_prisvaivaniem">Операции с присваиванием</h3>
+<h3 class="sectionedit11" id="operacii_s_prisvaivaniem">Операции с присваиванием</h3>
 <div class="level3">
 <p>
 Помимо обыкновенной <a class="wikilink1" href="help_variables.htm" title="help:variables">операции присваивания</a> в <strong>QSP</strong> существуют так же совмещённые математические операции с присваиванием.
@@ -387,7 +427,7 @@ warrior *= 2
 Операции с присваиванием применимы и к кортежам. В этом случае кортежи изменяются по такому же принципу, как в операциях <code>+</code>, <code>-</code>, <code>/</code>, <code>*</code>.
 </p>
 </div>
-<h3 class="sectionedit11" id="drugie_primery">Другие примеры</h3>
+<h3 class="sectionedit12" id="drugie_primery">Другие примеры</h3>
 <div class="level3">
 <p>
 </p><pre class="brush: qsp">

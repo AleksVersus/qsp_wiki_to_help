@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html lang="ru">
 <head>
 <meta charset="utf-8"/>
@@ -94,6 +94,15 @@ local %q = 65,'ddd',33
 %tpl = ([1, 2] &amp; [3, 4])
 ! в переменную %tpl будет записан кортеж [1, 2, 3, 4]
 </pre>
+<p>
+Эта же операция используется для добавления отдельных значений в кортеж:
+</p>
+<p>
+</p><pre class="brush: qsp">
+%tpl = [1, 2, 3, 4]
+%tpl = (%tpl &amp; 5)
+%tpl &amp; ! [1,2,3,4,5]
+</pre>
 </div>
 <h3 class="sectionedit4" id="uvelichenie_znachenij_kortezha">Увеличение значений кортежа +</h3>
 <div class="level3">
@@ -180,7 +189,30 @@ local %q = 65,'ddd',33
 [4, 10] / 'b' &amp; ! ошибка о несоответствии типов данных
 </pre>
 </div>
-<h3 class="sectionedit8" id="operacii_s_prisvaivaniem">Операции с присваиванием</h3>
+<h3 class="sectionedit8" id="otricanie_kortezhej_-_unarnyj_minus">Отрицание кортежей (''-'' унарный минус)</h3>
+<div class="level3">
+<p>
+Общая запись:
+</p>
+<p>
+</p><pre class="brush: qsp">
+[%новый_кортеж] = -[%кортеж_1]
+</pre>
+<p>
+Эта операция эквивалентна умножению кортежа на -1. Т.е. значения всех элементов кортежа будут умножены на -1. Примеры:
+</p>
+<p>
+</p><pre class="brush: qsp">
+%tpl = -[2] &amp; ! [-2]
+-[5,6,7] &amp; ! [-5,-6,-7]
+! a = 12
+-[a, a+2, a+4] &amp; ! [-12,-14,-16]
+-[5,6,7]+3 &amp; ! [-2,-3,-4]
+-([5,6,7]+3) &amp; ! [-8,-9,-10]
+-[1,[2,-3],-4] &amp; ! [-1,[-2,3],4]
+</pre>
+</div>
+<h3 class="sectionedit9" id="operacii_s_prisvaivaniem">Операции с присваиванием</h3>
 <div class="level3">
 <p>
 Операции с присваиванием <code>+=</code>, <code>-=</code>, <code>*=</code> и <code>/=</code> применимы для кортежей.
@@ -200,11 +232,45 @@ local %q = 65,'ddd',33
 ! %tuple будет равно [10, 20, 30]
 %tuple -= 10
 ! %tuple будет равно [0, 10, 20]
-%tuple += 13
+<a id="func_ARRPACK"></a>%tuple += 13
 ! %tuple будет равно [13, 23, 33]
 </pre>
 </div>
-<h2 class="sectionedit9" id="funkcii_i_operatory_rabotajuschie_s_kortezhami">Функции и операторы, работающие с кортежами</h2>
+<h2 class="sectionedit10" id="sravnenie_kortezhej">Сравнение кортежей</h2>
+<div class="level2">
+<p>
+Любые <a class="wikilink1" href="help_expressions.htm" title="help:expressions">операции сравнения</a> можно использовать и для сравнения кортежей. При этом:
+</p>
+<ul>
+<li class="level1"><div class="li"> Кортежи сравниваются поэлементно, и большим оказывается тот кортеж, элемент которого оказался большим. Примеры: <pre class="brush: qsp">
+%one = [12, 13, 14]
+%two = [12, 13, 99]
+! %one &lt; %two т.к. 14 &lt; 99
+<a id="statement_UNPACKARR"></a>%three = [13]
+! %three &gt; %one т.к. 13 &gt; 12
+</pre></div>
+</li>
+<li class="level1"><div class="li"> Любой непустой кортеж, всегда больше пустого кортежа. Отсюда следует, что если кортежи разной длины, можно представить недостающие элементы более короткого кортежа, как пустые элементы, а они всегда меньше непустых. Примеры: <pre class="brush: qsp">
+%one = [12]
+%two = ['']
+%empty = []
+! %one &gt; %empty
+! %two &gt; %empty
+
+%three = [12, '']
+! %three &gt; %one
+</pre></div>
+</li>
+<li class="level1"><div class="li"> при сравнении кортежа с числом или строкой, число или строка воспринимаются движком как кортеж из одного элемента: <pre class="brush: qsp">
+%one = [12, 13]
+! %one &gt; 12
+! %one &lt; 13
+! [] &lt; 0 т.к. [0] - не пустой кортеж
+</pre></div>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit11" id="funkcii_i_operatory_rabotajuschie_s_kortezhami">Функции и операторы, работающие с кортежами</h2>
 <div class="level2">
 <ul>
 <li class="level1"><div class="li"> <code>LEN([%кор])</code> - возвращает число элементов кортежа <code>[%кор]</code>. <pre class="brush: qsp">
@@ -230,7 +296,7 @@ val(['1', 1]) &amp; ! увидим 0
 *pl $STR([5,7,'a']) &amp;! на экране увидим [5,7,'a']
 </pre></div>
 </li>
-<li class="level1"><div class="li"> <code id="func_ARRPACK">%ARRPACK([$имя_массива], [#начальный_индекс], [#количество])</code> - упаковывает массив <code>[$имя_массива]</code> в кортеж.</div>
+<li class="level1"><div class="li"> <code>%ARRPACK([$имя_массива], [#начальный_индекс], [#количество])</code> - упаковывает массив <code>[$имя_массива]</code> в кортеж.</div>
 <ul>
 <li class="level2"><div class="li"> Можно указать, сколько элементов <code>[#количество]</code> упаковать в кортеж, и с какого элемента <code>[#начальный_индекс]</code> начинать упаковку. Параметры опциональны, по умолчанию <code>[#начальный_индекс]</code> равен нулю, а <code>[#количество]</code> соответствует размеру массива.</div>
 </li>
@@ -244,7 +310,7 @@ LOCAL type, name = %ARRPACK('args')
 </li>
 </ul>
 </li>
-<li class="level1"><div class="li"> <code id="statement_UNPACKARR">UNPACKARR [$имя_массива], [%кортеж], [#начальный_индекс], [#количество]</code> - распаковывает значения из кортежа <code>[%кортеж]</code> в массив <code>[$имя_массива]</code>. </div>
+<li class="level1"><div class="li"> <code>UNPACKARR [$имя_массива], [%кортеж], [#начальный_индекс], [#количество]</code> - распаковывает значения из кортежа <code>[%кортеж]</code> в массив <code>[$имя_массива]</code>. </div>
 <ul>
 <li class="level2"><div class="li"> Можно указать, сколько элементов <code>[#количество]</code> распаковать, и с какого элемента <code>[#начальный_индекс]</code> начинать распаковку. Параметры опциональны, по умолчанию <code>[#начальный_индекс]</code> равен нулю, а <code>[#количество]</code> соответствует длине кортежа.</div>
 </li>
@@ -267,7 +333,7 @@ UNPACKARR 'A', %tpl, 3, 1
 </li>
 </ul>
 </div>
-<h2 class="sectionedit10" id="indeksacija_jacheek_massivov_cherez_kortezhi">Индексация ячеек массивов через кортежи</h2>
+<h2 class="sectionedit12" id="indeksacija_jacheek_massivov_cherez_kortezhi">Индексация ячеек массивов через кортежи</h2>
 <div class="level2">
 <p>
 Мы можем индексировать ячейки массивов с помощью кортежей, точно так же, как и с помощью строк. При этом повторяющиеся квадратные скобки можно и нужно опускать для лучшей читаемости кода. Таким образом можно создавать многомерные массивы:
@@ -296,7 +362,7 @@ $map[[0,-1]] = 'hero'
 Опускать повторяющиеся скобки нельзя, если для индексации используются кортежи, состоящие из одного значения.
 </p>
 </div>
-<h2 class="sectionedit11" id="kortezh_iz_odnogo_znachenija">Кортеж из одного значения</h2>
+<h2 class="sectionedit13" id="kortezh_iz_odnogo_znachenija">Кортеж из одного значения</h2>
 <div class="level2">
 <p>
 В <strong>QSP</strong> 5.9.0 появилась возможность создавать кортежи из одного значения. Например:
@@ -315,7 +381,7 @@ $line_map[[-1]] = 'personage'
 *pl $line_map[[-1]]
 </pre>
 </div>
-<h2 class="sectionedit12" id="vozvraschenie_neskolkix_znachenij_iz_funkcii">Возвращение нескольких значений из функции</h2>
+<h2 class="sectionedit14" id="vozvraschenie_neskolkix_znachenij_iz_funkcii">Возвращение нескольких значений из функции</h2>
 <div class="level2">
 <p>
 Поскольку кортежи позволяют упаковывать в переменную несколько значений, появилась возможность возвращать из пользовательской функции сразу несколько значений, используя распаковку:
@@ -329,7 +395,7 @@ $line_map[[-1]] = 'personage'
 x, y = @foo()
 </pre>
 </div>
-<h2 class="sectionedit13" id="ogranichenija_kortezhej">Ограничения кортежей</h2>
+<h2 class="sectionedit15" id="ogranichenija_kortezhej">Ограничения кортежей</h2>
 <div class="level2">
 <ul>
 <li class="level1"><div class="li"> Используя лишь одну пару квадратных скобок нельзя создать кортеж из более чем двадцати элементов. Пример попытки создать кортеж из 21 элемента: <pre class="brush: qsp">

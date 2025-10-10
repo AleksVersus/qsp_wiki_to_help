@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html lang="ru">
 <head>
 <meta charset="utf-8"/>
@@ -36,9 +36,9 @@ Quest Soft Player позволяет запускать проигрывание
 <h2 class="sectionedit3" id="operatory_dlja_upravlenija_zvukovymi_fajlami">Операторы для управления звуковыми файлами</h2>
 <div class="level2">
 <ul>
-<li class="level1"><div class="li"> <code id="statement_PLAY"><strong>PLAY</strong></code> — проигрывание указанного звукового файла с заданной громкостью. Общая запись:<pre class="brush: qsp">
+<li class="level1"><div class="li"> <code><strong>PLAY</strong></code> — проигрывание указанного звукового файла с заданной громкостью. Общая запись:<pre class="brush: qsp">
 PLAY [$путь_к_звуковому_файлу],[#громкость]
-</pre> , где <code>[$путь_к_звуковому_файлу]</code> — путь к звуковому файлу относительно файла игры, <code>[#громкость]</code> — громкость воспроизведения в процентах от 0 до 100. Параметр <code>[#громкость]</code> может отсутствовать, при этом громкость принимается равной 100%.<br/>
+<a id="statement_PLAY"></a></pre> , где <code>[$путь_к_звуковому_файлу]</code> — путь к звуковому файлу относительно файла игры, <code>[#громкость]</code> — громкость воспроизведения в процентах от 0 до 100. Параметр <code>[#громкость]</code> может отсутствовать, при этом громкость принимается равной 100%.<br/>
 Примеры:<pre class="brush: qsp">
 !Громкость 100%
 play 'sound/music.mp3'
@@ -57,9 +57,9 @@ $file="melody.mid"
 play $file,volume
 </pre>      Если файл уже проигрывается, то изменяется его громкость звучания без "перезапуска".</div>
 </li>
-<li class="level1"><div class="li"> <code id="statement_CLOSE"><strong>CLOSE</strong></code> — останавливает проигрывание указанного звукового файла. Общая запись:<pre class="brush: qsp">
+<li class="level1"><div class="li"> <code><strong>CLOSE</strong></code> — останавливает проигрывание указанного звукового файла. Общая запись:<pre class="brush: qsp">
 CLOSE [$путь_к_звуковому_файлу]
-</pre> , где <code>[$путь_к_звуковому_файлу]</code> — путь к звуковому файлу относительно файла игры. Если параметр <code>[$путь_к_звуковому_файлу]</code> не указан, происходит остановка воспроизведения всех звуковых файлов.<pre class="brush: qsp">
+<a id="statement_CLOSE"></a></pre> , где <code>[$путь_к_звуковому_файлу]</code> — путь к звуковому файлу относительно файла игры. Если параметр <code>[$путь_к_звуковому_файлу]</code> не указан, происходит остановка воспроизведения всех звуковых файлов.<pre class="brush: qsp">
 close "sound/music.mp3"
 </pre></div>
 </li>
@@ -75,9 +75,9 @@ close
 <h2 class="sectionedit4" id="funkcii_dlja_upravlenija_zvukovymi_fajlami">Функции для управления звуковыми файлами</h2>
 <div class="level2">
 <ul>
-<li class="level1"><div class="li"> <code id="func_ISPLAY">ISPLAY</code> — функция проверяет, проигрывается ли в данный момент файл с указанным названием, и если проигрывается, возвращает <strong>1</strong>. В противном случае функция возвращает <strong>0</strong>. Общая запись: <pre class="brush: qsp">
+<li class="level1"><div class="li"> <code>ISPLAY</code> — функция проверяет, проигрывается ли в данный момент файл с указанным названием, и если проигрывается, возвращает <strong>1</strong>. В противном случае функция возвращает <strong>0</strong>. Общая запись: <pre class="brush: qsp">
      ISPLAY([$путь_к_файлу])
-</pre> , где <code>[$путь_к_файлу]</code> — путь к звуковому файлу относительно файла игры.<br/>
+<a id="func_ISPLAY"></a></pre> , где <code>[$путь_к_файлу]</code> — путь к звуковому файлу относительно файла игры.<br/>
 </div>
 </li>
 </ul>

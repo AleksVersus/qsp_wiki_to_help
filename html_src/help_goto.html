@@ -54,7 +54,7 @@
                     <div id="dokuwiki__usertools">
                 <h3 class="a11y">Инструменты пользователя</h3>
                 <ul>
-                    <li><a href="/help:goto?do=login&amp;sectok=3e6ff35dfd333a48df46ef95b66bb2d4"  class="action login" rel="nofollow" title="Войти">Войти</a></li>                </ul>
+                    <li><a href="/help:goto?do=login&amp;sectok=509a4c38c40dcff5f21c3a227d2c3a39"  class="action login" rel="nofollow" title="Войти">Войти</a></li>                </ul>
             </div>
         
         <!-- SITE TOOLS -->
@@ -70,7 +70,7 @@
 
     <!-- BREADCRUMBS -->
             <div class="breadcrumbs">
-                                        <div class="trace"><span class="bchead">Вы посетили:</span> <span class="bcsep">•</span> <bdi><a href="/help:organizing"  class="breadcrumbs" title="help:organizing">Пользовательские функции и процедуры</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:savegame"  class="breadcrumbs" title="help:savegame">Сохранения</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:cycle"  class="breadcrumbs" title="help:cycle">Циклы</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:interface"  class="breadcrumbs" title="help:interface">Настройки интерфейса</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:qspider"  class="breadcrumbs" title="help:qspider">qSpider — плеер с поддержкой HTML</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:navigator"  class="breadcrumbs" title="help:navigator">Quest Navigator</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:txt2gam"  class="breadcrumbs" title="help:txt2gam">TXT2GAM. Краткое руководство</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:html"  class="breadcrumbs" title="help:html">HTML</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:stat"  class="breadcrumbs" title="help:stat">Окно дополнительного описан</a></bdi> <span class="bcsep">•</span> <span class="curid"><bdi><a href="/help:goto"  class="breadcrumbs" title="help:goto">Переходы</a></bdi></span></div>
+                                        <div class="trace"><span class="bchead">Вы посетили:</span> <span class="bcsep">•</span> <bdi><a href="/help:conditional"  class="breadcrumbs" title="help:conditional">Условия</a></bdi> <span class="bcsep">•</span> <bdi><a href="/howto:start"  class="breadcrumbs" title="howto:start">Как сделать</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:cycle"  class="breadcrumbs" title="help:cycle">Циклы</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:qsp"  class="breadcrumbs" title="help:qsp">Что такое QSP?</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:objs"  class="breadcrumbs" title="help:objs">Предметы (инвентарь)</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:graphics"  class="breadcrumbs" title="help:graphics">Графика</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:inputs"  class="breadcrumbs" title="help:inputs">Ввод текста игроком</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:regexp"  class="breadcrumbs" title="help:regexp">Регулярные выражения</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:qspider_aeroqsp"  class="breadcrumbs" title="help:qspider_aeroqsp">Особенности работы AeroQSP-игр на qSpider</a></bdi> <span class="bcsep">•</span> <span class="curid"><bdi><a href="/help:goto"  class="breadcrumbs" title="help:goto">Переходы</a></bdi></span></div>
                     </div>
     
     
@@ -234,6 +234,7 @@
 <li class="level1"><div class="li"><a href="#perexody">Переходы</a></div>
 <ul class="toc">
 <li class="level2"><div class="li"><a href="#komandy_dlja_peremeschenija_mezhdu_lokacijami">Команды для перемещения между локациями</a></div></li>
+<li class="level2"><div class="li"><a href="#ispolzovanie_massiva_args_dlja_dejstvij_i_giperssylok">Использование массива ARGS для действий и гиперссылок</a></div></li>
 <li class="level2"><div class="li"><a href="#komandy_poseschenija_lokacij">Команды посещения локаций</a></div></li>
 </ul>
 </li>
@@ -367,7 +368,51 @@ end
 
 </div>
 
-<h2 class="sectionedit3" id="komandy_poseschenija_lokacij">Команды посещения локаций</h2>
+<h2 class="sectionedit3" id="ispolzovanie_massiva_args_dlja_dejstvij_i_giperssylok">Использование массива ARGS для действий и гиперссылок</h2>
+<div class="level2">
+
+<p>
+Вы можете использовать значения из массива <code>ARGS</code> не только в коде локации, на которую был осуществлён переход, но так же и в гиперссылках, выведенных на экран и в действиях. Примеры: <pre class="brush: qsp">
+args[0] = 12
+act &#039;Show args[0]&#039;:
+   *pl args[0] &amp; ! на экране увидим 12
+end
+
+! щелчки по гиперссылке будут увеличивать значение args[1]
+&#039;&lt;a href=&quot;EXEC:args[1] += 1&quot;&gt;Прибавить число&lt;/a&gt;&#039;
+! а если щёлкнуть по этой гиперссылке,
+! значение args[1] появится в дополнительном описании:
+&#039;&lt;a href=&quot;EXEC:pl args[1]&quot;&gt;Узнать число&lt;/a&gt;&#039;
+</pre>
+</p>
+
+<p>
+Точно так же, как и для любой другой локации, массив <code>ARGS</code> уникален для текущей локации, и будет полностью уничтожаться при переходе на новую локацию.
+</p>
+
+<p>
+Это позволяет хранить и использовать необходимые данные только на одной локации. Например, можно записывать в <code>ARGS</code> многострочный код QSP и выполнять его из гиперссылок с помощью dynamic.
+</p>
+
+<p>
+<pre class="brush: qsp">
+$args[21] = {
+  if no деньги&lt;100:
+    addobj &#039;Кружка имбирного эля&#039; 
+    кружка_эля += 1 
+    деньги -= 100
+    *pl &quot;Я приобрёл кружку имбирного эля.&quot;
+  else
+     *pl &quot;Мне не хватает денег на эль.&quot;
+  end
+}
+*pl &quot;&lt;a href=&#039;exec:dynamic $args[21]&#039;&gt;Купить кружку имбирного эля&lt;/a&gt;&quot;
+</pre>
+</p>
+
+</div>
+
+<h2 class="sectionedit4" id="komandy_poseschenija_lokacij">Команды посещения локаций</h2>
 <div class="level2">
 
 <p>
@@ -419,7 +464,7 @@ end
                     <!-- wikipage stop -->
                                     </div>
 
-                <div class="docInfo"><bdi>help/goto.txt</bdi> · Последние изменения: 2024/10/14 07:11  — <bdi>aleks_versus</bdi></div>
+                <div class="docInfo"><bdi>help/goto.txt</bdi> · Последние изменения: 2025/09/28 16:15  — <bdi>aleks_versus</bdi></div>
 
                             </div></div><!-- /content -->
 
@@ -462,7 +507,7 @@ end
 
     </div></div><!-- /site -->
 
-    <div class="no"><img src="/lib/exe/indexer.php?id=help%3Agoto&amp;1757411649" width="2" height="1" alt="" /></div>
+    <div class="no"><img src="/lib/exe/indexer.php?id=help%3Agoto&amp;1760112134" width="2" height="1" alt="" /></div>
     <div id="screen__mode" class="no"></div>    <!--[if ( lte IE 7 | IE 8 ) ]></div><![endif]-->
 </body>
 </html>

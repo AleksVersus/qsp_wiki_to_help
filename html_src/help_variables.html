@@ -54,7 +54,7 @@
                     <div id="dokuwiki__usertools">
                 <h3 class="a11y">Инструменты пользователя</h3>
                 <ul>
-                    <li><a href="/help:variables?do=login&amp;sectok=3e6ff35dfd333a48df46ef95b66bb2d4"  class="action login" rel="nofollow" title="Войти">Войти</a></li>                </ul>
+                    <li><a href="/help:variables?do=login&amp;sectok=509a4c38c40dcff5f21c3a227d2c3a39"  class="action login" rel="nofollow" title="Войти">Войти</a></li>                </ul>
             </div>
         
         <!-- SITE TOOLS -->
@@ -70,7 +70,7 @@
 
     <!-- BREADCRUMBS -->
             <div class="breadcrumbs">
-                                        <div class="trace"><span class="bchead">Вы посетили:</span> <span class="bcsep">•</span> <bdi><a href="/help:main"  class="breadcrumbs" title="help:main">Окно основного описания</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:classic_qsp"  class="breadcrumbs" title="help:classic_qsp">Особенности написания игр для классического плеера</a></bdi> <span class="bcsep">•</span> <bdi><a href="/howto:start"  class="breadcrumbs" title="howto:start">Как сделать</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:inputs"  class="breadcrumbs" title="help:inputs">Ввод текста игроком</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:locations"  class="breadcrumbs" title="help:locations">Локации</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:aeroqsp"  class="breadcrumbs" title="help:aeroqsp">AeroQSP</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:menu"  class="breadcrumbs" title="help:menu">Меню</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:analyzer"  class="breadcrumbs" title="help:analyzer">Анализатор кода QSP</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:qgen"  class="breadcrumbs" title="help:qgen">Quest Generator</a></bdi> <span class="bcsep">•</span> <span class="curid"><bdi><a href="/help:variables"  class="breadcrumbs" title="help:variables">Переменные</a></bdi></span></div>
+                                        <div class="trace"><span class="bchead">Вы посетили:</span> <span class="bcsep">•</span> <bdi><a href="/help:realtime"  class="breadcrumbs" title="help:realtime">Реальное время</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:navigator"  class="breadcrumbs" title="help:navigator">Quest Navigator</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:qspider_gamecfg"  class="breadcrumbs" title="help:qspider_gamecfg">Конфигурационный файл</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:qspider_themes"  class="breadcrumbs" title="help:qspider_themes">Темы оформления</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:txt2gam"  class="breadcrumbs" title="help:txt2gam">TXT2GAM. Краткое руководство</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:menu"  class="breadcrumbs" title="help:menu">Меню</a></bdi> <span class="bcsep">•</span> <bdi><a href="/playground:playground"  class="breadcrumbs" title="playground:playground">PlayGround</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:stat"  class="breadcrumbs" title="help:stat">Окно дополнительного описан</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:principle"  class="breadcrumbs" title="help:principle">Порядок работы интерпретатора</a></bdi> <span class="bcsep">•</span> <span class="curid"><bdi><a href="/help:variables"  class="breadcrumbs" title="help:variables">Переменные</a></bdi></span></div>
                     </div>
     
     
@@ -847,7 +847,7 @@ local $название_предмета, количество, цена
   i=99 &amp; ! объявляем глобальную переменную
   gosub &#039;foo&#039;
   *nl i &amp; ! на экране увидим число 99
-- start -
+-- start -
 
 # foo
   ! на этой локации объявляем локальную переменную
@@ -860,7 +860,7 @@ local $название_предмета, количество, цена
     ! объявленной на локации foo
   end
   *nl i &amp; ! на экране увидим число 10
-- foo -
+-- foo -
 
 # undo
   ! в эту локацию из цикла с локации foo
@@ -868,12 +868,12 @@ local $название_предмета, количество, цена
   ! объявленная на локации foo
   i+=1 &amp; ! увеличиваем значение переменной, влияя на значение в foo
   *p &#039;undo:&lt;&lt;i&gt;&gt;, &#039; &amp; ! на экране появятся числа 1,3,5,7,9 с припиской undo:
-- undo -
+-- undo -
 </pre>
 </p>
 
 <p>
-<strong>Однако!</strong> Значения локальных переменных не транслируются в действия (в отличие от значений массива <strong><code>ARGS</code></strong> на текущей локации):
+<strong>Однако!</strong> Значения локальных переменных не транслируются в действия и гиперссылки (в отличие от значений массива <strong><code>ARGS</code></strong> на текущей локации):
 </p>
 
 <p>
@@ -891,6 +891,40 @@ end
 
 <p>
 <strong>Важно.</strong> Значения локальных переменных не передаются в локации-обработчики событий, однако передаются на локации-обработчики пунктов меню. Будьте внимательны.
+</p>
+
+<p>
+<strong>Ещё одна ОЧЕНЬ важная особенность!</strong> При объявлении локальной переменной вы можете присвоить ей значение глобальной переменной, или локальной переменной объявленной в предыдущем блоке кода. Пример кода, который последовательно выведет числа 200, 113, 99:
+</p>
+
+<p>
+<pre class="brush: qsp">
+# start
+
+a = 99
+@foo
+*pl a &amp;! на экране появится 99
+
+-- start
+
+# foo
+
+! здесь в выражение подставится 
+! значение переменной a из локации start:
+local a = a + 14 &amp;! 99+14
+
+dynamic {
+  ! теперь в выражении используется
+  ! значение a из локации foo
+  local a = a + 87
+  *pl a &amp;! 200
+}
+
+! на экран выведется 113:
+*pl a
+
+-- foo
+</pre>
 </p>
 
 </div>
@@ -1026,7 +1060,7 @@ end
                     <!-- wikipage stop -->
                                     </div>
 
-                <div class="docInfo"><bdi>help/variables.txt</bdi> · Последние изменения: 2024/10/14 10:12  — <bdi>aleks_versus</bdi></div>
+                <div class="docInfo"><bdi>help/variables.txt</bdi> · Последние изменения: 2025/10/05 07:48  — <bdi>aleks_versus</bdi></div>
 
                             </div></div><!-- /content -->
 
@@ -1069,7 +1103,7 @@ end
 
     </div></div><!-- /site -->
 
-    <div class="no"><img src="/lib/exe/indexer.php?id=help%3Avariables&amp;1757411623" width="2" height="1" alt="" /></div>
+    <div class="no"><img src="/lib/exe/indexer.php?id=help%3Avariables&amp;1760112098" width="2" height="1" alt="" /></div>
     <div id="screen__mode" class="no"></div>    <!--[if ( lte IE 7 | IE 8 ) ]></div><![endif]-->
 </body>
 </html>

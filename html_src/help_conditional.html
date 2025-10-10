@@ -54,7 +54,7 @@
                     <div id="dokuwiki__usertools">
                 <h3 class="a11y">Инструменты пользователя</h3>
                 <ul>
-                    <li><a href="/help:conditional?do=login&amp;sectok=3e6ff35dfd333a48df46ef95b66bb2d4"  class="action login" rel="nofollow" title="Войти">Войти</a></li>                </ul>
+                    <li><a href="/help:conditional?do=login&amp;sectok=509a4c38c40dcff5f21c3a227d2c3a39"  class="action login" rel="nofollow" title="Войти">Войти</a></li>                </ul>
             </div>
         
         <!-- SITE TOOLS -->
@@ -70,7 +70,7 @@
 
     <!-- BREADCRUMBS -->
             <div class="breadcrumbs">
-                                        <div class="trace"><span class="bchead">Вы посетили:</span> <span class="bcsep">•</span> <bdi><a href="/start"  class="breadcrumbs" title="start">Справочная информация о платформе Quest Soft Player</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:qspider_themes"  class="breadcrumbs" title="help:qspider_themes">Темы оформления</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:coding"  class="breadcrumbs" title="help:coding">Программный код</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:dynamical"  class="breadcrumbs" title="help:dynamical">Динамический код</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:jump"  class="breadcrumbs" title="help:jump">Переходы внутри локации</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:qspider_spectags"  class="breadcrumbs" title="help:qspider_spectags">Специальные HTML-теги</a></bdi> <span class="bcsep">•</span> <span class="curid"><bdi><a href="/help:conditional"  class="breadcrumbs" title="help:conditional">Условия</a></bdi></span></div>
+                                        <div class="trace"><span class="bchead">Вы посетили:</span> <span class="bcsep">•</span> <bdi><a href="/help:acts"  class="breadcrumbs" title="help:acts">Действия</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:sound"  class="breadcrumbs" title="help:sound">Звук</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:qgen"  class="breadcrumbs" title="help:qgen">Quest Generator</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:strings"  class="breadcrumbs" title="help:strings">Строки</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:main"  class="breadcrumbs" title="help:main">Окно основного описания</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:limits"  class="breadcrumbs" title="help:limits">Ограничения QSP</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:savegame"  class="breadcrumbs" title="help:savegame">Сохранения</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:arrays"  class="breadcrumbs" title="help:arrays">Массивы</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:expressions"  class="breadcrumbs" title="help:expressions">Выражения</a></bdi> <span class="bcsep">•</span> <span class="curid"><bdi><a href="/help:conditional"  class="breadcrumbs" title="help:conditional">Условия</a></bdi></span></div>
                     </div>
     
     
@@ -235,6 +235,7 @@
 <ul class="toc">
 <li class="level2"><div class="li"><a href="#operatory_uslovij">Операторы условий</a></div></li>
 <li class="level2"><div class="li"><a href="#funkcii_obrabotki_uslovij">Функции обработки условий</a></div></li>
+<li class="level2"><div class="li"><a href="#problema_visjachego_else">Проблема висячего ELSE</a></div></li>
 </ul>
 </li>
 <li class="level1"><div class="li"><a href="#discussion__section">Обсуждение</a></div></li>
@@ -252,6 +253,10 @@
 
 <p>
 Условия — это такие особые конструкции в <strong>QSP</strong>, которые позволят сделать вашу игру по настоящему интерактивной. Они позволяют разветвлять события, происходящие в игре в зависимости от уже сложившихся условий, и таким образом вносить разнообразие в игровой процесс. Операторы, которые используются в конструкциях условий, в программировании называются <strong>операторами ветвления</strong>.
+</p>
+
+<p>
+Операторы ветвления часто используют с <a href="/help:expressions" class="wikilink1" title="help:expressions">операциями сравнения и с логическими операциями</a>.
 </p>
 
 </div>
@@ -588,6 +593,78 @@ end
 </li>
 </ul>
 
+</div>
+
+<h2 class="sectionedit4" id="problema_visjachego_else">Проблема висячего ELSE</h2>
+<div class="level2">
+
+<p>
+Если вы часто пользуетесь однострочными конструкциями условий, вы неизбежно столкнётесь с &quot;проблемой висячего ELSE&quot;. Это ситуация, когда невозможно однозначно трактовать, к какому <code>IF</code> относится <code>ELSE</code>. Вот пример подобной неоднозначности:
+</p>
+
+<p>
+<pre class="brush: qsp">
+if first: if second: &#039;when true&#039; else: &#039;when false&#039;
+</pre>
+</p>
+
+<p>
+Сложно с ходу понять, к какому из <code>IF</code> — первому или второму — относится <code>ELSE</code>.
+</p>
+
+<p>
+К счастью данная неоднозначность в QSP разрешается, как и во многих других языках программирования. <code>ELSE</code> всегда относится к ближайшему <code>IF</code> без <code>ELSE</code>. То есть в данном случае ко второму. Вышеприведённая однострочная конструкция может быть представлена таким многострочным эквивалентом:
+</p>
+
+<p>
+<pre class="brush: qsp">
+if first:
+  if second:
+    &#039;when true&#039;
+  else:
+    &#039;when false&#039;
+  end
+end
+</pre>
+</p>
+
+<p>
+Из этого правила вытекает возможность создавать вот такие конструкции, где у каждого <code>IF</code> есть свой <code>ELSE</code>:
+</p>
+
+<p>
+<pre class="brush: qsp">
+if first: if second: &#039;when true&#039; else: &#039;when false&#039; else &#039;first false&#039;
+</pre>
+</p>
+
+<p>
+А вот создать эквивалент такой многострочной конструкции в однострочной форме так просто не получится:
+</p>
+
+<p>
+<pre class="brush: qsp">
+if first:
+  if second:
+    &#039;when true&#039;
+  end
+else:
+  &#039;when false&#039;
+end
+</pre>
+</p>
+
+<p>
+Хотя, если <em>очень</em> нужно…
+</p>
+
+<p>
+<pre class="brush: qsp">
+if first: dynamic {if second:&#039;when true&#039;} else: &#039;when false&#039;
+if first: if second: &#039;when true&#039; else: args=args else: &#039;when false&#039;
+</pre>
+</p>
+
 <p>
 <a href="/help:organizing" class="wikilink1" title="help:organizing">Вперёд: Пользовательские функции и процедуры</a>
 </p>
@@ -629,7 +706,7 @@ end
                     <!-- wikipage stop -->
                                     </div>
 
-                <div class="docInfo"><bdi>help/conditional.txt</bdi> · Последние изменения: 2024/12/01 10:35  — <bdi>aleks_versus</bdi></div>
+                <div class="docInfo"><bdi>help/conditional.txt</bdi> · Последние изменения: 2025/09/28 18:37  — <bdi>aleks_versus</bdi></div>
 
                             </div></div><!-- /content -->
 
@@ -672,7 +749,7 @@ end
 
     </div></div><!-- /site -->
 
-    <div class="no"><img src="/lib/exe/indexer.php?id=help%3Aconditional&amp;1757411599" width="2" height="1" alt="" /></div>
+    <div class="no"><img src="/lib/exe/indexer.php?id=help%3Aconditional&amp;1760112120" width="2" height="1" alt="" /></div>
     <div id="screen__mode" class="no"></div>    <!--[if ( lte IE 7 | IE 8 ) ]></div><![endif]-->
 </body>
 </html>

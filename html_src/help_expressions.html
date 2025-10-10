@@ -54,7 +54,7 @@
                     <div id="dokuwiki__usertools">
                 <h3 class="a11y">Инструменты пользователя</h3>
                 <ul>
-                    <li><a href="/help:expressions?do=login&amp;sectok=3e6ff35dfd333a48df46ef95b66bb2d4"  class="action login" rel="nofollow" title="Войти">Войти</a></li>                </ul>
+                    <li><a href="/help:expressions?do=login&amp;sectok=509a4c38c40dcff5f21c3a227d2c3a39"  class="action login" rel="nofollow" title="Войти">Войти</a></li>                </ul>
             </div>
         
         <!-- SITE TOOLS -->
@@ -70,7 +70,7 @@
 
     <!-- BREADCRUMBS -->
             <div class="breadcrumbs">
-                                        <div class="trace"><span class="bchead">Вы посетили:</span> <span class="bcsep">•</span> <bdi><a href="/help:qspider"  class="breadcrumbs" title="help:qspider">qSpider — плеер с поддержкой HTML</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:navigator"  class="breadcrumbs" title="help:navigator">Quest Navigator</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:txt2gam"  class="breadcrumbs" title="help:txt2gam">TXT2GAM. Краткое руководство</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:html"  class="breadcrumbs" title="help:html">HTML</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:stat"  class="breadcrumbs" title="help:stat">Окно дополнительного описан</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:goto"  class="breadcrumbs" title="help:goto">Переходы</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:sound"  class="breadcrumbs" title="help:sound">Звук</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:arrays"  class="breadcrumbs" title="help:arrays">Массивы</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:qspider_gamecfg"  class="breadcrumbs" title="help:qspider_gamecfg">Конфигурационный файл</a></bdi> <span class="bcsep">•</span> <span class="curid"><bdi><a href="/help:expressions"  class="breadcrumbs" title="help:expressions">Выражения</a></bdi></span></div>
+                                        <div class="trace"><span class="bchead">Вы посетили:</span> <span class="bcsep">•</span> <bdi><a href="/help:keywords"  class="breadcrumbs" title="help:keywords">Ключевые слова</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:acts"  class="breadcrumbs" title="help:acts">Действия</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:sound"  class="breadcrumbs" title="help:sound">Звук</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:qgen"  class="breadcrumbs" title="help:qgen">Quest Generator</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:strings"  class="breadcrumbs" title="help:strings">Строки</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:main"  class="breadcrumbs" title="help:main">Окно основного описания</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:limits"  class="breadcrumbs" title="help:limits">Ограничения QSP</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:savegame"  class="breadcrumbs" title="help:savegame">Сохранения</a></bdi> <span class="bcsep">•</span> <bdi><a href="/help:arrays"  class="breadcrumbs" title="help:arrays">Массивы</a></bdi> <span class="bcsep">•</span> <span class="curid"><bdi><a href="/help:expressions"  class="breadcrumbs" title="help:expressions">Выражения</a></bdi></span></div>
                     </div>
     
     
@@ -237,6 +237,7 @@
 <li class="level2"><div class="li"><a href="#prioritet_operacij">Приоритет операций</a></div></li>
 <li class="level2"><div class="li"><a href="#opisanie_operacij">Описание операций</a></div>
 <ul class="toc">
+<li class="level3"><div class="li"><a href="#pravda_ili_lozh">Правда или Ложь?</a></div></li>
 <li class="level3"><div class="li"><a href="#matematicheskie_operacii">Математические операции</a></div></li>
 <li class="level3"><div class="li"><a href="#operacii_sravnenija">Операции сравнения</a></div></li>
 <li class="level3"><div class="li"><a href="#logicheskie_operacii">Логические операции</a></div></li>
@@ -340,13 +341,64 @@
 <h2 class="sectionedit4" id="opisanie_operacij">Описание операций</h2>
 <div class="level2">
 
+</div>
+
+<h3 class="sectionedit5" id="pravda_ili_lozh">Правда или Ложь?</h3>
+<div class="level3">
+
 <p>
-<strong>Важно!</strong> Поскольку в <strong>QSP</strong> нет булевого типа данных, истинность или ложность выражения определяется по его числовому значению. Верным считается числовое выражение, значение которого отлично от <code>0</code>. При значении <code>0</code> выражение считается ложным. Для значения &quot;верно&quot; настоятельно рекомендуется использовать число <code>1</code>, т.к. операции сравнения и логические операции возвращают именно это значение в случае истинности выражения.
+Поскольку в <strong>QSP</strong> нет булевого типа данных, истинность или ложность выражения определяется по его числовому значению. Верным считается числовое выражение, значение которого отлично от <code><strong>0</strong></code>. При значении <code><strong>0</strong></code> выражение считается ложным. Для значения &quot;верно&quot; настоятельно рекомендуется использовать число <code><strong>1</strong></code>, т.к. операции сравнения и логические операции возвращают именно это значение в случае истинности выражения.
 </p>
+
+<p>
+Начиная с версии 5.9.4 верными так же считаются:
+</p>
+<ul>
+<li class="level1"><div class="li"> строковые значения, отличные от пустой строки (<code><strong>&quot;&quot;</strong></code>).</div>
+<ul>
+<li class="level2"><div class="li"> Примеры: <pre class="brush: qsp">
+if &#039;&#039;: *pl &#039;Пустая строка. Надпись не увидим.&#039;
+if &#039;непустая строка&#039;: *pl &#039;Условие выполняется. Надпись увидим.&#039;
+</pre></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> непустые кортежи, в т.ч. содержащие пустые кортежи.</div>
+<ul>
+<li class="level2"><div class="li"> Примеры: <pre class="brush: qsp">
+if []:  *pl &#039;Пустой кортеж. Надпись не увидим.&#039;
+if [[]]: *pl &#039;Не пустой кортеж. Надпись увидим.&#039;
+</pre></div>
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+Благодаря этому вы можете использовать логические операции со значениями любого типа и не проводить явного сравнения со значениями по умолчанию.
+</p>
+
+<p>
+Пример со строками:
+</p>
+<ul>
+<li class="level1"><div class="li"> В QSP 5.9.3 и ниже: <pre class="brush: qsp">
+loop while $name = &#039;&#039;:
+  $name = $input(&#039;Введите имя:&#039;)
+end
+</pre></div>
+</li>
+<li class="level1"><div class="li"> В QSP 5.9.4 и выше: <pre class="brush: qsp">
+loop while no $name:
+  $name = $input(&#039;Введите имя:&#039;)
+end
+</pre></div>
+</li>
+</ul>
 
 </div>
 
-<h3 class="sectionedit5" id="matematicheskie_operacii">Математические операции</h3>
+<h3 class="sectionedit6" id="matematicheskie_operacii">Математические операции</h3>
 <div class="level3">
 <ul>
 <li class="level1"><div class="li"> <strong><code>-[#выр]</code></strong> - унарный минус. Можно поставить перед числовым выражением и таким образом поменять знак этого выражения на противоположный: <pre class="brush: qsp">
@@ -377,8 +429,12 @@ x = -12
 
 </div>
 
-<h3 class="sectionedit6" id="operacii_sravnenija">Операции сравнения</h3>
+<h3 class="sectionedit7" id="operacii_sravnenija">Операции сравнения</h3>
 <div class="level3">
+
+<p>
+Сравнивать можно данные любых типов. Подробнее о сравнении <a href="/help:strings" class="wikilink1" title="help:strings">строк</a> и <a href="/help:tuples" class="wikilink1" title="help:tuples">кортежей</a> читайте в соответствующих разделах.
+</p>
 <ul>
 <li class="level1"><div class="li"> <strong><code>[выр1] = [выр2]</code></strong> - операция <strong>равно</strong>. Верно, если значения рядом стоящих выражений равны. Данную операцию не стоит путать с операцией присваивания, хотя на первый взгляд они похожи. Чтобы операция <strong>равно</strong> корректно вернула значение, она должна быть записана после ключевого слова <strong><code>IF</code></strong>, <strong><code>ELSEIF</code></strong>, <strong><code>WHILE</code></strong> или в первом аргументе функции <strong><code>IIF</code></strong>, или стоять после явного оператора вывода текста вроде <strong><code>*PL</code></strong>, или если используется с неявным оператором, быть заключённой в скобки. Примеры: <pre class="brush: qsp">
 ! операция сравнения **равно** с явным указанием оператора перед ней:
@@ -462,19 +518,10 @@ end
 
 </div>
 
-<h3 class="sectionedit7" id="logicheskie_operacii">Логические операции</h3>
+<h3 class="sectionedit8" id="logicheskie_operacii">Логические операции</h3>
 <div class="level3">
 <ul>
-<li class="level1"><div class="li"> <code><strong>OBJ</strong> [$выр]</code> - операция проверки наличия предмета в <strong>Инвентаре</strong>. Верно, если в <strong>Окне предметов</strong> есть предмет с названием <code>[$выр]</code>. <pre class="brush: qsp">
-addobj &quot;Отвёртка&quot;
-*pl obj &quot;Отвёртка&quot; &amp; ! на экране будет число 1, так как предмет **Отвёртка** есть в окне предметов 
-*pl obj &quot;Апельсин&quot; &amp;! на экране будет число 0, так как предмета **Апельсин** нет в окне предметов
-if obj &quot;Отвёртка&quot;: 
-  *pl &quot;У вас есть отвёртка.&quot;
-else 
-  *pl &quot;У вас нет отвёртки.&quot;
-end
-</pre></div>
+<li class="level1"><div class="li"> <code><strong>OBJ</strong> [$название]</code> - возвращает число предметов с названием <code>[$выр]</code>. Подробнее в разделе <a href="/help:objs" class="wikilink1" title="help:objs">Предметы (инвентарь)</a></div>
 </li>
 <li class="level1"><div class="li"> <code><strong>LOC</strong> [$выр]</code> - операция проверки наличия локации в игре. Верно, если в игре есть локация с названием <code>[$выр]</code>. <pre class="brush: qsp">
 ! в игре создана локация &quot;Густая чаща&quot;
@@ -512,7 +559,7 @@ end
 (2&lt;&gt;2) or (3=2) &amp; ! выражение вернёт 0 (ложь)
 </pre> Если <code>[#выр1]</code> верно, значение <code>[#выр2]</code> не вычисляется.</div>
 </li>
-<li class="level1"><div class="li"> <code>[#выр1] <strong>AND</strong> [#выр2]</code> - операция побитового &quot;и&quot;. Всё выражение верно, только если обе его части верны: и <code>[#выр1]</code>, и <code>[#выр2]</code>. Примеры: <pre class="brush: qsp">
+<li class="level1"><div class="li"> <code>[#выр1] <strong>AND</strong> [#выр2]</code> - операция логического &quot;и&quot;. Всё выражение верно, только если обе его части верны: и <code>[#выр1]</code>, и <code>[#выр2]</code>. Примеры: <pre class="brush: qsp">
 *pl 1 and 1 &amp; ! на экране увидим 1, так как обе части выражения равны 1 
 *pl 1 and 0 &amp; ! на экране увидим 0, так как только левая часть равна 1 
 *pl 0 and 1 &amp; ! на экране увидим 0, так как только правая часть равна 1 
@@ -530,7 +577,7 @@ end
 
 </div>
 
-<h3 class="sectionedit8" id="operacii_so_strokami">Операции со строками</h3>
+<h3 class="sectionedit9" id="operacii_so_strokami">Операции со строками</h3>
 <div class="level3">
 
 <p>
@@ -553,7 +600,7 @@ end
 
 </div>
 
-<h3 class="sectionedit9" id="operacii_s_kortezhami">Операции с кортежами</h3>
+<h3 class="sectionedit10" id="operacii_s_kortezhami">Операции с кортежами</h3>
 <div class="level3">
 
 <p>
@@ -599,7 +646,7 @@ end
 
 </div>
 
-<h3 class="sectionedit10" id="operacii_s_prisvaivaniem">Операции с присваиванием</h3>
+<h3 class="sectionedit11" id="operacii_s_prisvaivaniem">Операции с присваиванием</h3>
 <div class="level3">
 
 <p>
@@ -661,7 +708,7 @@ warrior *= 2
 
 </div>
 
-<h3 class="sectionedit11" id="drugie_primery">Другие примеры</h3>
+<h3 class="sectionedit12" id="drugie_primery">Другие примеры</h3>
 <div class="level3">
 
 <p>
@@ -723,7 +770,7 @@ res = NO x = y    &amp;! NO 5 = 6 -&gt; NO 0 -&gt; в res запишется ч�
                     <!-- wikipage stop -->
                                     </div>
 
-                <div class="docInfo"><bdi>help/expressions.txt</bdi> · Последние изменения: 2024/12/13 09:59  — <bdi>aleks_versus</bdi></div>
+                <div class="docInfo"><bdi>help/expressions.txt</bdi> · Последние изменения: 2025/10/03 12:11  — <bdi>aleks_versus</bdi></div>
 
                             </div></div><!-- /content -->
 
@@ -766,7 +813,7 @@ res = NO x = y    &amp;! NO 5 = 6 -&gt; NO 0 -&gt; в res запишется ч�
 
     </div></div><!-- /site -->
 
-    <div class="no"><img src="/lib/exe/indexer.php?id=help%3Aexpressions&amp;1757411653" width="2" height="1" alt="" /></div>
+    <div class="no"><img src="/lib/exe/indexer.php?id=help%3Aexpressions&amp;1760112119" width="2" height="1" alt="" /></div>
     <div id="screen__mode" class="no"></div>    <!--[if ( lte IE 7 | IE 8 ) ]></div><![endif]-->
 </body>
 </html>

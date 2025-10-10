@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html lang="ru">
 <head>
 <meta charset="utf-8"/>
@@ -171,6 +171,17 @@ if 'abc'='abc': 'Условие выполнено'
 'b'  &gt; 'ab'  &amp;! 'b' &gt; 'a'
 'ab' &gt; 'a'   &amp;! 'b' &gt; ''
 </pre>
+<p>
+Если строки сравниваются с числами, плеер пытается привести строку к числу и затем сравнить два числа. Если привести строку к числу не получается, плеер приводит число к строке и сравнивает две строки. Поэтому результаты могут отличаться в разных случаях:
+</p>
+<p>
+</p><pre class="brush: qsp">
+! это не валидный код QSP
+! а табличка сравнения
+3 &lt; '12' &amp;! '12' приводится к числу, и 12 &gt; 3
+'3' &gt; '12' &amp;! сравниваются две строки, а '3' &gt; '1'
+3 &gt; '12a' &amp;! '12a' не приводится к числу, сравниваются строки
+</pre>
 </div>
 <h2 class="sectionedit5" id="podvyrazhenija">Подвыражения</h2>
 <div class="level2">
@@ -192,7 +203,7 @@ if 'abc'='abc': 'Условие выполнено'
 pl 'Вас зовут &lt;&lt;$playerName&gt;&gt;, вы находитесь в &lt;&lt;$curloc&gt;&gt;.'
 </pre>
 <p>
-Когда плеер встречает подобное подвыражение, он это подвыражение <em>раскрывает</em>. Это значит, что плеер вычисляет значение выражения в двойных угловых скобках, а затем подставляет полученное значение на место этого самого подвыражения.
+Когда плеер встречает подобное подвыражение, он это подвыражение <strong>раскрывает</strong>. Это значит, что плеер вычисляет значение выражения в двойных угловых скобках, а затем подставляет полученное значение на место этого самого подвыражения.
 </p>
 <p>
 Другие примеры:
@@ -239,47 +250,47 @@ $text={&lt;&lt;var&gt;&gt;}
     здесь не раскрываются &lt;&lt;подвыражения&gt;&gt;
 }
 dynamic {
-    ! обычно в фигурных
+<a id="func_LEN"></a>    ! обычно в фигурных
     ! скобках размещают
     *pl "Код для оператора DYNAMIC"
 }
-</pre>
+<a id="func_MID"></a></pre>
 </div>
 <h2 class="sectionedit6" id="funkcii">Функции</h2>
 <div class="level2">
 <ul>
-<li class="level1"><div class="li"> <code id="func_LEN">LEN([$стр])</code> - возвращает длину строки <code>[$стр]</code>. <pre class="brush: qsp">
+<li class="level1"><div class="li"> <code>LEN([$стр])</code> - возвращает длину строки <code>[$стр]</code>. <pre class="brush: qsp">
 *pl len('Зелёные яблоки') &amp;! на экране будет число 14
 </pre></div>
 </li>
-<li class="level1"><div class="li"> <code id="func_MID"><strong>$MID(</strong>[$стр],[#начало],[#длина]<strong>)</strong></code> - вырезает из строки <code>[$стр]</code> строку, которая начинается с символа номер <code>[#начало]</code> и имеет длину <code>[#длина]</code>. Нумерация символов в строке ведётся с <strong>1</strong>.</div>
+<li class="level1"><div class="li"> <code><strong>$MID(</strong>[$стр],[#начало],[#длина]<strong>)</strong></code> - вырезает из строки <code>[$стр]</code> строку, которая начинается с символа номер <code>[#начало]</code> и имеет длину <code>[#длина]</code>. Нумерация символов в строке ведётся с <strong>1</strong>.</div>
 <ul>
 <li class="level2"><div class="li"> Параметр <code>[#длина]</code> может отсутствовать, при этом вырезается вся строка, начиная с символа <code>[#начало]</code>.</div>
 </li>
 <li class="level2"><div class="li"> Если <code>[#начало]</code> превышает длину строки, функция возвращает пустую строку.</div>
 </li>
-<li class="level2"><div class="li"> Примеры: <pre class="brush: qsp">
+<a id="func_UCASE"></a><li class="level2"><div class="li"> Примеры: <pre class="brush: qsp">
  $MID('abcd', 1, 2) &amp;! 'ab'
  $MID('abcd', 2, 3) &amp;! 'bcd'
  $MID('abcd', 2)    &amp;! 'bcd'
- $mid('abcd',5) &amp;! '' (пустая строка)
+<a id="func_LCASE"></a> $mid('abcd',5) &amp;! '' (пустая строка)
 </pre></div>
 </li>
 </ul>
-</li>
-<li class="level1"><div class="li"> <code id="func_UCASE">$UCASE([$стр])</code> - возвращает строку больших букв, полученную изменением регистра букв исходной строки <code>[$стр]</code>. <pre class="brush: qsp">
+<a id="func_TRIM"></a></li>
+<li class="level1"><div class="li"> <code>$UCASE([$стр])</code> - возвращает строку больших букв, полученную изменением регистра букв исходной строки <code>[$стр]</code>. <pre class="brush: qsp">
 $UCASE('TexT#') &amp;! 'TEXT#'
 </pre></div>
-</li>
-<li class="level1"><div class="li"> <code id="func_LCASE">$LCASE([$стр])</code> - возвращает строку маленьких букв, полученную изменением регистра букв исходной строки <code>[$стр]</code>. <pre class="brush: qsp">
+<a id="func_REPLACE"></a></li>
+<li class="level1"><div class="li"> <code>$LCASE([$стр])</code> - возвращает строку маленьких букв, полученную изменением регистра букв исходной строки <code>[$стр]</code>. <pre class="brush: qsp">
 $LCASE('TExT#') &amp;! 'text#'
 </pre></div>
 </li>
-<li class="level1"><div class="li"> <code id="func_TRIM">$TRIM([$стр])</code> - удаляет прилегающие пробелы и символы табуляции из <code>[$стр]</code> и возвращает полученную строку. <pre class="brush: qsp">
+<li class="level1"><div class="li"> <code>$TRIM([$стр])</code> - удаляет прилегающие пробелы и символы табуляции из <code>[$стр]</code> и возвращает полученную строку. <pre class="brush: qsp">
 $TRIM(' TRIM TEST ') &amp;! 'TRIM TEST'
 </pre></div>
 </li>
-<li class="level1"><div class="li"> <code id="func_REPLACE"><strong>$REPLACE(</strong>[$стр],[$поиск],[$замена],[#количество_замен]<strong>)</strong></code> - заменяет в строке <code>[$стр]</code> несколько вхождений строки <code>[$поиск]</code> строкой <code>[$замена]</code>. Замена производится слева-направо и только для неперескающихся вхождений.</div>
+<li class="level1"><div class="li"> <code><strong>$REPLACE(</strong>[$стр],[$поиск],[$замена],[#количество_замен]<strong>)</strong></code> - заменяет в строке <code>[$стр]</code> несколько вхождений строки <code>[$поиск]</code> строкой <code>[$замена]</code>. Замена производится слева-направо и только для неперескающихся вхождений.</div>
 <ul>
 <li class="level2"><div class="li"> Параметр <code>[#количество_замен]</code> показывает, сколько вхождений должно быть заменено. Если параметр не указан, производится замена всех вхождений.</div>
 </li>
@@ -288,7 +299,7 @@ $TRIM(' TRIM TEST ') &amp;! 'TRIM TEST'
 <li class="level2"><div class="li"> Примеры: <pre class="brush: qsp">
 $REPLACE('test', '12', '4') &amp;! 'test'
 $REPLACE('test', 'e', 's')  &amp;! 'tsst'
-$REPLACE('test', 't', '34') &amp;! '34es34'
+<a id="func_INSTR"></a>$REPLACE('test', 't', '34') &amp;! '34es34'
 $REPLACE('test', 't') &amp;! 'es'
 
 $REPLACE('test', 't', 'qu', 1) &amp;! 'quest'
@@ -297,14 +308,14 @@ $REPLACE('test my test', 't', 'q', 3) &amp;! 'qesq my qest'
 </li>
 </ul>
 </li>
-<li class="level1"><div class="li"> <code id="func_INSTR">INSTR([$строка],[$поиск],[#начало])</code> - возвращает номер позиции символа, с которого начинается вхождение строки <code>[$поиск]</code> в строку <code>[$строка]</code> (или <strong>0</strong>, если вхождения нет). Поиск начинается с символа номер <code>[#начало]</code>.</div>
+<li class="level1"><div class="li"> <code>INSTR([$строка],[$поиск],[#начало])</code> - возвращает номер позиции символа, с которого начинается вхождение строки <code>[$поиск]</code> в строку <code>[$строка]</code> (или <strong>0</strong>, если вхождения нет). Поиск начинается с символа номер <code>[#начало]</code>.</div>
 <ul>
 <li class="level2"><div class="li"> Параметр <code>[#начало]</code> может отсутствовать, при этом он принимается равным <strong>1</strong>.</div>
 </li>
 <li class="level2"><div class="li"> Примеры:</div>
 </li>
 </ul>
-</li>
+<a id="func_ISNUM"></a></li>
 </ul>
 <p>
 </p><pre class="brush: qsp">
@@ -312,23 +323,23 @@ INSTR('ABCDefgh','BC',1) &amp;! 2
 INSTR('ABCDefgh','Be',1) &amp;! 0
 INSTR('abcdef','abc')    &amp;! 1
 </pre>
-<ul>
-<li class="level1"><div class="li"> <code id="func_ISNUM">ISNUM([$строка])</code> - функция проверяет, является ли строка <code>[$строка]</code> числом. Функция возвращает <code>0</code> (ложь) или <code>1</code> (истина). <pre class="brush: qsp">
+<a id="func_VAL"></a><ul>
+<li class="level1"><div class="li"> <code>ISNUM([$строка])</code> - функция проверяет, является ли строка <code>[$строка]</code> числом. Функция возвращает <code>0</code> (ложь) или <code>1</code> (истина). <pre class="brush: qsp">
 ISNUM(' 9999 ') &amp;! 1
 ISNUM(' -888')  &amp;! 1
 ISNUM('777a6')  &amp;! 0
 ISNUM('')
   &amp;! 0, т.к. пустая строка не содержит числа
-</pre></div>
+<a id="func_STR"></a></pre></div>
 </li>
-<li class="level1"><div class="li"> <code id="func_VAL">VAL([$стр])</code> - переводит строку цифр <code>[$стр]</code> в соответствующее число. При ошибке возвращает <code>0</code>. <pre class="brush: qsp">
+<li class="level1"><div class="li"> <code>VAL([$стр])</code> - переводит строку цифр <code>[$стр]</code> в соответствующее число. При ошибке возвращает <code>0</code>. <pre class="brush: qsp">
 яблоки = VAL($яблоки)
 val('123') &amp; ! увидим 123
 val('') &amp; ! увидим 0
 val('sand') &amp; ! увидим 0
 </pre></div>
 </li>
-<li class="level1"><div class="li"> <code id="func_STR">$STR([#число])</code> - переводит число (числовое выражение) в соответствующую строку. <pre class="brush: qsp">
+<li class="level1"><div class="li"> <code>$STR([#число])</code> - переводит число (числовое выражение) в соответствующую строку. <pre class="brush: qsp">
 PL $STR(56)
 </pre></div>
 </li>
@@ -337,7 +348,7 @@ PL $STR(56)
 <h2 class="sectionedit7" id="operatory">Операторы</h2>
 <div class="level2">
 <ul>
-<li class="level1"><div class="li"> <code id="statement_SCANSTR">SCANSTR [$имя_массива], [$текст_для_разбора], [$регэксп], [#номер_группы]</code> — оператор ищет в строке <code>[$текст_для_разбора]</code> непересекающиеся фрагменты, соответствующие регулярному выражению <code>[$регэксп]</code>, и помещает их в массив <code>[$имя_массива]</code>. Если параметр <code>[#номер_группы]</code> указан и отличается от нуля, в массив помещается не весь фрагмент целиком, а лишь та его часть, которая соответствует группе с указанным номером.</div>
+<li class="level1"><div class="li"> <code>SCANSTR [$имя_массива], [$текст_для_разбора], [$регэксп], [#номер_группы]</code> — оператор ищет в строке <code>[$текст_для_разбора]</code> непересекающиеся фрагменты, соответствующие регулярному выражению <code>[$регэксп]</code>, и помещает их в массив <code>[$имя_массива]</code>. Если параметр <code>[#номер_группы]</code> указан и отличается от нуля, в массив помещается не весь фрагмент целиком, а лишь та его часть, которая соответствует группе с указанным номером.</div>
 <ul>
 <li class="level2"><div class="li"> Подробное описание оператора и примеры использования в разделе "<a class="wikilink1" href="help_arrays.htm" title="help:arrays">массивы</a>".</div>
 </li>
