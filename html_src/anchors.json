@@ -1,0 +1,446 @@
+{
+    "kommentarii": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_coding.htm",
+        154
+    ],
+    "func_IMPLICIT": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_organizing.htm",
+        386
+    ],
+    "statement_ACT": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_acts.htm",
+        66
+    ],
+    "statement_ADDOBJ": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_objs.htm",
+        60
+    ],
+    "operator_AND": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_expressions.htm",
+        253
+    ],
+    "func_ARRCOMP": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_arrays.htm",
+        564
+    ],
+    "func_ARRPACK": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_tuples.htm",
+        233
+    ],
+    "func_ARRSIZE": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_arrays.htm",
+        508
+    ],
+    "func_ARRTYPE": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_arrays.htm",
+        520
+    ],
+    "variable_BACKIMAGE": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_main.htm",
+        152
+    ],
+    "variable_BCOLOR": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_interface.htm",
+        55
+    ],
+    "statement_CLA": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_acts.htm",
+        128
+    ],
+    "statement_CLEAR": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_stat.htm",
+        110
+    ],
+    "statement_STAR_CLEAR": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_main.htm",
+        118
+    ],
+    "statement_CLOSE": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_sound.htm",
+        60
+    ],
+    "statement_CLS": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_main.htm",
+        126
+    ],
+    "statement_CMDCLEAR": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_inputs.htm",
+        41
+    ],
+    "statement_COPYARR": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_arrays.htm",
+        422
+    ],
+    "variable_COUNTER": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_service_locations.htm",
+        353
+    ],
+    "func_COUNTOBJ": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_objs.htm",
+        148
+    ],
+    "func_CURACTS": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_acts.htm",
+        154
+    ],
+    "func_CUROBJS": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_objs.htm",
+        163
+    ],
+    "func_CURLOC": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_locations.htm",
+        117
+    ],
+    "variable_DEBUG": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_savegame.htm",
+        68
+    ],
+    "statement_DELACT": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_acts.htm",
+        115
+    ],
+    "statement_DELOBJ": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_objs.htm",
+        110
+    ],
+    "func_DESC": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_main.htm",
+        142
+    ],
+    "variable_DISABLESCROLL": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_main.htm",
+        150
+    ],
+    "statement_DYNAMIC": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_dynamical.htm",
+        118
+    ],
+    "func_DYNEVAL": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_dynamical.htm",
+        181
+    ],
+    "statement_ELSE": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_conditional.htm",
+        74
+    ],
+    "statement_ELSEIF": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_conditional.htm",
+        155
+    ],
+    "statement_END": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_conditional.htm",
+        217
+    ],
+    "statement_EXIT": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_organizing.htm",
+        374
+    ],
+    "variable_FCOLOR": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_interface.htm",
+        76
+    ],
+    "variable_FNAME": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_interface.htm",
+        125
+    ],
+    "statement_FREELIB": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_modules.htm",
+        61
+    ],
+    "variable_FSIZE": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_interface.htm",
+        121
+    ],
+    "func_FUNC": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_organizing.htm",
+        273
+    ],
+    "func_GETOBJ": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_objs.htm",
+        150
+    ],
+    "statement_GOSUB": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_organizing.htm",
+        191
+    ],
+    "statement_IF": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_conditional.htm",
+        27
+    ],
+    "func_IIF": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_conditional.htm",
+        306
+    ],
+    "statement_INCLIB": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_modules.htm",
+        51
+    ],
+    "func_INPUT": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_inputs.htm",
+        54
+    ],
+    "func_INSTR": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_strings.htm",
+        300
+    ],
+    "func_ISNUM": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_strings.htm",
+        316
+    ],
+    "func_ISPLAY": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_sound.htm",
+        78
+    ],
+    "statement_KILLALL": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_arrays.htm",
+        420
+    ],
+    "statement_KILLOBJ": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_objs.htm",
+        114
+    ],
+    "statement_KILLVAR": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_arrays.htm",
+        387
+    ],
+    "func_LCASE": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_strings.htm",
+        274
+    ],
+    "variable_LCOLOR": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_interface.htm",
+        95
+    ],
+    "func_LEN": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_strings.htm",
+        251
+    ],
+    "statement_LET": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_variables.htm",
+        224
+    ],
+    "operator_LOC": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_expressions.htm",
+        217
+    ],
+    "statement_LOCAL": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_variables.htm",
+        415
+    ],
+    "statement_LOOP": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_cycle.htm",
+        36
+    ],
+    "func_MAINTXT": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_main.htm",
+        133
+    ],
+    "func_MAX": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_coding.htm",
+        348
+    ],
+    "func_MID": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_strings.htm",
+        255
+    ],
+    "func_MIN": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_coding.htm",
+        356
+    ],
+    "operator_MOD": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_expressions.htm",
+        109
+    ],
+    "func_MSECSCOUNT": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_realtime.htm",
+        63
+    ],
+    "statement_NL": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_stat.htm",
+        83
+    ],
+    "statement_STAR_NL": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_main.htm",
+        91
+    ],
+    "operator_NO": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_expressions.htm",
+        227
+    ],
+    "variable_NOSAVE": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_savegame.htm",
+        57
+    ],
+    "variable_ONACTSEL": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_service_locations.htm",
+        267
+    ],
+    "variable_ONGLOAD": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_service_locations.htm",
+        77
+    ],
+    "variable_ONGSAVE": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_service_locations.htm",
+        100
+    ],
+    "variable_ONNEWLOC": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_service_locations.htm",
+        237
+    ],
+    "variable_ONOBJADD": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_service_locations.htm",
+        123
+    ],
+    "variable_ONOBJDEL": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_service_locations.htm",
+        158
+    ],
+    "variable_ONOBJSEL": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_service_locations.htm",
+        202
+    ],
+    "statement_OPENGAME": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_savegame.htm",
+        42
+    ],
+    "statement_OPENQST": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_modules.htm",
+        66
+    ],
+    "operator_OR": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_expressions.htm",
+        239
+    ],
+    "statement_P": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_stat.htm",
+        53
+    ],
+    "statement_STAR_P": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_main.htm",
+        45
+    ],
+    "statement_PL": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_stat.htm",
+        62
+    ],
+    "statement_STAR_PL": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_main.htm",
+        56
+    ],
+    "statement_PLAY": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_sound.htm",
+        39
+    ],
+    "func_QSPVER": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_coding.htm",
+        307
+    ],
+    "func_RAND": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_coding.htm",
+        322
+    ],
+    "statement_REFINT": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_interface.htm",
+        188
+    ],
+    "func_REPLACE": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_strings.htm",
+        282
+    ],
+    "func_RGB": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_interface.htm",
+        30
+    ],
+    "func_RND": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_coding.htm",
+        346
+    ],
+    "statement_SAVEGAME": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_savegame.htm",
+        27
+    ],
+    "statement_SCANSTR": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_arrays.htm",
+        459
+    ],
+    "func_SELACT": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_acts.htm",
+        167
+    ],
+    "func_SELOBJ": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_objs.htm",
+        146
+    ],
+    "statement_SET": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_variables.htm",
+        224
+    ],
+    "statement_SETTIMER": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_realtime.htm",
+        173
+    ],
+    "statement_SETVAR": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_arrays.htm",
+        500
+    ],
+    "statement_SHOWACTS": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_acts.htm",
+        52
+    ],
+    "statement_SHOWOBJS": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_objs.htm",
+        46
+    ],
+    "statement_SHOWSTAT": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_stat.htm",
+        39
+    ],
+    "statement_SORTARR": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_arrays.htm",
+        440
+    ],
+    "func_STATTXT": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_stat.htm",
+        126
+    ],
+    "func_STR": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_strings.htm",
+        331
+    ],
+    "func_TRIM": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_strings.htm",
+        278
+    ],
+    "func_UCASE": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_strings.htm",
+        270
+    ],
+    "statement_UNPACKARR": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_tuples.htm",
+        247
+    ],
+    "statement_UNSEL": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_objs.htm",
+        186
+    ],
+    "variable_USERCOM": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_service_locations.htm",
+        306
+    ],
+    "func_USER_TEXT": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_inputs.htm",
+        45
+    ],
+    "func_VAL": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_strings.htm",
+        324
+    ],
+    "statement_VIEW": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_graphics.htm",
+        156
+    ],
+    "statement_WAIT": [
+        "D:\\my\\projects\\github\\qsp_wiki_to_help\\html_out\\help_realtime.htm",
+        30
+    ]
+}
