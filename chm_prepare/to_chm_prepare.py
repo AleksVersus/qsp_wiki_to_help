@@ -87,6 +87,11 @@ class ChmPrepare:
         # схема сборки
         self.scheme = json_load(self.sets['scheme'])
 
+        self.image_names:List[str] = []
+        for _, file_path in self.scheme['images'].items():
+            file_name = os.path.split(file_path)[1] # get name of imgs
+            self.image_names.append(file_name) 
+
         # якоря
         self.anchors_files:Dict[str, Dict[str, List[Union[int, str]]]]  = None
         with open(self.sets['anchors'], 'r', encoding='utf-8') as fp:
@@ -199,9 +204,23 @@ class ChmPrepare:
     def extract_images(self, el:Tag):
         """ Извлечение изображений """
         for img in el.find_all('img', src=True):
-            src = img['src']
-            if src.startswith('https://wiki.qsp.org'):
-                img['src'] = self.replace_href(src, scheme_type='images')
+            src:str = str(img['src'])
+            print(['previmg', src])
+            if src.startswith(('https://wiki.qsp.org', '/_media/')):
+                self.replace_src(img)
+            elif src.startswith('/lib/') and 'http' in src:
+                i = src.index('http')
+                src = src[i:]
+                src = src.replace(r'_media%2F', '/help:')
+                src = src.replace(r'%3A', ':').replace(r'%2F', '/')
+                img['src'] = src
+                print(['lib', src])
+                self.replace_src(img)
+            p = img.parent
+            if p.name=='a':
+                p.unwrap()
+            if img.has_attr('width'):
+                img['width'] = '450'
 
         for img in el.select('img.icon'):
             if img.has_attr('alt'):
@@ -209,6 +228,18 @@ class ChmPrepare:
                 img.replace_with(str(alt))
             else:
                 img.decompose()
+
+    def replace_src(self, img:Tag) -> str:
+        """Replace src of images by file name"""
+        src = img['src']
+        if src in self.scheme['images']:
+            img['src'] = os.path.split(self.scheme['images'][src])[1]
+            return
+        for file_path in self.image_names:
+            file_old = ':'.join(file_path.split('_', 1))
+            # print([file_path, file_old, src])
+            if file_old in src:
+                img['src'] = file_path
 
     def replace_links(self, el:Tag):
         """ Замена ссылок на внутренние, используя схему """
