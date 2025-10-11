@@ -219,11 +219,11 @@ raz = 24 &amp; dva = 67 &amp; tri = 89
 </p>
 </div>
 <h3 class="sectionedit6" id="operatory_set_i_let">Операторы SET и LET</h3>
-<div class="level3">
+<a id="statement_SET"></a><a id="statement_LET"></a><div class="level3">
 <p>
 Из старых версий плеера перекочевали операторы <strong><code>SET</code></strong> и <strong><code>LET</code></strong>. Эти операторы явно указывают, что данная команда производит присваивание. Любой из этих операторов может быть поставлен перед операцией присваивания, это никак не влияет на работу переменных. В примере ниже все три варианта присваивания значения переменным равнозначны:
 </p>
-<a id="statement_SET"></a><a id="statement_LET"></a><p>
+<p>
 </p><pre class="brush: qsp">
 SET golden_axe_damage = 120
 LET golden_axe_damage = 120
@@ -406,7 +406,7 @@ d * d * d &amp;! выражение состоит из двух операци�
 </li>
 </ul>
 </div>
-<h2 class="sectionedit12" id="lokalnye_peremennye">Локальные переменные</h2>
+<a id="statement_LOCAL"></a><h2 class="sectionedit12" id="lokalnye_peremennye">Локальные переменные</h2>
 <div class="level2">
 <p>
 В <strong>QSP</strong> есть возможность сделать переменные локальными, то есть их значения будут сохраняться в пределах определённого <em>блока кода</em>, например, только на определённой локации или в отдельном действии.
@@ -414,7 +414,7 @@ d * d * d &amp;! выражение состоит из двух операци�
 <p>
 Чтобы объявить переменную локальной, нужно использовать ключевое слово <strong><code>LOCAL</code></strong>. В общем виде объявление локальной переменной выглядит так:
 </p>
-<a id="statement_LOCAL"></a><p>
+<p>
 </p><pre class="brush: qsp">
 LOCAL имя_переменной = [значение]
 </pre>

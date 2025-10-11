@@ -42,9 +42,9 @@
 <h3 class="sectionedit3" id="komandy_dlja_vyvoda_teksta_v_okno_osnovnogo_opisanija">Команды для вывода текста в Окно основного описания</h3>
 <div class="level3">
 <ul>
-<li class="level1"><div class="li"> <code>*P [$текст]</code> - простой вывод текста. Выводит текст в <strong>Окно основного описания</strong> без перехода на новую строку. Пример:<pre class="brush: qsp">
+<a id="statement_STAR_P"></a><li class="level1"><div class="li"> <code>*P [$текст]</code> - простой вывод текста. Выводит текст в <strong>Окно основного описания</strong> без перехода на новую строку. Пример:<pre class="brush: qsp">
 *p 'Шла'
-<a id="statement_STAR_P"></a>*p 'Саша'
+*p 'Саша'
 *p 'По'
 *p 'Шоссе'
 </pre> После выполнения кода (если запустим игру) — в <strong>Окне основного описания</strong> мы увидим:<pre class="brush: text">
@@ -53,9 +53,9 @@
 </li>
 </ul>
 <ul>
-<li class="level1"><div class="li"> <code>*PL [$текст]</code> - вывод текста, затем переход на новую строку. Пример:<pre class="brush: qsp">
+<a id="statement_STAR_PL"></a><li class="level1"><div class="li"> <code>*PL [$текст]</code> - вывод текста, затем переход на новую строку. Пример:<pre class="brush: qsp">
 *p 'Шла' &amp; ! здесь выводим текст без перехода на новую строку
-<a id="statement_STAR_PL"></a>*p 'Саша' &amp; ! и здесь тоже
+*p 'Саша' &amp; ! и здесь тоже
 *pl 'По'
 *pl 'Шоссе'
 </pre> После выполнения кода — в <strong>Окне основного описания</strong> мы увидим:<pre class="brush: text">
@@ -88,9 +88,9 @@
 </li>
 </ul>
 <ul>
-<li class="level1"><div class="li"> <code>*NL [$текст]</code> - переход на новую строку, а затем вывод текста. Пример: <pre class="brush: qsp">
+<a id="statement_STAR_NL"></a><li class="level1"><div class="li"> <code>*NL [$текст]</code> - переход на новую строку, а затем вывод текста. Пример: <pre class="brush: qsp">
 *p 'Шла' &amp; ! здесь выводим текст без перехода на новую строку
-<a id="statement_STAR_NL"></a>*p 'Саша' &amp; ! и здесь тоже
+*p 'Саша' &amp; ! и здесь тоже
 *nl 'По'
 *nl 'Шоссе'
 </pre> После выполнения кода — в <strong>Окне основного описания</strong> мы увидим: <pre class="brush: text">
@@ -115,46 +115,46 @@
 <h3 class="sectionedit4" id="komandy_dlja_ochistki_okna_osnovnogo_opisanija">Команды для очистки Окна основного описания</h3>
 <div class="level3">
 <ul>
-<li class="level1"><div class="li"> <strong><code>*CLEAR</code></strong> или <strong><code>*CLR</code></strong> - очищает <strong>Окно основного описания</strong>. Пример: <pre class="brush: qsp">
+<a id="statement_STAR_CLEAR"></a><li class="level1"><div class="li"> <strong><code>*CLEAR</code></strong> или <strong><code>*CLR</code></strong> - очищает <strong>Окно основного описания</strong>. Пример: <pre class="brush: qsp">
 *p 'Шла'    &amp; ! выводим текст без перехода на новую строку
-<a id="statement_STAR_CLEAR"></a>*pl 'Саша'  &amp; ! выводим текст и переходим на новую строку
+*pl 'Саша'  &amp; ! выводим текст и переходим на новую строку
 *nl 'По'    &amp; ! переходим на новую строку и выводим текст
 *nl 'Шоссе' &amp; ! переходим на новую строку и выводим текст
 *clear &amp; ! очищаем окно основного описания от всего текста
 </pre> В результате работы этого кода <strong>Окно основного описания</strong> окажется пустым.</div>
 </li>
-<li class="level1"><div class="li"> <strong><code>CLS</code></strong> - эквивалентно конструкции “<code>CLEAR &amp; *CLEAR &amp; CLA &amp; CMDCLEAR</code>”, т.е. очищает все окна, кроме списка предметов.</div>
+<a id="statement_CLS"></a><li class="level1"><div class="li"> <strong><code>CLS</code></strong> - эквивалентно конструкции “<code>CLEAR &amp; *CLEAR &amp; CLA &amp; CMDCLEAR</code>”, т.е. очищает все окна, кроме списка предметов.</div>
 </li>
-<a id="statement_CLS"></a></ul>
+</ul>
 </div>
 <h3 class="sectionedit5" id="funkcii_dlja_raboty_s_oknom_osnovnogo_opisanija">Функции для работы с Окном основного описания</h3>
 <div class="level3">
 <ul>
-<li class="level1"><div class="li"> <strong><code>$MAINTXT</code></strong> - возвращает текст, выведенный в окно основного описания. Пример: <pre class="brush: qsp">
+<a id="func_MAINTXT"></a><li class="level1"><div class="li"> <strong><code>$MAINTXT</code></strong> - возвращает текст, выведенный в окно основного описания. Пример: <pre class="brush: qsp">
 *p 'Ехал Грека Через Реку'
-<a id="func_MAINTXT"></a>*nl 'Видит Грека В Реке Рак'
+*nl 'Видит Грека В Реке Рак'
 $text = $maintxt
 </pre> В данном случае в переменную <strong><code>$text</code></strong> запишутся две строки текста: <pre class="brush: text">
 Ехал Грека Через Реку
 Видит Грека В Реке Рак
 </pre></div>
 </li>
-<li class="level1"><div class="li"> <code>$DESC([$локация])</code> - возвращает текст базового описания локации с названием <code>[$локация]</code>.</div>
+<a id="func_DESC"></a><li class="level1"><div class="li"> <code>$DESC([$локация])</code> - возвращает текст базового описания локации с названием <code>[$локация]</code>.</div>
 <ul>
-<a id="func_DESC"></a><li class="level2"><div class="li"> <strong>Обратите внимание!</strong> Функция возвращает текст, написанный только в поле “Описание” (<strong>Базовое описание</strong>) редактора <strong>Quest Generator</strong>. При работе в текстовом редакторе данное поле преобразуется в команды <code>*p</code> между тегами <code>! BASE</code> и <code>! END BASE</code>. Функция всегда будет возвращать сумму строк этих команд.</div>
+<li class="level2"><div class="li"> <strong>Обратите внимание!</strong> Функция возвращает текст, написанный только в поле “Описание” (<strong>Базовое описание</strong>) редактора <strong>Quest Generator</strong>. При работе в текстовом редакторе данное поле преобразуется в команды <code>*p</code> между тегами <code>! BASE</code> и <code>! END BASE</code>. Функция всегда будет возвращать сумму строк этих команд.</div>
 </li>
 <li class="level2"><div class="li"> В <strong>Базовом описании</strong> можно использовать <a class="wikilink1" href="help_strings.htm#podvyrazhenija" title="help:strings">подвыражения</a>, функция <strong><code>$DESC</code></strong> автоматически “раскроет” их.</div>
 </li>
 </ul>
 </li>
-</ul>
+<a id="variable_DISABLESCROLL"></a></ul>
 </div>
-<a id="variable_DISABLESCROLL"></a><h3 class="sectionedit6" id="sistemnye_peremennye_dlja_upravlenija_oknom_osnovnogo_opisanija">Системные переменные для управления Окном основного описания</h3>
+<h3 class="sectionedit6" id="sistemnye_peremennye_dlja_upravlenija_oknom_osnovnogo_opisanija">Системные переменные для управления Окном основного описания</h3>
 <div class="level3">
-<a id="variable_BACKIMAGE"></a><ul>
+<ul>
 <li class="level1"><div class="li"> <strong><code>DISABLESCROLL</code></strong> - если значение переменной не равно <code>0</code>, то запрещает автопрокрутку текста при его выводе в окно основного или дополнительное описания. <strong>Что это значит</strong>. Предположим, мы вывели на экран большой объём текста, а затем при нажатии на <strong>действие</strong> у нас выводится ещё один фрагментик текста. Если <code>DISABLESCROLL = 0</code>, этот фрагментик текста при выводе заставит экран прокрутиться вниз. Если мы не хотим, чтобы экран прокручивался вниз в этом случае, мы присваиваем переменной <strong><code>DISABLESCROLL</code></strong> единицу.</div>
 </li>
-<li class="level1"><div class="li"> <strong><code>$BACKIMAGE</code></strong> - содержит путь к файлу фонового изображения для <strong>Окна основного описания</strong>.</div>
+<a id="variable_BACKIMAGE"></a><li class="level1"><div class="li"> <strong><code>$BACKIMAGE</code></strong> - содержит путь к файлу фонового изображения для <strong>Окна основного описания</strong>.</div>
 <ul>
 <li class="level2"><div class="li"> Фон в окне основного описания отображается в том случае, если значение данной переменной отлично от <code>""</code> (пустая строка) и файл изображения удалось загрузить.</div>
 </li>

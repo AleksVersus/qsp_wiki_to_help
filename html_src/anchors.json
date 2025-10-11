@@ -1,470 +1,494 @@
 {
     "help_coding": {
         "kommentarii": [
-            155,
+            182,
             "! комментарий"
         ],
         "func_MAX": [
-            349,
+            376,
             "MAX"
         ],
         "func_MIN": [
-            357,
+            384,
             "MIN"
         ],
         "func_QSPVER": [
-            308,
-            "QSPVER"
+            335,
+            "$QSPVER"
         ],
         "func_RAND": [
-            323,
+            350,
             "RAND"
         ],
         "func_RND": [
-            347,
+            374,
             "RND"
         ]
     },
     "help_organizing": {
         "func_IMPLICIT": [
-            387,
+            444,
             "@ неявный вызов функции"
         ],
+        "statement_IMPLICIT": [
+            285,
+            "@@ неявный вызов оператора"
+        ],
         "statement_EXIT": [
-            375,
+            521,
             "EXIT"
         ],
         "func_FUNC": [
-            274,
+            346,
             "FUNC"
         ],
         "statement_GOSUB": [
-            192,
-            "GS"
+            187,
+            "GOSUB или GS"
         ]
     },
     "help_acts": {
         "statement_ACT": [
-            67,
+            65,
             "ACT"
         ],
         "statement_CLA": [
-            129,
+            127,
             "CLA"
         ],
         "func_CURACTS": [
-            155,
+            153,
             "$CURACTS"
         ],
         "statement_DELACT": [
-            116,
+            114,
             "DELACT"
         ],
         "statement_END": [
-            83,
+            81,
             "END (END ACT)"
         ],
         "func_SELACT": [
-            168,
+            166,
             "$SELACT"
         ],
         "statement_SHOWACTS": [
-            53,
+            51,
             "SHOWACTS"
         ]
     },
     "help_objs": {
         "statement_ADDOBJ": [
-            61,
+            59,
             "ADDOBJ"
         ],
         "func_COUNTOBJ": [
-            149,
+            165,
             "COUNTOBJ"
         ],
         "func_CUROBJS": [
-            164,
+            180,
             "$CUROBJS"
         ],
         "statement_DELOBJ": [
-            111,
+            109,
             "DELOBJ"
         ],
         "func_GETOBJ": [
-            151,
+            167,
             "GETOBJ"
         ],
         "statement_KILLOBJ": [
-            115,
+            113,
             "KILLOBJ"
         ],
         "func_SELOBJ": [
-            147,
+            162,
             "$SELOBJ"
         ],
         "statement_SHOWOBJS": [
-            47,
+            45,
             "SHOWOBJS"
         ],
         "statement_UNSEL": [
-            187,
-            "UNSELECT"
+            214,
+            "UNSELECT или UNSEL"
+        ],
+        "statement_MODOBJ": [
+            122,
+            "MODOBJ"
+        ],
+        "statement_RESETOBJ": [
+            137,
+            "RESETOBJ"
+        ],
+        "func_OBJ": [
+            195,
+            "OBJ"
         ]
     },
     "help_expressions": {
         "operator_AND": [
-            254,
+            292,
             "AND"
         ],
         "operator_LOC": [
-            218,
+            256,
             "LOC"
         ],
         "operator_MOD": [
-            110,
+            154,
             "MOD"
         ],
         "operator_NO": [
-            228,
+            266,
             "NO"
         ],
         "operator_OR": [
-            240,
+            278,
             "OR"
         ]
     },
     "help_arrays": {
         "func_ARRCOMP": [
-            565,
+            627,
             "ARRCOMP"
         ],
         "func_ARRSIZE": [
-            509,
+            519,
             "ARRSIZE"
         ],
         "func_ARRTYPE": [
-            521,
+            531,
             "ARRTYPE"
         ],
         "statement_COPYARR": [
-            423,
+            433,
             "COPYARR"
         ],
         "statement_KILLALL": [
-            421,
+            431,
             "KILLALL"
         ],
         "statement_KILLVAR": [
-            388,
+            398,
             "KILLVAR"
         ],
         "statement_SCANSTR": [
-            460,
+            470,
             "SCANSTR"
         ],
         "statement_SETVAR": [
-            501,
+            511,
             "SETVAR"
         ],
         "statement_SORTARR": [
-            441,
+            451,
             "SORTARR"
+        ],
+        "func_ARRPOS": [
+            563,
+            "ARRPOS"
         ]
     },
     "help_tuples": {
         "func_ARRPACK": [
-            234,
-            "ARRPACK"
+            298,
+            "%ARRPACK"
         ],
         "statement_UNPACKARR": [
-            248,
+            312,
             "UNPACKARR"
         ]
     },
     "help_main": {
         "variable_BACKIMAGE": [
-            153,
+            156,
             "$BACKIMAGE"
         ],
         "statement_STAR_CLEAR": [
-            119,
-            "*CLR"
+            117,
+            "*CLEAR или *CLR"
         ],
         "statement_CLS": [
-            127,
+            125,
             "CLS"
         ],
         "func_DESC": [
-            143,
+            141,
             "DESC"
         ],
         "variable_DISABLESCROLL": [
-            151,
+            149,
             "DISABLESCROLL"
         ],
         "func_MAINTXT": [
-            134,
+            132,
             "$MAINTXT"
         ],
         "statement_STAR_NL": [
-            92,
+            90,
             "*NL"
         ],
         "statement_STAR_P": [
-            46,
+            44,
             "*P"
         ],
         "statement_STAR_PL": [
-            57,
+            55,
             "*PL"
         ]
     },
     "help_interface": {
         "variable_BCOLOR": [
-            56,
+            54,
             "BCOLOR"
         ],
         "variable_FCOLOR": [
-            77,
+            75,
             "FCOLOR"
         ],
         "variable_FNAME": [
-            126,
+            124,
             "$FNAME"
         ],
         "variable_FSIZE": [
-            122,
+            120,
             "FSIZE"
         ],
         "variable_LCOLOR": [
-            96,
+            94,
             "LCOLOR"
         ],
         "statement_REFINT": [
-            189,
+            187,
             "REFINT"
         ],
         "func_RGB": [
-            31,
+            29,
             "RGB"
         ]
     },
     "help_stat": {
         "statement_CLEAR": [
-            111,
-            "CLR"
+            109,
+            "CLEAR или CLR"
         ],
         "statement_NL": [
-            84,
+            82,
             "NL"
         ],
         "statement_P": [
-            54,
+            52,
             "P"
         ],
         "statement_PL": [
-            63,
+            61,
             "PL"
         ],
         "statement_SHOWSTAT": [
-            40,
+            38,
             "SHOWSTAT"
         ],
         "func_STATTXT": [
-            127,
+            125,
             "$STATTXT"
         ]
     },
     "help_sound": {
         "statement_CLOSE": [
-            61,
+            59,
             "CLOSE"
         ],
         "func_ISPLAY": [
-            79,
+            77,
             "ISPLAY"
         ],
         "statement_PLAY": [
-            40,
+            38,
             "PLAY"
         ]
     },
     "help_inputs": {
         "statement_CMDCLEAR": [
-            42,
-            "CMDCLR"
+            40,
+            "CMDCLEAR или CMDCLR"
         ],
         "func_INPUT": [
-            55,
+            53,
             "INPUT"
         ],
         "func_USER_TEXT": [
-            46,
-            "USRTXT"
+            44,
+            "USER_TEXT или USERTXT"
+        ],
+        "statement_SHOWINPUT": [
+            29,
+            "SHOWINPUT"
         ]
     },
     "help_service_locations": {
         "variable_COUNTER": [
-            354,
+            352,
             "$COUNTER"
         ],
         "variable_ONACTSEL": [
-            268,
+            266,
             "$ONACTSEL"
         ],
         "variable_ONGLOAD": [
-            78,
+            76,
             "$ONGLOAD"
         ],
         "variable_ONGSAVE": [
-            101,
+            99,
             "$ONGSAVE"
         ],
         "variable_ONNEWLOC": [
-            238,
+            236,
             "$ONNEWLOC"
         ],
         "variable_ONOBJADD": [
-            124,
+            122,
             "$ONOBJADD"
         ],
         "variable_ONOBJDEL": [
-            159,
+            157,
             "$ONOBJDEL"
         ],
         "variable_ONOBJSEL": [
-            203,
+            201,
             "$ONOBJSEL"
         ],
         "variable_USERCOM": [
-            307,
+            305,
             "$USERCOM"
         ]
     },
     "help_locations": {
         "func_CURLOC": [
-            118,
+            116,
             "$CURLOC"
         ]
     },
     "help_savegame": {
         "variable_DEBUG": [
-            69,
+            67,
             "DEBUG"
         ],
         "variable_NOSAVE": [
-            58,
+            56,
             "NOSAVE"
         ],
         "statement_OPENGAME": [
-            43,
+            41,
             "OPENGAME"
         ],
         "statement_SAVEGAME": [
-            28,
+            26,
             "SAVEGAME"
         ]
     },
     "help_dynamical": {
         "statement_DYNAMIC": [
-            119,
+            117,
             "DYNAMIC"
         ],
         "func_DYNEVAL": [
-            182,
+            180,
             "DYNEVAL"
         ]
     },
     "help_conditional": {
         "statement_ELSE": [
-            75,
+            76,
             "ELSE"
         ],
         "statement_ELSEIF": [
-            156,
+            157,
             "ELSEIF"
         ],
         "statement_END": [
-            218,
+            219,
             "END (END IF)"
         ],
         "statement_IF": [
-            28,
+            29,
             "IF"
         ],
         "func_IIF": [
-            307,
+            308,
             "IIF"
         ]
     },
     "help_modules": {
         "statement_FREELIB": [
-            62,
+            60,
             "FREELIB"
         ],
         "statement_INCLIB": [
-            52,
+            50,
             "INCLIB"
         ],
         "statement_OPENQST": [
-            67,
+            65,
             "OPENQST"
         ]
     },
     "help_strings": {
         "func_INSTR": [
-            301,
+            309,
             "INSTR"
         ],
         "func_ISNUM": [
-            317,
+            325,
             "ISNUM"
         ],
         "func_LCASE": [
-            275,
-            "$LCASE"
+            283,
+            "LCASE"
         ],
         "func_LEN": [
-            252,
+            260,
             "LEN"
         ],
         "func_MID": [
-            256,
-            "$MID"
+            264,
+            "MID"
         ],
         "func_REPLACE": [
-            283,
-            "$REPLACE"
+            291,
+            "REPLACE"
         ],
         "func_STR": [
-            332,
-            "$STR"
+            340,
+            "STR"
         ],
         "func_TRIM": [
-            279,
-            "$TRIM"
+            287,
+            "TRIM"
         ],
         "func_UCASE": [
-            271,
-            "$UCASE"
+            279,
+            "UCASE"
         ],
         "func_VAL": [
-            325,
+            333,
             "VAL"
         ]
     },
     "help_variables": {
         "statement_LET": [
-            225,
+            221,
             "LET"
         ],
         "statement_LOCAL": [
-            416,
+            408,
             "LOCAL"
         ],
         "statement_SET": [
-            225,
-            "SET"
+            221,
+            "SET и LET"
         ]
     },
     "help_cycle": {
@@ -475,22 +499,48 @@
     },
     "help_realtime": {
         "func_MSECSCOUNT": [
-            64,
+            62,
             "MSECSCOUNT"
         ],
         "statement_SETTIMER": [
-            174,
+            172,
             "SETTIMER"
         ],
         "statement_WAIT": [
-            31,
+            29,
             "WAIT"
         ]
     },
     "help_graphics": {
         "statement_VIEW": [
-            157,
+            155,
             "VIEW"
+        ]
+    },
+    "help_goto": {
+        "statement_GOTO":
+        [
+            29,
+            "GOTO или GT"
+        ],
+        "statement_XGOTO":
+        [
+            80,
+            "XGOTO или XGT"
+        ]
+    },
+    "help_regexp": {
+        "func_STRPOS": [
+            73,
+            "STRPOS"
+        ],
+        "func_STRCOMP": [
+            35,
+            "STRCOMP"
+        ],
+        "func_STRFIND": [
+            41,
+            "STRFIND"
         ]
     }
 }

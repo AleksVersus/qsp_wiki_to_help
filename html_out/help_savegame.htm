@@ -24,9 +24,9 @@ QSP позволяет сохранять и загружать состояни
 <h2 class="sectionedit2" id="operatory_dlja_raboty_s_soxranenijami">Операторы для работы с сохранениями</h2>
 <div class="level2">
 <ul>
-<li class="level1"><div class="li"> <code>SAVEGAME</code> — сохраняет состояние игры в указанный файл. Общая запись: <pre class="brush: qsp">
+<a id="statement_SAVEGAME"></a><li class="level1"><div class="li"> <code>SAVEGAME</code> — сохраняет состояние игры в указанный файл. Общая запись: <pre class="brush: qsp">
 SAVEGAME [$путь]
-<a id="statement_SAVEGAME"></a></pre> , где <code>[$путь]</code> — путь к создаваемому файлу сохранения. Если параметр <code>[$путь]</code> отсутствует, то вызывается окно сохранения игры.<br/>
+</pre> , где <code>[$путь]</code> — путь к создаваемому файлу сохранения. Если параметр <code>[$путь]</code> отсутствует, то вызывается окно сохранения игры.<br/>
 </div>
 </li>
 </ul>
@@ -39,9 +39,9 @@ savegame
 </pre> См. также локацию-обработчик события "<strong>cохранение состояния игры</strong>" (<a class="wikilink1" href="help_service_locations.htm" title="help:service_locations">ONGSAVE</a>).
 
 <ul>
-<li class="level1"><div class="li"> <code>OPENGAME</code> — загрузка указанного файла сохранения. Общая запись: <pre class="brush: qsp">
+<a id="statement_OPENGAME"></a><li class="level1"><div class="li"> <code>OPENGAME</code> — загрузка указанного файла сохранения. Общая запись: <pre class="brush: qsp">
 OPENGAME [$путь]
-<a id="statement_OPENGAME"></a></pre> , где <code>[$путь]</code> — путь к файлу сохранения. Если параметр <code>[$путь]</code> отсутствует, то вызывается окно загрузки состояния игры.<br/>
+</pre> , где <code>[$путь]</code> — путь к файлу сохранения. Если параметр <code>[$путь]</code> отсутствует, то вызывается окно загрузки состояния игры.<br/>
 Пример: <pre class="brush: qsp">
 ! загрузка состояния из файла 1.sav
 opengame "1.sav"
@@ -54,9 +54,9 @@ opengame
 <h2 class="sectionedit3" id="sistemnye_peremennye_otvechajuschie_za_nastrojku_soxranenij">Системные переменные, отвечающие за настройку сохранений</h2>
 <div class="level2">
 <ul>
-<li class="level1"><div class="li"> <code>NOSAVE</code> — если значение данной переменной отлично от <strong>0</strong>, пункт меню плеера "<strong>Сохранить состояние игры</strong>" игроку становится недоступен, т.е. игрок не может самостоятельно сохранить игру. В то же время на уровне кода QSP продолжает работать оператор <code>SAVEGAME</code>. Пример: <pre class="brush: qsp">
+<a id="variable_NOSAVE"></a><li class="level1"><div class="li"> <code>NOSAVE</code> — если значение данной переменной отлично от <strong>0</strong>, пункт меню плеера "<strong>Сохранить состояние игры</strong>" игроку становится недоступен, т.е. игрок не может самостоятельно сохранить игру. В то же время на уровне кода QSP продолжает работать оператор <code>SAVEGAME</code>. Пример: <pre class="brush: qsp">
 ! отключаем возможность сохранения игры
-<a id="variable_NOSAVE"></a>nosave=1
+nosave=1
 act "Бросить кости":
     cubes=rand(1,6)
     ! включаем возможность сохранений обратно
@@ -65,9 +65,9 @@ act "Бросить кости":
 end
 </pre></div>
 </li>
-<li class="level1"><div class="li"> <code>DEBUG</code> — если значение переменной отлично от нуля, отключается проверка идентификатора игры при загрузке состояния. Иначе при каждом изменении файла игры нельзя будет использовать файлы сохранений, сделанные до изменения игры.<br/>
+<a id="variable_DEBUG"></a><li class="level1"><div class="li"> <code>DEBUG</code> — если значение переменной отлично от нуля, отключается проверка идентификатора игры при загрузке состояния. Иначе при каждом изменении файла игры нельзя будет использовать файлы сохранений, сделанные до изменения игры.<br/>
 <strong>Совет:</strong> во время разработки и тестов игры значение переменной <code>DEBUG</code> всегда должно быть отлично от нуля, а когда вы выпускаете финальную версию игры (релиз), нужно выставить переменной <code>DEBUG</code> значение 0, чтобы игроки не смогли загрузить файлы сохранений от других игр. <pre class="brush: qsp">
-<a id="variable_DEBUG"></a>! отключаем проверку игры на
+! отключаем проверку игры на
 ! совместимость с сохранениями
 debug = 1
 </pre></div>

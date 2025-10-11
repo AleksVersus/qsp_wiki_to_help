@@ -49,9 +49,9 @@
 <h3 class="sectionedit3" id="vkljuchenie_i_vykljuchenie_okna_dejstvij">Включение и выключение Окна действий</h3>
 <div class="level3">
 <ul>
-<li class="level1"><div class="li"> <code>SHOWACTS [#выражение]</code> - если значение выражения отлично от 0, то показывает <strong>Список действий</strong>, иначе скрывает его. Пример: <pre class="brush: qsp">
+<a id="statement_SHOWACTS"></a><li class="level1"><div class="li"> <code>SHOWACTS [#выражение]</code> - если значение выражения отлично от 0, то показывает <strong>Список действий</strong>, иначе скрывает его. Пример: <pre class="brush: qsp">
 showacts 0 &amp; ! скрываем Окно действий
-<a id="statement_SHOWACTS"></a>showacts 1 &amp; ! выводим Окно действий на экран
+showacts 1 &amp; ! выводим Окно действий на экран
 </pre> Для удобства чтения кода можно заранее определить переменные <code>on</code> и <code>off</code> с соответствующими значениями: <pre class="brush: qsp">
 on,off = 1,0
 showacts on &amp; ! включаем Окно действий
@@ -63,9 +63,9 @@ showacts off &amp; ! выключаем Окно действий
 <h3 class="sectionedit4" id="komandy_dlja_upravlenija_dejstvijami">Команды для управления действиями</h3>
 <div class="level3">
 <ul>
-<li class="level1"><div class="li"> <code>ACT</code> — данная команда добавляет в <strong>Окно действий</strong> кнопку действия.</div>
+<a id="statement_ACT"></a><li class="level1"><div class="li"> <code>ACT</code> — данная команда добавляет в <strong>Окно действий</strong> кнопку действия.</div>
 <ul>
-<a id="statement_ACT"></a><li class="level2"><div class="li"> У этой команды есть две формы записи:</div>
+<li class="level2"><div class="li"> У этой команды есть две формы записи:</div>
 <ul>
 <li class="level3"><div class="li"> Однострочная форма записи:<pre class="brush: qsp">
 ACT [$название], [$путь к файлу изображения]: {оператор 1} &amp; {оператор 2} &amp; {оператор 3}
@@ -79,9 +79,9 @@ ACT [$название], [$путь к файлу изображения]: {оп
 </li>
 </ul>
 </li>
-<li class="level3"><div class="li"> Многострочная форма записи: <pre class="brush: qsp">
+<a id="statement_END"></a><li class="level3"><div class="li"> Многострочная форма записи: <pre class="brush: qsp">
 ACT [$название], [$путь к файлу изображения]:
-<a id="statement_END"></a>  {оператор 1}
+  {оператор 1}
   {оператор 2}
   {оператор 3}
 END
@@ -112,9 +112,9 @@ end
 </li>
 </ul>
 <ul>
-<li class="level1"><div class="li"> <code>DELACT [$название]</code> - удаляет действие с указанным названием из списка действий на локации. Если действие с указанным названием не существует, ошибки не будет, плеер просто проигнорирует команду. Примеры: <pre class="brush: qsp">
+<a id="statement_DELACT"></a><li class="level1"><div class="li"> <code>DELACT [$название]</code> - удаляет действие с указанным названием из списка действий на локации. Если действие с указанным названием не существует, ошибки не будет, плеер просто проигнорирует команду. Примеры: <pre class="brush: qsp">
 ! удаляем действие с конкретным названием
-<a id="statement_DELACT"></a>delact ‘Идти вперед’
+delact ‘Идти вперед’
 
 ! удаляем выделенное действие
 delact $selact
@@ -125,9 +125,9 @@ delact $selact
 <h3 class="sectionedit5" id="komandy_ochistki_okna_dejstvij">Команды очистки Окна действий</h3>
 <div class="level3">
 <ul>
-<li class="level1"><div class="li"> <strong><code>CLA</code></strong> - очистка списка текущих действий (удаление всех действий из окна действий). Пример: <pre class="brush: qsp">
+<a id="statement_CLA"></a><li class="level1"><div class="li"> <strong><code>CLA</code></strong> - очистка списка текущих действий (удаление всех действий из окна действий). Пример: <pre class="brush: qsp">
 ! это действие при нажатии выведет текст
-<a id="statement_CLA"></a>act "Действие 1":
+act "Действие 1":
   *pl "Ехал Грека Через Реку"
 end
 
@@ -151,9 +151,9 @@ end
 <h3 class="sectionedit6" id="funkcii_dlja_obrabotki_dejstvij">Функции для обработки действий</h3>
 <div class="level3">
 <ul>
-<li class="level1"><div class="li"> <code>$CURACTS</code> - данная функция возвращает текущий список действий в виде QSP-кода.</div>
+<a id="func_CURACTS"></a><li class="level1"><div class="li"> <code>$CURACTS</code> - данная функция возвращает текущий список действий в виде QSP-кода.</div>
 <ul>
-<a id="func_CURACTS"></a><li class="level2"><div class="li"> Действия сохраняются в виде набора операторов <code>ACT</code> с ответствующими параметрами и операциями.</div>
+<li class="level2"><div class="li"> Действия сохраняются в виде набора операторов <code>ACT</code> с ответствующими параметрами и операциями.</div>
 </li>
 <li class="level2"><div class="li"> Записав возвращённое функцией значение в переменную, можно восстановить действия с помощью оператора <strong><a class="wikilink1" href="help_dynamical.htm" title="help:dynamical">DYNAMIC</a></strong>. Пример: <pre class="brush: qsp">
 ! записываем текущие действия в переменную
@@ -164,9 +164,9 @@ dynamic $actlist
 </li>
 </ul>
 </li>
-<li class="level1"><div class="li"> <code>$SELACT</code> - данная функция возвращает название выделенного действия в любом месте игры. Пример: <pre class="brush: qsp">
+<a id="func_SELACT"></a><li class="level1"><div class="li"> <code>$SELACT</code> - данная функция возвращает название выделенного действия в любом месте игры. Пример: <pre class="brush: qsp">
 act "Съесть яблоко":
-<a id="func_SELACT"></a>  *pl "Это было очень вкусное яблоко. Жаль, что червивое."
+  *pl "Это было очень вкусное яблоко. Жаль, что червивое."
   здоровье=здоровье+100
   delact $selact
 end

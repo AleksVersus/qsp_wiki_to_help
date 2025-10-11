@@ -43,9 +43,9 @@
 <h3 class="sectionedit3" id="vkljuchenie_i_vykljuchenie_okna_predmetov">Включение и выключение Окна предметов</h3>
 <div class="level3">
 <ul>
-<li class="level1"><div class="li"> <strong><code>SHOWOBJS [#выражение]</code></strong> - если значение выражения отлично от 0, то показывает <strong>Список предметов</strong>, иначе скрывает его. Пример: <pre class="brush: qsp">
+<a id="statement_SHOWOBJS"></a><li class="level1"><div class="li"> <strong><code>SHOWOBJS [#выражение]</code></strong> - если значение выражения отлично от 0, то показывает <strong>Список предметов</strong>, иначе скрывает его. Пример: <pre class="brush: qsp">
 showobjs 0 &amp; ! скрываем Окно предметов
-<a id="statement_SHOWOBJS"></a>showobjs 1 &amp; ! выводим Окно предметов на экран
+showobjs 1 &amp; ! выводим Окно предметов на экран
 </pre> Для удобства чтения кода можно заранее определить переменные <strong><code>on</code></strong> и <strong><code>off</code></strong> с соответствующими значениями: <pre class="brush: qsp">
 on,off = 1,0
 showobjs on &amp; ! включаем Окно предметов
@@ -57,9 +57,9 @@ showobjs off &amp; ! выключаем Окно предметов
 <h3 class="sectionedit4" id="komandy_dlja_upravlenija_predmetami">Команды для управления предметами</h3>
 <div class="level3">
 <ul>
-<li class="level1"><div class="li"> <code><strong>ADDOBJ</strong> [$название],[$путь к файлу изображения],[#индекс]</code> - добавление предмета с названием <code>[$название]</code> и изображением <code>[$путь к файлу изображения]</code> в <strong>Инвентарь</strong>, на место с номером <code>[#индекс]</code>. Пример: <pre class="brush: qsp">
+<a id="statement_ADDOBJ"></a><li class="level1"><div class="li"> <code><strong>ADDOBJ</strong> [$название],[$путь к файлу изображения],[#индекс]</code> - добавление предмета с названием <code>[$название]</code> и изображением <code>[$путь к файлу изображения]</code> в <strong>Инвентарь</strong>, на место с номером <code>[#индекс]</code>. Пример: <pre class="brush: qsp">
 ! добавляем в четвёртую позицию предмет с названием "Апельсин" и картинкой
-<a id="statement_ADDOBJ"></a>addobj 'Апельсин','image/orange.png',4
+addobj 'Апельсин','image/orange.png',4
 </pre></div>
 <ul>
 <li class="level2"><div class="li"> Предметы можно добавлять только в уже существующие позиции, либо в конец списка. Например, если вы уже добавили три предмета в список, вы можете указать для добавляения четвёртого предмета только позиции 1, 2, 3 и 4; если вы укажете больший номер позиции, то предмет просто не добавится.</div>
@@ -107,20 +107,20 @@ end
 </li>
 </ul>
 </li>
-<li class="level1"><div class="li"> <code><strong>DELOBJ</strong> [$название], [#количество]</code> - удаление предмета из <strong>Окна предметов</strong> по названию. Если существует предмет с названием <code>[$название]</code>, он будет удалён. Если указан аргумент <code>[#количество]</code>, удалится только указанное количество одноимённых предметов. Если аргумент не указан, удалится один самый первый предмет с указанным названием.<pre class="brush: qsp">
+<a id="statement_DELOBJ"></a><li class="level1"><div class="li"> <code><strong>DELOBJ</strong> [$название], [#количество]</code> - удаление предмета из <strong>Окна предметов</strong> по названию. Если существует предмет с названием <code>[$название]</code>, он будет удалён. Если указан аргумент <code>[#количество]</code>, удалится только указанное количество одноимённых предметов. Если аргумент не указан, удалится один самый первый предмет с указанным названием.<pre class="brush: qsp">
 delobj "Апельсин" &amp; ! удаляем предмет с названием "Апельсин"
-<a id="statement_DELOBJ"></a>delobj "Яблоко", 7 &amp; ! удаляем семь предметов с названием "Яблоко"
+delobj "Яблоко", 7 &amp; ! удаляем семь предметов с названием "Яблоко"
 </pre></div>
-</li>
+<a id="statement_KILLOBJ"></a></li>
 <li class="level1"><div class="li"> <code><strong>KILLOBJ</strong> [#номер]</code> - удаление предмета по номеру в <strong>Списке предметов</strong>. Если параметр <code>[#номер]</code> не указан, то полная очистка <strong>Окна предметов</strong>. <pre class="brush: qsp">
-<a id="statement_KILLOBJ"></a>killobj 3 &amp; ! удаляем предмет из третьей позиции, не важно, как он называется
+killobj 3 &amp; ! удаляем предмет из третьей позиции, не важно, как он называется
 </pre></div>
 <ul>
 <li class="level2"><div class="li"> Индексация (нумерация) предметов в <strong>Окне предметов</strong> начинается с 1.</div>
 </li>
 </ul>
 </li>
-<li class="level1"><div class="li"> <code><strong>MODOBJ</strong> [$название], [$описание], [$изображение]</code> - замена описания (текста) предмета с названием <code>[$название]</code> и его изображения на указанные.</div>
+<a id="statement_MODOBJ"></a><li class="level1"><div class="li"> <code><strong>MODOBJ</strong> [$название], [$описание], [$изображение]</code> - замена описания (текста) предмета с названием <code>[$название]</code> и его изображения на указанные.</div>
 <ul>
 <li class="level2"><div class="li"> Данная операция помогает легко заменять отображаемое наименование предмета и его иконку в окне предметов. При этом название предмета не меняется, то есть <code>$selobj</code> продолжает возвращать название предмета, которое было использовано при создании предмета командой <code>ADDOBJ</code>. Пример: <pre class="brush: qsp">
 addobj "Апельсин" &amp; ! создаём предмет "Апельсин"
@@ -135,7 +135,7 @@ modobj "Апельсин", "Апельсин (1 шт.)" &amp; ! заменяем
 </li>
 </ul>
 </li>
-<li class="level1"><div class="li"> <code><strong>RESETOBJ</strong> [$название]</code> — сбрасывает отображаемое наименование и иконку предметов с названием <code>[$название]</code> до состояния на момент добавления с помощью <code>ADDOBJ</code>.</div>
+<a id="statement_RESETOBJ"></a><li class="level1"><div class="li"> <code><strong>RESETOBJ</strong> [$название]</code> — сбрасывает отображаемое наименование и иконку предметов с названием <code>[$название]</code> до состояния на момент добавления с помощью <code>ADDOBJ</code>.</div>
 </li>
 </ul>
 </div>
@@ -145,11 +145,11 @@ modobj "Апельсин", "Апельсин (1 шт.)" &amp; ! заменяем
 <li class="level1"><div class="li"> <strong><code>KILLOBJ</code></strong> - данная команда без указания параметров удаляет все предметы из <strong>Окна предметов</strong>. <pre class="brush: qsp">
 killobj &amp; ! очищаем Окно предметов
 </pre></div>
-<a id="func_SELOBJ"></a><ul>
+<ul>
 <li class="level2"><div class="li"> Можно указать номер предмета, тогда данная команда удалит предмет в указанной позиции: <pre class="brush: qsp">
-<a id="func_COUNTOBJ"></a>killobj 5 &amp; ! удаляем из списка пятый предмет
+killobj 5 &amp; ! удаляем из списка пятый предмет
 </pre></div>
-<a id="func_GETOBJ"></a></li>
+</li>
 </ul>
 </li>
 </ul>
@@ -160,12 +160,12 @@ killobj &amp; ! очищаем Окно предметов
 </div>
 <h3 class="sectionedit6" id="funkcii_dlja_obrabotki_predmetov">Функции для обработки предметов</h3>
 <div class="level3">
-<ul>
+<a id="func_SELOBJ"></a><ul>
 <li class="level1"><div class="li"> <strong><code>$SELOBJ</code></strong> - возвращает название выделенного предмета <strong>в любом месте игры</strong>. Выделение предмета происходит в момент нажатия (щелчка мышью по предмету) и не снимается до применения команды <strong><code>UNSELECT</code></strong>.</div>
-<a id="func_CUROBJS"></a></li>
-<li class="level1"><div class="li"> <strong><code>COUNTOBJ</code></strong> - функция возвращает количество предметов в рюкзаке.</div>
 </li>
-<li class="level1"><div class="li"> <code><strong>$GETOBJ</strong>([#номер])</code> - возвращает название предмета в рюкзаке, расположенного в заданной позиции.</div>
+<a id="func_COUNTOBJ"></a><li class="level1"><div class="li"> <strong><code>COUNTOBJ</code></strong> - функция возвращает количество предметов в рюкзаке.</div>
+</li>
+<a id="func_GETOBJ"></a><li class="level1"><div class="li"> <code><strong>$GETOBJ</strong>([#номер])</code> - возвращает название предмета в рюкзаке, расположенного в заданной позиции.</div>
 <ul>
 <li class="level2"><div class="li"> Индексация предметов рюкзака ведётся с 1.</div>
 </li>
@@ -178,14 +178,14 @@ $getobj(countobj) &amp; ! вернёт название последнего д�
 </li>
 </ul>
 </li>
-<li class="level1"><div class="li"> <strong><code>$CUROBJS</code></strong> - данная функция возвращает список выведенных на экран предметов в виде QSP-кода.</div>
+<a id="func_CUROBJS"></a><li class="level1"><div class="li"> <strong><code>$CUROBJS</code></strong> - данная функция возвращает список выведенных на экран предметов в виде QSP-кода.</div>
 <ul>
 <li class="level2"><div class="li"> Предметы сохраняются в виде набора операторов <strong><code>ADDOBJ</code></strong> с ответствующими параметрами и операциями.</div>
 </li>
 <li class="level2"><div class="li"> Записав возвращённое функцией значение в переменную, можно восстановить предметы с помощью оператора <strong><a class="wikilink1" href="help_dynamical.htm" title="help:dynamical">DYNAMIC</a></strong>. Пример: <pre class="brush: qsp">
 ! сохраняем список предметов как код QSP:
 $old_objects = $CUROBJS
-<a id="statement_UNSEL"></a>! удаляем все предметы из окна предметов:
+! удаляем все предметы из окна предметов:
 KILLOBJ
 ! восстанавливаем все предметы в окне предметов:
 DYNAMIC $old_objects
@@ -193,7 +193,7 @@ DYNAMIC $old_objects
 </li>
 </ul>
 </li>
-<li class="level1"><div class="li"> <code><strong>OBJ</strong> [$название]</code> - возвращает число одинаковых предметов с названием <code>[$название]</code> в <strong>Инвентаре</strong>. <pre class="brush: qsp">
+<a id="func_OBJ"></a><li class="level1"><div class="li"> <code><strong>OBJ</strong> [$название]</code> - возвращает число одинаковых предметов с названием <code>[$название]</code> в <strong>Инвентаре</strong>. <pre class="brush: qsp">
 addobj "Отвёртка"
 *pl obj "Отвёртка" &amp; ! на экране будет число 1, так как предмет **Отвёртка** есть в окне предметов 
 *pl obj "Апельсин" &amp;! на экране будет число 0, так как предмета **Апельсин** нет в окне предметов
@@ -212,7 +212,7 @@ end
 Предметы в <strong>QSP</strong> выделяются с помощью нажатия (щелчка "мышью" по предмету), и выделение не снимается до применения специальной команды:
 </p>
 <ul>
-<li class="level1"><div class="li"> <strong><code>UNSELECT</code></strong> — снимает выделение с предмета в <strong>Окне предметов</strong>. Имеет краткую форму <strong><code>UNSEL</code></strong>.</div>
+<a id="statement_UNSEL"></a><li class="level1"><div class="li"> <strong><code>UNSELECT</code></strong> — снимает выделение с предмета в <strong>Окне предметов</strong>. Имеет краткую форму <strong><code>UNSEL</code></strong>.</div>
 </li>
 </ul>
 </div>

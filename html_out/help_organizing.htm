@@ -185,12 +185,12 @@ result = args[0]*args[0]
 Во всех приведённых примерах функцией является <code>FUNC</code>, а оператором — <code>GOSUB</code>, однако для удобства допустимо называть функциями именно локации, которые мы вызываем с помощью <code>GOSUB</code> или <code>FUNC</code>. Например: «<em>Я написал функцию "поднять_яблоко"</em>».
 </p>
 </div>
-<h2 class="sectionedit3" id="opisanie_gosub">Описание GOSUB</h2>
+<a id="statement_GOSUB"></a><h2 class="sectionedit3" id="opisanie_gosub">Описание GOSUB</h2>
 <div class="level2">
 <p>
 <code>GOSUB</code> — выполнение кода указанной локации без непосредственного перехода на неё.
 </p>
-<a id="statement_GOSUB"></a><p>
+<p>
 Общая запись:
 </p>
 <p>
@@ -272,7 +272,7 @@ Cуществует краткая форма записи, не требующ�
 <p>
 </p><pre class="brush: qsp">
   @@[$локация] [аргумент 0], [аргумент 1], ... ,[аргумент 18]
-<a id="func_FUNC"></a></pre>
+</pre>
 <p>
 Название локации <code>[$локация]</code> не заключается в кавычки и не должно содержать спецсимволов, кроме точки. Допустимо заключать аргументы в скобки.
 </p>
@@ -283,7 +283,7 @@ Cуществует краткая форма записи, не требующ�
 @@reset_screen('black-green')
 </pre>
 </div>
-<h3 class="sectionedit4" id="nejavnyj_vyzov_operatora_gosub">Неявный вызов оператора GOSUB</h3>
+<a id="statement_IMPLICIT"></a><h3 class="sectionedit4" id="nejavnyj_vyzov_operatora_gosub">Неявный вызов оператора GOSUB</h3>
 <div class="level3">
 <p>
 Вы можете не прописывать всякий раз оператор <code>GOSUB</code> явно. Можно использовать более простую запись. Вот как это выглядит в общем виде:
@@ -344,7 +344,7 @@ end
 @@map_set_cell [0,12], 'дерево'
 </pre>
 </div>
-<h2 class="sectionedit5" id="opisanie_func">Описание FUNC</h2>
+<a id="func_FUNC"></a><h2 class="sectionedit5" id="opisanie_func">Описание FUNC</h2>
 <div class="level2">
 <p>
 <code>FUNC</code> — выполнение кода указанной локации без непосредственного перехода на неё с возвращением значения.
@@ -373,7 +373,7 @@ end
 <p>
 Следует помнить, что <code>%RESULT</code>, <code>$RESULT</code> и <code>RESULT</code> — это одна и та же переменная, но разных типов, поэтому если вы определили на локации и <code>%RESULT</code>, <code>$RESULT</code> и <code>RESULT</code>, функция вернёт то значение, которое было записано в эту переменную последним.
 </p>
-<a id="statement_EXIT"></a><p>
+<p>
 Если переменной <code>RESULT</code> не было присвоено никакое значение, функция ничего не вернёт. И тут есть два варианта поведения плеера.
 </p>
 <ul>
@@ -385,7 +385,7 @@ end
 <p>
 </p><pre class="brush: qsp">
 !# локация_Н
-<a id="func_IMPLICIT"></a>N = 23 * 13
+N = 23 * 13
 ! ни одно значение не присваивается переменной result
 </pre>
 <p>
@@ -442,7 +442,7 @@ PL FUNC($name, 1) * 78
 MSG "text" + FUNC($name, "строка", 2)
 </pre>
 </div>
-<h3 class="sectionedit6" id="nejavnyj_vyzov_funkcii_func">Неявный вызов функции FUNC</h3>
+<a id="func_IMPLICIT"></a><h3 class="sectionedit6" id="nejavnyj_vyzov_funkcii_func">Неявный вызов функции FUNC</h3>
 <div class="level3">
 <p>
 Вы можете не прописывать всякий раз функцию <code>FUNC</code> явно. Можно использовать более простую запись. Вот как это выглядит в общем виде:
@@ -519,7 +519,7 @@ act "Взять яблоко":
 end
 </pre>
 </div>
-<h2 class="sectionedit7" id="rannij_vyxod_operator_exit">Ранний выход. Оператор EXIT</h2>
+<a id="statement_EXIT"></a><h2 class="sectionedit7" id="rannij_vyxod_operator_exit">Ранний выход. Оператор EXIT</h2>
 <div class="level2">
 <p>
 Чтобы прервать выполнение текущего кода и выйти из вызванной с помощью <code>GOSUB</code> или <code>FUNC</code> локации, используйте оператор <code>EXIT</code>.

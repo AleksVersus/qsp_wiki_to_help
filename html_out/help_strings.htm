@@ -250,46 +250,46 @@ $text={&lt;&lt;var&gt;&gt;}
     здесь не раскрываются &lt;&lt;подвыражения&gt;&gt;
 }
 dynamic {
-<a id="func_LEN"></a>    ! обычно в фигурных
+    ! обычно в фигурных
     ! скобках размещают
     *pl "Код для оператора DYNAMIC"
 }
-<a id="func_MID"></a></pre>
+</pre>
 </div>
 <h2 class="sectionedit6" id="funkcii">Функции</h2>
 <div class="level2">
-<ul>
+<a id="func_LEN"></a><ul>
 <li class="level1"><div class="li"> <code>LEN([$стр])</code> - возвращает длину строки <code>[$стр]</code>. <pre class="brush: qsp">
 *pl len('Зелёные яблоки') &amp;! на экране будет число 14
 </pre></div>
-</li>
+<a id="func_MID"></a></li>
 <li class="level1"><div class="li"> <code><strong>$MID(</strong>[$стр],[#начало],[#длина]<strong>)</strong></code> - вырезает из строки <code>[$стр]</code> строку, которая начинается с символа номер <code>[#начало]</code> и имеет длину <code>[#длина]</code>. Нумерация символов в строке ведётся с <strong>1</strong>.</div>
 <ul>
 <li class="level2"><div class="li"> Параметр <code>[#длина]</code> может отсутствовать, при этом вырезается вся строка, начиная с символа <code>[#начало]</code>.</div>
 </li>
 <li class="level2"><div class="li"> Если <code>[#начало]</code> превышает длину строки, функция возвращает пустую строку.</div>
 </li>
-<a id="func_UCASE"></a><li class="level2"><div class="li"> Примеры: <pre class="brush: qsp">
+<li class="level2"><div class="li"> Примеры: <pre class="brush: qsp">
  $MID('abcd', 1, 2) &amp;! 'ab'
  $MID('abcd', 2, 3) &amp;! 'bcd'
  $MID('abcd', 2)    &amp;! 'bcd'
-<a id="func_LCASE"></a> $mid('abcd',5) &amp;! '' (пустая строка)
+ $mid('abcd',5) &amp;! '' (пустая строка)
 </pre></div>
 </li>
 </ul>
-<a id="func_TRIM"></a></li>
+<a id="func_UCASE"></a></li>
 <li class="level1"><div class="li"> <code>$UCASE([$стр])</code> - возвращает строку больших букв, полученную изменением регистра букв исходной строки <code>[$стр]</code>. <pre class="brush: qsp">
 $UCASE('TexT#') &amp;! 'TEXT#'
 </pre></div>
-<a id="func_REPLACE"></a></li>
+<a id="func_LCASE"></a></li>
 <li class="level1"><div class="li"> <code>$LCASE([$стр])</code> - возвращает строку маленьких букв, полученную изменением регистра букв исходной строки <code>[$стр]</code>. <pre class="brush: qsp">
 $LCASE('TExT#') &amp;! 'text#'
 </pre></div>
-</li>
+<a id="func_TRIM"></a></li>
 <li class="level1"><div class="li"> <code>$TRIM([$стр])</code> - удаляет прилегающие пробелы и символы табуляции из <code>[$стр]</code> и возвращает полученную строку. <pre class="brush: qsp">
 $TRIM(' TRIM TEST ') &amp;! 'TRIM TEST'
 </pre></div>
-</li>
+<a id="func_REPLACE"></a></li>
 <li class="level1"><div class="li"> <code><strong>$REPLACE(</strong>[$стр],[$поиск],[$замена],[#количество_замен]<strong>)</strong></code> - заменяет в строке <code>[$стр]</code> несколько вхождений строки <code>[$поиск]</code> строкой <code>[$замена]</code>. Замена производится слева-направо и только для неперескающихся вхождений.</div>
 <ul>
 <li class="level2"><div class="li"> Параметр <code>[#количество_замен]</code> показывает, сколько вхождений должно быть заменено. Если параметр не указан, производится замена всех вхождений.</div>
@@ -299,7 +299,7 @@ $TRIM(' TRIM TEST ') &amp;! 'TRIM TEST'
 <li class="level2"><div class="li"> Примеры: <pre class="brush: qsp">
 $REPLACE('test', '12', '4') &amp;! 'test'
 $REPLACE('test', 'e', 's')  &amp;! 'tsst'
-<a id="func_INSTR"></a>$REPLACE('test', 't', '34') &amp;! '34es34'
+$REPLACE('test', 't', '34') &amp;! '34es34'
 $REPLACE('test', 't') &amp;! 'es'
 
 $REPLACE('test', 't', 'qu', 1) &amp;! 'quest'
@@ -307,7 +307,7 @@ $REPLACE('test my test', 't', 'q', 3) &amp;! 'qesq my qest'
 </pre></div>
 </li>
 </ul>
-</li>
+<a id="func_INSTR"></a></li>
 <li class="level1"><div class="li"> <code>INSTR([$строка],[$поиск],[#начало])</code> - возвращает номер позиции символа, с которого начинается вхождение строки <code>[$поиск]</code> в строку <code>[$строка]</code> (или <strong>0</strong>, если вхождения нет). Поиск начинается с символа номер <code>[#начало]</code>.</div>
 <ul>
 <li class="level2"><div class="li"> Параметр <code>[#начало]</code> может отсутствовать, при этом он принимается равным <strong>1</strong>.</div>
@@ -315,7 +315,7 @@ $REPLACE('test my test', 't', 'q', 3) &amp;! 'qesq my qest'
 <li class="level2"><div class="li"> Примеры:</div>
 </li>
 </ul>
-<a id="func_ISNUM"></a></li>
+</li>
 </ul>
 <p>
 </p><pre class="brush: qsp">
@@ -323,22 +323,22 @@ INSTR('ABCDefgh','BC',1) &amp;! 2
 INSTR('ABCDefgh','Be',1) &amp;! 0
 INSTR('abcdef','abc')    &amp;! 1
 </pre>
-<a id="func_VAL"></a><ul>
+<a id="func_ISNUM"></a><ul>
 <li class="level1"><div class="li"> <code>ISNUM([$строка])</code> - функция проверяет, является ли строка <code>[$строка]</code> числом. Функция возвращает <code>0</code> (ложь) или <code>1</code> (истина). <pre class="brush: qsp">
 ISNUM(' 9999 ') &amp;! 1
 ISNUM(' -888')  &amp;! 1
 ISNUM('777a6')  &amp;! 0
 ISNUM('')
   &amp;! 0, т.к. пустая строка не содержит числа
-<a id="func_STR"></a></pre></div>
-</li>
+</pre></div>
+<a id="func_VAL"></a></li>
 <li class="level1"><div class="li"> <code>VAL([$стр])</code> - переводит строку цифр <code>[$стр]</code> в соответствующее число. При ошибке возвращает <code>0</code>. <pre class="brush: qsp">
 яблоки = VAL($яблоки)
 val('123') &amp; ! увидим 123
 val('') &amp; ! увидим 0
 val('sand') &amp; ! увидим 0
 </pre></div>
-</li>
+<a id="func_STR"></a></li>
 <li class="level1"><div class="li"> <code>$STR([#число])</code> - переводит число (числовое выражение) в соответствующую строку. <pre class="brush: qsp">
 PL $STR(56)
 </pre></div>

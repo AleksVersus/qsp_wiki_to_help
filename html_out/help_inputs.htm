@@ -27,7 +27,7 @@
 <h2 class="sectionedit2" id="operatory_i_funkcii_dlja_raboty_so_strokoj_vvoda">Операторы и функции для работы со строкой ввода</h2>
 <div class="level2">
 <ul>
-<li class="level1"><div class="li"> <code>SHOWINPUT</code> — данный оператор управляет отображением строки ввода на экране. Общая запись: <pre class="brush: qsp">
+<a id="statement_SHOWINPUT"></a><li class="level1"><div class="li"> <code>SHOWINPUT</code> — данный оператор управляет отображением строки ввода на экране. Общая запись: <pre class="brush: qsp">
 SHOWINPUT [#выражение]
 </pre> , где <code>[#выражение]</code> — это число. Обычно используются значения 0 и 1. Если значение выражения <code>[#выражение]</code> отлично от нуля, строка ввода отображается. Если значение выражения <code>[#выражение]</code> равно нулю, строка ввода скрыта. Примеры: <pre class="brush: qsp">
 showinput 1 &amp; ! показывает строку ввода
@@ -38,22 +38,22 @@ showinput on &amp; ! показывает строку ввода
 showinput off &amp; ! скрывает строку ввода
 </pre></div>
 </li>
-<li class="level1"><div class="li"> <code>CMDCLEAR</code> — оператор очистки строки ввода. Имеет краткую форму <code>CMDCLR</code>. Удаляет весь текст из строки ввода. <pre class="brush: qsp">
+<a id="statement_CMDCLEAR"></a><li class="level1"><div class="li"> <code>CMDCLEAR</code> — оператор очистки строки ввода. Имеет краткую форму <code>CMDCLR</code>. Удаляет весь текст из строки ввода. <pre class="brush: qsp">
 cmdclear
-<a id="statement_CMDCLEAR"></a></pre></div>
+</pre></div>
 </li>
-<li class="level1"><div class="li"> <code>$USER_TEXT</code> — данная функция в ЛЮБОМ месте игры возвращает текст, который находится в строке ввода (поле ввода). Имеет краткую форму <code>$USRTXT</code>. Пример использования совместно с обработчиком строки ввода можно посмотреть в разделе <a class="wikilink1" href="help_service_locations.htm" title="help:service_locations">"Служебные локации"</a>. Пример действия, по нажатию на которое в окно дополнительного описания будет выводиться текст, введённый в строку ввода: <pre class="brush: qsp">
+<a id="func_USER_TEXT"></a><li class="level1"><div class="li"> <code>$USER_TEXT</code> — данная функция в ЛЮБОМ месте игры возвращает текст, который находится в строке ввода (поле ввода). Имеет краткую форму <code>$USRTXT</code>. Пример использования совместно с обработчиком строки ввода можно посмотреть в разделе <a class="wikilink1" href="help_service_locations.htm" title="help:service_locations">"Служебные локации"</a>. Пример действия, по нажатию на которое в окно дополнительного описания будет выводиться текст, введённый в строку ввода: <pre class="brush: qsp">
 act "Что я написал?": pl 'Я написал: "&lt;&lt;$user_text&gt;&gt;".'
-<a id="func_USER_TEXT"></a></pre></div>
+</pre></div>
 </li>
 </ul>
 </div>
 <h2 class="sectionedit3" id="dialogovoe_okno">Диалоговое окно</h2>
 <div class="level2">
 <p>
-<code>$INPUT</code> — данная функция выводит на экран диалоговое окно с указанным текстом, а затем возвращает интерпретатору введённый игроком текст, либо <code>""</code> (пустая строка), если была нажата кнопка "<strong>Отмена</strong>". Общая запись:
+<a id="func_INPUT"></a><code>$INPUT</code> — данная функция выводит на экран диалоговое окно с указанным текстом, а затем возвращает интерпретатору введённый игроком текст, либо <code>""</code> (пустая строка), если была нажата кнопка "<strong>Отмена</strong>". Общая запись:
 </p>
-<a id="func_INPUT"></a><p>
+<p>
 </p><pre class="brush: qsp">
 $INPUT([$текст])
 </pre>

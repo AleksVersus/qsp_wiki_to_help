@@ -36,9 +36,9 @@
 <h3 class="sectionedit3" id="vkljuchenie_i_vykljuchenie_okna_dopolnitelnogo_opisanija">Включение и выключение Окна дополнительного описания</h3>
 <div class="level3">
 <ul>
-<li class="level1"><div class="li"> <code>SHOWSTAT [#выражение]</code> - если значение выражения отлично от 0, то показывает <strong>Окно дополнительного описания</strong>, иначе скрывает его. Пример: <pre class="brush: qsp">
+<a id="statement_SHOWSTAT"></a><li class="level1"><div class="li"> <code>SHOWSTAT [#выражение]</code> - если значение выражения отлично от 0, то показывает <strong>Окно дополнительного описания</strong>, иначе скрывает его. Пример: <pre class="brush: qsp">
 showstat 0 &amp; ! скрываем окно дополнительного описания
-<a id="statement_SHOWSTAT"></a>showstat 1 &amp; ! окно дополнительного описания снова отображается
+showstat 1 &amp; ! окно дополнительного описания снова отображается
 </pre> Для удобства чтения кода можно заранее определить переменные <code>on</code> и <code>off</code> с соответствующими значениями: <pre class="brush: qsp">
 on, off = 1, 0
 showstat on &amp; ! включаем окно дополнительного описания
@@ -50,18 +50,18 @@ showstat off &amp; ! выключаем окно дополнительного 
 <h3 class="sectionedit4" id="komandy_dlja_vyvoda_teksta_v_okno_dopolnitelnogo_opisanija">Команды для вывода текста в Окно дополнительного описания</h3>
 <div class="level3">
 <ul>
-<li class="level1"><div class="li"> <code>P [$текст]</code> - простой вывод текста. Выводит текст в <strong>Окно дополнительного описания</strong> без перехода на новую строку. Пример: <pre class="brush: qsp">
+<a id="statement_P"></a><li class="level1"><div class="li"> <code>P [$текст]</code> - простой вывод текста. Выводит текст в <strong>Окно дополнительного описания</strong> без перехода на новую строку. Пример: <pre class="brush: qsp">
 p 'Бобр'
-<a id="statement_P"></a>p 'Добр'
+p 'Добр'
 p 'До'
 p 'Бобрят'
 </pre> После выполнения кода (если запустим игру) — в <strong>Окне дополнительного описания</strong> мы увидим: <pre class="brush: text">
 БобрДобрДоБобрят
 </pre></div>
 </li>
-<li class="level1"><div class="li"> <code>PL [$текст]</code> - вывод текста, затем переход на новую строку. Пример: <pre class="brush: qsp">
+<a id="statement_PL"></a><li class="level1"><div class="li"> <code>PL [$текст]</code> - вывод текста, затем переход на новую строку. Пример: <pre class="brush: qsp">
 p 'Бобр' &amp; ! выводим текст без перевода на новую строку
-<a id="statement_PL"></a>p 'Добр' &amp; ! и здесь тоже
+p 'Добр' &amp; ! и здесь тоже
 pl 'До'
 pl 'Бобрят'
 </pre> После выполнения кода (если запустим игру) — в <strong>Окне дополнительного описания</strong> мы увидим: <pre class="brush: text">
@@ -80,9 +80,9 @@ p 'До Бобрят'
 </li>
 </ul>
 </li>
-<li class="level1"><div class="li"> <code>NL [$текст]</code> - переход на новую строку, а затем вывод текста. Пример: <pre class="brush: qsp">
+<a id="statement_NL"></a><li class="level1"><div class="li"> <code>NL [$текст]</code> - переход на новую строку, а затем вывод текста. Пример: <pre class="brush: qsp">
 p 'Бобр' &amp; ! здесь выводим текст без перехода на новую строку
-<a id="statement_NL"></a>p 'Добр' &amp; ! и здесь тоже
+p 'Добр' &amp; ! и здесь тоже
 nl 'До'
 nl 'Бобрят'
 </pre> После выполнения кода — в <strong>Окне дополнительного описания</strong> мы увидим: <pre class="brush: qsp">
@@ -107,9 +107,9 @@ p 'До Бобрят'
 <h3 class="sectionedit5" id="komandy_dlja_ochistki_okna_dopolnitelnogo_opisanija">Команды для очистки Окна дополнительного описания</h3>
 <div class="level3">
 <ul>
-<li class="level1"><div class="li"> <code>CLEAR</code> или <code>CLR</code> - очищает <strong>Окно дополнительного описания</strong>. Пример: <pre class="brush: qsp">
+<a id="statement_CLEAR"></a><li class="level1"><div class="li"> <code>CLEAR</code> или <code>CLR</code> - очищает <strong>Окно дополнительного описания</strong>. Пример: <pre class="brush: qsp">
 p 'Бобр'    &amp; ! выводим текст без перехода на новую строку
-<a id="statement_CLEAR"></a>pl 'Добр'  &amp; ! выводим текст и переходим на новую строку
+pl 'Добр'  &amp; ! выводим текст и переходим на новую строку
 nl 'До'    &amp; ! переходим на новую строку и выводим текст
 nl 'Бобрят' &amp; ! переходим на новую строку и выводим текст
 clear
@@ -123,9 +123,9 @@ clear
 <h3 class="sectionedit6" id="funkcii_dlja_raboty_s_oknom_dopolnitelnogo_opisanija">Функции для работы с Окном дополнительного описания</h3>
 <div class="level3">
 <ul>
-<li class="level1"><div class="li"> <code>$STATTXT</code> - эта функция возвращает текст, выведенный в окно дополнительного описания. Пример: <pre class="brush: qsp">
+<a id="func_STATTXT"></a><li class="level1"><div class="li"> <code>$STATTXT</code> - эта функция возвращает текст, выведенный в окно дополнительного описания. Пример: <pre class="brush: qsp">
 p 'Вёз Корабль Карамель'
-<a id="func_STATTXT"></a>nl 'Наскочил Корабль На Мель'
+nl 'Наскочил Корабль На Мель'
 $string = $stattxt
 </pre> В данном случае при выполнении кода в переменную <code>$string</code> запишутся две строки текста: <pre class="brush: qsp">
 Вёз Корабль Карамель

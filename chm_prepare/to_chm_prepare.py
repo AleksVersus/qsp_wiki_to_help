@@ -197,7 +197,10 @@ class ChmPrepare:
             anchors = anchors_files[file_name]
             for anchor, line_keyword in anchors.items():
                 line, _ = line_keyword
-                file_lines[line] = f'<a id="{anchor}"></a>{file_lines[line]}'
+                try:
+                    file_lines[line] = f'<a id="{anchor}"></a>{file_lines[line]}'
+                except:
+                    print(line, anchor)
 
         write_file(output_path, '\n'.join(file_lines))
 
