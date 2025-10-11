@@ -114,9 +114,9 @@
 <li><OBJECT type="text/sitemap"><param name="Name" value="$STATTXT"/><param name="Local" value="help_stat.htm#func_STATTXT"/></OBJECT></li>
 <li><OBJECT type="text/sitemap"><param name="Name" value="STEP"/><param name="Local" value="help_cycle.htm"/></OBJECT></li>
 <li><OBJECT type="text/sitemap"><param name="Name" value="STR"/><param name="Local" value="help_strings.htm#func_STR"/></OBJECT></li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="STRCOMP"/><param name="Local" value="help_strings.htm#func_STRCOMP"/></OBJECT></li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="STRFIND"/><param name="Local" value="help_strings.htm#func_STRFIND"/></OBJECT></li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="STRPOS"/><param name="Local" value="help_strings.htm#func_STRPOS"/></OBJECT></li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="STRCOMP"/><param name="Local" value="help_regexp.htm#func_STRCOMP"/></OBJECT></li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="STRFIND"/><param name="Local" value="help_regexp.htm#func_STRFIND"/></OBJECT></li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="STRPOS"/><param name="Local" value="help_regexp.htm#func_STRPOS"/></OBJECT></li>
 <li><OBJECT type="text/sitemap"><param name="Name" value="TRIM"/><param name="Local" value="help_strings.htm#func_TRIM"/></OBJECT></li>
 <li><OBJECT type="text/sitemap"><param name="Name" value="UCASE"/><param name="Local" value="help_strings.htm#func_UCASE"/></OBJECT></li>
 <li><OBJECT type="text/sitemap"><param name="Name" value="UNPACKARR"/><param name="Local" value="help_tuples.htm#statement_UNPACKARR"/></OBJECT></li>
