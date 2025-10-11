@@ -216,6 +216,8 @@ class ChmPrepare:
             href = link['href']
             if link.has_attr('target') and link['target'] == '_blank':
                 continue
+            if link.has_attr('class') and set(link['class']) & {'fn_bot', 'fn_top'}:
+                continue 
 
             href = str(urljoin(self.base_url, href))
             if href.startswith('https://wiki.qsp.org'):
