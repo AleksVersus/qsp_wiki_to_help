@@ -117,4 +117,5 @@ def prepare_all(settings: Settings) -> None:
         page_encoding=settings.chm.page_encoding,
         index_encoding=settings.chm.index_encoding,
         anchors=anchors,
+        keyword_overrides=settings.chm.keyword_overrides,
     )

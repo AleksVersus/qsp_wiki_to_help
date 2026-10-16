@@ -33,6 +33,15 @@ hhk_output = "qsp.hhk"
 page_encoding = "utf-8"             # htm-страницы
 index_encoding = "windows-1251"     # hhc/hhk: требование HTML Help Workshop
 
+# Ручные поправки указателя (перенос золотых правок в код, backlog §4.11):
+# заголовок из help_keywords -> верная страница с якорем. href_compare тащит
+# ссылку на страницу из таблицы, но эти функции живут в других разделах.
+[chm.keyword_overrides]
+STRCOMP = "help_regexp.htm#func_STRCOMP"
+STRFIND = "help_regexp.htm#func_STRFIND"
+STRPOS = "help_regexp.htm#func_STRPOS"
+"UNSELECT или UNSEL" = "help_objs.htm#statement_UNSEL"
+
 # --- Исключаемые разделы (источник: self.files_to_del в ChmPrepare.__init__) ---
 [exclude]
 files = [

@@ -5,16 +5,22 @@ download_image), где она была перемешана с сетевым �
 выходного контракта html_src (handoff §2.1): его менять нельзя, иначе рассогласуется
 urls_links_to_files.json и Prepare-этап перестанет находить файлы.
 
-Правила перенесены 1:1 (включая известный баг среза query-строки — см. image_filename):
+Правила перенесены и исправлены (см. handoff §4.2):
 - страница: части URL-path через '_' + '.html', root -> 'index.html';
-- картинка: последняя часть пути без расширения + расширение из content-type.
+- картинка: base последней части пути (или значения media у fetch.php) +
+  расширение из content-type / суффикса имени.
+
+DokuWiki отдаёт медиа через '/lib/exe/fetch.php?media=<идентификатор>', где путь
+всегда 'fetch.php' — старый код выводил все такие картинки в один 'fetch.png'.
+Теперь base берётся из значения `media` (namespace:id -> namespace_id), поэтому
+разные картинки больше не схлопываются (backlog §4.2 устранён).
 """
 
 from __future__ import annotations
 
 import re
 from pathlib import PurePosixPath
-from urllib.parse import urlparse
+from urllib.parse import parse_qs, unquote, urlparse
 
 # Недопустимые символы имени файла Windows -> '_': та же регулярка, что в старом коде
 # для частей пути страницы и для base-имени картинки.
@@ -46,33 +52,59 @@ def page_filename(url: str) -> str:
     return "_".join(_safe(part) for part in path_parts) + ".html"
 
 
+def media_value(url: str) -> str | None:
+    """Значение query-параметра 'media' (already percent-decoded) или None.
+
+    DokuWiki-медиа отдают через fetch.php?media=<wiki-id или url>.
+    """
+    values = parse_qs(urlparse(url).query).get("media")
+    return values[0] if values else None
+
+
+def image_ext_from_name(name: str) -> str:
+    """Расширение картинки из имени ('help:qgen.png' -> 'png'); '' если неизвестно."""
+    suffix = PurePosixPath(unquote(name)).suffix.lower().lstrip(".")
+    if suffix == "jpeg":
+        return "jpg"
+    return suffix if suffix in IMAGE_EXTENSIONS else ""
+
+
+def is_image_url(url: str) -> bool:
+    """Картинка ли это: расширение в пути ИЛИ в значении media у fetch.php."""
+    if any(urlparse(url).path.lower().endswith("." + e) for e in IMAGE_EXTENSIONS):
+        return True
+    media = media_value(url)
+    return bool(media) and bool(image_ext_from_name(media))
+
+
 def image_extension(content_type: str, url: str) -> str:
-    """Расширение файла картинки: сначала из content-type, иначе из URL, иначе jpg.
+    """Расширение файла картинки: сначала из content-type, иначе из имени/media, иначе jpg.
 
     'image/jpeg' нормализуется в 'jpg' (как в старом download_image). Если
-    content-type не содержит 'image/', пробуем разрешение из пути URL; если и
-    его нет в известном списке — DEFAULT_IMAGE_EXT.
+    content-type не 'image/', пробуем разрешение из значения media (для
+    fetch.php) или из пути URL; если и его нет — DEFAULT_IMAGE_EXT.
     """
     if "image/" in (content_type or ""):
         ext = content_type.split("/")[-1].split(";")[0].strip().lower()
         return "jpg" if ext == "jpeg" else ext
-    path = urlparse(url).path.lower()
-    for candidate in IMAGE_EXTENSIONS:
-        if path.endswith("." + candidate):
-            return "jpg" if candidate == "jpeg" else candidate
-    return DEFAULT_IMAGE_EXT
+    media = media_value(url)
+    return image_ext_from_name(media) if media else image_ext_from_name(urlparse(url).path) or DEFAULT_IMAGE_EXT
 
 
 def image_filename(url: str, content_type: str) -> str:
-    """Имя файла картинки: base последней части пути + расширение.
+    """Имя файла картинки: base из media (для fetch.php) либо из пути + расширение.
 
-    ИСТОРИЧЕСКИЙ БАГ (backlog handoff §4.2, осознано сохранён): DokuWiki отдаёт
-    media через '/lib/exe/fetch.php?media=...', где путь — всегда 'fetch.php'.
-    Поэтому base-имя получается 'fetch' и разные картинки сходятся в один файл
-    ('качаются неверными именами'). Починка сдвинула бы выход относительно
-    бейзлайна — чинится отдельным решением, не здесь.
+    Для DokuWiki fetch.php?media=<...> base — последняя часть значения media с
+    ':'->'_' (namespace:id -> namespace_id), поэтому картинки больше не сходятся
+    в 'fetch.png' (устранено §4.2). Для обычных _media/_detail URL — прежнее
+    поведение: base последней части пути.
     """
     ext = image_extension(content_type, url)
+    media = media_value(url)
+    if media:
+        last = unquote(media).rstrip("/").split("/")[-1]
+        base = _safe(PurePosixPath(last).stem)
+        return f"{base or 'image'}.{ext}"
     path_parts = urlparse(url).path.strip("/").split("/")
     if not path_parts or path_parts[0] == "":
         base = PurePosixPath(url).name or "image"

@@ -1,52 +1,4 @@
 {
-    "help_coding": {
-        "kommentarii": [
-            182,
-            "! комментарий"
-        ],
-        "func_MAX": [
-            376,
-            "MAX"
-        ],
-        "func_MIN": [
-            384,
-            "MIN"
-        ],
-        "func_QSPVER": [
-            335,
-            "$QSPVER"
-        ],
-        "func_RAND": [
-            350,
-            "RAND"
-        ],
-        "func_RND": [
-            374,
-            "RND"
-        ]
-    },
-    "help_organizing": {
-        "func_IMPLICIT": [
-            444,
-            "@ неявный вызов функции"
-        ],
-        "statement_IMPLICIT": [
-            285,
-            "@@ неявный вызов оператора"
-        ],
-        "statement_EXIT": [
-            521,
-            "EXIT"
-        ],
-        "func_FUNC": [
-            346,
-            "FUNC"
-        ],
-        "statement_GOSUB": [
-            187,
-            "GOSUB или GS"
-        ]
-    },
     "help_acts": {
         "statement_ACT": [
             65,
@@ -102,6 +54,18 @@
             113,
             "KILLOBJ"
         ],
+        "statement_MODOBJ": [
+            122,
+            "MODOBJ"
+        ],
+        "func_OBJ": [
+            195,
+            "OBJ"
+        ],
+        "statement_RESETOBJ": [
+            137,
+            "RESETOBJ"
+        ],
         "func_SELOBJ": [
             162,
             "$SELOBJ"
@@ -113,18 +77,6 @@
         "statement_UNSEL": [
             214,
             "UNSELECT или UNSEL"
-        ],
-        "statement_MODOBJ": [
-            122,
-            "MODOBJ"
-        ],
-        "statement_RESETOBJ": [
-            137,
-            "RESETOBJ"
-        ],
-        "func_OBJ": [
-            195,
-            "OBJ"
         ]
     },
     "help_expressions": {
@@ -150,9 +102,9 @@
         ]
     },
     "help_arrays": {
-        "func_ARRCOMP": [
-            627,
-            "ARRCOMP"
+        "func_ARRPOS": [
+            563,
+            "ARRPOS"
         ],
         "func_ARRSIZE": [
             519,
@@ -185,10 +137,6 @@
         "statement_SORTARR": [
             451,
             "SORTARR"
-        ],
-        "func_ARRPOS": [
-            563,
-            "ARRPOS"
         ]
     },
     "help_tuples": {
@@ -318,13 +266,13 @@
             53,
             "INPUT"
         ],
-        "func_USER_TEXT": [
-            44,
-            "USER_TEXT или USERTXT"
-        ],
         "statement_SHOWINPUT": [
             29,
             "SHOWINPUT"
+        ],
+        "func_USER_TEXT": [
+            44,
+            "USER_TEXT или USERTXT"
         ]
     },
     "help_service_locations": {
@@ -421,6 +369,20 @@
             "IIF"
         ]
     },
+    "help_organizing": {
+        "statement_EXIT": [
+            521,
+            "EXIT"
+        ],
+        "func_FUNC": [
+            346,
+            "FUNC"
+        ],
+        "statement_GOSUB": [
+            187,
+            "GOSUB или GS"
+        ]
+    },
     "help_modules": {
         "statement_FREELIB": [
             60,
@@ -433,6 +395,16 @@
         "statement_OPENQST": [
             65,
             "OPENQST"
+        ]
+    },
+    "help_goto": {
+        "statement_GOTO": [
+            29,
+            "GOTO или GT"
+        ],
+        "statement_XGOTO": [
+            80,
+            "XGOTO или XGT"
         ]
     },
     "help_strings": {
@@ -478,10 +450,6 @@
         ]
     },
     "help_variables": {
-        "statement_LET": [
-            221,
-            "LET"
-        ],
         "statement_LOCAL": [
             408,
             "LOCAL"
@@ -491,10 +459,26 @@
             "SET и LET"
         ]
     },
-    "help_cycle": {
-        "statement_LOOP": [
-            37,
-            "WHILE"
+    "help_coding": {
+        "func_MAX": [
+            376,
+            "MAX"
+        ],
+        "func_MIN": [
+            384,
+            "MIN"
+        ],
+        "func_QSPVER": [
+            335,
+            "$QSPVER"
+        ],
+        "func_RAND": [
+            350,
+            "RAND"
+        ],
+        "func_RND": [
+            374,
+            "RND"
         ]
     },
     "help_realtime": {
@@ -511,29 +495,7 @@
             "WAIT"
         ]
     },
-    "help_graphics": {
-        "statement_VIEW": [
-            155,
-            "VIEW"
-        ]
-    },
-    "help_goto": {
-        "statement_GOTO":
-        [
-            29,
-            "GOTO или GT"
-        ],
-        "statement_XGOTO":
-        [
-            80,
-            "XGOTO или XGT"
-        ]
-    },
     "help_regexp": {
-        "func_STRPOS": [
-            73,
-            "STRPOS"
-        ],
         "func_STRCOMP": [
             35,
             "STRCOMP"
@@ -541,6 +503,22 @@
         "func_STRFIND": [
             41,
             "STRFIND"
+        ],
+        "func_STRPOS": [
+            73,
+            "STRPOS"
+        ]
+    },
+    "help_graphics": {
+        "statement_VIEW": [
+            155,
+            "VIEW"
+        ]
+    },
+    "help_cycle": {
+        "statement_LOOP": [
+            37,
+            "WHILE"
         ]
     }
 }

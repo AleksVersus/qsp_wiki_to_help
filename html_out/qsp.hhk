@@ -7,7 +7,7 @@
 </object><ul><li><OBJECT type="text/sitemap"><param name="Name" value="ACT"/><param name="Local" value="help_acts.htm#statement_ACT"/></OBJECT></li>
 <li><OBJECT type="text/sitemap"><param name="Name" value="ADDOBJ"/><param name="Local" value="help_objs.htm#statement_ADDOBJ"/></OBJECT></li>
 <li><OBJECT type="text/sitemap"><param name="Name" value="AND"/><param name="Local" value="help_expressions.htm#operator_AND"/></OBJECT></li>
-<li><OBJECT type="text/sitemap"><param name="Name" value="ARRCOMP"/><param name="Local" value="help_arrays.htm#func_ARRCOMP"/></OBJECT></li>
+<li><OBJECT type="text/sitemap"><param name="Name" value="ARRCOMP"/><param name="Local" value="help_arrays.htm"/></OBJECT></li>
 <li><OBJECT type="text/sitemap"><param name="Name" value="ARRPOS"/><param name="Local" value="help_arrays.htm#func_ARRPOS"/></OBJECT></li>
 <li><OBJECT type="text/sitemap"><param name="Name" value="%ARRPACK"/><param name="Local" value="help_tuples.htm#func_ARRPACK"/></OBJECT></li>
 <li><OBJECT type="text/sitemap"><param name="Name" value="ARRSIZE"/><param name="Local" value="help_arrays.htm#func_ARRSIZE"/></OBJECT></li>

@@ -414,11 +414,11 @@ y = -13
 </li>
 <li class="level1"><div class="li"> Нельзя извлечь из кортежа одно конкретное значение, например, второе. Зато можно извлекать одно или несколько первых значений. В этом случае из набора переменных, в которые распаковывается кортеж, имя последней должно начинаться с символа <code>%</code>, так как в эту переменную будет упаковываться оставшаяся часть кортежа: <pre class="brush: qsp">
 %personage = ["Петя", 27, 182, 92, "боксёр"]
-$name, %tale = %personage
+$name, %tail = %personage
 *pl $name &amp;! 'Петя'
-$name, age, height, %tale = %personage
+$name, age, height, %tail = %personage
 *pl "Имя: &lt;&lt;$name&gt;&gt;, возраст: &lt;&lt;age&gt;&gt;, рост: &lt;&lt;height&gt;&gt;."
-weight, $sports = %tale
+weight, $sports = %tail
 *pl $sports
 </pre></div>
 </li>

@@ -16,11 +16,10 @@ from ..templates import CHM_PAGE
 def extract_page(soup: BeautifulSoup) -> Tag:
     """Извлекает контент страницы и удаляет служебные элементы DokuWiki.
 
-    ИСТОРИК: селектор 'dic.docInfo' — опечатка старого кода (тега dic не
-    существует; блоки class="docInfo" в html_src есть, но матчатся 'div.docInfo').
-    Проверено в Фазе 3: элементы docInfo присутствуют в исходниках и СОХРАНЯЮТСЯ
-    в выводе именно из-за опечатки. «Исправление» сдвинуло бы бейзлайн — правим
-    только как задокументированное изменение поведения (Фаза 6, backlog §4.3).
+    §4.3 (исправлено): раньше селектор был 'dic.docInfo' — опечатка старого
+    кода (тега dic не существует), из-за чего футеры class="docInfo"
+    («Последние изменения») СОХРАНЯЛИСЬ в выводе. Теперь 'div.docInfo' — футеры
+    вырезаются. Это задокументированное изменение поведения (сдвиг бейзлайна).
     """
     page = soup.select_one("div.page.group")
     if page is None:
@@ -29,7 +28,7 @@ def extract_page(soup: BeautifulSoup) -> Tag:
 
     for el in page.select("div#dw__toc"):
         el.decompose()
-    for el in page.select("dic.docInfo"):
+    for el in page.select("div.docInfo"):
         el.decompose()
     for el in page.select("script"):
         el.decompose()

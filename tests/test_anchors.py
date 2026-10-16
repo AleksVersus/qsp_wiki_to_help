@@ -56,11 +56,11 @@ def test_extract_only_anchor_links(built_dir: Path):
     assert set(got["help_test"]) == {"sec_one", "a.b"}
 
 
-def test_extract_line_is_1based(built_dir: Path):
-    """ИСТОРИК закрепляем тестом: строка считается 1-based (как в старом инструменте)."""
+def test_extract_line_is_0based(built_dir: Path):
+    """§4.4 (исправлено): строка — 0-based индекс строки с id."""
     a = extract(built_dir)
     entry = a.anchors_for("help_test")["sec_one"]
-    assert HTM_PAGE.split("\n")[entry.line - 1].startswith('<h2 id="sec_one"')
+    assert HTM_PAGE.split("\n")[entry.line].startswith('<h2 id="sec_one"')
     assert entry.title == "Первый"
 
 
@@ -68,7 +68,7 @@ def test_extract_escapes_regex_in_anchor(built_dir: Path):
     """Якорь 'a.b' не должен сработать как regex «a, любой символ, b»."""
     a = extract(built_dir)
     entry = a.anchors_for("help_test")["a.b"]
-    assert HTM_PAGE.split("\n")[entry.line - 1].startswith('<h3 id="a.b"')
+    assert HTM_PAGE.split("\n")[entry.line].startswith('<h3 id="a.b"')
 
 
 def test_extract_missing_page_raises(built_dir: Path):
@@ -96,16 +96,15 @@ def test_load_rejects_broken_format(tmp_path: Path):
 
 # ------------------------------ вставка якорей ------------------------------
 
-def test_inject_uses_stored_number_as_index():
-    """ИСТОРИК (backlog §4.4): записанное 1-based число применяется как 0-based
-    индекс — якорь встаёт на строку НИЖЕ заголовка. Закрепляем фактическое
-    поведение бейзлайна; починка будет задокументированной правкой в Фазе 6."""
-    text = "\n".join(["<h2 id=\"sec_one\">Т</h2>", "<p>ниже</p>", "<p>низ</p>"])
-    a = Anchors({"f": {"sec_one": AnchorEntry(line=1, title="Т")}})
-    out = a.inject_into_text(text, "f").split("\n")
-    assert out[0] == '<h2 id="sec_one">Т</h2>'          # заголовок не тронут
-    assert out[1].startswith('<a id="sec_one"></a>')    # вставка по индексу 1
-    assert out[2] == "<p>низ</p>"
+def test_inject_places_anchor_at_id_line():
+    """§4.4 (исправлено): extract+inject согласованы (0-based) — якорь встаёт
+    ровно на строку id, а не на строку ниже."""
+    text = "\n".join(['<h2 id="sec_one">Т</h2>', "<p>ниже</p>", "<p>низ</p>"])
+    anchors = Anchors({"f": {"sec_one": AnchorEntry(line=0, title="Т")}})
+    out = anchors.inject_into_text(text, "f").split("\n")
+    assert out[0].startswith('<a id="sec_one"></a>')     # вставка ровно на строку заголовка
+    assert '<h2 id="sec_one">Т</h2>' in out[0]           # заголовок остался на той же строке
+    assert out[1] == "<p>ниже</p>"
 
 
 def test_inject_out_of_range_skips_with_warning(caplog: pytest.LogCaptureFixture):

@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false, reportAttributeAccessIssue=false, reportOptionalMemberAccess=false, reportUnknownVariableType=false, reportArgumentType=false, reportMissingParameterType=false, reportUnknownParameterType=false, reportUnknownArgumentType=false, reportIndexIssue=false
 """BFS-краулер wiki.qsp.org: обход по ссылкам, сохранение страниц и картинок.
 
 Порт сетевого ядра из qsp_wiki_downloader.WikiDownloader, но с разбиением,
@@ -27,7 +28,7 @@ from bs4 import BeautifulSoup
 from ..config import Settings
 from ..fs_utils import ensure_dir, write_text
 from ..schema import UrlScheme
-from .naming import IMAGE_EXTENSIONS, image_filename, page_filename
+from .naming import image_filename, is_image_url, page_filename
 
 logger = logging.getLogger(__name__)
 
@@ -40,11 +41,6 @@ def same_domain(url: str, base_url: str) -> bool:
     return urlparse(url).netloc == urlparse(base_url).netloc
 
 
-def is_image_url(url: str) -> bool:
-    """URL оканчивается на известное расширение картинки (после среза query/frag)."""
-    return url.split(".")[-1].lower() in IMAGE_EXTENSIONS
-
-
 def extract_page_links(soup: BeautifulSoup, page_url: str, base_url: str, visited: set[str]) -> set[str]:
     """Внутренние ссылки на страницы для постановки в очередь обхода.
 
@@ -54,7 +50,7 @@ def extract_page_links(soup: BeautifulSoup, page_url: str, base_url: str, visite
     """
     links: set[str] = set()
     for anchor in soup.find_all("a", href=True):
-        href = anchor["href"]
+        href = str(anchor["href"])
         if href.startswith("http") or href.startswith("#") or href.startswith("mailto:"):
             continue
         full_url = urljoin(page_url, href).split("?")[0].split("#")[0]
@@ -77,7 +73,7 @@ def collect_image_urls(soup: BeautifulSoup, page_url: str, base_url: str) -> set
     """
     images: set[str] = set()
     for anchor in soup.find_all("a", href=True):
-        href = anchor["href"]
+        href = str(anchor["href"])
         if href.startswith("http") or href.startswith("#") or href.startswith("mailto:"):
             continue
         full_url = urljoin(page_url, href).split("?")[0].split("#")[0]

@@ -28,26 +28,27 @@
 </p>
 <p>
 </p><pre class="brush: qsp">
-local left, right, med = arrpack('args')
-
-killvar 'd'
-
-N=1000000
-
-loop i=0 while i &lt; N step i+=1:
+local left, right, med = %arrpack('args')
+ 
+local d, x, items
+ 
+local N = 1000000
+*pl 'Генерируем числа. Подождите...'
+wait 0
+loop local i=0 while i &lt; N step i+=1:
     x = rand(LEFT, RIGHT, MED)
     d[x]+=1
 end
-stars=300
-total=0
-loop i=LEFT while i&lt;=RIGHT step i+=1:
+local stars = 100
+local total = 0
+loop i = LEFT while i&lt;=RIGHT step i+=1:
     items = d[i] * stars / N
-    
+     
     loop while items &gt; 0 step items-=1:
         *p '*'
     end
-    perc=d[i]*10000/N
-    *pl ' &lt;&lt;perc/100&gt;&gt;.&lt;&lt;perc MOD 100&gt;&gt;% &lt;&lt;d[i]&gt;&gt;'
+    perc = d[i] * 1000/N
+    *pl ' &lt;&lt;perc/10&gt;&gt;.&lt;&lt;perc MOD 10&gt;&gt;% &lt;&lt;d[i]&gt;&gt;'
     total += d[i]
 end
 '================== TOTAL: &lt;&lt;total&gt;&gt;'

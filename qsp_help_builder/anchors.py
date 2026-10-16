@@ -9,12 +9,12 @@
 Исторический формат файла (менять нельзя без миграции, handoff §5):
     { "<file_name_без_.htm>": { "<anchor>": [line_number, "title"] } }
 
-ИСТОРИК (осознанно сохранён, починка — отдельная задокументированная правка):
-line_number записывается как 1-based (extract), но при вставке используется
-как индекс списка, т.е. 0-based (см. AnchorEntry.line и inject_into_text).
-Расхождение (backlog handoff §4.4) зафиксировано в байтах baseline-вывода,
-пока extraction-и-injection работают в одном модуле согласованно, якоря
-попадают в одно и то же место, что и раньше.
+§4.4 (исправлено): раньше line_number записывался как 1-based (extract), но
+при вставке использовался как индекс списка, т.е. 0-based — якорь вставал на
+строку НИЖЕ фактического id (backlog handoff §4.4). Теперь extract пишет
+0-based индекс вставки, и inject применяет его согласованно (lines[entry.line]).
+Критерий корректности — идемпотентность: повторный extract после prepare даёт
+тот же anchors.json.
 """
 
 from __future__ import annotations
@@ -35,7 +35,7 @@ logger = logging.getLogger(__name__)
 class AnchorEntry:
     """Один якорь: привязка к строке файла + заголовок из указателя."""
 
-    line: int      # ИСТОРИК: извлекается 1-based, применяется как 0-based индекс
+    line: int      # 0-based индекс строки, перед которой вставляется <a id> (§4.4 исправлено)
     title: str
 
 
@@ -106,9 +106,9 @@ class Anchors:
         """Вставляет <a id=...></a> перед записанными строками готового текста страницы.
 
         Вызов всегда: после str(new_soup) и ДО записи файла (как в старом коде).
-        ИСТОРИК сохранён: lines[entry.line] — 1-based число из anchors.json
-        применяется как 0-based индекс; выход бейзлайна от этого не меняется,
-        пока та же семантика на extraction (см. extract_from_build).
+        ИСТОРИК сохранён: строки вне диапазона пропускаются (старый голый except),
+        но с записью в лог. Теперь entry.line — согласованный 0-based индекс
+        вставки (§4.4 исправлено): extract и inject трактуют число одинаково.
 
         Старый код глушил промах по индексу голым except + print; здесь тот же
         эффект (пропуск с записью в лог), но различимый: IndexError — единственный
@@ -179,8 +179,8 @@ class Anchors:
             match = re.search(rf'id="{re.escape(anchor)}"', text)
             if match is None:
                 continue  # ИСТОРИК: заголовок без id в файле — молча пропускаем
-            # ИСТОРИК: 1-based номер строки, см. модульный docstring
-            line_number = len(text[0 : match.end()].split("\n"))
+            # §4.4 (исправлено): 0-based индекс строки, куда вставляется <a id>
+            line_number = len(text[0 : match.end()].split("\n")) - 1
 
             file_key = Path(file_part).stem  # старый os.path.splitext(file)[0]
             by_file.setdefault(file_key, {})[anchor] = AnchorEntry(line_number, title)

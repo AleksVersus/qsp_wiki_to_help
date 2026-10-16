@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TXT2GAM. Сборка для Linux [Документация QSP]</title>
+<link href="default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="page group">
+<!-- wikipage start -->
+<p>
+<a class="wikilink1" href="help_txt2gam.htm" title="help:txt2gam">Назад: Краткое руководство по **TXT2GAM**</a>
+</p>
+<h1 class="sectionedit1" id="txt2gam_sborka_dlja_linux">TXT2GAM. Сборка для Linux</h1>
+<div class="level1">
+<p>
+Быть может вам подойдёт уже собранная утилита одной из последних версий?
+</p>
+<p>
+<a class="urlextern" href="https://github.com/QSPFoundation/txt2gam/releases" rel="nofollow" target="_blank" title="https://github.com/QSPFoundation/txt2gam/releases">Последние версии TXT2GAM для разных платформ</a>
+</p>
+<p>
+Исходники: <a class="urlextern" href="https://github.com/QSPFoundation/txt2gam" rel="nofollow" target="_blank" title="https://github.com/QSPFoundation/txt2gam">github/QSPFoundation/txt2gam</a>
+</p>
+<p>
+<strong>Порядок сборки:</strong>
+</p>
+<ol>
+<li class="level1"><div class="li"> Скачиваем все файлы с расширениями <code>*.c</code> и <code>*.h</code> и помещаем их в один каталог.</div>
+</li>
+<li class="level1"><div class="li"> Открываем ваш терминал(gnome-terminal, xfce4-terminal, konsole или какой у вас там).</div>
+</li>
+<li class="level1"><div class="li"> Пишем в консоли<pre class="brush: text">
+	cd путь/до/директории/куда/скачали/файлы
+</pre></div>
+</li>
+<li class="level1"><div class="li"> Пишем в консоли<pre class="brush: text">
+	gcc main.c coding.c locations.c memwatch.c text.c -o txt2gam
+</pre></div>
+</li>
+<li class="level1"><div class="li"> Ждем, пока оно компилируется.</div>
+</li>
+<li class="level1"><div class="li"> ???</div>
+</li>
+<li class="level1"><div class="li"> PROFIT</div>
+</li>
+</ol>
+<p>
+Теперь можете запустить программу, набрав в консоли
+</p>
+<p>
+</p><pre class="brush: text">
+./txt2gam
+</pre>
+<p>
+из той директории, где лежит откомпилированный файл.
+</p>
+</div>
+
+<!-- wikipage stop -->
+</div></body>
+</html>

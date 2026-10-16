@@ -1,14 +1,16 @@
-"""Юнит-тесты naming-модуля (Фаза 4).
+"""Юнит-тесты naming-модуля (Фаза 4, правка §4.2).
 
 Офлайн-проверка чистого именования URL -> локальный файл. Отдельно закрепляет
-ИСТОРИЧЕСКИЙ БАГ среза query-строки (разные fetch.php -> один fetch.png), чтобы
-починка не «просочилась» молча (backlog handoff §4.2).
+починку §4.2: разные media через fetch.php дают РАЗНЫЕ имена (base из media),
+а не сходятся в один fetch.png, как в старом загрузчике.
     python -m pytest tests/test_naming.py -v
 """
 
 from qsp_help_builder.download.naming import (
     image_extension,
     image_filename,
+    is_image_url,
+    media_value,
     page_filename,
 )
 
@@ -62,12 +64,25 @@ def test_default_jpg_when_nothing_matches():
 
 # ------------------------------------------------------------------ image_filename
 
-def test_fetch_php_query_string_bug_preserved():
-    """Разные media через fetch.php дают ОДНО имя fetch.png — известный баг сохраняется."""
+def test_fetch_php_media_named_by_identifier():
+    """§4.2: base имени берётся из media, разные картинки больше не в fetch.png."""
     url_a = f"{BASE}/lib/exe/fetch.php?media=one.png&w=1"
     url_b = f"{BASE}/lib/exe/fetch.php?media=two.png&w=2"
-    assert image_filename(url_a, "image/png") == "fetch.png"
-    assert image_filename(url_b, "image/png") == "fetch.png"
+    assert image_filename(url_a, "image/png") == "one.png"
+    assert image_filename(url_b, "image/png") == "two.png"
+
+
+def test_fetch_php_media_colon_namespace():
+    url = f"{BASE}/lib/exe/fetch.php?media=help%3Aqgen.png&w=450&tok=66e268"
+    assert image_filename(url, "image/png") == "help_qgen.png"
+
+
+def test_fetch_php_media_external_url():
+    # media — внешний URL: base берётся из последнего сегмента после percent-decode.
+    url = f"{BASE}/lib/exe/fetch.php?media=https%3A%2F%2Fwiki.qsp.org%2F_media%2Fqgen.png"
+    assert image_filename(url, "image/png") == "qgen.png"
+    url2 = f"{BASE}/lib/exe/fetch.php?w=500&media=https%3A%2F%2Fi.ibb.co%2F8z8MHyp%2Fimage.png"
+    assert image_filename(url2, "image/png") == "image.png"
 
 
 def test_media_url_with_colon_namespace():
@@ -78,3 +93,23 @@ def test_media_url_with_colon_namespace():
 def test_direct_gif_extension_from_url():
     url = f"{BASE}/lib/images/smileys/icon_smile.gif"
     assert image_filename(url, "") == "icon_smile.gif"
+
+
+# ------------------------------------------------------------------ media_value / is_image_url
+
+def test_media_value_decoded():
+    url = f"{BASE}/lib/exe/fetch.php?media=help%3Amsgbox.png"
+    assert media_value(url) == "help:msgbox.png"
+
+
+def test_media_value_absent():
+    assert media_value(f"{BASE}/_media/help:msgbox.png?w=200") is None
+
+
+def test_is_image_url_detects_fetch_media():
+    assert is_image_url(f"{BASE}/lib/exe/fetch.php?media=qgen.png") is True
+
+
+def test_is_image_url_false_for_non_media_php():
+    # graph.php без media — не картинка по этому предикату (качается через <img>)
+    assert is_image_url(f"{BASE}/lib/plugins/statdisplay/graph.php?graph=all") is False

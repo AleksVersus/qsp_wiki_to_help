@@ -266,24 +266,8 @@ GS $location, 1
 ! $args[2] = "данные". Обратите внимание на символы '$'.
 GS 'ход',$var,2,'данные'
 </pre>
-<p>
-Cуществует краткая форма записи, не требующая явного указания оператора <code>GOSUB</code>:
-</p>
-<p>
-</p><pre class="brush: qsp">
-  @@[$локация] [аргумент 0], [аргумент 1], ... ,[аргумент 18]
-</pre>
-<p>
-Название локации <code>[$локация]</code> не заключается в кавычки и не должно содержать спецсимволов, кроме точки. Допустимо заключать аргументы в скобки.
-</p>
-<p>
-</p><pre class="brush: qsp">
-@@inventory.add 'ScrewDriver', 12
-
-@@reset_screen('black-green')
-</pre>
 </div>
-<a id="statement_IMPLICIT"></a><h3 class="sectionedit4" id="nejavnyj_vyzov_operatora_gosub">Неявный вызов оператора GOSUB</h3>
+<h3 class="sectionedit4" id="nejavnyj_vyzov_operatora_gosub">Неявный вызов оператора GOSUB</h3>
 <div class="level3">
 <p>
 Вы можете не прописывать всякий раз оператор <code>GOSUB</code> явно. Можно использовать более простую запись. Вот как это выглядит в общем виде:
@@ -333,6 +317,15 @@ act "Взять яблоко":
 end
 </pre>
 <p>
+Допустимо помещать аргументы в скобки:
+</p>
+<p>
+</p><pre class="brush: qsp">
+@@inventory.add('ScrewDriver', 12)
+
+@@reset_screen('black-green')
+</pre>
+<p>
 Другие примеры:
 </p>
 <p>
@@ -344,14 +337,14 @@ end
 @@map_set_cell [0,12], 'дерево'
 </pre>
 </div>
-<a id="func_FUNC"></a><h2 class="sectionedit5" id="opisanie_func">Описание FUNC</h2>
+<h2 class="sectionedit5" id="opisanie_func">Описание FUNC</h2>
 <div class="level2">
 <p>
 <code>FUNC</code> — выполнение кода указанной локации без непосредственного перехода на неё с возвращением значения.
 </p>
 <p>
 Общая запись:
-</p>
+<a id="func_FUNC"></a></p>
 <p>
 </p><pre class="brush: qsp">
   FUNC([$локация],[аргумент 0],[аргумент 1], ... ,[аргумент 18])
@@ -442,7 +435,7 @@ PL FUNC($name, 1) * 78
 MSG "text" + FUNC($name, "строка", 2)
 </pre>
 </div>
-<a id="func_IMPLICIT"></a><h3 class="sectionedit6" id="nejavnyj_vyzov_funkcii_func">Неявный вызов функции FUNC</h3>
+<h3 class="sectionedit6" id="nejavnyj_vyzov_funkcii_func">Неявный вызов функции FUNC</h3>
 <div class="level3">
 <p>
 Вы можете не прописывать всякий раз функцию <code>FUNC</code> явно. Можно использовать более простую запись. Вот как это выглядит в общем виде:
@@ -519,14 +512,14 @@ act "Взять яблоко":
 end
 </pre>
 </div>
-<a id="statement_EXIT"></a><h2 class="sectionedit7" id="rannij_vyxod_operator_exit">Ранний выход. Оператор EXIT</h2>
+<h2 class="sectionedit7" id="rannij_vyxod_operator_exit">Ранний выход. Оператор EXIT</h2>
 <div class="level2">
 <p>
 Чтобы прервать выполнение текущего кода и выйти из вызванной с помощью <code>GOSUB</code> или <code>FUNC</code> локации, используйте оператор <code>EXIT</code>.
 </p>
 <p>
 <code>EXIT</code> - завершение выполнения текущего кода (преждевременный выход из подпрограммы/обработчика какого-либо события).
-</p>
+<a id="statement_EXIT"></a></p>
 <p>
 Пример:
 </p>
@@ -538,7 +531,7 @@ if args[0] = 0: exit
 <h2 class="sectionedit8" id="lokalnye_peremennye">Локальные переменные</h2>
 <div class="level2">
 <p>
-На любой локации вы можете назначать локальные переменные, которые будут существовать только в момент выполнения кода этих локаций, а после — автоматически уничтожаться. Значения в этих локальных переменных не пересекаются со значениями одноимённых переменных в других локациях.
+На любой локации вы можете назначать локальные переменные, которые будут существовать только в момент выполнения кода этих локаций, а после — автоматически уничтожатся. Значения в этих локальных переменных не пересекаются со значениями одноимённых переменных в других локациях.
 </p>
 <p>
 См. раздел "Локальные переменные" в разделе <a class="wikilink1" href="help_variables.htm" title="help:variables">Переменные</a>.

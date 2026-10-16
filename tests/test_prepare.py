@@ -3,7 +3,7 @@
 
 Покрывают поведение, перенесённое 1:1 из ChmPrepare, особенно то, что легко
 «случайно починить» и тем самым сдвинуть бейзлайн:
-- опечатка 'dic.docInfo' НЕ удаляет блоки docInfo;
+- футеры docInfo удаляются селектором 'div.docInfo' (§4.3 исправлено);
 - нечёткое сопоставление src в replace_src без break — побеждает ПОСЛЕДНЕЕ
   совпадение;
 - href ссылки, ушедшей на чужой домен, присваивается даже без замены;
@@ -53,14 +53,14 @@ DOKU_PAGE = """<html><head><title>Заголовок страницы</title></h
 </div></body></html>"""
 
 
-def test_extract_page_removes_toc_and_scripts_but_keeps_docinfo():
+def test_extract_page_removes_toc_scripts_and_docinfo():
     soup = BeautifulSoup(DOKU_PAGE, "lxml")
     page = extract_page(soup)
     text = str(page)
     assert "dw__toc" not in text
     assert "var x" not in text
-    # ИСТОРИК: из-за опечатки 'dic.docInfo' блоки docInfo СОХРАНЯЮТСЯ
-    assert "последнее изменение" in text
+    # §4.3: селектор 'div.docInfo' теперь корректно вырезает футер
+    assert "последнее изменение" not in text
     assert "полезный" in text
 
 
@@ -287,6 +287,23 @@ def test_build_hhk_end_to_end(tmp_path: Path):
     assert not src.exists()
 
 
+def test_build_hhk_keyword_override_wins(tmp_path: Path):
+    src = tmp_path / "help_keywords.htm"
+    src.write_text(KEYWORDS_TABLE, encoding="utf-8")
+    anchors = Anchors({
+        # keywords_map даст «Функции» -> help_coding.htm#funkcii; override должен победить
+        "help_coding": {"funkcii": AnchorEntry(line=5, title="Функции")},
+    })
+    build_hhk(tmp_path, hhk_source="help_keywords.htm", hhk_output="qsp.hhk",
+              page_encoding="utf-8", index_encoding="windows-1251",
+              anchors=anchors,
+              keyword_overrides={"Функции": "help_regexp.htm#funkcii"})
+    hhk = (tmp_path / "qsp.hhk").read_text(encoding="windows-1251")
+    # §4.11: override перекрывает и keywords_map, и href_compare
+    assert '<param name="Local" value="help_regexp.htm#funkcii"/>' in hhk
+    assert 'help_coding.htm#funkcii' not in hhk
+
+
 # ---------------------------------------------------------------- prepare_file
 
 def test_prepare_file_excluded_returns_early(tmp_path: Path):
@@ -310,7 +327,7 @@ def test_prepare_file_full_flow_with_anchor_injection(tmp_path: Path):
     src.write_text(page_src, encoding="utf-8")
     out = tmp_path / "out"
     out.mkdir()
-    # line=2: инжект сработает на индекс 2 (0-based) — ИСТОРИК off-by-one
+    # line=2: инжект вставляет <a id> перед индексом 2 (0-based, §4.4 согласован)
     anchors = Anchors({"help_coding": {"need_id": AnchorEntry(line=2, title="Раздел")}})
     prepare_file(src, out, scheme=make_scheme(), anchors=anchors,
                  base_url=BASE_URL, page_encoding="utf-8", exclude=frozenset())

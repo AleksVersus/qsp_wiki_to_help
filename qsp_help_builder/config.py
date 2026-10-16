@@ -16,7 +16,7 @@ from __future__ import annotations
 
 import logging
 import tomllib
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
 
@@ -56,6 +56,9 @@ class ChmSettings:
     hhk_output: str    # имя итогового файла указателя (был хардкод 'qsp.hhk')
     page_encoding: str       # кодировка htm-страниц (исторически utf-8)
     index_encoding: str      # кодировка hhc/hhk (HTML Help Workshop требует windows-1251)
+    # Точечные поправки указателя (§4.11): заголовок -> итоговый Local (file.htm#anchor).
+    # Побеждают и keywords_map, и href_compare. Перенос ручных правок золота в код.
+    keyword_overrides: dict[str, str] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -145,6 +148,9 @@ def load_settings(config_path: Path | None = None) -> Settings:
         hhk_output=str(_require(chm_raw, "hhk_output", "chm")),
         page_encoding=str(_require(chm_raw, "page_encoding", "chm")),
         index_encoding=str(_require(chm_raw, "index_encoding", "chm")),
+        keyword_overrides={
+            str(k): str(v) for k, v in chm_raw.get("keyword_overrides", {}).items()
+        },
     )
 
     exclude_files = frozenset(_require(exclude_raw, "files", "exclude"))

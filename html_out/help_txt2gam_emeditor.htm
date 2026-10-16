@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Подключение утилиты к текстовому редактору [Документация QSP]</title>
+<link href="default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="page group">
+<!-- wikipage start -->
+<p>
+<a class="wikilink1" href="help_txt2gam.htm" title="help:txt2gam">Назад: Краткое руководство по TXT2GAM</a>
+</p>
+<h1 class="sectionedit1" id="podkljuchenie_utility_k_tekstovomu_redaktoru">Подключение утилиты к текстовому редактору</h1>
+<div class="level1">
+<p>
+При разработке игр в текстовом редакторе, очень полезным может оказаться создание специального действия / кнопки для автоматической компиляции файла в "<code>.qsp</code>" и запуска плеера сразу с редактируемым файлом.
+</p>
+<p>
+То есть пишете текст игры в редакторе, нажимаете некое сочетание клавиш и получаете запущенную в плеере игру.
+</p>
+<p>
+Данное руководство, на примере <strong><a class="urlextern" href="http://www.emeditor.com" rel="nofollow" target="_blank" title="http://www.emeditor.com">EmEditor</a></strong>'а , описывает, как это сделать.
+</p>
+<p>
+Для начала, создайте папку (допустим, "<code>D:\Games\QSP</code>"), распаковав в неё базовый архив плеера ("<code>qspgui.exe</code>" + все <strong>DLL</strong>'ки) и архив утилиты <strong>TXT2GAM</strong>.
+</p>
+<p>
+Далее, создайте в этой папке (рядом с "<code>qspgui.exe</code>", "<code>txt2gam.exe</code>") файл "<code>start.bat</code>" со следующим содержимым:
+</p>
+<p>
+</p><pre class="brush: text">
+txt2gam %1 %2
+start qspgui %2
+</pre>
+<p>
+Теперь нужно в редакторе добавить действие/кнопку, при нажатии на которую будет запущен файл "<code>start.bat</code>" с двумя аргументами - указанием исходного TXT-файла и конечного "<code>.qsp</code>"-файла.
+</p>
+<ol>
+<li class="level1"><div class="li"> Запустите EmEditor, выберите в меню <strong>Tools / External Tools / Customize Tools…</strong></div>
+</li>
+<li class="level1"><div class="li"> В появившемся окошке нажмите кнопку <strong>New</strong>.</div>
+</li>
+<li class="level1"><div class="li"> В поле <strong>Title</strong> впишите название действия (например, "QSP").</div>
+</li>
+<li class="level1"><div class="li"> В поле <strong>Command</strong> строку <code>D:\Games\QSP\start.bat</code></div>
+</li>
+<li class="level1"><div class="li"> В поле <strong>Arguments</strong> строку <code>"$(Path)" "$(Dir)\$(Filename).gam"</code> (сохраняя кавычки)</div>
+</li>
+<li class="level1"><div class="li"> В поле <strong>Initial Directory</strong> строчку <code>D:\Games\QSP</code></div>
+</li>
+<li class="level1"><div class="li"> Затем поставьте флажок напротив <strong>Save File</strong>, и нажмите <strong>OK</strong>.</div>
+</li>
+<li class="level1"><div class="li"> На панели инструментов появится новая кнопка с подписью "QSP", при нажатии на которую будут произведены требуемые действия.</div>
+</li>
+</ol>
+<p>
+Теперь нужно назначить сочетание клавиш для кнопки.
+</p>
+<ol>
+<li class="level1"><div class="li"> Выберите пункт меню <strong>Help / Keyboard Map…</strong>. В категории <strong>External Tools</strong> найдите пункт <strong>QSP</strong> (обычно, в самом низу) и щелкните по нему 2 раза.</div>
+</li>
+<li class="level1"><div class="li"> Установите курсор в поле <strong>Press New Shortcut Key</strong> и нажмите желаемое сочетание клавиш (к примеру, F1). Станет доступной кнопка <strong>Assign</strong>. Нажимаем.</div>
+</li>
+<li class="level1"><div class="li"> Далее жмём <strong>OK</strong> и пишем игры в формате TXT2GAM :-)</div>
+</li>
+</ol>
+<p>
+Чтобы установить пароль на файл, создаваемый утилитой TXT2GAM, замените в файле <strong><code>start.bat</code></strong> строчку
+</p>
+<p>
+</p><pre class="brush: text">
+txt2gam.exe %1 %2
+</pre>
+<p>
+на
+</p>
+<p>
+</p><pre class="brush: text">
+txt2gam.exe %1 %2 pMyPassword
+</pre>
+<p>
+где <code>MyPassword</code> - устанавливаемый пароль. Для задания паролей с пробелами, строчка <code>pMyPassword</code> должна быть указана в кавычках:
+</p>
+<p>
+</p><pre class="brush: text">
+txt2gam.exe %1 %2 "pMy Pass word"
+</pre>
+<p>
+<a class="wikilink1" href="help_txt2gam.htm" title="help:txt2gam">Назад: Краткое руководство по TXT2GAM</a>
+</p>
+</div>
+
+<!-- wikipage stop -->
+</div></body>
+</html>

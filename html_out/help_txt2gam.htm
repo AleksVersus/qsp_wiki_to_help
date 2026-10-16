@@ -18,11 +18,16 @@
 <h1 class="sectionedit1" id="txt2gam_kratkoe_rukovodstvo">TXT2GAM. Краткое руководство</h1>
 <div class="level1">
 <p>
-Утилита "<strong>TXT2GAM</strong>" ("<code>txt2gam.exe</code>") предназначена для конвертирования текстовых файлов, написанных в специальном формате, в файлы QSP-игр "<code>.qsp</code>". Таким образом вы можете создавать игры в обычном текстовом редакторе, а затем конвертировать их в приемлемые для плееров файлы.
+Утилита "<strong>TXT2GAM</strong>" ("<code>txt2gam.exe</code>") предназначена для конвертирования текстовых файлов, написанных в специальном формате, в файлы QSP-игр "<code>.qsp</code>". Таким образом вы можете создавать игры в обычном текстовом редакторе, а затем конвертировать их в обычные игры.
 </p>
-<p>
-<a class="urlextern" href="https://github.com/QSPFoundation/txt2gam/releases" rel="nofollow" target="_blank" title="https://github.com/QSPFoundation/txt2gam/releases">Скачать утилиту для Windows/Linux/MacOS</a>
-</p>
+<ul>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://github.com/QSPFoundation/txt2gam/releases" rel="nofollow" target="_blank" title="https://github.com/QSPFoundation/txt2gam/releases">Последние версии утилиты</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="urlextern" href="https://github.com/QSPFoundation/txt2gam/releases/download/v0.4.0-b3/txt2gam-v0.4.0-b3-win32.zip" rel="nofollow" target="_blank" title="https://github.com/QSPFoundation/txt2gam/releases/download/v0.4.0-b3/txt2gam-v0.4.0-b3-win32.zip">Скачать утилиту версии 0.4.0 для Windows</a></div>
+</li>
+<li class="level1"><div class="li"> <a class="wikilink1" href="help_txt2gam_linux.htm" title="help:txt2gam_linux">Сборка TXT2GAM на Linux</a></div>
+</li>
+</ul>
 </div>
 <h2 class="sectionedit2" id="format_txt2gam_qsps">Формат TXT2GAM (QSPS)</h2>
 <div class="level2">
@@ -35,7 +40,7 @@
 <ul>
 <li class="level1"><div class="li"> воспроизведение таких файлов поддерживается плеером <strong><a class="wikilink1" href="help_qspider.htm" title="help:qspider">qSpider</a></strong>;</div>
 </li>
-<li class="level1"><div class="li"> расширение для <strong><a class="urlextern" href="https://github.com/gretmn102/QSP-VSCode/blob/master/README.md" rel="nofollow" target="_blank" title="https://github.com/gretmn102/QSP-VSCode/blob/master/README.md">MS Visual Studio Cod</a>e</strong> поддерживает подсветку синтаксиса qsps-файлов;</div>
+<li class="level1"><div class="li"> <a class="wikilink1" href="howto_vscode_extension.htm" title="howto:vscode_extension">расширение</a> для <strong><a class="urlextern" href="https://github.com/QSPFoundation/qsp-lsp" rel="nofollow" target="_blank" title="https://github.com/QSPFoundation/qsp-lsp">MS Visual Studio Code</a></strong> поддерживает подсветку синтаксиса qsps-файлов;</div>
 </li>
 <li class="level1"><div class="li"> в <strong><a class="urlextern" href="https://github.com/AleksVersus/JAD_for_QSP" rel="nofollow" target="_blank" title="https://github.com/AleksVersus/JAD_for_QSP">пакете для Sublime Text</a></strong> встроена подсветка синтаксиса qsps-файлов.</div>
 </li>
@@ -43,15 +48,18 @@
 <p>
 Как было отмечено выше, файлы в формате <strong>TXT2GAM</strong> — это обычные текстовые файлы, в которых мы размещаем код QSP, при этом данный код нужно записывать по определённым правилам.
 </p>
+</div>
+<h3 class="sectionedit3" id="nachalo_i_konec_lokacii">Начало и конец локации</h3>
+<div class="level3">
 <p>
-Начало локации отмечается символом <strong><code>#</code></strong> (решётка/диез), после которого должен стоять пробел и название локации. Например так:
+Начало локации отмечается символом <code><strong>#</strong></code> (решётка/диез), после которого должен стоять пробел и название локации. Например так:
 </p>
 <p>
 </p><pre class="brush: qsp">
 # начало
 </pre>
 <p>
-Конец локации обозначается строкой <strong><code>--</code></strong> (2 дефиса) в отдельной строке. После этого в той же строке могут идти любые символы, например, снова название локации:
+Конец локации обозначается двумя символами "дефис" <code>–</code> в отдельной строке. После этого в той же строке могут идти любые символы, например, снова название локации:
 </p>
 <p>
 </p><pre class="brush: qsp">
@@ -69,7 +77,7 @@ act 'Далее':
    goto 'next'
 end
 -- (конец локации)
-
+ 
 # next
 $s='Это последняя локация примера.'
 loop local i = 1 while i&lt;=len($s) step i += 1:
@@ -83,24 +91,27 @@ end
 Между локациями в таком файле может быть записан любой текст, он не попадёт в конечный файл игры. Поэтому вы можете помещать туда различные комментарии, команды препроцессора и другой сопроводительный текст.
 </p>
 <p>
-Отнеситесь внимательно к строке завершения локации <strong><code>--</code></strong> в начале отдельно стоящей строки.
-Записанная в поле "Выполнить при посещении" редактора <strong>Quest Generator</strong>, она будет частью локации в итоговой игре, однако если эту строку записать в файле формата <strong>TXT2GAM</strong>, конвертер посчитает её окончанием локации, и все последующие строки вплоть до начала следующей локации будут проигнорированы.
+Поскольку концом локации считается строка, начинающаяся с <code>--</code>, будьте внимательны при написании игры.
+</p>
+<p>
+Так как, если вы пишете код в <strong>Quest Generator</strong>, такая строка, записанная в коде локации, хотя и будет вызывать ошибку, но всё же не сломает локацию. Однако, если вы сконвертируете игру с подобной ошибкой в qsps, а затем — обратно в игру, весь код локации после такой ошибочной строки потеряется.
 </p>
 <p>
 </p><pre class="brush: qsp">
+# начало
 # начало
 "Какой-то код. Много-много кода
 Этот код попадёт в локацию"
 --
 "А вот этот код не попадёт в локацию"
 -- начало (хотим, чтобы конец локации был здесь)
-
+ 
 # локация 2
 ! какой-то код
 -- локация 2
 </pre>
 <p>
-Если не закрыть локацию строкой, начинающейся с <strong><code>--</code></strong>, новую локацию открыть будет нельзя, а значит строка, начинающаяся с символа <strong><code>#</code></strong> может вызвать ошибку "Неизвестное действие" в конечной игре:
+Если не закрыть локацию строкой, начинающейся с <code><strong>–</strong></code>, новую локацию открыть будет нельзя, а значит строка, начинающаяся с символа <code><strong>#</strong></code> может вызвать ошибку "Неизвестное действие" в конечной игре:
 </p>
 <p>
 </p><pre class="brush: qsp">
@@ -108,13 +119,91 @@ end
 "Выводим текст"
 # локация 2
 "Забыли закрыть локацию перед открытием новой"
--- локация 2
+- локация 2
+</pre>
+</div>
+<h3 class="sectionedit4" id="bazovoe_opisanie_i_bazovye_dejstvija">Базовое описание и базовые действия</h3>
+<div class="level3">
+<p>
+Если в <strong>Quest Generator</strong> вы использовали не только поле "Выполнить при посещении", но так же поля "Базовое описание" и "Базовые действия", содержимое этих полей при экспорте игры в формат <strong>TXT2GAM</strong> будет сконвертировано в обычный код QSP, но размещённый между комментариями <code>! BASE</code> и <code>! END BASE</code> в самом начале кода локации. При этом:
+</p>
+<ul>
+<li class="level1"><div class="li"> Каждое действие из поля "Базовые действия" преобразуется в многострочное действие, как если бы оно было записано в поле "Выполнить при посещении".</div>
+</li>
+<li class="level1"><div class="li"> Весь текст из поля "Базовое описание" будет строкой для оператора "<code>*P</code>".</div>
+</li>
+</ul>
+<p>
+Вот как это может выглядеть:
+</p>
+<p>
+</p><pre class="brush: qsp">
+# Начало
+! BASE
+*P 'Укузя 1.2
+
+Привет! Вашему вниманию предоставляется небольшой квест про Укузю. Кто она такая, неизвестно.
+
+Если Вы прошли первую часть игры, то можно загрузиться.'
+ACT 'Начать!':
+   gosub 'menu'
+   goto 'norka'
+END
+ACT 'Проект':
+   goto 'proect'
+END
+ACT 'Загрузить':
+   goto 'saves'
+END
+! END BASE
+Fcolor = RGB(248,194,240)
+Bcolor = RGB(1,0,0)
+if nach = 0: msg 'Совет: Разверните окно на весь экран' &amp; nach=1
+
+-- Начало ---------------------------------
 </pre>
 <p>
-Внимание! Для формата <strong>TXT2GAM</strong> не предусмотрено редактирование базового описания и базовых действий. Поэтому при экспорте игры из <strong>Quest Generator</strong> в формат <strong>TXT2GAM</strong> будьте внимательны: все базовые описания и базовые действия будут экспортированы в основной код локаций. Если впоследствии вы импортируете игру обратно из TXT2GAM-файла в <strong>Quest Generator</strong>, то поля "Описание" и "Базовые действия" во всех локациях окажутся пустыми.
+Как видите, в базовом описании был текст из нескольких строк, а в базовых действиях было создано три действия. Всё это сконвертировалось в обычный QSP-код, заключённый между комментариями <code>! BASE</code> и <code>! END BASE</code>.
+</p>
+<p>
+Далее для удобства мы этот код с комментариями будем называть <em>Базовым блоком</em>.
+</p>
+<p>
+При конвертировании из формата <strong>TXT2GAM</strong> обратно в игру, происходит обратный процесс.
+</p>
+<p>
+Если в коде локации присутствовал <em>Базовый блок</em> (комментарии <code>! BASE</code> и <code>! END BASE</code>, между которыми вы разместили код QSP), код этого блока будет преобразован в базовое описание и базовые действия локации в конечной игре.
+</p>
+<p>
+Однако, тут есть нюанс.
+</p>
+<p>
+Конвертер распознаёт только действия и оператор <code>*P</code>, добавленные в <em>Базовый блок</em>. То есть все остальные операторы и выражения будут проигнорированы.
+</p>
+<p>
+Более того, будут проигнорированы все строки для оператора <code>*P</code>, заключённые не в кавычки, а так же все действия, названия которых не заключены в кавычки, или формируются динамическим способом.
+</p>
+<p>
+Вот наглядный пример:
+</p>
+<p>
+</p><pre class="brush: qsp">
+! BASE
+*PL "Этот текст не попадёт в Базовое описание, потому что используется неверный оператор."
+*P {Оператор верный, но текст записан в фигурных скобках.}
+*P "А этот текст попадёт в Базовое описание."
+
+ACT $action_name:
+   ! Это действие не попадёт в Базовые действия, потому что
+   ! его название указано не константой
+END
+! END BASE
+</pre>
+<p>
+Если в файле формата <strong>TXT2GAM</strong> в коде локации вы создали несколько <em>Базовых блоков</em>, то — при конвертировании — в Базовое описание и Базовые действия будут добавлены только текст и действия из первого <em>Базового блока</em>.
 </p>
 </div>
-<h2 class="sectionedit3" id="ispolzovanie_utility_txt2gam">Использование утилиты TXT2GAM</h2>
+<h2 class="sectionedit5" id="ispolzovanie_utility_txt2gam">Использование утилиты TXT2GAM</h2>
 <div class="level2">
 <p>
 <strong>TXT2GAM</strong> — это консольная утилита, т.е. она запускается командами из консоли, например из командной строки Windows.
@@ -166,18 +255,11 @@ txt2gam.exe "D:\QSP\Games\myCoolGame\game.txt" "D:\QSP\releases\myCoolGame\myCoo
 </p><pre class="brush: text">
 txt2gam.exe
 </pre>
-<p>
-Если указать ключ <code><strong>a</strong></code>, исходный файл будет обрабатываться как ANSI-файл (кодировка <strong>CP1251</strong>). По умолчанию используется Unicode (<strong>UTF-8</strong>, <strong>UCS-2 LE</strong> / <strong>UTF-16 LE</strong>):
-</p>
-<p>
-</p><pre class="brush: text">
-txt2gam.exe game.txt myCoolGame.qsp a
-</pre>
 </div>
-<h2 class="sectionedit4" id="dopolnitelnye_vozmozhnosti_utility">Дополнительные возможности утилиты</h2>
+<h2 class="sectionedit6" id="dopolnitelnye_vozmozhnosti_utility">Дополнительные возможности утилиты</h2>
 <div class="level2">
 </div>
-<h3 class="sectionedit5" id="ispolzovanie">Использование</h3>
+<h3 class="sectionedit7" id="ispolzovanie">Использование</h3>
 <div class="level3">
 <p>
 Общий вид команды для консоли:
@@ -187,32 +269,37 @@ txt2gam.exe game.txt myCoolGame.qsp a
 txt2gam [txt file] [output file] [options]
 </pre>
 </div>
-<h3 class="sectionedit6" id="opcii_options">Опции. [Options]</h3>
+<h3 class="sectionedit8" id="opcii_options">Опции. [Options]</h3>
 <div class="level3">
 <ul>
 <li class="level1"><div class="li"> <code>a</code>, <code>A</code> — режим ANSI. По умолчанию утилита работает в режиме Unicode (<strong>UTF-8</strong>, <strong>UCS-2</strong> / <strong>UTF-16</strong>).</div>
 </li>
 <li class="level1"><div class="li"> <code>o</code>, <code>O</code> — сохранить игру в старом формате ("<code>.gam</code>"). По умолчанию используется новый формат ("<code>.qsp</code>").</div>
 </li>
-<li class="level1"><div class="li"> <code>s[string]</code>, <code>S[string]</code> — вместо <code>[string]</code> нужно указать строку, с которой начинаются ваши локации. Т.е. это строка, которую вы можете использовать вместо <code><strong>#</strong></code>, если это необходимо.</div>
+<li class="level1"><div class="li"> <code>s[string]</code>, <code>S[string]</code> — вместо <code>[string]</code> нужно указать строку, с которой начинаются ваши локации. Т.е. это строка, которую вы можете использовать вместо <code>#</code>, если это необходимо.</div>
 </li>
-<li class="level1"><div class="li"> <code>e[string]</code>, <code>E[string]</code> — вместо <code>[string]</code> нужно указать строку, которой будет отмечаться конец локации. Т.е. это строка, которую вы можете использовать вместо <code><strong>–</strong></code>, если это необходимо.</div>
+<li class="level1"><div class="li"> <code>e[string]</code>, <code>E[string]</code> — вместо <code>[string]</code> нужно указать строку, которой будет отмечаться конец локации. Т.е. это строка, которую вы можете использовать вместо <code>–</code>, если это необходимо.</div>
 </li>
 <li class="level1"><div class="li"> <code>p[pass]</code>, <code>P[pass]</code> — вместо <code>[pass]</code> укажите пароль, который хотите установить на игру. По умолчанию <code><strong>NO</strong></code>. Если пароль содержит пробелы, заключите его в кавычки.</div>
 </li>
-<li class="level1"><div class="li"> <code>t</code>, <code>T</code> — извлечь строки из текста.</div>
+<li class="level1"><div class="li"> <code>c</code>, <code>C</code> — конвертировать текстовый файл в игру (режим по умолчанию).</div>
+</li>
+<li class="level1"><div class="li"> <code>d</code>, <code>D</code> — конвертировать игру в текстовый файл формата <strong>TXT2GAM</strong>.</div>
+</li>
+<li class="level1"><div class="li"> <code>t</code>, <code>T</code> — извлечь строки из текста.    </div>
 </li>
 <li class="level1"><div class="li"> <code>q</code>, <code>Q</code> - извлечь строки кода (между "{" и "}") из текста.</div>
 </li>
 </ul>
 </div>
-<h3 class="sectionedit7" id="primery_vyzova">Примеры вызова:</h3>
+<h3 class="sectionedit9" id="primery_vyzova">Примеры вызова:</h3>
 <div class="level3">
 <p>
 </p><pre class="brush: text">
 txt2gam.exe file.txt gamefile.qsp pMyPassword
 txt2gam.exe file.txt gamefile.qsp
-txt2gam.exe file.txt gamefile.qsp u
+txt2gam.exe file.txt gamefile.qsp a
+txt2gam.exe gamefile.qsp file.txt d pMyPassword
 txt2gam.exe file.txt gamefile.qsp o pMyPassword
 txt2gam.exe file.txt gamefile.qsp o e@ pMyPassword
 txt2gam.exe file.txt gamefile.qsp u o p"My Password"
@@ -223,94 +310,20 @@ txt2gam.exe file.txt gamefile.qsp s@ e~ o
 txt2gam.exe file.txt gamefile.qsp t u
 </pre>
 </div>
-<h2 class="sectionedit8" id="podkljuchenie_utility_k_tekstovomu_redaktoru">Подключение утилиты к текстовому редактору</h2>
-<div class="level2">
-<p>
-При разработке игр в текстовом редакторе, очень полезным может оказаться создание специального действия / кнопки для автоматической компиляции файла в "<code>.qsp</code>" и запуска плеера сразу с редактируемым файлом.
-</p>
-<p>
-То есть пишете текст игры в редакторе, нажимаете некое сочетание клавиш и получаете запущенную в плеере игру.
-</p>
-<p>
-Данное руководство, на примере <strong><a class="urlextern" href="https://www.emeditor.com" rel="nofollow" target="_blank" title="https://www.emeditor.com">EmEditor</a></strong>а , описывает, как это сделать.
-</p>
-<p>
-Для начала, создайте папку (допустим, "<code>D:\Games\QSP</code>"), распаковав в неё базовый архив плеера ("<code>qspgui.exe</code>" + все <strong>DLL</strong>ки) и архив утилиты <strong>TXT2GAM</strong>.
-</p>
-<p>
-Далее, создайте в этой папке (рядом с "<code>qspgui.exe</code>", "<code>txt2gam.exe</code>") файл "<code>start.bat</code>" со следующим содержимым:
-</p>
-<p>
-</p><pre class="brush: text">
-txt2gam %1 %2
-start qspgui %2
-</pre>
-<p>
-Теперь нужно в редакторе добавить действие/кнопку, при нажатии на которую будет запущен файл "<code>start.bat</code>" с двумя аргументами - указанием исходного TXT-файла и конечного "<code>.qsp</code>"-файла.
-</p>
-<ol>
-<li class="level1"><div class="li"> Запустите EmEditor, выберите в меню <strong>Tools / External Tools / Customize Tools…</strong></div>
-</li>
-<li class="level1"><div class="li"> В появившемся окошке нажмите кнопку <strong>New</strong>.</div>
-</li>
-<li class="level1"><div class="li"> В поле <strong>Title</strong> впишите название действия (например, "QSP").</div>
-</li>
-<li class="level1"><div class="li"> В поле <strong>Command</strong> строку <code>D:\Games\QSP\start.bat</code></div>
-</li>
-<li class="level1"><div class="li"> В поле <strong>Arguments</strong> строку <code>"$(Path)" "$(Dir)\$(Filename).gam"</code> (сохраняя кавычки)</div>
-</li>
-<li class="level1"><div class="li"> В поле <strong>Initial Directory</strong> строчку <code>D:\Games\QSP</code></div>
-</li>
-<li class="level1"><div class="li"> Затем поставьте флажок напротив <strong>Save File</strong>, и нажмите <strong>OK</strong>.</div>
-</li>
-<li class="level1"><div class="li"> На панели инструментов появится новая кнопка с подписью "QSP", при нажатии на которую будут произведены требуемые действия.</div>
-</li>
-</ol>
-<p>
-Теперь нужно назначить сочетание клавиш для кнопки.
-</p>
-<ol>
-<li class="level1"><div class="li"> Выберите пункт меню <strong>Help / Keyboard Map…</strong>. В категории <strong>External Tools</strong> найдите пункт <strong>QSP</strong> (обычно, в самом низу) и щелкните по нему 2 раза.</div>
-</li>
-<li class="level1"><div class="li"> Установите курсор в поле <strong>Press New Shortcut Key</strong> и нажмите желаемое сочетание клавиш (к примеру, F1). Станет доступной кнопка <strong>Assign</strong>. Нажимаем.</div>
-</li>
-<li class="level1"><div class="li"> Далее жмём <strong>OK</strong> и пишем игры в формате TXT2GAM :-)</div>
-</li>
-</ol>
-<p>
-Чтобы установить пароль на файл, создаваемый утилитой TXT2GAM, замените в файле <strong><code>start.bat</code></strong> строчку
-</p>
-<p>
-</p><pre class="brush: text">
-txt2gam.exe %1 %2
-</pre>
-<p>
-на
-</p>
-<p>
-</p><pre class="brush: text">
-txt2gam.exe %1 %2 pMyPassword
-</pre>
-<p>
-где <code>MyPassword</code> - устанавливаемый пароль. Для задания паролей с пробелами, строчка <code>pMyPassword</code> должна быть указана в кавычках:
-</p>
-<p>
-</p><pre class="brush: text">
-txt2gam.exe %1 %2 "pMy Pass word"
-</pre>
-</div>
-<h2 class="sectionedit9" id="dopolnitelnaja_informacija_i_poleznye_ssylki">Дополнительная информация и полезные ссылки:</h2>
+<h2 class="sectionedit10" id="dopolnitelnaja_informacija_i_poleznye_ssylki">Дополнительная информация и полезные ссылки:</h2>
 <div class="level2">
 <ol>
 <li class="level1"><div class="li"> В настоящий момент общепринятым расширением для текстовых файлов формата <strong>TXT2GAM</strong> можно считать "<code>.qsps</code>". "Просто потому что" (с) <a class="urlextern" href="https://github.com/gretmn102/QSP-VSCode#допустим-я-хочу-попробовать" rel="nofollow" target="_blank" title="https://github.com/gretmn102/QSP-VSCode#допустим-я-хочу-попробовать">Pseudopod</a>.</div>
 </li>
+<li class="level1"><div class="li"> Есть готовая <a class="wikilink1" href="help_txt2gam_emeditor.htm" title="help:txt2gam_emeditor">инструкция</a> по подключению утилиты <strong>TXT2GAM</strong> к редактору <strong>EmEditor</strong>.</div>
+</li>
 <li class="level1"><div class="li"> Существует утилита <strong>qsp2txt</strong> для конвертирования игр в обратную сторону — из файлов игр "<code>.qsp</code>" в текстовые файлы формата <strong>TXT2GAM</strong>. Исходная ссылка утеряна, можно скачать в <a class="urlextern" href="https://mega.nz/folder/jXwXlSRJ#TF7P-soOJOWIC8MrBA-L1A" rel="nofollow" target="_blank" title="https://mega.nz/folder/jXwXlSRJ#TF7P-soOJOWIC8MrBA-L1A">архиве программ QSP от Aleks Versus</a>.</div>
 </li>
-<li class="level1"><div class="li"> Существовали разные <a class="urlextern" href="https://qsp.org/index.php?option=com_agora&amp;task=topic&amp;id=686&amp;Itemid=57" rel="nofollow" target="_blank" title="https://qsp.org/index.php?option=com_agora&amp;task=topic&amp;id=686&amp;Itemid=57">подсветки синтаксиса для **Notepad++** и **AkelPad**</a>, но были утеряны.</div>
+<li class="level1"><div class="li"> Существовали разные <a class="urlextern" href="https://qsp.org/forum/564" rel="nofollow" target="_blank" title="https://qsp.org/forum/564">подсветки синтаксиса для Notepad++ и AkelPad</a>, но были утеряны.</div>
 </li>
 <li class="level1"><div class="li"> Подсветка синтаксиса для Sublime Text входит в <strong><a class="urlextern" href="https://github.com/AleksVersus/JAD_for_QSP" rel="nofollow" target="_blank" title="https://github.com/AleksVersus/JAD_for_QSP">пакет QSP для Sublime Text</a></strong>. В этот же пакет встроен плагин с конвертерами qsps и QSP-файлов в любую сторону.</div>
 </li>
-<li class="level1"><div class="li"> Существует подсветка для <a class="urlextern" href="https://qsp.org/components/com_agora/img/members/20/notepad-qsp.zip" rel="nofollow" target="_blank" title="https://qsp.org/components/com_agora/img/members/20/notepad-qsp.zip">Notepad++ от Олегуса</a>. С этой подсветкой ассоциируются текстовые файлы с расширением "<code>.tqsp</code>", однако вы можете отредактировать файл подсветки, указав нужное вам расширение.</div>
+<li class="level1"><div class="li"> Существует подсветка для <a class="urlextern" href="https://qsp.org/storage/files/12/notepad-qsp.zip" rel="nofollow" target="_blank" title="https://qsp.org/storage/files/12/notepad-qsp.zip">Notepad++ от Олегуса</a>. С этой подсветкой ассоциируются текстовые файлы с расширением "<code>.tqsp</code>", однако вы можете отредактировать файл подсветки, указав нужное вам расширение.</div>
 </li>
 <li class="level1"><div class="li"> Werewolf разработал утилиту для конвертирования QSP-файла в текстовый формат (аналог <strong>qsp2txt</strong>), которая работает онлайн: <a class="urlextern" href="https://codepen.io/srg-kostyrko/full/QWqdwxv" rel="nofollow" target="_blank" title="https://codepen.io/srg-kostyrko/full/QWqdwxv">https://codepen.io/srg-kostyrko/full/QWqdwxv</a>. Так же он разработал специальные пакеты для конвертирования файлов в любую сторону: <a class="urlextern" href="https://github.com/QSPFoundation/converters" rel="nofollow" target="_blank" title="https://github.com/QSPFoundation/converters">https://github.com/QSPFoundation/converters</a>.</div>
 </li>
