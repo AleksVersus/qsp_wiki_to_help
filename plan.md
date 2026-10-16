@@ -128,11 +128,18 @@ tests/
   Офлайн-тесты: `tests/test_naming.py` (13) + `tests/test_crawler.py` (8, mock-сессия, без сети);
   всего 54 зелёных. Реальный краул — ручной прогон (сеть не трогали, html_src не перезаписывали).
   Старый `qsp_wiki_downloader/` не тронут (удаление — после Фазы 5).
-- **Фаза 5. Pipeline + CLI.** `pipeline.py`, `cli.py`; README корневого проекта
-  обновить под единый запуск; удалить/переписать `test_*.py` downloader'а
-  как pytest с mock-ами (без сети); после сверки бейзлайна — **удалить**
-  `qsp_wiki_downloader/` и `chm_prepare/` целиком, без shim-обёрток
-  (решение от 2026-10-16).
+- **Фаза 5. Pipeline + CLI. [ВЫПОЛНЕНА 2026-10-16]** `pipeline.py`
+  (`run_download`/`run_prepare`/`run_anchors`/`run_all` — оркестрация, лог настраивает cli)
+  и `cli.py` + `__main__.py` — единая точка входа `python -m qsp_help_builder
+  <download|prepare|anchors|all>` с `--config` и `--log-level` (рабочие пути от конфига, не от CWD).
+  README корня переписан под единый запуск; старые скриптовые команды убраны.
+  Единый `requirements.txt` в корне (объединение зависимостей двух удалённых папок).
+  `download_log` в конфиге перенесён в корень (`wiki_download.log`), т.к. исходная папка удалена.
+  **Удалены** `qsp_wiki_downloader/` и `chm_prepare/` целиком, без shim-обёрток
+  (решение п.6). Приёмка: `python -m qsp_help_builder prepare` пересобрал html_out
+  побайтово == `m_regen1.json` (73 файла, 0 расхождений; html_out откачен git restore).
+  Офлайн-тесты: `tests/test_cli.py` (6) + `tests/test_pipeline.py` (2, включая сквозной
+  run_anchors на tmp-сборке); всего 62 зелёных.
 - **Фаза 6. Зачистка.** Удалить дублиhelpers, поправить очевидные баги/опечатки,
   список которых ведём в `handoff.md` (раздел «Известные проблемы»).
 - **Фаза 7. Модель сайта + одностраничник.** `model.py` как нейтральный выход пайплайна,

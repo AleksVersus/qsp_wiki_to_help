@@ -56,4 +56,5 @@ files = [
 # --- Логирование (источник: logging.basicConfig в шапке qsp_wiki_downloader.py) ---
 [logging]
 level = "DEBUG"
-download_log = "qsp_wiki_downloader/wiki_download.log"  # историческое место файла лога
+download_log = "wiki_download.log"  # исторически был qsp_wiki_downloader/wiki_download.log;
+                                     # перенесён в корень, т.к. эта папка удалена (Фаза 5)

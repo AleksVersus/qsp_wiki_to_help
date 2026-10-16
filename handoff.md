@@ -6,15 +6,19 @@
 ## 1. Что это за проект
 
 Конвейер сборки офлайн-справки (CHM) по QSP из wiki.qsp.org (DokuWiki).
-Три этапа, каждый — отдельный Python-скрипт, запускаемый вручную **из своей папки**
-(все пути построены на `os.getcwd() + '..'` — это известная боль, см. план):
+С Фазы 5 — единый Python-пакет `qsp_help_builder` с точкой входа (запуск из корня
+проекта; рабочие пути резолвятся от `qsp_help.toml`, а не от CWD — фик backlog §4.1):
 
-1. `qsp_wiki_downloader/qsp_wiki_downloader.py` — краулит wiki → `html_src/`;
-2. `chm_prepare/to_chm_prepare.py` — готовит файлы → `html_out/` (+ `qsp.hhc`, `qsp.hhk`);
-3. Компиляция внешним **HTML Help Workshop** (`help_workshop/htmlhelp.exe`) — не автоматизирована.
+1. `python -m qsp_help_builder download` — краулит wiki → `html_src/` (быв. qsp_wiki_downloader);
+2. `python -m qsp_help_builder prepare` — готовит файлы → `html_out/` (+ `qsp.hhc`, `qsp.hhk`) (быв. chm_prepare);
+3. `python -m qsp_help_builder anchors` — извлекает якоря из собранного `html_out` в `html_src/anchors.json`
+   (быв. `_auxtools/extract_keywords.py`); `all` = download→prepare→anchors;
+4. Компиляция внешним **HTML Help Workshop** (`help_workshop/htmlhelp.exe`) — не автоматизирована.
 
-Вспомогательный: `_auxtools/extract_keywords.py` — извлекает якоря из собранной справки
-в `html_src/anchors.json` (цикл: подготавливает данные для этапа 2 из результатов этапа 2).
+Старые папки `qsp_wiki_downloader/` и `chm_prepare/` **удалены** в Фазе 5 (решение п.6);
+их функциональность полностью переехала в пакет. `_auxtools/extract_keywords.py` пока
+лежит в репозитории, но дублируется `anchors.extract_from_build` + `pipeline.run_anchors`
+(окончательное удаление — Фаза 6).
 
 Репозиторий также является Obsidian-vault (`.obsidian/`) и Sublime-проектом; артефакты
 готовых справок (`qsp_5.9.2.chm`, `qsp_5.9.4.chm`) лежат в `html_out/`.
@@ -156,6 +160,15 @@ extract_keywords ищет именно их. Для hhk строится кар�
   реальные ссылки DokuWiki идут как `/help:coding` (проверено тестами). Офлайн-тесты:
   test_naming (13) + test_crawler (8, mock-сессия); всего 54 зелёных. Сеть не трогали,
   html_src не перезаписывали (реальный краул — ручной). Старый `qsp_wiki_downloader/` не тронут.
+- **Фаза 5 выполнена**: `pipeline.py` (`run_download`/`run_prepare`/`run_anchors`/`run_all`) +
+  `cli.py`/`__main__.py` — единая точка входа `python -m qsp_help_builder <download|prepare|anchors|all>`
+  с `--config`/`--log-level`, CWD-независимая. README переписан под команды CLI. Единый
+  `requirements.txt` в корне. `download_log` перенесён в корень (`wiki_download.log`) —
+  логу больше не нужна удалённая папка; в .gitignore добавлен `/wiki_download.log`.
+  **Удалены** `qsp_wiki_downloader/` и `chm_prepare/` (без shim, решение п.6). Приёмка:
+  `python -m qsp_help_builder prepare` пересобрал html_out побайтово == `m_regen1.json`
+  (73/73, 0 расхождений; html_out откачен git restore). Тесты: test_cli (6) + test_pipeline (2),
+  всего 62 зелёных.
 
 ## 4. Известные проблемы / подозрительные места (вести как backlog)
 
@@ -207,14 +220,12 @@ extract_keywords ищет именно их. Для hhk строится кар�
 
 1. Открытые вопросы закрыты (plan.md § «Принятые решения»); **Фаза 0 завершена** —
    бейзлайн и правило приёмки в `_baseline/2026-10-16/BASELINE.md`;
-2. Следующий шаг — **Фаза 5 (Pipeline + CLI)**: `qsp_help_builder/pipeline.py`
-   (`run_download` из download/ уже готов; добавить обёртки `run_prepare`/`run_anchors`)
-   и `cli.py` (argparse: download | prepare | anchors | all; точка входа `python -m
-   qsp_help_builder`). Настроить лог один раз в cli через `config.configure_logging`.
-   README корня обновить под единый запуск; `test_*.py` старого downloader'а не переносить
-   (их покрывают новые mock-тесты download/). После сверки бейзлайна (prepare_all == m_regen1)
-   — **удалить** `qsp_wiki_downloader/` и `chm_prepare/` целиком, без shim (решение п.6).
-   (Фазы 0–4 завершены 2026-10-16; старые скрипты до Фазы 5 не трогать.)
+2. Следующий шаг — **Фаза 6 (зачистка)**: убрать оставшиеся дубли (в т.ч. решить судьбу
+   `_auxtools/extract_keywords.py` — он дублирует `anchors.extract_from_build`), поправить
+   отложенные баги/опечатки из §4 списком: фикс `dic.docInfo`→`div.docInfo` (§4.3),
+   off-by-one якорей (§4.4), починка имён картинок fetch.php (§4.2), дрейф anchors.json
+   (§4.12). Каждая починка сдвигает бейзлайн — оформлять как ЗАДОКУМЕНТИРОВАННОЕ
+   изменение поведения (пересобрать baseline-манифест после). (Фазы 0–5 завершены 2026-10-16.)
 4. При проектировании Фаз 3–5 учитывать будущее направление: внутренним ссылкам
    разрешаться в слаги/модель, а не только в .htm-файлы (см. plan.md «Направление»,
    Фазы 7–8) — иначе модель сайта придётся выводить задним числом;
@@ -222,9 +233,11 @@ extract_keywords ищет именно их. Для hhk строится кар�
 
 ## 7. Технические детали среды
 
-- Windows + PowerShell (`;` вместо `&&`); Python-скрипты, зависимости:
-  `requests`, `beautifulsoup4`, `lxml` (requirements в подпапках);
-- Запуск скриптов: из их каталогов (`cd qsp_wiki_downloader; python qsp_wiki_downloader.py`);
+- Windows + PowerShell (`;` вместо `&&`); Python 3.13 (нужен 3.11+ из-за `tomllib`),
+  зависимости: `requests`, `beautifulsoup4`, `lxml` — единый `requirements.txt` в корне;
+- Запуск: `python -m qsp_help_builder <download|prepare|anchors|all>` из корня проекта
+  (нужен корень в sys.path; внутренние пути не зависят от CWD — резолвятся от конфига).
+  Тесты: `python -m pytest tests/ -q`;
 - В `html_out` уже лежат собранные артефакты прошлых прогонов — использовать для сверки,
   но быть осторожным: prepare **удаляет** `sidebar.htm`/`help_keywords.htm` из `html_out`;
 - Коммуникация с пользователем — по-русски (prefs в памяти).
