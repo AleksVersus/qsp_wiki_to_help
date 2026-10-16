@@ -17,10 +17,15 @@ from pathlib import Path
 from .fs_utils import file_name, load_json, save_json
 
 
+def _empty_str_map() -> dict[str, str]:
+    """Типизированный factory для mutable-default полей (pyright strict против голого dict)."""
+    return {}
+
+
 @dataclass
 class UrlScheme:
-    pages: dict[str, str] = field(default_factory=dict)   # url страницы -> путь к .html
-    images: dict[str, str] = field(default_factory=dict)  # url картинки -> путь к файлу
+    pages: dict[str, str] = field(default_factory=_empty_str_map)   # url страницы -> путь к .html
+    images: dict[str, str] = field(default_factory=_empty_str_map)  # url картинки -> путь к файлу
 
     @classmethod
     def load(cls, path: Path) -> "UrlScheme":

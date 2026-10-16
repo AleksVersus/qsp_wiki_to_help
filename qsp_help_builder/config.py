@@ -18,10 +18,16 @@ import logging
 import tomllib
 from dataclasses import dataclass, field
 from pathlib import Path
+from typing import Any
 
 
 class ConfigError(RuntimeError):
     """Ошибка конфигурации: нет файла/секции/ключа или значение непригодно."""
+
+
+def _empty_str_map() -> dict[str, str]:
+    """Типизированный factory для mutable-default полей (pyright strict против голого dict)."""
+    return {}
 
 
 @dataclass(frozen=True)
@@ -58,7 +64,7 @@ class ChmSettings:
     index_encoding: str      # кодировка hhc/hhk (HTML Help Workshop требует windows-1251)
     # Точечные поправки указателя (§4.11): заголовок -> итоговый Local (file.htm#anchor).
     # Побеждают и keywords_map, и href_compare. Перенос ручных правок золота в код.
-    keyword_overrides: dict[str, str] = field(default_factory=dict)
+    keyword_overrides: dict[str, str] = field(default_factory=_empty_str_map)
 
 
 @dataclass(frozen=True)
@@ -82,14 +88,14 @@ def default_config_path() -> Path:
     return Path(__file__).resolve().parent.parent / "qsp_help.toml"
 
 
-def _require(section: dict, key: str, where: str):
+def _require(section: dict[str, Any], key: str, where: str) -> Any:
     """Достаёт обязательный ключ; отсутствие — явная ошибка с адресом."""
     if key not in section:
         raise ConfigError(f"В qsp_help.toml отсутствует ключ '{key}' в секции [{where}]")
     return section[key]
 
 
-def _require_section(raw: dict, name: str, config_path: Path) -> dict:
+def _require_section(raw: dict[str, Any], name: str, config_path: Path) -> dict[str, Any]:
     if name not in raw:
         raise ConfigError(f"В {config_path.name} отсутствует обязательная секция [{name}]")
     return raw[name]
@@ -153,7 +159,9 @@ def load_settings(config_path: Path | None = None) -> Settings:
         },
     )
 
-    exclude_files = frozenset(_require(exclude_raw, "files", "exclude"))
+    exclude_files: frozenset[str] = frozenset(
+        _require(exclude_raw, "files", "exclude")
+    )
 
     logging_s = LoggingSettings(
         level=str(_require(log_raw, "level", "logging")).upper(),

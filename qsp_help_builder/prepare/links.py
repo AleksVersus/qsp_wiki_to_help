@@ -1,4 +1,4 @@
-# pyright: reportUnknownMemberType=false, reportAttributeAccessIssue=false, reportIndexIssue=false, reportOperatorIssue=false, reportUnknownArgumentType=false, reportArgumentType=false
+# pyright: reportUnknownMemberType=false, reportAttributeAccessIssue=false, reportIndexIssue=false, reportOperatorIssue=false, reportUnknownArgumentType=false, reportArgumentType=false, reportUnknownVariableType=false
 # Ограничения stub'ов bs4: find_all('a') типизирован как union PageElement, но с
 # href=True там всегда Tag; порт 1:1, runtime-проверки не добавляем (решение Фазы 3).
 """Замена ссылок на локальные файлы по UrlScheme (порт ChmPrepare.replace_links).

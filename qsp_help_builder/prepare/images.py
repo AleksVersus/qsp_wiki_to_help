@@ -1,3 +1,7 @@
+# pyright: reportUnknownMemberType=false, reportUnknownVariableType=false, reportUnknownArgumentType=false, reportAttributeAccessIssue=false, reportIndexIssue=false, reportArgumentType=false, reportOptionalMemberAccess=false, reportOperatorIssue=false
+# Ограничения stub'ов bs4 (как в links.py): find_all/select типизированы как union
+# PageElement/NavigableString, но для <img> это всегда Tag; runtime-проверки не
+# добавляем — порт 1:1 (параметры el/img аннотированы Tag явно).
 """Обработка изображений (порт ChmPrepare.extract_images + replace_src).
 
 Печальную эвристику нечёткого сопоставления имён решено сохранить
@@ -13,7 +17,7 @@ from __future__ import annotations
 
 import logging
 
-from bs4 import BeautifulSoup
+from bs4 import Tag
 
 from ..schema import UrlScheme
 
@@ -23,7 +27,7 @@ logger = logging.getLogger(__name__)
 _ICON_SELECTOR = "img.icon"
 
 
-def process_images(el, scheme: UrlScheme, *, base_url: str) -> None:
+def process_images(el: Tag, scheme: UrlScheme, *, base_url: str) -> None:
     """Порт extract_images: поправка src, снятие «кликабельности», иконки.
 
     base_url параметризует зашитый в старом коде 'https://wiki.qsp.org' —
@@ -63,7 +67,7 @@ def process_images(el, scheme: UrlScheme, *, base_url: str) -> None:
             img.decompose()
 
 
-def replace_src(img, scheme: UrlScheme) -> None:
+def replace_src(img: Tag, scheme: UrlScheme) -> None:
     """Порт replace_src: точное совпадение url -> эвристика имён (без break!)."""
     src = img["src"]
     name = scheme.image_name(src)

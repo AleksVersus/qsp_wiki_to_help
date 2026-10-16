@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false, reportMissingParameterType=false, reportUnknownParameterType=false, reportUnknownVariableType=false, reportUnknownArgumentType=false, reportArgumentType=false
 """Юнит-тесты download-краулера (Фаза 4).
 
 Офлайн: сеть подменяется фиктивной сессией, time.sleep отключается обнулённой

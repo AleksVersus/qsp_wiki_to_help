@@ -23,6 +23,7 @@ import logging
 import re
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any, cast
 
 from bs4 import BeautifulSoup
 
@@ -39,7 +40,7 @@ class AnchorEntry:
     title: str
 
 
-def _entry_to_json(entry: AnchorEntry) -> list:
+def _entry_to_json(entry: AnchorEntry) -> list[object]:
     """Сериализация одной записи — дословно старый формат [line, title]."""
     return [entry.line, entry.title]
 
@@ -55,20 +56,21 @@ class Anchors:
     @classmethod
     def load(cls, path: Path) -> "Anchors":
         """Читает anchors.json в историческом формате; битую структуру — явной ошибкой."""
-        raw = load_json(path)
+        raw: dict[str, dict[str, Any]] = load_json(path)
         by_file: dict[str, dict[str, AnchorEntry]] = {}
         for file_key, anchors in raw.items():
             entries: dict[str, AnchorEntry] = {}
             for anchor, payload in anchors.items():
-                if not isinstance(payload, list) or len(payload) != 2:
+                pair = cast("list[Any]", payload) if isinstance(payload, list) else []
+                if len(pair) != 2:
                     raise ValueError(
                         f"anchors.json: запись '{file_key}'/{anchor} != [line, title] — контракт нарушен"
                     )
-                entries[anchor] = AnchorEntry(line=int(payload[0]), title=str(payload[1]))
+                entries[anchor] = AnchorEntry(line=int(pair[0]), title=str(pair[1]))
             by_file[file_key] = entries
         return cls(by_file)
 
-    def to_json_dict(self) -> dict:
+    def to_json_dict(self) -> dict[str, dict[str, list[object]]]:
         """Обратное преобразование в исторический JSON (порядок ключей — как добавляли)."""
         return {
             file_key: {anchor: _entry_to_json(e) for anchor, e in anchors.items()}

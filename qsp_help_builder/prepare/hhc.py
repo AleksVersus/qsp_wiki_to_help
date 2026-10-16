@@ -1,4 +1,4 @@
-# pyright: reportUnknownMemberType=false, reportAttributeAccessIssue=false, reportOptionalMemberAccess=false, reportUnknownVariableType=false, reportArgumentType=false, reportMissingParameterType=false, reportUnknownParameterType=false, reportUnknownArgumentType=false
+# pyright: reportUnknownMemberType=false, reportAttributeAccessIssue=false, reportOptionalMemberAccess=false, reportUnknownVariableType=false, reportArgumentType=false, reportMissingParameterType=false, reportUnknownParameterType=false, reportUnknownArgumentType=false, reportOptionalSubscript=false
 """Содержание CHM: sidebar.htm -> qsp.hhc (порт ChmPrepare.prepare_hhc/hhc_ul_rebuild_li).
 
 ИСТОРИК, сохранён 1:1:

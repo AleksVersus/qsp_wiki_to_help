@@ -1,4 +1,4 @@
-# pyright: reportUnknownMemberType=false, reportMissingParameterType=false, reportUnknownParameterType=false, reportUnknownVariableType=false, reportIndexIssue=false, reportOptionalMemberAccess=false
+# pyright: reportUnknownMemberType=false, reportMissingParameterType=false, reportUnknownParameterType=false, reportUnknownVariableType=false, reportIndexIssue=false, reportOptionalMemberAccess=false, reportUnknownLambdaType=false
 """Тесты pipeline-оркестрации (Фаза 5).
 
 Проверяют порядок этапов в run_all (суб-функции подменены) и сквозной run_anchors
