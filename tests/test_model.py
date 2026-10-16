@@ -15,6 +15,7 @@ from qsp_help_builder.config import (
     LoggingSettings,
     PathSettings,
     Settings,
+    SpaSettings,
     WikiSettings,
 )
 from qsp_help_builder.fs_utils import save_json, write_text
@@ -37,7 +38,7 @@ def make_settings(tmp_path: Path) -> Settings:
     )
     chm = ChmSettings("sidebar.htm", "help_keywords.htm", "qsp.hhc", "qsp.hhk", "utf-8", "windows-1251")
     log = LoggingSettings("DEBUG", tmp_path / "dl.log")
-    return Settings(tmp_path / "qsp_help.toml", wiki, paths, chm, frozenset(), log)
+    return Settings(tmp_path / "qsp_help.toml", wiki, paths, SpaSettings("start"), chm, frozenset(), log)
 
 
 def seed_inputs(settings: Settings, page_html: str) -> None:

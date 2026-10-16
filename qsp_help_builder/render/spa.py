@@ -26,7 +26,7 @@ from bs4 import BeautifulSoup, Tag
 
 from ..config import Settings
 from ..fs_utils import ensure_dir, file_name, write_text
-from ..model import SiteModel, build_site_model
+from ..model import Page, SiteModel, build_site_model
 from .profile import SpaProfile
 
 logger = logging.getLogger(__name__)
@@ -87,9 +87,7 @@ def render_spa(settings: Settings) -> None:
         _namespace_ids(sidebar.fragment, sidebar.slug)
         nav.append(sidebar.fragment)
 
-    for page in model.pages:
-        if page.slug == NAV_SOURCE_SLUG:
-            continue  # ушёл в навигацию
+    for page in _content_pages(model, settings.spa.start_page):
         _namespace_ids(page.fragment, page.slug)
         section = soup.new_tag("section")
         section["id"] = page.slug
@@ -102,6 +100,22 @@ def render_spa(settings: Settings) -> None:
     write_text(spa_dir / "index.html", str(soup), settings.chm.page_encoding)
     _copy_assets(model, settings, spa_dir)
     logger.info("Одностраничник собран: %s (страниц %d)", spa_dir / "index.html", len(model.pages))
+
+
+def _content_pages(model: SiteModel, start_slug: str) -> list[Page]:
+    """Порядок секций контента: ``start_slug`` первым, остальные — как в модели.
+
+    Router без хеша показывает ``sections[0]``, поэтому стартовая страница из
+    конфига должна идти в DOM первой (страница ``sidebar`` в контент не попадает —
+    она ушла в навигацию). Если стартовый slug не найден среди контента, порядок
+    остаётся модельным и пишется предупреждение.
+    """
+    pages = [p for p in model.pages if p.slug != NAV_SOURCE_SLUG]
+    start = next((p for p in pages if p.slug == start_slug), None)
+    if start is None:
+        logger.warning("SPA: стартовая страница %r не найдена среди контента", start_slug)
+        return pages
+    return [start, *(p for p in pages if p is not start)]
 
 
 def _namespace_ids(fragment: Tag, slug: str) -> None:

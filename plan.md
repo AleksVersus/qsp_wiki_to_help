@@ -162,7 +162,8 @@ tests/
   SPA `#slug~anchor`/`images/имя`). `render/chm.py` — первый потребитель (перенос
   `prepare_all`), `render/spa.py` — автономный одностраничник (`spa_out/index.html`
   + hash-router + `images/`). `links`/`images` получили обязательный `profile`, параллельно
-  готовя цели для обоих выходов (решение пользователя). Конфиг: `[spa].out → paths.spa`;
+  готовя цели для обоих выходов (решение пользователя). Конфиг: `[spa].out → paths.spa`,
+  `[spa].start_page → spa.start_page` (slug первой секции SPA, открывается без хеша);
   CLI/`pipeline`: команда `spa`. Приёмка: `prepare` → `html_out` побайтово == baseline
   `_baseline/2026-10-17/m_regen.json` (77 файлов, 0 расхождений — CHM не сдвинут);
   `spa` открывает `#start` (логотип резолвится из ассетов модели), TOC/якоря/картинки

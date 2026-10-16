@@ -27,6 +27,7 @@ anchors = "html_src/anchors.json"
 # --- Одностраничник (SPA, Фаза 7): гибрид index.html + папка images/ рядом ---
 [spa]
 out = "spa_out"                             # каталог выхода одностраничника
+start_page = "start"                        # slug первой страницы (открывается без хеша)
 
 # --- Подготовка CHM (источник: ChmPrepare; keys 'hhc'/'hhk' и хардкод qsp.hhc/qsp.hhk) ---
 [chm]

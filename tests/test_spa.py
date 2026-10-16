@@ -14,6 +14,7 @@ from qsp_help_builder.config import (
     LoggingSettings,
     PathSettings,
     Settings,
+    SpaSettings,
     WikiSettings,
 )
 from qsp_help_builder.fs_utils import save_json, write_text
@@ -22,7 +23,7 @@ from qsp_help_builder.render.spa import render_spa
 BASE_URL = "https://wiki.qsp.org"
 
 
-def make_settings(tmp_path: Path) -> Settings:
+def make_settings(tmp_path: Path, start_page: str = "start") -> Settings:
     wiki = WikiSettings(BASE_URL, 5.0, 0.0, "ua")
     paths = PathSettings(
         root=tmp_path,
@@ -35,11 +36,20 @@ def make_settings(tmp_path: Path) -> Settings:
     )
     chm = ChmSettings("sidebar.htm", "help_keywords.htm", "qsp.hhc", "qsp.hhk", "utf-8", "windows-1251")
     log = LoggingSettings("DEBUG", tmp_path / "dl.log")
-    return Settings(tmp_path / "qsp_help.toml", wiki, paths, chm, frozenset(), log)
+    return Settings(
+        tmp_path / "qsp_help.toml", wiki, paths, SpaSettings(start_page), chm, frozenset(), log
+    )
 
 
 def seed(tmp_path: Path, settings: Settings) -> None:
     src = settings.paths.src
+    write_text(
+        src / "start.html",
+        f'<html><head><title>Старт</title></head><body><div class="page group">'
+        f'<h1>Добро пожаловать</h1>'
+        f'</div></body></html>',
+        "utf-8",
+    )
     write_text(
         src / "help_coding.html",
         f'<html><head><title>Код</title></head><body><div class="page group">'
@@ -91,6 +101,26 @@ def test_render_spa_builds_index_with_sections_and_nav(tmp_path: Path):
     assert 'src="images/help_msgbox.png"' in index
     # легаси-логотип (голое имя мимо scheme) тоже уходит в images/
     assert 'src="images/help_wiki_logo.png"' in index
+
+
+def test_render_spa_start_page_is_first_section(tmp_path: Path):
+    # стартовая страница из конфига идёт первой секцией (её показывает router без хеша)
+    settings = make_settings(tmp_path, start_page="start")
+    seed(tmp_path, settings)
+    render_spa(settings)
+
+    index = (settings.paths.spa / "index.html").read_text(encoding="utf-8")
+    assert index.index('data-slug="start"') < index.index('data-slug="help_coding"')
+
+
+def test_render_spa_start_page_is_configurable(tmp_path: Path):
+    # сменив start_page в конфиге, меняем первую секцию без правки кода
+    settings = make_settings(tmp_path, start_page="help_coding")
+    seed(tmp_path, settings)
+    render_spa(settings)
+
+    index = (settings.paths.spa / "index.html").read_text(encoding="utf-8")
+    assert index.index('data-slug="help_coding"') < index.index('data-slug="start"')
 
 
 def test_render_spa_copies_assets(tmp_path: Path):

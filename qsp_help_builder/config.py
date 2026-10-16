@@ -54,6 +54,13 @@ class PathSettings:
 
 
 @dataclass(frozen=True)
+class SpaSettings:
+    """Одностраничник (Фаза 7): параметры, не сводимые к пути выхода."""
+
+    start_page: str  # slug страницы, идущей первой (открывается без хеша)
+
+
+@dataclass(frozen=True)
 class ChmSettings:
     """Этап подготовки (быв. dict настроек ChmPrepare + хардкод имён qsp.*)."""
 
@@ -79,6 +86,7 @@ class Settings:
     config_path: Path
     wiki: WikiSettings
     paths: PathSettings
+    spa: SpaSettings
     chm: ChmSettings
     exclude_files: frozenset[str]  # wiki-разделы, исключаемые из справки (files_to_del)
     logging: LoggingSettings
@@ -150,6 +158,10 @@ def load_settings(config_path: Path | None = None) -> Settings:
         spa=_resolve(root, _require(spa_raw, "out", "spa")),
     )
 
+    spa = SpaSettings(
+        start_page=str(_require(spa_raw, "start_page", "spa")),
+    )
+
     chm = ChmSettings(
         hhc_source=str(_require(chm_raw, "hhc_source", "chm")),
         hhk_source=str(_require(chm_raw, "hhk_source", "chm")),
@@ -175,6 +187,7 @@ def load_settings(config_path: Path | None = None) -> Settings:
         config_path=path.resolve(),
         wiki=wiki,
         paths=paths,
+        spa=spa,
         chm=chm,
         exclude_files=exclude_files,
         logging=logging_s,

@@ -226,7 +226,8 @@ extract, и на inject (раньше 1-based↔0-based давал сдвиг н
   делегирует ему) и `render/spa.py` (`render_spa` → `spa_out/index.html` + hash-router +
   `images/`, namespace id `{slug}~X`, навигация из `sidebar`, `_normalize_local_images`
   доводит легаси-голые src до `images/`). Конфиг: `[spa].out → paths.spa` (обязателен,
-  без дефолтов); CLI/`pipeline`: команда `spa` (`run_spa`). Приёмка: `prepare` → `html_out`
+  без дефолтов); `[spa].start_page → spa.start_page` — slug первой контент-секции
+  (её показывает router без хеша; правится в конфиге без правки кода). CLI/`pipeline`: команда `spa` (`run_spa`). Приёмка: `prepare` → `html_out`
   **побайтово == baseline `_baseline/2026-10-17/m_regen.json`** (77 файлов, 0 расхождений —
   CHM не сдвинут, пересъёмка не потребовалась); `spa` проверен с `file://` (#start логотип
   грузится, TOC/якоря/картинки работают); 0 ошибок pyright, 77 тестов зелёные

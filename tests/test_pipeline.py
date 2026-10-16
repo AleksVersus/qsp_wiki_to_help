@@ -14,6 +14,7 @@ from qsp_help_builder.config import (
     LoggingSettings,
     PathSettings,
     Settings,
+    SpaSettings,
     WikiSettings,
 )
 
@@ -31,7 +32,7 @@ def make_settings(tmp_path: Path) -> Settings:
     )
     chm = ChmSettings("sidebar.htm", "help_keywords.htm", "qsp.hhc", "qsp.hhk", "utf-8", "windows-1251")
     log = LoggingSettings("DEBUG", tmp_path / "dl.log")
-    return Settings(tmp_path / "qsp_help.toml", wiki, paths, chm, frozenset(), log)
+    return Settings(tmp_path / "qsp_help.toml", wiki, paths, SpaSettings("start"), chm, frozenset(), log)
 
 
 def test_run_all_invokes_stages_in_order(monkeypatch):

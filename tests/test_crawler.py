@@ -18,6 +18,7 @@ from qsp_help_builder.config import (
     LoggingSettings,
     PathSettings,
     Settings,
+    SpaSettings,
     WikiSettings,
 )
 from qsp_help_builder.download.crawler import (
@@ -127,7 +128,7 @@ def settings(tmp_path: Path) -> Settings:
     )
     chm = ChmSettings("sidebar.htm", "help_keywords.htm", "qsp.hhc", "qsp.hhk", "utf-8", "windows-1251")
     log = LoggingSettings(level="DEBUG", download_log=tmp_path / "dl.log")
-    return Settings(tmp_path / "qsp_help.toml", wiki, paths, chm, frozenset(), log)
+    return Settings(tmp_path / "qsp_help.toml", wiki, paths, SpaSettings("start"), chm, frozenset(), log)
 
 
 def test_crawler_run_traverses_pages_and_downloads_images_separately(settings):
