@@ -2,3 +2,4 @@
 /html_out/*.chm
 */wiki_download.log
 *.sublime-workspace
+__pycache__/

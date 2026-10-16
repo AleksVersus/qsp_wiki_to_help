@@ -88,9 +88,13 @@ tests/
   (help_qgen.htm, qsp.hhk) — ручные правки README шагa 6–7, код их не воспроизводит.
   Правило приёмки каждой последующей фазы: diff пересборки с `m_regen1.json` пуст,
   либо расхождения заранее задокументированы.
-- **Фаза 1. Каркас пакета.** `qsp_help_builder/`, `config.py`, `fs_utils.py`,
-  `templates.py`, `schema.py`. Старые скрипты пока не трогаем — просто переносим
-  общий код.
+- **Фаза 1. Каркас пакета. [ВЫПОЛНЕНА 2026-10-16]** Созданы `qsp_help_builder/`
+  (`__init__`, `config`, `fs_utils`, `schema`, `templates`) и `qsp_help.toml` в корне.
+  Приёмка: конфиг грузится от любого CWD; `[exclude].files` побайтово равен
+  `files_to_del` старого кода (проверено AST-сравнением); `UrlScheme.load` читает
+  реальный манифест (76 pages / 17 images); шаблоны `CHM/HHC/HHK_PAGE` равны
+  константам to_chm_prepare.py. Мёртвый ключ `start_file` не перенесён (не читался).
+  Старые скрипты не тронуты; html_out не менялся.
 - **Фаза 2. Anchors-модуль.** Из `_auxtools/extract_keywords.py` + вставки якорей
   из `to_chm_prepare.py` собрать `anchors.py` с единственным представлением формата
   `anchors.json`. Это устраняет самую хрупкую связь двух скриптов.

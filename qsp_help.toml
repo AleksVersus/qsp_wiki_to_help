@@ -1,0 +1,58 @@
+# ============================================================================
+# Единственный файл настроек qsp_help_builder (решение от 2026-10-16, п.2).
+# Значений by-default в коде нет — без этого файла сборка не запускается.
+# Все относительные пути считаются от папки этого файла (корень проекта),
+# запуск из любого CWD даёт одинаковый результат (чинка backlog handoff §4.1).
+#
+# Каждый параметр пересажен дословно из старого кода (указан источник),
+# чтобы выход совпадал с бейзлайном _baseline/2026-10-16.
+# ============================================================================
+
+# --- Этап выгрузки страниц (источник: qsp_wiki_downloader.py) ---
+[wiki]
+base_url = "https://wiki.qsp.org"
+timeout_sec = 30.0
+delay_sec = 0.5
+user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+
+# --- Пути (источник: dict self.sets в ChmPrepare.__init__ + output_dir загрузчика) ---
+# note: мёртвый ключ 'start_file' из старого dict не перенесён — код его не читал.
+[paths]
+src = "html_src"
+out = "html_out"
+scheme = "html_src/urls_links_to_files.json"
+anchors = "html_src/anchors.json"
+
+# --- Подготовка CHM (источник: ChmPrepare; keys 'hhc'/'hhk' и хардкод qsp.hhc/qsp.hhk) ---
+[chm]
+hhc_source = "sidebar.htm"          # скачанный help:sidebar -> основа содержания
+hhk_source = "help_keywords.htm"    # скачанный help:keywords -> основа указателя
+hhc_output = "qsp.hhc"
+hhk_output = "qsp.hhk"
+page_encoding = "utf-8"             # htm-страницы
+index_encoding = "windows-1251"     # hhc/hhk: требование HTML Help Workshop
+
+# --- Исключаемые разделы (источник: self.files_to_del в ChmPrepare.__init__) ---
+[exclude]
+files = [
+    "discussions",
+    "help_aeroqsp",
+    "help_fajl_css_igry_v_quest_navigator",
+    "help_fajl_js_igry_v_quest_navigator",
+    "help_fajl_nastroek_igry_v_quest_navigator",
+    "help_ispolzovanie_shriftov_v_quest_navigator",
+    "help_navigator_command_line",
+    "help_navigator_game_files",
+    "help_navigator_game_template",
+    "help_navigator_standalone",
+    "help_sozdanie_igr_na_quest_navigator",
+    "playground_contents_what_dif_goto_gosub.md",
+    "index",
+    "playground_playground",
+    "help_navigator",
+]
+
+# --- Логирование (источник: logging.basicConfig в шапке qsp_wiki_downloader.py) ---
+[logging]
+level = "DEBUG"
+download_log = "qsp_wiki_downloader/wiki_download.log"  # историческое место файла лога
