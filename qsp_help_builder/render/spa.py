@@ -332,7 +332,7 @@ def _normalize_local_images(soup: BeautifulSoup) -> None:
 def copy_assets(model: SiteModel, settings: Settings, out_dir: Path) -> None:
     """Копирует используемые картинки в ``<out>/images`` и статичные ресурсы рядом.
 
-    Общий для SPA и PWA: выходная папка передаётся (``spa_out``/``pwa_out``), а
+    Общий для SPA и PWA: выходная папка передаётся (``spa_out``/``[pwa].out``), а
     ресурсы (default.css, spa.css) всегда берутся из ``_res_src/spa`` — у PWA тот же
     CSS-каркас, отдельного дерева ресурсов нет (легаси-логотип start подтягивается
     из ``html_out``, т.к. в ``html_src/images`` он лежит как ``wiki_logo.png``).

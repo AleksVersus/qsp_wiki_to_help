@@ -40,7 +40,7 @@ def build_parser() -> argparse.ArgumentParser:
         choices=sorted(COMMANDS),
         help="download — выгрузка с wiki (нужна сеть); prepare — html_src->html_out (CHM); "
         "anchors — извлечение якорей из собранного html_out; spa — одностраничник "
-        "html_src->spa_out; pwa — PWA для хостинга html_src->pwa_out; "
+        "html_src->spa_out; pwa — PWA для хостинга html_src->[pwa].out (docs); "
         "all — download->prepare->anchors.",
     )
     parser.add_argument(

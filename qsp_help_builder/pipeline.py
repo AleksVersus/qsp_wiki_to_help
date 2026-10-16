@@ -54,7 +54,7 @@ def run_spa(settings: Settings) -> None:
 
 
 def run_pwa(settings: Settings) -> None:
-    """Этап PWA html_src -> pwa_out (индекс + манифест + service worker + поиск). Офлайн.
+    """Этап PWA html_src -> [pwa].out (папка docs: индекс + манифест + service worker + поиск). Офлайн.
 
     Надстройка над одностраничником: тот же контент-документ (SpaProfile) плюс
     устанавливаемость и клиентский поиск — то, что нужно для хостинга (GitHub Pages).
