@@ -88,6 +88,7 @@ def seed(tmp_path: Path, settings: Settings) -> None:
     (settings.paths.out / "help_wiki_logo.png").write_bytes(b"\x89PNG\r\n\x1a\nlogo")
     # css SPA теперь из своего дерева ресурсов (_res_src/spa), НЕ из html_out
     write_text(settings.paths.res_spa / "default.css", ".spa-marker{}", "utf-8")
+    write_text(settings.paths.res_spa / "spa.css", ".spa-layout-marker{}", "utf-8")
     # html_out-css с другим содержимым: SPA не должен его подхватить
     write_text(settings.paths.out / "default.css", ".chm-marker{}", "utf-8")
 
@@ -149,6 +150,24 @@ def test_render_spa_css_comes_from_res_spa(tmp_path: Path):
     render_spa(settings)
 
     assert (settings.paths.spa / "default.css").read_text(encoding="utf-8") == ".spa-marker{}"
+
+
+def test_render_spa_two_panel_layout(tmp_path: Path):
+    # двухпанельный каркас: dokuwiki-обёртка контента, вкладки, отдельный spa.css
+    settings = make_settings(tmp_path)
+    seed(tmp_path, settings)
+    render_spa(settings)
+
+    index = (settings.paths.spa / "index.html").read_text(encoding="utf-8")
+    # контент оформляется стилями DokuWiki -> body размечен классом dokuwiki
+    assert 'class="dokuwiki"' in index
+    # layout-стили подключены вторым файлом и скопированы в выход
+    assert 'href="spa.css"' in index
+    assert (settings.paths.spa / "spa.css").read_text(encoding="utf-8") == ".spa-layout-marker{}"
+    # две вкладки левой панели + мобильный бар (data-tab на кнопках)
+    assert 'data-tab="toc"' in index and 'data-tab="index"' in index
+    # сворачивание/закрытие панели и оверлея
+    assert 'id="toggleBtn"' in index and 'id="closeBtn"' in index
 
 
 def _wrapped_line_of(settings: Settings, slug: str, marker: str) -> int:

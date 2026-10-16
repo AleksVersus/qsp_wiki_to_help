@@ -5,10 +5,19 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>QSP — справка</title>
 <link href="default.css" rel="stylesheet" type="text/css"/>
+<link href="spa.css" rel="stylesheet" type="text/css"/>
 </head>
-<body>
+<body class="dokuwiki">
 <div class="spa-layout">
-<nav id="toc"><div class="page group">
+<aside class="spa-sidebar" id="sidebar">
+<div class="spa-sidebar-head">
+<button class="spa-tab active" data-tab="toc" type="button">Содержание</button>
+<button class="spa-tab" data-tab="index" type="button">Указатель</button>
+<button class="spa-toggle" id="toggleBtn" title="Свернуть/развернуть панель" type="button">‹</button>
+<button class="spa-close" id="closeBtn" title="Закрыть" type="button">×</button>
+</div>
+<div class="spa-sidebar-body">
+<nav class="spa-panel active" id="toc"><div class="page group">
 <!-- wikipage start -->
 <ul>
 <li class="level1"><div class="li"> <strong><a class="wikilink1" href="#start" title="start">В начало</a></strong></div>
@@ -145,8 +154,10 @@
 
 <!-- wikipage stop -->
 </div></nav>
-<nav id="index"><h2>Указатель</h2><ul><li><a href="#help_acts~statement_ACT">ACT</a></li><li><a href="#help_objs~statement_ADDOBJ">ADDOBJ</a></li><li><a href="#help_expressions~operator_AND">AND</a></li><li><a href="#help_arrays~func_ARRPOS">ARRPOS</a></li><li><a href="#help_tuples~func_ARRPACK">%ARRPACK</a></li><li><a href="#help_arrays~func_ARRSIZE">ARRSIZE</a></li><li><a href="#help_arrays~func_ARRTYPE">ARRTYPE</a></li><li><a href="#help_main~variable_BACKIMAGE">$BACKIMAGE</a></li><li><a href="#help_interface~variable_BCOLOR">BCOLOR</a></li><li><a href="#help_acts~statement_CLA">CLA</a></li><li><a href="#help_stat~statement_CLEAR">CLEAR или CLR</a></li><li><a href="#help_main~statement_STAR_CLEAR">*CLEAR или *CLR</a></li><li><a href="#help_sound~statement_CLOSE">CLOSE</a></li><li><a href="#help_main~statement_CLS">CLS</a></li><li><a href="#help_inputs~statement_CMDCLEAR">CMDCLEAR или CMDCLR</a></li><li><a href="#help_arrays~statement_COPYARR">COPYARR</a></li><li><a href="#help_service_locations~variable_COUNTER">$COUNTER</a></li><li><a href="#help_objs~func_COUNTOBJ">COUNTOBJ</a></li><li><a href="#help_acts~func_CURACTS">$CURACTS</a></li><li><a href="#help_objs~func_CUROBJS">$CUROBJS</a></li><li><a href="#help_locations~func_CURLOC">$CURLOC</a></li><li><a href="#help_savegame~variable_DEBUG">DEBUG</a></li><li><a href="#help_acts~statement_DELACT">DELACT</a></li><li><a href="#help_objs~statement_DELOBJ">DELOBJ</a></li><li><a href="#help_main~func_DESC">DESC</a></li><li><a href="#help_main~variable_DISABLESCROLL">DISABLESCROLL</a></li><li><a href="#help_dynamical~statement_DYNAMIC">DYNAMIC</a></li><li><a href="#help_dynamical~func_DYNEVAL">DYNEVAL</a></li><li><a href="#help_conditional~statement_ELSE">ELSE</a></li><li><a href="#help_conditional~statement_ELSEIF">ELSEIF</a></li><li><a href="#help_acts~statement_END">END (END ACT)</a></li><li><a href="#help_conditional~statement_END">END (END IF)</a></li><li><a href="#help_organizing~statement_EXIT">EXIT</a></li><li><a href="#help_interface~variable_FCOLOR">FCOLOR</a></li><li><a href="#help_interface~variable_FNAME">$FNAME</a></li><li><a href="#help_modules~statement_FREELIB">FREELIB</a></li><li><a href="#help_interface~variable_FSIZE">FSIZE</a></li><li><a href="#help_organizing~func_FUNC">FUNC</a></li><li><a href="#help_objs~func_GETOBJ">GETOBJ</a></li><li><a href="#help_organizing~statement_GOSUB">GOSUB или GS</a></li><li><a href="#help_goto~statement_GOTO">GOTO или GT</a></li><li><a href="#help_conditional~statement_IF">IF</a></li><li><a href="#help_conditional~func_IIF">IIF</a></li><li><a href="#help_modules~statement_INCLIB">INCLIB</a></li><li><a href="#help_inputs~func_INPUT">INPUT</a></li><li><a href="#help_strings~func_INSTR">INSTR</a></li><li><a href="#help_strings~func_ISNUM">ISNUM</a></li><li><a href="#help_sound~func_ISPLAY">ISPLAY</a></li><li><a href="#help_arrays~statement_KILLALL">KILLALL</a></li><li><a href="#help_objs~statement_KILLOBJ">KILLOBJ</a></li><li><a href="#help_arrays~statement_KILLVAR">KILLVAR</a></li><li><a href="#help_strings~func_LCASE">LCASE</a></li><li><a href="#help_interface~variable_LCOLOR">LCOLOR</a></li><li><a href="#help_strings~func_LEN">LEN</a></li><li><a href="#help_expressions~operator_LOC">LOC</a></li><li><a href="#help_variables~statement_LOCAL">LOCAL</a></li><li><a href="#help_main~func_MAINTXT">$MAINTXT</a></li><li><a href="#help_coding~func_MAX">MAX</a></li><li><a href="#help_strings~func_MID">MID</a></li><li><a href="#help_coding~func_MIN">MIN</a></li><li><a href="#help_expressions~operator_MOD">MOD</a></li><li><a href="#help_objs~statement_MODOBJ">MODOBJ</a></li><li><a href="#help_realtime~func_MSECSCOUNT">MSECSCOUNT</a></li><li><a href="#help_stat~statement_NL">NL</a></li><li><a href="#help_main~statement_STAR_NL">*NL</a></li><li><a href="#help_expressions~operator_NO">NO</a></li><li><a href="#help_savegame~variable_NOSAVE">NOSAVE</a></li><li><a href="#help_objs~func_OBJ">OBJ</a></li><li><a href="#help_service_locations~variable_ONACTSEL">$ONACTSEL</a></li><li><a href="#help_service_locations~variable_ONGLOAD">$ONGLOAD</a></li><li><a href="#help_service_locations~variable_ONGSAVE">$ONGSAVE</a></li><li><a href="#help_service_locations~variable_ONNEWLOC">$ONNEWLOC</a></li><li><a href="#help_service_locations~variable_ONOBJADD">$ONOBJADD</a></li><li><a href="#help_service_locations~variable_ONOBJDEL">$ONOBJDEL</a></li><li><a href="#help_service_locations~variable_ONOBJSEL">$ONOBJSEL</a></li><li><a href="#help_savegame~statement_OPENGAME">OPENGAME</a></li><li><a href="#help_modules~statement_OPENQST">OPENQST</a></li><li><a href="#help_expressions~operator_OR">OR</a></li><li><a href="#help_stat~statement_P">P</a></li><li><a href="#help_main~statement_STAR_P">*P</a></li><li><a href="#help_stat~statement_PL">PL</a></li><li><a href="#help_main~statement_STAR_PL">*PL</a></li><li><a href="#help_sound~statement_PLAY">PLAY</a></li><li><a href="#help_coding~func_QSPVER">$QSPVER</a></li><li><a href="#help_coding~func_RAND">RAND</a></li><li><a href="#help_interface~statement_REFINT">REFINT</a></li><li><a href="#help_strings~func_REPLACE">REPLACE</a></li><li><a href="#help_objs~statement_RESETOBJ">RESETOBJ</a></li><li><a href="#help_interface~func_RGB">RGB</a></li><li><a href="#help_coding~func_RND">RND</a></li><li><a href="#help_savegame~statement_SAVEGAME">SAVEGAME</a></li><li><a href="#help_arrays~statement_SCANSTR">SCANSTR</a></li><li><a href="#help_acts~func_SELACT">$SELACT</a></li><li><a href="#help_objs~func_SELOBJ">$SELOBJ</a></li><li><a href="#help_variables~statement_SET">SET и LET</a></li><li><a href="#help_realtime~statement_SETTIMER">SETTIMER</a></li><li><a href="#help_arrays~statement_SETVAR">SETVAR</a></li><li><a href="#help_acts~statement_SHOWACTS">SHOWACTS</a></li><li><a href="#help_inputs~statement_SHOWINPUT">SHOWINPUT</a></li><li><a href="#help_objs~statement_SHOWOBJS">SHOWOBJS</a></li><li><a href="#help_stat~statement_SHOWSTAT">SHOWSTAT</a></li><li><a href="#help_arrays~statement_SORTARR">SORTARR</a></li><li><a href="#help_stat~func_STATTXT">$STATTXT</a></li><li><a href="#help_strings~func_STR">STR</a></li><li><a href="#help_regexp~func_STRCOMP">STRCOMP</a></li><li><a href="#help_regexp~func_STRFIND">STRFIND</a></li><li><a href="#help_regexp~func_STRPOS">STRPOS</a></li><li><a href="#help_strings~func_TRIM">TRIM</a></li><li><a href="#help_strings~func_UCASE">UCASE</a></li><li><a href="#help_tuples~statement_UNPACKARR">UNPACKARR</a></li><li><a href="#help_objs~statement_UNSEL">UNSELECT или UNSEL</a></li><li><a href="#help_service_locations~variable_USERCOM">$USERCOM</a></li><li><a href="#help_inputs~func_USER_TEXT">USER_TEXT или USERTXT</a></li><li><a href="#help_strings~func_VAL">VAL</a></li><li><a href="#help_graphics~statement_VIEW">VIEW</a></li><li><a href="#help_realtime~statement_WAIT">WAIT</a></li><li><a href="#help_cycle~statement_LOOP">WHILE</a></li><li><a href="#help_goto~statement_XGOTO">XGOTO или XGT</a></li></ul></nav>
-<main id="content"><section data-slug="start" hidden="" id="start"><div class="page group">
+<nav class="spa-panel" id="index"><ul><li><a href="#help_acts~statement_ACT">ACT</a></li><li><a href="#help_objs~statement_ADDOBJ">ADDOBJ</a></li><li><a href="#help_expressions~operator_AND">AND</a></li><li><a href="#help_arrays~func_ARRPOS">ARRPOS</a></li><li><a href="#help_tuples~func_ARRPACK">%ARRPACK</a></li><li><a href="#help_arrays~func_ARRSIZE">ARRSIZE</a></li><li><a href="#help_arrays~func_ARRTYPE">ARRTYPE</a></li><li><a href="#help_main~variable_BACKIMAGE">$BACKIMAGE</a></li><li><a href="#help_interface~variable_BCOLOR">BCOLOR</a></li><li><a href="#help_acts~statement_CLA">CLA</a></li><li><a href="#help_stat~statement_CLEAR">CLEAR или CLR</a></li><li><a href="#help_main~statement_STAR_CLEAR">*CLEAR или *CLR</a></li><li><a href="#help_sound~statement_CLOSE">CLOSE</a></li><li><a href="#help_main~statement_CLS">CLS</a></li><li><a href="#help_inputs~statement_CMDCLEAR">CMDCLEAR или CMDCLR</a></li><li><a href="#help_arrays~statement_COPYARR">COPYARR</a></li><li><a href="#help_service_locations~variable_COUNTER">$COUNTER</a></li><li><a href="#help_objs~func_COUNTOBJ">COUNTOBJ</a></li><li><a href="#help_acts~func_CURACTS">$CURACTS</a></li><li><a href="#help_objs~func_CUROBJS">$CUROBJS</a></li><li><a href="#help_locations~func_CURLOC">$CURLOC</a></li><li><a href="#help_savegame~variable_DEBUG">DEBUG</a></li><li><a href="#help_acts~statement_DELACT">DELACT</a></li><li><a href="#help_objs~statement_DELOBJ">DELOBJ</a></li><li><a href="#help_main~func_DESC">DESC</a></li><li><a href="#help_main~variable_DISABLESCROLL">DISABLESCROLL</a></li><li><a href="#help_dynamical~statement_DYNAMIC">DYNAMIC</a></li><li><a href="#help_dynamical~func_DYNEVAL">DYNEVAL</a></li><li><a href="#help_conditional~statement_ELSE">ELSE</a></li><li><a href="#help_conditional~statement_ELSEIF">ELSEIF</a></li><li><a href="#help_acts~statement_END">END (END ACT)</a></li><li><a href="#help_conditional~statement_END">END (END IF)</a></li><li><a href="#help_organizing~statement_EXIT">EXIT</a></li><li><a href="#help_interface~variable_FCOLOR">FCOLOR</a></li><li><a href="#help_interface~variable_FNAME">$FNAME</a></li><li><a href="#help_modules~statement_FREELIB">FREELIB</a></li><li><a href="#help_interface~variable_FSIZE">FSIZE</a></li><li><a href="#help_organizing~func_FUNC">FUNC</a></li><li><a href="#help_objs~func_GETOBJ">GETOBJ</a></li><li><a href="#help_organizing~statement_GOSUB">GOSUB или GS</a></li><li><a href="#help_goto~statement_GOTO">GOTO или GT</a></li><li><a href="#help_conditional~statement_IF">IF</a></li><li><a href="#help_conditional~func_IIF">IIF</a></li><li><a href="#help_modules~statement_INCLIB">INCLIB</a></li><li><a href="#help_inputs~func_INPUT">INPUT</a></li><li><a href="#help_strings~func_INSTR">INSTR</a></li><li><a href="#help_strings~func_ISNUM">ISNUM</a></li><li><a href="#help_sound~func_ISPLAY">ISPLAY</a></li><li><a href="#help_arrays~statement_KILLALL">KILLALL</a></li><li><a href="#help_objs~statement_KILLOBJ">KILLOBJ</a></li><li><a href="#help_arrays~statement_KILLVAR">KILLVAR</a></li><li><a href="#help_strings~func_LCASE">LCASE</a></li><li><a href="#help_interface~variable_LCOLOR">LCOLOR</a></li><li><a href="#help_strings~func_LEN">LEN</a></li><li><a href="#help_expressions~operator_LOC">LOC</a></li><li><a href="#help_variables~statement_LOCAL">LOCAL</a></li><li><a href="#help_main~func_MAINTXT">$MAINTXT</a></li><li><a href="#help_coding~func_MAX">MAX</a></li><li><a href="#help_strings~func_MID">MID</a></li><li><a href="#help_coding~func_MIN">MIN</a></li><li><a href="#help_expressions~operator_MOD">MOD</a></li><li><a href="#help_objs~statement_MODOBJ">MODOBJ</a></li><li><a href="#help_realtime~func_MSECSCOUNT">MSECSCOUNT</a></li><li><a href="#help_stat~statement_NL">NL</a></li><li><a href="#help_main~statement_STAR_NL">*NL</a></li><li><a href="#help_expressions~operator_NO">NO</a></li><li><a href="#help_savegame~variable_NOSAVE">NOSAVE</a></li><li><a href="#help_objs~func_OBJ">OBJ</a></li><li><a href="#help_service_locations~variable_ONACTSEL">$ONACTSEL</a></li><li><a href="#help_service_locations~variable_ONGLOAD">$ONGLOAD</a></li><li><a href="#help_service_locations~variable_ONGSAVE">$ONGSAVE</a></li><li><a href="#help_service_locations~variable_ONNEWLOC">$ONNEWLOC</a></li><li><a href="#help_service_locations~variable_ONOBJADD">$ONOBJADD</a></li><li><a href="#help_service_locations~variable_ONOBJDEL">$ONOBJDEL</a></li><li><a href="#help_service_locations~variable_ONOBJSEL">$ONOBJSEL</a></li><li><a href="#help_savegame~statement_OPENGAME">OPENGAME</a></li><li><a href="#help_modules~statement_OPENQST">OPENQST</a></li><li><a href="#help_expressions~operator_OR">OR</a></li><li><a href="#help_stat~statement_P">P</a></li><li><a href="#help_main~statement_STAR_P">*P</a></li><li><a href="#help_stat~statement_PL">PL</a></li><li><a href="#help_main~statement_STAR_PL">*PL</a></li><li><a href="#help_sound~statement_PLAY">PLAY</a></li><li><a href="#help_coding~func_QSPVER">$QSPVER</a></li><li><a href="#help_coding~func_RAND">RAND</a></li><li><a href="#help_interface~statement_REFINT">REFINT</a></li><li><a href="#help_strings~func_REPLACE">REPLACE</a></li><li><a href="#help_objs~statement_RESETOBJ">RESETOBJ</a></li><li><a href="#help_interface~func_RGB">RGB</a></li><li><a href="#help_coding~func_RND">RND</a></li><li><a href="#help_savegame~statement_SAVEGAME">SAVEGAME</a></li><li><a href="#help_arrays~statement_SCANSTR">SCANSTR</a></li><li><a href="#help_acts~func_SELACT">$SELACT</a></li><li><a href="#help_objs~func_SELOBJ">$SELOBJ</a></li><li><a href="#help_variables~statement_SET">SET и LET</a></li><li><a href="#help_realtime~statement_SETTIMER">SETTIMER</a></li><li><a href="#help_arrays~statement_SETVAR">SETVAR</a></li><li><a href="#help_acts~statement_SHOWACTS">SHOWACTS</a></li><li><a href="#help_inputs~statement_SHOWINPUT">SHOWINPUT</a></li><li><a href="#help_objs~statement_SHOWOBJS">SHOWOBJS</a></li><li><a href="#help_stat~statement_SHOWSTAT">SHOWSTAT</a></li><li><a href="#help_arrays~statement_SORTARR">SORTARR</a></li><li><a href="#help_stat~func_STATTXT">$STATTXT</a></li><li><a href="#help_strings~func_STR">STR</a></li><li><a href="#help_regexp~func_STRCOMP">STRCOMP</a></li><li><a href="#help_regexp~func_STRFIND">STRFIND</a></li><li><a href="#help_regexp~func_STRPOS">STRPOS</a></li><li><a href="#help_strings~func_TRIM">TRIM</a></li><li><a href="#help_strings~func_UCASE">UCASE</a></li><li><a href="#help_tuples~statement_UNPACKARR">UNPACKARR</a></li><li><a href="#help_objs~statement_UNSEL">UNSELECT или UNSEL</a></li><li><a href="#help_service_locations~variable_USERCOM">$USERCOM</a></li><li><a href="#help_inputs~func_USER_TEXT">USER_TEXT или USERTXT</a></li><li><a href="#help_strings~func_VAL">VAL</a></li><li><a href="#help_graphics~statement_VIEW">VIEW</a></li><li><a href="#help_realtime~statement_WAIT">WAIT</a></li><li><a href="#help_cycle~statement_LOOP">WHILE</a></li><li><a href="#help_goto~statement_XGOTO">XGOTO или XGT</a></li></ul></nav>
+</div>
+</aside>
+<main class="spa-content" id="content"><section data-slug="start" hidden="" id="start"><div class="page group">
 <!-- wikipage start -->
 <!-- TOC START -->
 
@@ -13498,9 +13509,21 @@ aaa aaa 45<br/>
 <!-- wikipage stop -->
 </div></section></main>
 </div>
+<div class="spa-mobilebar">
+<button data-tab="toc" type="button">Содержание</button>
+<button data-tab="index" type="button">Указатель</button>
+</div>
 <script>
 (function () {
-  function show() {
+  var QUERY = "(max-width: 768px)";
+  var sidebar = document.getElementById("sidebar");
+
+  function isMobile() {
+    return !!(window.matchMedia && window.matchMedia(QUERY).matches);
+  }
+
+  // hash-роутер: показываем одну секцию-страницу, скроллим к якорю #slug~anchor
+  function showSection() {
     var hash = location.hash.slice(1);
     var slug = hash.split("~")[0];
     var sections = document.getElementsByTagName("section");
@@ -13516,8 +13539,74 @@ aaa aaa 45<br/>
       if (target) { target.scrollIntoView(); }
     }
   }
-  window.addEventListener("hashchange", show);
-  document.addEventListener("DOMContentLoaded", show);
+
+  function setTab(name) {
+    var panels = document.querySelectorAll(".spa-panel");
+    for (var i = 0; i < panels.length; i++) {
+      panels[i].classList.toggle("active", panels[i].id === name);
+    }
+    var btns = document.querySelectorAll("[data-tab]");
+    for (var j = 0; j < btns.length; j++) {
+      btns[j].classList.toggle("active", btns[j].getAttribute("data-tab") === name);
+    }
+  }
+
+  function openOverlay(on) {
+    sidebar.classList.toggle("open", !!on);
+  }
+
+  // переключение вкладки; на мобильном вкладка ещё и открывает оверлей
+  function clickTab(name) {
+    setTab(name);
+    if (isMobile()) { openOverlay(true); }
+  }
+
+  // пункты содержания со вложенным списком делаем сворачиваемыми (caret слева)
+  function initCollapsible() {
+    var items = sidebar.querySelectorAll("#toc li");
+    for (var i = 0; i < items.length; i++) {
+      var li = items[i], sub = null, kids = li.children;
+      for (var k = 0; k < kids.length; k++) {
+        if (kids[k].tagName === "UL") { sub = kids[k]; break; }
+      }
+      if (!sub) { continue; }
+      li.className += " has-children";
+      var label = li.querySelector(".li") || li;
+      var caret = document.createElement("span");
+      caret.className = "spa-caret";
+      caret.setAttribute("aria-hidden", "true");
+      label.insertBefore(caret, label.firstChild);
+      (function (item) {
+        caret.addEventListener("click", function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          item.classList.toggle("collapsed");
+        });
+      })(li);
+    }
+  }
+
+  // единый делегированный обработчик: вкладки / свернуть / закрыть / переход
+  document.addEventListener("click", function (e) {
+    if (!e.target || !e.target.closest) { return; }
+    var btn = e.target.closest("[data-tab], #toggleBtn, #closeBtn");
+    if (btn) {
+      var tab = btn.getAttribute("data-tab");
+      if (tab) { clickTab(tab); return; }
+      if (btn.id === "toggleBtn") { sidebar.classList.toggle("collapsed"); return; }
+      if (btn.id === "closeBtn") { openOverlay(false); return; }
+    }
+    // на мобильном клик по ссылке панели закрывает оверлей — виден контент
+    var link = e.target.closest("a");
+    if (link && isMobile() && sidebar.contains(link)) { openOverlay(false); }
+  });
+
+  window.addEventListener("hashchange", showSection);
+  document.addEventListener("DOMContentLoaded", function () {
+    showSection();
+    setTab("toc");
+    initCollapsible();
+  });
 })();
 </script>
 </body>
