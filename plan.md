@@ -95,9 +95,15 @@ tests/
   реальный манифест (76 pages / 17 images); шаблоны `CHM/HHC/HHK_PAGE` равны
   константам to_chm_prepare.py. Мёртвый ключ `start_file` не перенесён (не читался).
   Старые скрипты не тронуты; html_out не менялся.
-- **Фаза 2. Anchors-модуль.** Из `_auxtools/extract_keywords.py` + вставки якорей
-  из `to_chm_prepare.py` собрать `anchors.py` с единственным представлением формата
-  `anchors.json`. Это устраняет самую хрупкую связь двух скриптов.
+- **Фаза 2. Anchors-модуль. [ВЫПОЛНЕНА 2026-10-16]** `qsp_help_builder/anchors.py`
+  (`Anchors`/`AnchorEntry`: load/save исторический формат, extract_from_build,
+  inject_into_text, keywords_map) + `tests/test_anchors.py` (10 tests, pytest).
+  Эквивалентность порта доказана на реальных данных: старый ExtractKeyword и новый
+  модуль дают идентичный результат на золотом html_out. ИСТОРИК (off-by-one,
+  1-based как индекс) сохранён 1:1 и закреплён тестами; голый except заменён на
+  IndexError+лог. Находка: коммитный anchors.json устарел относительно золота
+  (дрейф +1 строка в ~25 файлах, потерян якорь kommentarii) — см. handoff §4.12;
+  на вывод не влияет (обе версии кода читают тот же файл одинаково).
 - **Фаза 3. Prepare.** Разобрать `ChmPrepare` на `page_clean/links/images/hhc/hhk`,
   покрыть тестами на фикстурах (офлайн). Сохранить эвристику `replace_src`, но
   вынести в явно именуемую функцию с docstring (известная слабость, см. handoff).
