@@ -104,9 +104,17 @@ tests/
   IndexError+лог. Находка: коммитный anchors.json устарел относительно золота
   (дрейф +1 строка в ~25 файлах, потерян якорь kommentarii) — см. handoff §4.12;
   на вывод не влияет (обе версии кода читают тот же файл одинаково).
-- **Фаза 3. Prepare.** Разобрать `ChmPrepare` на `page_clean/links/images/hhc/hhk`,
-  покрыть тестами на фикстурах (офлайн). Сохранить эвристику `replace_src`, но
-  вынести в явно именуемую функцию с docstring (известная слабость, см. handoff).
+- **Фаза 3. Prepare. [ВЫПОЛНЕНА 2026-10-16]** `ChmPrepare` разобран на
+  `qsp_help_builder/prepare/` (`page_clean`/`links`/`images`/`hhc`/`hhk` + `__init__`
+  с `prepare_file`/`prepare_all`, потребляющими `Settings`/`UrlScheme`/`Anchors`).
+  Порт 1:1 с сохранением ИСТОРИКОВ: опечатка `dic.docInfo` (блоки docInfo остаются в
+  выводе), нечёткое `replace_src` без break (побеждает последнее совпадение, вынесено в
+  `match_wiki_media_name` с docstring), присвоение href даже без замены scheme, порядок
+  атрибутов `name`→`value` в `<param>`, удаление sidebar.htm/help_keywords.htm после hhc/hhk.
+  print-отладка → logger.debug (на байты не влияет). Приёмка: `prepare_all` пересобрал
+  html_out побайтово == `m_regen1.json` (73 файла, 0 расхождений, `_baseline/2026-10-16/m_phase3.json`).
+  `tests/test_prepare.py` — 23 офлайн-теста (page_clean/links/images/hhc/hhk + prepare_file),
+  вместе с anchors 33 зелёных. Старые `chm_prepare/` не тронуты (удаление — после Фазы 5).
 - **Фаза 4. Download.** Выделить `crawler.py`/`naming.py`, вынести инициализацию
   логгера из module-level, убрать скачивание картинок из `extract_links`
   (сбор URL картинок → отдельный проход).
