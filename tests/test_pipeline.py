@@ -15,6 +15,7 @@ from qsp_help_builder.config import (
     PathSettings,
     Settings,
     SpaSettings,
+    PwaSettings,
     WikiSettings,
 )
 
@@ -29,12 +30,15 @@ def make_settings(tmp_path: Path) -> Settings:
         scheme=tmp_path / "html_src" / "urls_links_to_files.json",
         anchors=tmp_path / "html_src" / "anchors.json",
         spa=tmp_path / "spa_out",
+        pwa=tmp_path / "pwa_out",
         res_chm=tmp_path / "_res_src" / "chm",
         res_spa=tmp_path / "_res_src" / "spa",
     )
     chm = ChmSettings("sidebar.htm", "help_keywords.htm", "qsp.hhc", "qsp.hhk", "utf-8", "windows-1251")
     log = LoggingSettings("DEBUG", tmp_path / "dl.log")
-    return Settings(tmp_path / "qsp_help.toml", wiki, paths, SpaSettings("start"), chm, frozenset(), log)
+    pwa = PwaSettings("start", "QSP", "QSP", "#2f6db0", "#f4f5f7", "standalone",
+                      "images/help_wiki_logo.png")
+    return Settings(tmp_path / "qsp_help.toml", wiki, paths, SpaSettings("start"), pwa, chm, frozenset(), log)
 
 
 def test_run_all_invokes_stages_in_order(monkeypatch):

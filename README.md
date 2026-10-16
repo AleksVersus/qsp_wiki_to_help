@@ -8,6 +8,7 @@ python -m qsp_help_builder prepare     # этап 2: подготовка html_s
 python -m qsp_help_builder anchors     # этап 2b: извлечение якорей из собранного html_out в anchors.json
 python -m qsp_help_builder all         # download -> prepare -> anchors одной командой
 python -m qsp_help_builder spa         # одностраничник: html_src -> spa_out/index.html (+ images/)
+python -m qsp_help_builder pwa         # PWA для хостинга: html_src -> pwa_out/ (индекс + манифест + sw + поиск)
 ```
 
 Команды `download`/`prepare`/`anchors`/`all` собирают CHM — этот путь не изменился.
@@ -15,10 +16,19 @@ python -m qsp_help_builder spa         # одностраничник: html_src 
 строит автономный одностраничный `spa_out/index.html` с hash-навигацией и локальной
 папкой `images/`. Каталог вывода задаётся в `[spa].out`, а первая страница (которую
 hash-навигация показывает без хеша) — в `[spa].start_page` файла `qsp_help.toml`.
+`pwa` — надстройка над `spa` для хостинга (тоже офлайн): тот же документ плюс
+`manifest.webmanifest` (устанавливаемость), `sw.js` (precache всего состава сборки,
+офлайн-режим после первого визита) и `search.json` с клиентским полнотекстовым поиском
+(свой индекс из Python, без внешних библиотек). Каталог — `[pwa].out`, параметры манифеста —
+в `[pwa]`. Все пути в артефактах относительные, поэтому сайт работает и в корне домена,
+и в под-пути проекта (`https://<user>.github.io/<repo>/`).
 
 Статические ресурсы (`default.css` и пр.) лежат в `_res_src/` и при сборке копируются
 в выходные папки из разных источников: `_res_src/chm` → `html_out` (ключ `[chm].res`),
-`_res_src/spa` → `spa_out` (ключ `[spa].res`). CSS одностраничника и CSS CHM — разные файлы.
+`_res_src/spa` → `spa_out` и `pwa_out` (ключ `[spa].res`). CSS одностраничника и CSS CHM — разные файлы.
+В PWA wiki-root-absolute `url()` из CSS (`/lib/…` — декоративные иконки DokuWiki, которых нет
+в офлайн-корпусе) переписываются на живой `https://wiki.qsp.org/…` — онлайн декорации
+дотягиваются с оригинала, офлайн graceful исчезают (контент остаётся).
 
 Настройки (папки src/out/images/ресурсов, base_url, кодировки, исключаемые разделы, уровень
 лога) — единственные и только в [`qsp_help.toml`](qsp_help.toml). Файл обязателен:
@@ -84,8 +94,26 @@ hash-навигация показывает без хеша) — в `[spa].star
   `spa_out/index.html` (открывается двойным кликом с `file://`, hash-навигация,
   картинки в `spa_out/images/`). Модель сайта общая для CHM и SPA — ссылки готовит
   один и тот же модуль `prepare`, просто под разные целевые профили;
-- идёт работа над PWA (`render/pwa`: manifest + service worker + client-side поиск,
-  единый ассет-пайплайн для `url()` в CSS) — см. `plan.md`, Фаза 8.
+- **PWA готов**: `python -m qsp_help_builder pwa` → `pwa_out/` (то же, что SPA, плюс
+  устанавливаемость, офлайн-кэш и клиентский поиск). Размещение — см. ниже.
+
+## Деплой PWA на GitHub Pages
+
+1. `python -m qsp_help_builder pwa` — соберётся `pwa_out/` (`index.html`, `sw.js`,
+   `manifest.webmanifest`, `search.json`, `default.css`, `spa.css`, `images/`).
+2. Содержимое `pwa_out/` публикуется как сайт. Варианты:
+   - **проектные Pages**: закоммитить `pwa_out/` и в настройках репозитория
+     выбрать источник `Deploy from a branch` → ветка → папка `/pwa_out`
+     (сайт будет в под-пути `https://<user>.github.io/<repo>/` — относительные
+     пути собираются корректно);
+   - **пользовательские Pages / корень домена**: содержимое `pwa_out/` в корень
+     ветки `docs/` или отдельного репозитория.
+3. Первый визит — по `https://` (service worker не работает с `file://` и требует
+   HTTPS); после первого визита справка доступна офлайн и устанавливается как приложение.
+
+> Для повторной публикации достаточно пересобрать `pwa` и закоммитить `pwa_out/`:
+> `sw.js` сам меняет имя кэша по содержимому сборки, поэтому браузеры пользователей
+> подтянут обновление без ручной инвалидации.
 
 **TODO:**
 
@@ -106,8 +134,9 @@ hash-навигация показывает без хеша) — в `[spa].star
       `python -m qsp_help_builder`, старые скрипты `qsp_wiki_downloader/` и `chm_prepare/` удалены)
 - [x] **Автономный одностраничник** (`spa`): модель сайта + профили целей (CHM/SPA),
       `spa_out/index.html` + `images/`, CHM-путь сохранён побайтово (Фаза 7)
-- [ ] PWA: `render/pwa` (manifest + service worker + client-side поиск) и единый
-      ассет-пайплайн (`url()`-ассеты в CSS, легаси-пути `res/…`) — Фаза 8
+- [x] **PWA** (`pwa`): `render/pwa` — манифест + service worker (precache) + клиентский
+      поиск (свой индекс из Python); единый ассет-пайплайн `url()` в CSS переписывает
+      декоративные `/lib/…` на живую вики (закрыт handoff §4.13). CHM-путь не сдвинут (Фаза 8)
 
 ## P.S.!!!
 

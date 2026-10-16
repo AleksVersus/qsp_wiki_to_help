@@ -46,8 +46,9 @@ class PathSettings:
     scheme: Path   # urls_links_to_files.json: контракт url -> файл
     anchors: Path  # anchors.json: контракт якорь -> строка/заголовок
     spa: Path      # spa_out: одностраничник (index.html + images/) — выход render.spa
+    pwa: Path      # pwa_out: PWA (индекс одностраничника + manifest/sw/поиск) — выход render.pwa
     res_chm: Path  # _res_src/chm: статичные ресурсы (default.css и пр.) -> html_out
-    res_spa: Path  # _res_src/spa: статичные ресурсы (default.css и пр.) -> spa_out
+    res_spa: Path  # _res_src/spa: статичные ресурсы (default.css и пр.) -> spa_out/pwa_out
 
 
 @dataclass(frozen=True)
@@ -55,6 +56,24 @@ class SpaSettings:
     """Одностраничник (Фаза 7): параметры, не сводимые к пути выхода."""
 
     start_page: str  # slug страницы, идущей первой (открывается без хеша)
+
+
+@dataclass(frozen=True)
+class PwaSettings:
+    """PWA (Фаза 8): обёртка над выводом одностраничника для хостинга.
+
+    Оболочка одностраничника (тот же index.html + hash-router + images/) плюс
+    манифест, service worker и поиск. Пути в манифесте/SW — относительные, поэтому
+    сборка одинаково работает в корне домена и в под-пути GitHub Pages (/repo/).
+    """
+
+    start_page: str       # slug первой страницы (открывается без хеша)
+    name: str             # полное имя в манифесте
+    short_name: str       # короткое имя (ярлык установки)
+    theme_color: str      # цвет темы (строка CSS, напр. "#2f6db0")
+    background_color: str  # фон сплэша/установки
+    display: str          # режим отображения (standalone/fullscreen/minimal-ui/browser)
+    icon: str             # относительный путь к иконке внутри выхода (напр. "images/help_wiki_logo.png")
 
 
 @dataclass(frozen=True)
@@ -81,6 +100,7 @@ class Settings:
     wiki: WikiSettings
     paths: PathSettings
     spa: SpaSettings
+    pwa: PwaSettings
     chm: ChmSettings
     exclude_files: frozenset[str]  # wiki-разделы, исключаемые из справки (files_to_del)
     logging: LoggingSettings
@@ -125,6 +145,7 @@ def load_settings(config_path: Path | None = None) -> Settings:
     wiki_raw = _require_section(raw, "wiki", path)
     paths_raw = _require_section(raw, "paths", path)
     spa_raw = _require_section(raw, "spa", path)
+    pwa_raw = _require_section(raw, "pwa", path)
     chm_raw = _require_section(raw, "chm", path)
     exclude_raw = _require_section(raw, "exclude", path)
     log_raw = _require_section(raw, "logging", path)
@@ -150,12 +171,23 @@ def load_settings(config_path: Path | None = None) -> Settings:
         scheme=_resolve(root, _require(paths_raw, "scheme", "paths")),
         anchors=_resolve(root, _require(paths_raw, "anchors", "paths")),
         spa=_resolve(root, _require(spa_raw, "out", "spa")),
+        pwa=_resolve(root, _require(pwa_raw, "out", "pwa")),
         res_chm=_resolve(root, _require(chm_raw, "res", "chm")),
         res_spa=_resolve(root, _require(spa_raw, "res", "spa")),
     )
 
     spa = SpaSettings(
         start_page=str(_require(spa_raw, "start_page", "spa")),
+    )
+
+    pwa = PwaSettings(
+        start_page=str(_require(pwa_raw, "start_page", "pwa")),
+        name=str(_require(pwa_raw, "name", "pwa")),
+        short_name=str(_require(pwa_raw, "short_name", "pwa")),
+        theme_color=str(_require(pwa_raw, "theme_color", "pwa")),
+        background_color=str(_require(pwa_raw, "background_color", "pwa")),
+        display=str(_require(pwa_raw, "display", "pwa")),
+        icon=str(_require(pwa_raw, "icon", "pwa")),
     )
 
     chm = ChmSettings(
@@ -181,6 +213,7 @@ def load_settings(config_path: Path | None = None) -> Settings:
         wiki=wiki,
         paths=paths,
         spa=spa,
+        pwa=pwa,
         chm=chm,
         exclude_files=exclude_files,
         logging=logging_s,

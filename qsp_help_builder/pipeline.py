@@ -19,6 +19,7 @@ from . import download as download_stage
 from .anchors import Anchors
 from .config import Settings
 from .render.chm import render_chm
+from .render.pwa import render_pwa
 from .render.spa import render_spa
 
 logger = logging.getLogger(__name__)
@@ -50,6 +51,16 @@ def run_spa(settings: Settings) -> None:
     """
     logger.info("Этап spa: %s -> %s", settings.paths.src, settings.paths.spa)
     render_spa(settings)
+
+
+def run_pwa(settings: Settings) -> None:
+    """Этап PWA html_src -> pwa_out (индекс + манифест + service worker + поиск). Офлайн.
+
+    Надстройка над одностраничником: тот же контент-документ (SpaProfile) плюс
+    устанавливаемость и клиентский поиск — то, что нужно для хостинга (GitHub Pages).
+    """
+    logger.info("Этап pwa: %s -> %s", settings.paths.src, settings.paths.pwa)
+    render_pwa(settings)
 
 
 def run_anchors(settings: Settings) -> Anchors:

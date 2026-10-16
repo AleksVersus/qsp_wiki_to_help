@@ -30,6 +30,22 @@ out = "spa_out"                             # каталог выхода одн
 start_page = "start"                        # slug первой страницы (открывается без хеша)
 res = "_res_src/spa"                        # статичные ресурсы SPA (default.css и пр.) -> spa_out
 
+# --- PWA (Фаза 8): то же, что SPA, + манифест + service worker + поиск ---
+# Оболочка одностраничника для хостинга (GitHub Pages). Пути в выходных артефактах
+# (manifest/sw/поиск/иконка) относительные, поэтому работает и в корне домена,
+# и в под-пути проекта (/<repo>/) без отдельной настройки base_url.
+[pwa]
+out = "pwa_out"                             # каталог выхода PWA (раскладывается на хостинг)
+start_page = "start"                        # slug первой страницы (открывается без хеша)
+name = "QSP — справка"                      # полное имя приложения в манифесте
+short_name = "QSP"                          # короткое имя (ярлык на рабочем столе)
+theme_color = "#2f6db0"                     # цвет темы интерфейса (совпадает с spa.css)
+background_color = "#f4f5f7"                # фон сплэш-экрана/установки
+# display: standalone | fullscreen | minimal-ui | browser
+# standalone — без элементов браузера (ощущение нативного приложения)
+display = "standalone"
+icon = "images/help_wiki_logo.png"          # иконка манифеста (уже в выходе как картинка start)
+
 # --- Подготовка CHM (источник: ChmPrepare; keys 'hhc'/'hhk' и хардкод qsp.hhc/qsp.hhk) ---
 [chm]
 res = "_res_src/chm"                # статичные ресурсы CHM (default.css и пр.) -> html_out

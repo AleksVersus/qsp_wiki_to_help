@@ -18,7 +18,7 @@ from qsp_help_builder.config import ConfigError
 
 def test_parser_accepts_all_commands():
     parser = cli.build_parser()
-    for cmd in ("download", "prepare", "anchors", "spa", "all"):
+    for cmd in ("download", "prepare", "anchors", "spa", "pwa", "all"):
         assert parser.parse_args([cmd]).command == cmd
 
 

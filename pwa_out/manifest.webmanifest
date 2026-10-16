@@ -1,0 +1,23 @@
+{
+    "name": "QSP — справка",
+    "short_name": "QSP",
+    "start_url": "./",
+    "scope": "./",
+    "display": "standalone",
+    "theme_color": "#2f6db0",
+    "background_color": "#f4f5f7",
+    "icons": [
+        {
+            "src": "images/help_wiki_logo.png",
+            "sizes": "any",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "images/help_wiki_logo.png",
+            "sizes": "any",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}

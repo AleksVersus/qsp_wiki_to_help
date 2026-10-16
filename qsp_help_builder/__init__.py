@@ -11,7 +11,9 @@
 - ``prepare``  — этап подготовки html_src→html_out, порт ChmPrepare (Фаза 3);
 - ``download`` — этап выгрузки с wiki (crawler/naming), порт WikiDownloader (Фаза 4);
 - ``pipeline``/``cli`` — оркестрация этапов и единая точка входа
-  ``python -m qsp_help_builder <download|prepare|anchors|all>`` (Фаза 5).
+  ``python -m qsp_help_builder <download|prepare|anchors|spa|pwa|all>`` (Фаза 5);
+- ``model``/``render`` — нейтральная модель сайта и рендереры выходов: CHM
+  (``render.chm``), одностраничник (``render.spa``) и PWA (``render.pwa``) (Фазы 7–8).
 
 Правило приёмки каждого изменения: пересборка html_out обязана совпасть
 с эталоном ``_baseline/2026-10-16`` (см. BASELINE.md там же).

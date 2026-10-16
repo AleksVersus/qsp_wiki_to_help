@@ -192,6 +192,20 @@ def render_spa(settings: Settings) -> None:
     spa_dir = ensure_dir(settings.paths.spa)
 
     soup = BeautifulSoup(SPA_PAGE, "lxml")
+    assemble_body(soup, model, settings.spa.start_page)
+    write_text(spa_dir / "index.html", str(soup), settings.chm.page_encoding)
+    copy_assets(model, settings, spa_dir)
+    logger.info("Одностраничник собран: %s (страниц %d)", spa_dir / "index.html", len(model.pages))
+
+
+def assemble_body(soup: BeautifulSoup, model: SiteModel, start_page: str) -> None:
+    """Наполняет каркас ``SPA_PAGE`` навигацией, указателем и контент-секциями.
+
+    Переиспользуется рендерером PWA (``render.pwa``): и SPA, и PWA дают один и тот
+    же документ-оболочку, различие только в ``<head>``/доп. вкладке, которые
+    вызывающий добавляет сам. Порядок операций фиксирован (навигация → указатель →
+    контент → нормализация картинок), от него зависят байты вывода.
+    """
     nav = soup.find(id="toc")
     index = soup.find(id="index")
     main = soup.find(id="content")
@@ -206,7 +220,7 @@ def render_spa(settings: Settings) -> None:
     # ниже перемещает/пересобирает фрагменты страниц.
     _fill_index(model, soup, index)
 
-    for page in _content_pages(model, settings.spa.start_page):
+    for page in _content_pages(model, start_page):
         fragment = _with_anchors(page, model.anchors)
         _namespace_ids(fragment, page.slug)
         section = soup.new_tag("section")
@@ -217,9 +231,6 @@ def render_spa(settings: Settings) -> None:
         main.append(section)
 
     _normalize_local_images(soup)
-    write_text(spa_dir / "index.html", str(soup), settings.chm.page_encoding)
-    _copy_assets(model, settings, spa_dir)
-    logger.info("Одностраничник собран: %s (страниц %d)", spa_dir / "index.html", len(model.pages))
 
 
 def _content_pages(model: SiteModel, start_slug: str) -> list[Page]:
@@ -318,21 +329,27 @@ def _normalize_local_images(soup: BeautifulSoup) -> None:
         img["src"] = f"images/{file_name(src)}"
 
 
-def _copy_assets(model: SiteModel, settings: Settings, spa_dir: Path) -> None:
-    """Копирует используемые картинки в spa_out/images и статичные ресурсы рядом."""
-    images_dir = ensure_dir(spa_dir / "images")
+def copy_assets(model: SiteModel, settings: Settings, out_dir: Path) -> None:
+    """Копирует используемые картинки в ``<out>/images`` и статичные ресурсы рядом.
+
+    Общий для SPA и PWA: выходная папка передаётся (``spa_out``/``pwa_out``), а
+    ресурсы (default.css, spa.css) всегда берутся из ``_res_src/spa`` — у PWA тот же
+    CSS-каркас, отдельного дерева ресурсов нет (легаси-логотип start подтягивается
+    из ``html_out``, т.к. в ``html_src/images`` он лежит как ``wiki_logo.png``).
+    """
+    images_dir = ensure_dir(out_dir / "images")
     sources = (settings.paths.images, settings.paths.out)
     for name in sorted(model.referenced_images()):
         src = next((d / name for d in sources if (d / name).is_file()), None)
         if src is None:
-            logger.warning("SPA: картинка не найдена ни в html_src/images, ни в html_out: %s", name)
+            logger.warning("картинка не найдена ни в html_src/images, ни в html_out: %s", name)
             continue
         shutil.copy2(src, images_dir / name)
 
-    # default.css и прочие статичные ресурсы SPA — из _res_src/spa (свой, не из html_out)
-    res = copy_tree(settings.paths.res_spa, spa_dir)
+    # default.css и прочие статичные ресурсы — из _res_src/spa (свой, не из html_out)
+    res = copy_tree(settings.paths.res_spa, out_dir)
     if res:
-        logger.info("SPA: ресурсы скопированы из %s: %s", settings.paths.res_spa, ", ".join(res))
+        logger.info("ресурсы скопированы из %s: %s", settings.paths.res_spa, ", ".join(res))
     else:
-        logger.warning("SPA: папка ресурсов %s пуста или отсутствует — стили не подключены",
+        logger.warning("папка ресурсов %s пуста или отсутствует — стили не подключены",
                        settings.paths.res_spa)

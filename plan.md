@@ -173,8 +173,23 @@ tests/
   `_baseline/2026-10-17/m_regen.json` (77 файлов, 0 расхождений — CHM не сдвинут);
   `spa` открывает `#start` (логотип резолвится из ассетов модели), TOC/якоря/картинки
   работают с `file://`; 0 ошибок pyright, 77 тестов зелёные (`test_model`/`test_spa`).
-- **Фаза 8. PWA.** `render/pwa/`: статика из модели + manifest + service worker +
-  client-side поиск; деплой на хостинг (обсудить в открытых вопросах).
+- **Фаза 8. PWA. [ВЫПОЛНЕНА 2026-10-16]** `render/pwa/` — надстройка над выводом
+  `spa` (тот же `SpaProfile` + общий `assemble_body`/`copy_assets` из `render.spa`),
+  ничего в CHM/модели не сдвинула. Разложено по ответственности: `build.py`
+  (`render_pwa`: shell-правки + запись артефактов), `search.py` (чистый
+  `build_search_index` — инвертированный индекс `search.json`, гранулярность — страница,
+  юникодная токенизация, title вес=3), `assets.py` (`resolve_css_urls` — вики-root-absolute
+  `url()` на живой origin, закрывает §4.13), `shell.py` (head-добавки, вкладка «Поиск»,
+  рантайм-JS, `sw.js`). Артефакты: `index.html` (+ `<link rel=manifest>`, theme-color,
+  3-я вкладка поиска, регистрация SW), `manifest.webmanifest`, `sw.js` (precache полного
+  состава, кэш-бастинг по SHA256 содержимого — детерминированно), `search.json`,
+  `images/`, переписанный CSS. Все пути относительные — работает в под-пути GitHub Pages.
+  Конфиг: `[pwa]` (out/start_page/name/short_name/theme_color/background_color/display/icon),
+  `paths.pwa`; ресурсы PWA общие с SPA (`_res_src/spa`). CLI/`pipeline`: команда `pwa`
+  (`run_pwa`). Приёмка: `prepare` → `html_out` побайтово == baseline `2026-10-17/m_regen.json`
+  (0 changed/0 removed; единственный diff — предсуществующий легаси `qsp1.hhp`, не из кода);
+  0 ошибок pyright, 92 теста зелёных (`test_pwa.py` — 11: интегция `render_pwa` + юниты
+  `search`/`assets`). Хостинг: GitHub Pages (подтверждено), инструкция деплоя — в README.
 
 ## Что сознательно НЕ делаем в этот рефакторинг
 
@@ -251,7 +266,7 @@ qsp_help_builder/
    рядом; без base64-инлайна и без zip-архива. Раздача — папкой (при необходимости
    упаковывается автоматически).
 
-## Оставшийся открытый вопрос (к Фазе 8)
+## Оставшийся открытый вопрос (к Фазе 8) [ЗАКРЫТ 2026-10-16]
 
-1. Хостинг PWA — по умолчанию считаем GitHub Pages; подтвердить перед Фазой 8
-   (или предпочтителен другой вариант / отказ от PWA в пользу только одностраничника).
+1. Хостинг PWA — подтверждён **GitHub Pages** (проектные Pages в под-пути `/<repo>/`;
+   все пути в артефактах относительные, отдельный base_url не нужен). Фаза 8 реализована.
