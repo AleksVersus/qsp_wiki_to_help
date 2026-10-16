@@ -16,18 +16,13 @@ from __future__ import annotations
 
 import logging
 import tomllib
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
 
 class ConfigError(RuntimeError):
     """Ошибка конфигурации: нет файла/секции/ключа или значение непригодно."""
-
-
-def _empty_str_map() -> dict[str, str]:
-    """Типизированный factory для mutable-default полей (pyright strict против голого dict)."""
-    return {}
 
 
 @dataclass(frozen=True)
@@ -72,9 +67,6 @@ class ChmSettings:
     hhk_output: str    # имя итогового файла указателя (был хардкод 'qsp.hhk')
     page_encoding: str       # кодировка htm-страниц (исторически utf-8)
     index_encoding: str      # кодировка hhc/hhk (HTML Help Workshop требует windows-1251)
-    # Точечные поправки указателя (§4.11): заголовок -> итоговый Local (file.htm#anchor).
-    # Побеждают и keywords_map, и href_compare. Перенос ручных правок золота в код.
-    keyword_overrides: dict[str, str] = field(default_factory=_empty_str_map)
 
 
 @dataclass(frozen=True)
@@ -173,9 +165,6 @@ def load_settings(config_path: Path | None = None) -> Settings:
         hhk_output=str(_require(chm_raw, "hhk_output", "chm")),
         page_encoding=str(_require(chm_raw, "page_encoding", "chm")),
         index_encoding=str(_require(chm_raw, "index_encoding", "chm")),
-        keyword_overrides={
-            str(k): str(v) for k, v in chm_raw.get("keyword_overrides", {}).items()
-        },
     )
 
     exclude_files: frozenset[str] = frozenset(

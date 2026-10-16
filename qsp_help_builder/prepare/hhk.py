@@ -32,14 +32,12 @@ def build_hhk(
     page_encoding: str,
     index_encoding: str,
     anchors: Anchors,
-    keyword_overrides: dict[str, str] | None = None,
 ) -> None:
     """Читает подготовленный help_keywords.htm, пишет qsp.hhk, удаляет исходник.
 
-    keyword_overrides (§4.11): заголовок -> готовый Local; применяется последним,
-    перекрывая keywords_map и href_compare (перенос ручных правок золота в код).
+    Локальные адреса берутся из anchors.json (keywords_map) с согласованием
+    страницы из таблицы через href_compare.
     """
-    overrides = keyword_overrides or {}
     src = out_dir / hhk_source
     soup = BeautifulSoup(read_text(src, page_encoding), "lxml")
     page = soup.select_one("div.page.group")
@@ -61,8 +59,6 @@ def build_hhk(
         if title in keywords_anchors:
             old_href = keywords_anchors[title]
             new_href = href_compare(old_href, new_href)
-        if title in overrides:
-            new_href = overrides[title]  # §4.11: ручная поправка указателя побеждает
         param_href = new_soup.new_tag("param")
         param_href["name"] = "Local"
         param_href["value"] = new_href

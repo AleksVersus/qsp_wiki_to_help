@@ -61,7 +61,6 @@ def render_chm(settings: Settings) -> None:
         page_encoding=page_encoding,
         index_encoding=settings.chm.index_encoding,
         anchors=anchors,
-        keyword_overrides=settings.chm.keyword_overrides,
     )
 
     # статичные ресурсы (default.css и пр.) — из _res_src/chm в html_out

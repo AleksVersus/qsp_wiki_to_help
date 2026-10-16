@@ -287,23 +287,6 @@ def test_build_hhk_end_to_end(tmp_path: Path):
     assert not src.exists()
 
 
-def test_build_hhk_keyword_override_wins(tmp_path: Path):
-    src = tmp_path / "help_keywords.htm"
-    src.write_text(KEYWORDS_TABLE, encoding="utf-8")
-    anchors = Anchors({
-        # keywords_map даст «Функции» -> help_coding.htm#funkcii; override должен победить
-        "help_coding": {"funkcii": AnchorEntry(line=5, title="Функции")},
-    })
-    build_hhk(tmp_path, hhk_source="help_keywords.htm", hhk_output="qsp.hhk",
-              page_encoding="utf-8", index_encoding="windows-1251",
-              anchors=anchors,
-              keyword_overrides={"Функции": "help_regexp.htm#funkcii"})
-    hhk = (tmp_path / "qsp.hhk").read_text(encoding="windows-1251")
-    # §4.11: override перекрывает и keywords_map, и href_compare
-    assert '<param name="Local" value="help_regexp.htm#funkcii"/>' in hhk
-    assert 'help_coding.htm#funkcii' not in hhk
-
-
 # ---------------------------------------------------------------- prepare_file
 
 def test_prepare_file_excluded_returns_early(tmp_path: Path):
