@@ -12,6 +12,12 @@
   одинаковых id заголовков между страницами в одном документе);
 - каждая страница — ``<section data-slug=... >``; показывается одна по хешу;
 - боковая навигация строится из страницы ``sidebar`` (её ссылки уже ``#slug``);
+- указатель (``<nav id=index>``) — между навигацией и контентом: список ключевых
+  слов из таблицы ``help_keywords`` со ссылками ``#slug~anchor`` по якорям из
+  anchors.json (тот же контракт, что у CHM-указателя qsp.hhk);
+- якоря из anchors.json вставляются в контент страниц по номерам строк — как в
+  CHM (``wrap_into_template`` + ``Anchors.inject_into_text``), затем namespace'ятся
+  до ``{slug}~{anchor}``, чтобы ссылки указателя резолвились в одном документе;
 - картинки из манифеста модели копируются в ``images/`` (источник: html_src/images,
   с откатом на html_out для легаси-ассетов вроде логотипа).
 """
@@ -20,13 +26,16 @@ from __future__ import annotations
 
 import logging
 import shutil
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 from bs4 import BeautifulSoup, Tag
 
+from ..anchors import Anchors
 from ..config import Settings
 from ..fs_utils import copy_tree, ensure_dir, file_name, write_text
 from ..model import Page, SiteModel, build_site_model
+from ..prepare.hhk import extract_hhk_data
+from ..prepare.page_clean import wrap_into_template
 from .profile import SpaProfile
 
 logger = logging.getLogger(__name__)
@@ -42,6 +51,7 @@ SPA_PAGE = """<!DOCTYPE html>
 <body>
 <div class="spa-layout">
 <nav id="toc"></nav>
+<nav id="index"></nav>
 <main id="content"></main>
 </div>
 <script>
@@ -71,6 +81,11 @@ SPA_PAGE = """<!DOCTYPE html>
 
 # Навигационная страница-источник (help:sidebar) не показывается как контент.
 NAV_SOURCE_SLUG = "sidebar"
+# Страница-источник указателя (help:keywords): её таблица задаёт порядок и
+# состав ключевых слов — тот же контракт, что у CHM-указателя (qsp.hhk).
+HHK_SOURCE_SLUG = "help_keywords"
+# Парсер для повторного разбора собранной страницы (совпадает с model/prepare).
+HTML_PARSER = "lxml"
 
 
 def render_spa(settings: Settings) -> None:
@@ -80,6 +95,7 @@ def render_spa(settings: Settings) -> None:
 
     soup = BeautifulSoup(SPA_PAGE, "lxml")
     nav = soup.find(id="toc")
+    index = soup.find(id="index")
     main = soup.find(id="content")
 
     sidebar = model.by_slug.get(NAV_SOURCE_SLUG)
@@ -87,13 +103,19 @@ def render_spa(settings: Settings) -> None:
         _namespace_ids(sidebar.fragment, sidebar.slug)
         nav.append(sidebar.fragment)
 
+    # Указатель строится ДО раскладки контента: он лишь читает таблицу
+    # help_keywords (порядок/состав) и anchors.json (цели ссылок), а контент-цикл
+    # ниже перемещает/пересобирает фрагменты страниц.
+    _fill_index(model, soup, index)
+
     for page in _content_pages(model, settings.spa.start_page):
-        _namespace_ids(page.fragment, page.slug)
+        fragment = _with_anchors(page, model.anchors)
+        _namespace_ids(fragment, page.slug)
         section = soup.new_tag("section")
         section["id"] = page.slug
         section["data-slug"] = page.slug
         section["hidden"] = ""
-        section.append(page.fragment)
+        section.append(fragment)
         main.append(section)
 
     _normalize_local_images(soup)
@@ -116,6 +138,66 @@ def _content_pages(model: SiteModel, start_slug: str) -> list[Page]:
         logger.warning("SPA: стартовая страница %r не найдена среди контента", start_slug)
         return pages
     return [start, *(p for p in pages if p is not start)]
+
+
+def _with_anchors(page: Page, anchors: Anchors) -> Tag:
+    """Возвращает фрагмент страницы с вставленными якорями из anchors.json.
+
+    По аналогии с CHM (:func:`render.chm.render_chm`): якоря вставляются по
+    0-based номерам строк, отсчитанным от обёрнутой страницы. Поэтому для
+    страниц с якорями собираем тот же текст (``wrap_into_template`` +
+    ``inject_into_text``) и разбираем его обратно, забирая ``div.page.group`` —
+    так позиция вставки совпадает с CHM побайтово. Страницы без якорей
+    возвращаются как есть (без лишнего переразбора).
+    """
+    if not anchors.anchors_for(page.slug):
+        return page.fragment
+    text = anchors.inject_into_text(wrap_into_template(page.source_soup, page.fragment), page.slug)
+    inner = BeautifulSoup(text, HTML_PARSER).select_one("div.page.group")
+    return inner if inner is not None else page.fragment
+
+
+def _fill_index(model: SiteModel, soup: BeautifulSoup, index: Tag) -> None:
+    """Строит блок указателя ``<nav id=index>`` из help_keywords + anchors.json.
+
+    Порядок и состав ключевых слов берутся из таблицы help_keywords (тот же
+    контракт, что у CHM: :func:`prepare.hhk.extract_hhk_data`), а идентификатор и
+    страница ссылки — из anchors.json (:meth:`Anchors.keywords_map`). Ключ, для
+    которого в anchors.json нет записи, в указатель не попадает (некуда вести
+    ссылке). Итоговая ссылка ``#slug~anchor`` совпадает с namespace-якорями
+    контента, которые ставит :func:`_namespace_ids`.
+    """
+    page = model.by_slug.get(HHK_SOURCE_SLUG)
+    table = page.fragment.find("table") if page is not None else None
+    if table is None:
+        logger.warning("SPA: указатель не собран — нет таблицы ключевых слов (%s)", HHK_SOURCE_SLUG)
+        return
+
+    keywords_anchors = model.anchors.keywords_map()
+    heading = soup.new_tag("h2")
+    heading.string = "Указатель"
+    ul = soup.new_tag("ul")
+    count = 0
+    for title in extract_hhk_data(table):  # dict: порядок строк таблицы help_keywords
+        target = keywords_anchors.get(title)
+        if target is None:
+            continue  # ключ без якоря в anchors.json — некуда вести ссылку
+        link = soup.new_tag("a", href=_spa_anchor_href(target))
+        link.string = title
+        li = soup.new_tag("li")
+        li.append(link)
+        ul.append(li)
+        count += 1
+    index.append(heading)
+    index.append(ul)
+    logger.info("SPA: указатель собран (записей %d)", count)
+
+
+def _spa_anchor_href(target: str) -> str:
+    """``file.htm#anchor`` (из anchors.json) -> ``#slug~anchor`` hash-навигации SPA."""
+    file_part, _, anchor = target.partition("#")
+    slug = PurePosixPath(file_part).stem
+    return f"#{slug}~{anchor}" if anchor else f"#{slug}"
 
 
 def _namespace_ids(fragment: Tag, slug: str) -> None:

@@ -18,6 +18,9 @@ from qsp_help_builder.config import (
     WikiSettings,
 )
 from qsp_help_builder.fs_utils import save_json, write_text
+from qsp_help_builder.model import build_site_model
+from qsp_help_builder.prepare.page_clean import wrap_into_template
+from qsp_help_builder.render.profile import SpaProfile
 from qsp_help_builder.render.spa import render_spa
 
 BASE_URL = "https://wiki.qsp.org"
@@ -146,3 +149,85 @@ def test_render_spa_css_comes_from_res_spa(tmp_path: Path):
     render_spa(settings)
 
     assert (settings.paths.spa / "default.css").read_text(encoding="utf-8") == ".spa-marker{}"
+
+
+def _wrapped_line_of(settings: Settings, slug: str, marker: str) -> int:
+    """0-based номер строки маркера в обёрнутой странице — тот же отсчёт, что у CHM.
+
+    anchors.json хранит строки, измеренные на тексте ``wrap_into_template``; чтобы
+    фикстура была точной, вычисляем индекс тем же способом, а не гадаем.
+    """
+    model = build_site_model(settings, SpaProfile())
+    page = model.by_slug[slug]
+    text = wrap_into_template(page.source_soup, page.fragment)
+    for idx, line in enumerate(text.split("\n")):
+        if marker in line:
+            return idx
+    raise AssertionError(f"маркер {marker!r} не найден в обёрнутой {slug}")
+
+
+def test_render_spa_injects_anchors_and_builds_index(tmp_path: Path):
+    # указатель: порядок/состав из таблицы help_keywords, цели — из anchors.json;
+    # сам якорь вставляется в контент по номеру строки (как в CHM) и namespace'ится.
+    settings = make_settings(tmp_path)
+    src = settings.paths.src
+    write_text(
+        src / "start.html",
+        '<html><head><title>Старт</title></head><body><div class="page group">'
+        '<h1>Дом</h1></div></body></html>',
+        "utf-8",
+    )
+    write_text(
+        src / "help_acts.html",
+        '<html><head><title>Действия</title></head><body><div class="page group">\n'
+        '<h1>Действия</h1>\n'
+        '<p>ACT - создать действие</p>\n'
+        '</div></body></html>',
+        "utf-8",
+    )
+    write_text(
+        src / "help_keywords.html",
+        f'<html><head><title>Ключи</title></head><body><div class="page group">'
+        f'<table class="inline">'
+        f'<tr class="row0"><td class="col0"><strong>ключевое слово</strong></td>'
+        f'<td class="col1"><strong>назначение</strong></td></tr>'
+        f'<tr class="row1"><td class="col0"><a href="{BASE_URL}/help:acts">ACT</a></td>'
+        f'<td class="col1">Создать действие</td></tr>'
+        f'<tr class="row2"><td class="col0">x ADDLIB</td>'
+        f'<td class="col1">не поддерживается</td></tr>'
+        f'</table></div></body></html>',
+        "utf-8",
+    )
+    write_text(
+        src / "sidebar.html",
+        f'<html><head><title>Нав</title></head><body><div class="page group">'
+        f'<ul><li><a href="{BASE_URL}/help:acts">Действия</a></li></ul></div></body></html>',
+        "utf-8",
+    )
+    save_json(
+        {
+            "pages": {
+                f"{BASE_URL}/help:acts": r"html_src\help_acts.html",
+                f"{BASE_URL}/help:keywords": r"html_src\help_keywords.html",
+            },
+            "images": {},
+        },
+        settings.paths.scheme,
+    )
+    save_json({}, settings.paths.anchors)  # временный — нужен для build_site_model ниже
+
+    line = _wrapped_line_of(settings, "help_acts", "<p>")
+    save_json({"help_acts": {"statement_ACT": [line, "ACT"]}}, settings.paths.anchors)
+
+    render_spa(settings)
+    index = (settings.paths.spa / "index.html").read_text(encoding="utf-8")
+
+    # блок указателя стоит между навигацией и контентом
+    assert 'id="index"' in index
+    assert index.index('id="toc"') < index.index('id="index"') < index.index('id="content"')
+    # ссылка указателя: текст из help_keywords, цель (slug~anchor) из anchors.json
+    assert '<a href="#help_acts~statement_ACT">ACT</a>' in index
+    # ключ без якоря в anchors.json (ADDLIB) в указатель не попадает
+    assert "ADDLIB" not in index[index.index('id="index"'):index.index('id="content"')]
+    # сам якорь вставлен в контент по номеру строки и отnamespace'ен -> ссылка резолвится
+    assert 'id="help_acts~statement_ACT"' in index
