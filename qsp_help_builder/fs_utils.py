@@ -11,6 +11,7 @@
 from __future__ import annotations
 
 import json
+import shutil
 from pathlib import Path
 from typing import Any
 
@@ -49,6 +50,28 @@ def save_json(data: Any, path: Path) -> None:
     ensure_dir(path.parent)
     with open(path, "w", encoding="utf-8") as fp:
         json.dump(data, fp, ensure_ascii=False, indent=4)
+
+
+def copy_tree(src_dir: Path, dst_dir: Path) -> list[str]:
+    """Копирует всё дерево ``src_dir`` в ``dst_dir`` (перезапись разрешена).
+
+    Для статичных ресурсов (``default.css`` и пр.), лежащих в ``_res_src/<цель>``
+    и переносимых в выходную папку как есть, с сохранением подпапок. Возвращает
+    отсортированные относительные имена скопированных файлов; если ``src_dir``
+    нет — пустой список (отсутствие ресурсов не роняет сборку, залогирует вызывающий).
+    """
+    if not src_dir.is_dir():
+        return []
+    copied: list[str] = []
+    for path in sorted(src_dir.rglob("*")):
+        if not path.is_file():
+            continue
+        rel = path.relative_to(src_dir)
+        target = dst_dir / rel
+        ensure_dir(target.parent)
+        shutil.copy2(path, target)
+        copied.append(str(rel))
+    return copied
 
 
 def file_name(path_value: str) -> str:

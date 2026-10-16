@@ -67,7 +67,8 @@ BFS-обход по `https://wiki.qsp.org`, сессионные GET с UA-бр�
   (`help_keywords` докидывается локально);
 - Кодировки: html — utf-8; **hhc/hhk пишутся в windows-1251** (требование HH Workshop);
 - Шаблон CHM_PAGE подставляется как обёртка, title переносится из исходной страницы;
-  ссылка на `default.css` (файл кладётся в `html_out` вручную).
+  ссылка на `default.css` (раньше клался в `html_out` вручную; теперь копируется из
+  `[chm].res` = `_res_src/chm` автоматически на этапе prepare).
 
 **Замена ссылок** (`replace_links`/`replace_href`): target=_blank и fn_bot/fn_top не трогаются;
 относительные ссылки join-ятся с base_url; wiki-ссылки маппятся через scheme['pages']
@@ -227,7 +228,11 @@ extract, и на inject (раньше 1-based↔0-based давал сдвиг н
   `images/`, namespace id `{slug}~X`, навигация из `sidebar`, `_normalize_local_images`
   доводит легаси-голые src до `images/`). Конфиг: `[spa].out → paths.spa` (обязателен,
   без дефолтов); `[spa].start_page → spa.start_page` — slug первой контент-секции
-  (её показывает router без хеша; правится в конфиге без правки кода). CLI/`pipeline`: команда `spa` (`run_spa`). Приёмка: `prepare` → `html_out`
+  (её показывает router без хеша; правится в конфиге без правки кода). Статичные
+  ресурсы (`default.css` и пр.) теперь у CHM и SPA разные и копируются из своих папок:
+  `[chm].res → paths.res_chm` (`_res_src/chm` -> html_out) и `[spa].res → paths.res_spa`
+  (`_res_src/spa` -> spa_out) через `fs_utils.copy_tree` (отсутствие папки — warning, не
+  падение). CLI/`pipeline`: команда `spa` (`run_spa`). Приёмка: `prepare` → `html_out`
   **побайтово == baseline `_baseline/2026-10-17/m_regen.json`** (77 файлов, 0 расхождений —
   CHM не сдвинут, пересъёмка не потребовалась); `spa` проверен с `file://` (#start логотип
   грузится, TOC/якоря/картинки работают); 0 ошибок pyright, 77 тестов зелёные

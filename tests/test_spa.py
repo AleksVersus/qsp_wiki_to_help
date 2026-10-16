@@ -33,6 +33,8 @@ def make_settings(tmp_path: Path, start_page: str = "start") -> Settings:
         scheme=tmp_path / "html_src" / "urls_links_to_files.json",
         anchors=tmp_path / "html_src" / "anchors.json",
         spa=tmp_path / "spa_out",
+        res_chm=tmp_path / "_res_src" / "chm",
+        res_spa=tmp_path / "_res_src" / "spa",
     )
     chm = ChmSettings("sidebar.htm", "help_keywords.htm", "qsp.hhc", "qsp.hhk", "utf-8", "windows-1251")
     log = LoggingSettings("DEBUG", tmp_path / "dl.log")
@@ -79,8 +81,12 @@ def seed(tmp_path: Path, settings: Settings) -> None:
     (settings.paths.images).mkdir(parents=True, exist_ok=True)
     (settings.paths.images / "help_msgbox.png").write_bytes(b"\x89PNG\r\n\x1a\nfake")
     # легаси-логотип: голым именем лежит в html_out (не в scheme), как в реальном CHM
-    write_text(settings.paths.out / "default.css", "body{}", "utf-8")
+    (settings.paths.out).mkdir(parents=True, exist_ok=True)
     (settings.paths.out / "help_wiki_logo.png").write_bytes(b"\x89PNG\r\n\x1a\nlogo")
+    # css SPA теперь из своего дерева ресурсов (_res_src/spa), НЕ из html_out
+    write_text(settings.paths.res_spa / "default.css", ".spa-marker{}", "utf-8")
+    # html_out-css с другим содержимым: SPA не должен его подхватить
+    write_text(settings.paths.out / "default.css", ".chm-marker{}", "utf-8")
 
 
 def test_render_spa_builds_index_with_sections_and_nav(tmp_path: Path):
@@ -131,3 +137,12 @@ def test_render_spa_copies_assets(tmp_path: Path):
     assert (settings.paths.spa / "images" / "help_msgbox.png").is_file()
     assert (settings.paths.spa / "images" / "help_wiki_logo.png").is_file()
     assert (settings.paths.spa / "default.css").is_file()
+
+
+def test_render_spa_css_comes_from_res_spa(tmp_path: Path):
+    # spa-ресурсы копируются из _res_src/spa, а не из html_out (css теперь разные)
+    settings = make_settings(tmp_path)
+    seed(tmp_path, settings)
+    render_spa(settings)
+
+    assert (settings.paths.spa / "default.css").read_text(encoding="utf-8") == ".spa-marker{}"

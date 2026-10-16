@@ -25,7 +25,7 @@ from pathlib import Path
 from bs4 import BeautifulSoup, Tag
 
 from ..config import Settings
-from ..fs_utils import ensure_dir, file_name, write_text
+from ..fs_utils import copy_tree, ensure_dir, file_name, write_text
 from ..model import Page, SiteModel, build_site_model
 from .profile import SpaProfile
 
@@ -142,7 +142,7 @@ def _normalize_local_images(soup: BeautifulSoup) -> None:
 
 
 def _copy_assets(model: SiteModel, settings: Settings, spa_dir: Path) -> None:
-    """Копирует используемые картинки в spa_out/images и default.css рядом."""
+    """Копирует используемые картинки в spa_out/images и статичные ресурсы рядом."""
     images_dir = ensure_dir(spa_dir / "images")
     sources = (settings.paths.images, settings.paths.out)
     for name in sorted(model.referenced_images()):
@@ -152,8 +152,10 @@ def _copy_assets(model: SiteModel, settings: Settings, spa_dir: Path) -> None:
             continue
         shutil.copy2(src, images_dir / name)
 
-    css = settings.paths.out / "default.css"
-    if css.is_file():
-        shutil.copy2(css, spa_dir / "default.css")
+    # default.css и прочие статичные ресурсы SPA — из _res_src/spa (свой, не из html_out)
+    res = copy_tree(settings.paths.res_spa, spa_dir)
+    if res:
+        logger.info("SPA: ресурсы скопированы из %s: %s", settings.paths.res_spa, ", ".join(res))
     else:
-        logger.warning("SPA: default.css не найден в %s — стили не подключены", settings.paths.out)
+        logger.warning("SPA: папка ресурсов %s пуста или отсутствует — стили не подключены",
+                       settings.paths.res_spa)

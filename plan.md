@@ -164,6 +164,9 @@ tests/
   + hash-router + `images/`). `links`/`images` получили обязательный `profile`, параллельно
   готовя цели для обоих выходов (решение пользователя). Конфиг: `[spa].out → paths.spa`,
   `[spa].start_page → spa.start_page` (slug первой секции SPA, открывается без хеша);
+  статичные ресурсы (`default.css`) у CHM/SPA разные: `[chm].res → paths.res_chm`
+  (`_res_src/chm` -> html_out) и `[spa].res → paths.res_spa` (`_res_src/spa` -> spa_out),
+  копируются `fs_utils.copy_tree`;
   CLI/`pipeline`: команда `spa`. Приёмка: `prepare` → `html_out` побайтово == baseline
   `_baseline/2026-10-17/m_regen.json` (77 файлов, 0 расхождений — CHM не сдвинут);
   `spa` открывает `#start` (логотип резолвится из ассетов модели), TOC/якоря/картинки

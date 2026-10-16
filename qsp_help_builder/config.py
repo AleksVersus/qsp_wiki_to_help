@@ -51,6 +51,8 @@ class PathSettings:
     scheme: Path   # urls_links_to_files.json: контракт url -> файл
     anchors: Path  # anchors.json: контракт якорь -> строка/заголовок
     spa: Path      # spa_out: одностраничник (index.html + images/) — выход render.spa
+    res_chm: Path  # _res_src/chm: статичные ресурсы (default.css и пр.) -> html_out
+    res_spa: Path  # _res_src/spa: статичные ресурсы (default.css и пр.) -> spa_out
 
 
 @dataclass(frozen=True)
@@ -156,6 +158,8 @@ def load_settings(config_path: Path | None = None) -> Settings:
         scheme=_resolve(root, _require(paths_raw, "scheme", "paths")),
         anchors=_resolve(root, _require(paths_raw, "anchors", "paths")),
         spa=_resolve(root, _require(spa_raw, "out", "spa")),
+        res_chm=_resolve(root, _require(chm_raw, "res", "chm")),
+        res_spa=_resolve(root, _require(spa_raw, "res", "spa")),
     )
 
     spa = SpaSettings(

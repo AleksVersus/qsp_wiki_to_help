@@ -28,9 +28,11 @@ anchors = "html_src/anchors.json"
 [spa]
 out = "spa_out"                             # каталог выхода одностраничника
 start_page = "start"                        # slug первой страницы (открывается без хеша)
+res = "_res_src/spa"                        # статичные ресурсы SPA (default.css и пр.) -> spa_out
 
 # --- Подготовка CHM (источник: ChmPrepare; keys 'hhc'/'hhk' и хардкод qsp.hhc/qsp.hhk) ---
 [chm]
+res = "_res_src/chm"                # статичные ресурсы CHM (default.css и пр.) -> html_out
 hhc_source = "sidebar.htm"          # скачанный help:sidebar -> основа содержания
 hhk_source = "help_keywords.htm"    # скачанный help:keywords -> основа указателя
 hhc_output = "qsp.hhc"

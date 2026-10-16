@@ -17,7 +17,7 @@ from __future__ import annotations
 import logging
 
 from ..config import Settings
-from ..fs_utils import ensure_dir, write_text
+from ..fs_utils import copy_tree, ensure_dir, write_text
 from ..model import build_site_model
 from ..prepare.hhc import build_hhc
 from ..prepare.hhk import build_hhk
@@ -63,3 +63,11 @@ def render_chm(settings: Settings) -> None:
         anchors=anchors,
         keyword_overrides=settings.chm.keyword_overrides,
     )
+
+    # статичные ресурсы (default.css и пр.) — из _res_src/chm в html_out
+    res = copy_tree(settings.paths.res_chm, out_dir)
+    if res:
+        logger.info("CHM: ресурсы скопированы из %s: %s", settings.paths.res_chm, ", ".join(res))
+    else:
+        logger.warning("CHM: папка ресурсов %s пуста или отсутствует — default.css может отсутствовать",
+                       settings.paths.res_chm)
