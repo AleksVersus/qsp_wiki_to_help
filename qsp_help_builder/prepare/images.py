@@ -19,6 +19,7 @@ import logging
 
 from bs4 import Tag
 
+from ..render.profile import CHM_PROFILE, OutputProfile
 from ..schema import UrlScheme
 
 logger = logging.getLogger(__name__)
@@ -27,18 +28,22 @@ logger = logging.getLogger(__name__)
 _ICON_SELECTOR = "img.icon"
 
 
-def process_images(el: Tag, scheme: UrlScheme, *, base_url: str) -> None:
+def process_images(
+    el: Tag, scheme: UrlScheme, *, base_url: str, profile: OutputProfile | None = None
+) -> None:
     """Порт extract_images: поправка src, снятие «кликабельности», иконки.
 
     base_url параметризует зашитый в старом коде 'https://wiki.qsp.org' —
-    на текущем конфиге значения совпадают, вывод побайтовый.
+    на текущем конфиге значения совпадают, вывод побайтовый. Профиль задаёт
+    итоговый вид src (CHM — имя файла, SPA — images/имя); по умолчанию CHM.
     """
+    profile = profile or CHM_PROFILE
     for img in el.find_all("img", src=True):
         src = str(img["src"])
         logger.debug("img src до обработки: %s", src)
 
         if src.startswith((base_url, "/_media/")):
-            replace_src(img, scheme)
+            replace_src(img, scheme, profile)
         elif src.startswith("/lib/") and "http" in src:
             # ИСТОРИК: проксированный DokuWiki URL вида
             # /lib/exe/fetch.php?...media=https%3A%2F%2Fwiki...%2F_media%2Fqgen.png
@@ -49,7 +54,7 @@ def process_images(el: Tag, scheme: UrlScheme, *, base_url: str) -> None:
             src = src.replace(r"%3A", ":").replace(r"%2F", "/")
             img["src"] = src
             logger.debug("img src после lib-раскодирования: %s", src)
-            replace_src(img, scheme)
+            replace_src(img, scheme, profile)
 
         # «кликабельность» снимается у ВСЕХ картинок, даже не тронутых заменой —
         # как в старом коде (условие стояло вне веток)
@@ -67,18 +72,23 @@ def process_images(el: Tag, scheme: UrlScheme, *, base_url: str) -> None:
             img.decompose()
 
 
-def replace_src(img: Tag, scheme: UrlScheme) -> None:
-    """Порт replace_src: точное совпадение url -> эвристика имён (без break!)."""
+def replace_src(img: Tag, scheme: UrlScheme, profile: OutputProfile | None = None) -> None:
+    """Порт replace_src: точное совпадение url -> эвристика имён (без break!).
+
+    Итоговый src оформляет профиль (по умолчанию CHM — голое имя файла, как в
+    старом коде).
+    """
+    profile = profile or CHM_PROFILE
     src = img["src"]
     name = scheme.image_name(src)
     if name is not None:
-        img["src"] = name
+        img["src"] = profile.image_href(name)
         return
     # ИСТОРИК: цикл без break — при нескольких совпадениях побеждает ПОСЛЕДНЕЕ,
     # ровно как в старом коде; порядок обхода = порядок keys в json-манифесте.
     for file_path in scheme.image_names:
         if match_wiki_media_name(file_path) in src:
-            img["src"] = file_path
+            img["src"] = profile.image_href(file_path)
 
 
 def match_wiki_media_name(file_path: str) -> str:

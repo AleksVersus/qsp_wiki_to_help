@@ -24,6 +24,7 @@ COMMANDS = {
     "download": pipeline.run_download,
     "prepare": pipeline.run_prepare,
     "anchors": pipeline.run_anchors,
+    "spa": pipeline.run_spa,
     "all": pipeline.run_all,
 }
 
@@ -36,8 +37,9 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "command",
         choices=sorted(COMMANDS),
-        help="download — выгрузка с wiki (нужна сеть); prepare — html_src->html_out; "
-        "anchors — извлечение якорей из собранного html_out; all — download->prepare->anchors.",
+        help="download — выгрузка с wiki (нужна сеть); prepare — html_src->html_out (CHM); "
+        "anchors — извлечение якорей из собранного html_out; spa — одностраничник "
+        "html_src->spa_out; all — download->prepare->anchors.",
     )
     parser.add_argument(
         "--config",

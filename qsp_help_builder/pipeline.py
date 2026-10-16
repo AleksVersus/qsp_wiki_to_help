@@ -18,7 +18,8 @@ import logging
 from . import download as download_stage
 from .anchors import Anchors
 from .config import Settings
-from .prepare import prepare_all
+from .render.chm import render_chm
+from .render.spa import render_spa
 
 logger = logging.getLogger(__name__)
 
@@ -33,9 +34,22 @@ def run_download(settings: Settings) -> download_stage.DownloadStats:
 
 
 def run_prepare(settings: Settings) -> None:
-    """Этап подготовки html_src -> html_out (htm + qsp.hhc/qsp.hhk). Полностью офлайн."""
-    logger.info("Этап prepare: %s -> %s", settings.paths.src, settings.paths.out)
-    prepare_all(settings)
+    """Этап подготовки html_src -> html_out (htm + qsp.hhc/qsp.hhk). Полностью офлайн.
+
+    С Фазы 7 — это CHM-рендерер поверх нейтральной модели.
+    """
+    logger.info("Этап prepare (chm): %s -> %s", settings.paths.src, settings.paths.out)
+    render_chm(settings)
+
+
+def run_spa(settings: Settings) -> None:
+    """Этап одностраничника html_src -> spa_out (index.html + images/). Полностью офлайн.
+
+    Переиспользует те же примитивы подготовки, что и CHM, только с SpaProfile
+    (ссылки/картинки в формате хеш-навигации).
+    """
+    logger.info("Этап spa: %s -> %s", settings.paths.src, settings.paths.spa)
+    render_spa(settings)
 
 
 def run_anchors(settings: Settings) -> Anchors:

@@ -105,6 +105,29 @@ extract, и на inject (раньше 1-based↔0-based давал сдвиг н
 Не pytest, а ручные скрипты, трогающие живую сеть. При рефакторинге заменяются
 на офлайн-тесты чистых функций (см. план, Фаза 5).
 
+### 2.5 Модель сайта и рендереры (Фаза 7)
+
+- **`render/profile.py`** — `OutputProfile` (протокол) + `ChmProfile`/`SpaProfile`
+  (одитональные чистые функции форматирования целей вывода, без сети/IO).
+  `ChmProfile`: page → `{file}.htm`, anchor → `{file}.htm#{anchor}`, картинка → голое
+  имя (побайтово == легаси `prepare`, CHM не сдвигается). `SpaProfile`: page →
+  `#{slug}`, anchor → `#{slug}~{anchor}`, картинка → `images/{имя}`; нераспознанная
+  вики-ссылка уходит наружу с `target=_blank`. `slug` = stem файла `html_src`.
+- **`prepare/links.py` / `prepare/images.py`** — примитивы получили обязательный
+  параметр `profile`; финальная цель строится через `profile.internal_target` /
+  `profile.image_href`. Логика urljoin/scheme/среза хвостов и ИСТОРИКи (last-match-wins,
+  сноски/`_blank`) сохранены. По умолчанию `CHM_PROFILE` — существующие вызовы не ломаются.
+- **`model.py`** — `build_site_model(settings, profile) -> SiteModel`. Нейтральная сборка
+  поверх `prepare`-примитивов (`extract_page` + `apply_start_fixes` для `start` +
+  `replace_links(profile)` + `process_images(profile)`); `Page{slug,title,source_soup,fragment}`,
+  `SiteModel{pages,anchors,scheme,profile,by_slug,referenced_images()}`. Ничего не пишет на диск.
+- **`render/chm.py`** — `render_chm(settings)`: перенос тела `prepare_all` на модель
+  (`ChmProfile`); обёртка CHM-шаблона + построчная инъекция якорей (CHM-специфика) +
+  `qsp.hhc`/`qsp.hhk`. `prepare/__init__.prepare_all` оставлен ре-экспортом (ленивый импорт).
+- **`render/spa.py`** — `render_spa(settings)`: `SpaProfile` → один `spa_out/index.html`
+  (hash-router JS, `<section data-slug>`, namespace id `{slug}~X`, навигация из `sidebar`,
+  `_normalize_local_images` + `_copy_assets` → `spa_out/images/`).
+
 ## 3. Что сделано в последней сессии
 
 - Проект полностью прочитан и проанализирован (оба основных скрипта, aux-инструмент,
@@ -193,6 +216,21 @@ extract, и на inject (раньше 1-based↔0-based давал сдвиг н
   из `html_src` удалён `fetch.png`). Проведён `download` на живую вики (80 стр./17 картинок,
   0 ошибок; контент-дрейф + per-request tok — ожидаемы). Приёмка: `prepare` детерминирован
   (m_regen==m_regen2, 77 файлов), расхождение golden↔regen = 0; 69 тестов зелёные.
+- **Фаза 7 (модель сайта + одностраничник) ВЫПОЛНЕНА 2026-10-16 — CHM сохранён:**
+  `render/profile.py` (`ChmProfile`/`SpaProfile` + протокол `OutputProfile`) — единый источник
+  форматирования целей; `prepare/links.py`/`images.py` получили обязательный `profile`
+  (тот же модуль параллельно готовит ссылки/картинки и для CHM, и для SPA — решение
+  пользователя); `model.py` (`build_site_model` → `SiteModel{pages,anchors,scheme,profile}`)
+  — нейтральная сборка поверх примитивов `prepare`, ничего не пишет; `render/chm.py`
+  (`render_chm` — перенос `prepare_all`, `prepare/__init__.prepare_all` теперь лениво
+  делегирует ему) и `render/spa.py` (`render_spa` → `spa_out/index.html` + hash-router +
+  `images/`, namespace id `{slug}~X`, навигация из `sidebar`, `_normalize_local_images`
+  доводит легаси-голые src до `images/`). Конфиг: `[spa].out → paths.spa` (обязателен,
+  без дефолтов); CLI/`pipeline`: команда `spa` (`run_spa`). Приёмка: `prepare` → `html_out`
+  **побайтово == baseline `_baseline/2026-10-17/m_regen.json`** (77 файлов, 0 расхождений —
+  CHM не сдвинут, пересъёмка не потребовалась); `spa` проверен с `file://` (#start логотип
+  грузится, TOC/якоря/картинки работают); 0 ошибок pyright, 77 тестов зелёные
+  (`test_model.py`, `test_spa.py` + обновлённые фикстуры под `profile`/`[spa]`).
 
 ## 4. Известные проблемы / подозрительные места (вести как backlog)
 
@@ -224,6 +262,14 @@ extract, и на inject (раньше 1-based↔0-based давал сдвиг н
 12. **anchors.json** — **исправлено в Фазе 6:** перегенерирован из свежей сборки
     (после ре-краула), дрейф «+1» и потерянный `kommentarii` устранены; якоря сходятся
     до идемпотентной точки покоя.
+13. ⏸ **SPA: url() внутри `default.css` остаются wiki-root-absolute** (`/lib/tpl/…/
+    page-gradient.png`, `/lib/images/interwiki/…`) — копируемый из `html_out` CSS ссылается
+    на ресурсы, которых нет в `spa_out`; даёт 1 `ERR_FILE_NOT_FOUND` на декоративный фон
+    (не функциональный контент). Разрешение css-url-ассетов (сканирование `url()` +
+    бандлинг/переписывание) — вне объёма Фазы 7 (манифест собран только по `<img>`),
+    кандидатами закрывает Фаза 8 (PWA/единый ассет-пайплайн). Легаси-логотип `start`
+    (`help_wiki_logo.png`) в SPA уже резолвится через модель в `images/` (`_copy_assets`
+    берёт его из `html_out`, т.к. в `html_src/images` он лежит как `wiki_logo.png`).
 
 ## 5. Решения, уже принятые (не переигрывать без причины)
 
@@ -246,17 +292,16 @@ extract, и на inject (раньше 1-based↔0-based давал сдвиг н
 
 ## 6. С чего начать в новой сессии
 
-1. Открытые вопросы закрыты (plan.md § «Принятые решения»); **Фазы 0–6 завершены**
-   (включая достройку §4.2/§4.3/§4.4/§4.11/§4.12 + ре-краул); действующий бейзлайн и
-   правило приёмки — `_baseline/2026-10-17/BASELINE.md` (старый 2026-10-16 — superseded);
-2. Следующий шаг — **Фаза 7 (модель сайта + одностраничник)**: `model.py` —
-   нейтральный выход пайплайна (страницы {slug,title,фрагмент,якоря} + граф ссылок +
-   манифест картинок), `render/chm.py` (пересадка текущего выхода prepare на модель) и
-   `render/spa.py` (гибрид: index.html + папка images/). Предварительные условия
-   (ассет-пайплайн §4.2 и якоря-в-стабильных-id §4.4) УЖЕ закрыты в достройке Фазы 6;
-   в Фазу 7 остаются легаси-ассеты (logo `help_wiki_logo.png` vs `wiki_logo.png`,
-   doc-пути `res/…`, `images/pic_01.png`) и сборка/разрешение ассетов в едином месте.
-   Каждая правка поведения — с пересъёмкой baseline-манифеста и фиксацией diff.
+1. Открытые вопросы закрыты (plan.md § «Принятые решения»); **Фазы 0–7 завершены**
+   (включая достройку Фазы 6 и модель сайта + одностраничник Фазы 7); действующий бейзлайн и
+   правило приёмки — `_baseline/2026-10-17/BASELINE.md` (старый 2026-10-16 — superseded).
+   Выход `html_out` (CHM) побайтово совпадает с бейзлайном — Фаза 7 его не сдвинула;
+2. Следующий шаг — **Фаза 8 (PWA)**: `render/pwa/` поверх уже готовой `model.build_site_model`
+   и тех же целей ссылок (переиспользует `SpaProfile`-подобный профиль): статика из модели +
+   `manifest.webmanifest` + service worker + client-side поиск; сюда же — единый ассет-пайплайн
+   (закрыть §4.13: сканирование `url()` в CSS и бандлинг шрифтов/иконок, легаси-пути `res/…`,
+   `images/pic_01.png`). Обсудить хостинг/деплой (plan.md «Направление»). Каждая правка
+   поведения CHM — с пересъёмкой baseline-манифеста и фиксацией diff.
 4. При проектировании Фаз 3–5 учитывать будущее направление: внутренним ссылкам
    разрешаться в слаги/модель, а не только в .htm-файлы (см. plan.md «Направление»,
    Фазы 7–8) — иначе модель сайта придётся выводить задним числом;

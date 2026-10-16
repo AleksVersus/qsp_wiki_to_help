@@ -24,6 +24,10 @@ images = "html_src/images"                    # куда downloader кладёт
 scheme = "html_src/urls_links_to_files.json"
 anchors = "html_src/anchors.json"
 
+# --- Одностраничник (SPA, Фаза 7): гибрид index.html + папка images/ рядом ---
+[spa]
+out = "spa_out"                             # каталог выхода одностраничника
+
 # --- Подготовка CHM (источник: ChmPrepare; keys 'hhc'/'hhk' и хардкод qsp.hhc/qsp.hhk) ---
 [chm]
 hhc_source = "sidebar.htm"          # скачанный help:sidebar -> основа содержания

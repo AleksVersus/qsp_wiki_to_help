@@ -9,7 +9,13 @@ python -m qsp_help_builder download    # этап 1: выгрузка стран
 python -m qsp_help_builder prepare     # этап 2: подготовка html_src -> html_out (+ qsp.hhc/qsp.hhk)
 python -m qsp_help_builder anchors     # этап 2b: извлечение якорей из собранного html_out в anchors.json
 python -m qsp_help_builder all         # download -> prepare -> anchors одной командой
+python -m qsp_help_builder spa         # одностраничник: html_src -> spa_out/index.html (+ images/)
 ```
+
+Команды `download`/`prepare`/`anchors`/`all` собирают CHM — этот путь не изменился.
+`spa` — отдельный выход (полностью офлайн, сеть не трогает): из тех же `html_src`
+строит автономный одностраничный `spa_out/index.html` с hash-навигацией и локальной
+папкой `images/`. Каталог вывода задаётся в `[spa].out` файла `qsp_help.toml`.
 
 Настройки (папки src/out/images, base_url, кодировки, исключаемые разделы, уровень
 лога) — единственные и только в [`qsp_help.toml`](qsp_help.toml). Файл обязателен:
@@ -70,7 +76,12 @@ python -m qsp_help_builder all         # download -> prepare -> anchors одно
 ## Что дальше?
 
 - Распространяете полученный `chm` среди жильцов вашего ЖэКа;
-- идёт работа над сборкой в автономный одностраничный html / PWA (см. `plan.md`).
+- **одностраничник уже доступен**: `python -m qsp_help_builder spa` → автономный
+  `spa_out/index.html` (открывается двойным кликом с `file://`, hash-навигация,
+  картинки в `spa_out/images/`). Модель сайта общая для CHM и SPA — ссылки готовит
+  один и тот же модуль `prepare`, просто под разные целевые профили;
+- идёт работа над PWA (`render/pwa`: manifest + service worker + client-side поиск,
+  единый ассет-пайплайн для `url()` в CSS) — см. `plan.md`, Фаза 8.
 
 **TODO:**
 
@@ -89,6 +100,10 @@ python -m qsp_help_builder all         # download -> prepare -> anchors одно
 - [x] удалить из вики блок про компилируемую версию справки, а в эту встраивать ссылку на вики
 - [x] **Собрать все этапы в один скрипт. Почитсить от мусора.** (единая точка входа
       `python -m qsp_help_builder`, старые скрипты `qsp_wiki_downloader/` и `chm_prepare/` удалены)
+- [x] **Автономный одностраничник** (`spa`): модель сайта + профили целей (CHM/SPA),
+      `spa_out/index.html` + `images/`, CHM-путь сохранён побайтово (Фаза 7)
+- [ ] PWA: `render/pwa` (manifest + service worker + client-side поиск) и единый
+      ассет-пайплайн (`url()`-ассеты в CSS, легаси-пути `res/…`) — Фаза 8
 
 ## P.S.!!!
 

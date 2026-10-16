@@ -1,0 +1,145 @@
+# pyright: reportUnknownMemberType=false, reportAttributeAccessIssue=false, reportOptionalMemberAccess=false, reportUnknownArgumentType=false, reportIndexIssue=false, reportArgumentType=false
+"""Рендерер-одностраничник (SPA): модель -> ``spa_out/index.html`` + ``images/``.
+
+Гибрид (решение п.4/7): один ``index.html`` и локальная папка картинок рядом —
+без base64 и без zip. Открывается двойным кликом с ``file://`` (как CHM), но
+навигация — hash-router поверх встроенного JS: ссылки ``#slug``, якоря
+``#slug~anchor``.
+
+Всё содержательное берётся из модели, собранной с ``SpaProfile`` (те же примитивы
+``prepare``, что и для CHM). Специфика SPA здесь:
+- namespace id внутри каждой страницы -> ``{slug}~{anchor}`` (иначе коллизии
+  одинаковых id заголовков между страницами в одном документе);
+- каждая страница — ``<section data-slug=... >``; показывается одна по хешу;
+- боковая навигация строится из страницы ``sidebar`` (её ссылки уже ``#slug``);
+- картинки из манифеста модели копируются в ``images/`` (источник: html_src/images,
+  с откатом на html_out для легаси-ассетов вроде логотипа).
+"""
+
+from __future__ import annotations
+
+import logging
+import shutil
+from pathlib import Path
+
+from bs4 import BeautifulSoup, Tag
+
+from ..config import Settings
+from ..fs_utils import ensure_dir, file_name, write_text
+from ..model import SiteModel, build_site_model
+from .profile import SpaProfile
+
+logger = logging.getLogger(__name__)
+
+SPA_PAGE = """<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QSP — справка</title>
+<link type="text/css" href="default.css" rel="stylesheet" />
+</head>
+<body>
+<div class="spa-layout">
+<nav id="toc"></nav>
+<main id="content"></main>
+</div>
+<script>
+(function () {
+  function show() {
+    var hash = location.hash.slice(1);
+    var slug = hash.split("~")[0];
+    var sections = document.getElementsByTagName("section");
+    var shown = false;
+    for (var i = 0; i < sections.length; i++) {
+      var on = sections[i].getAttribute("data-slug") === slug;
+      sections[i].hidden = !on;
+      shown = shown || on;
+    }
+    if (!slug && sections.length) { sections[0].hidden = false; }
+    if (hash) {
+      var target = document.getElementById(hash);
+      if (target) { target.scrollIntoView(); }
+    }
+  }
+  window.addEventListener("hashchange", show);
+  document.addEventListener("DOMContentLoaded", show);
+})();
+</script>
+</body>
+</html>"""
+
+# Навигационная страница-источник (help:sidebar) не показывается как контент.
+NAV_SOURCE_SLUG = "sidebar"
+
+
+def render_spa(settings: Settings) -> None:
+    """Собирает одностраничник по настройкам (полностью офлайн)."""
+    model = build_site_model(settings, SpaProfile())
+    spa_dir = ensure_dir(settings.paths.spa)
+
+    soup = BeautifulSoup(SPA_PAGE, "lxml")
+    nav = soup.find(id="toc")
+    main = soup.find(id="content")
+
+    sidebar = model.by_slug.get(NAV_SOURCE_SLUG)
+    if sidebar is not None:
+        _namespace_ids(sidebar.fragment, sidebar.slug)
+        nav.append(sidebar.fragment)
+
+    for page in model.pages:
+        if page.slug == NAV_SOURCE_SLUG:
+            continue  # ушёл в навигацию
+        _namespace_ids(page.fragment, page.slug)
+        section = soup.new_tag("section")
+        section["id"] = page.slug
+        section["data-slug"] = page.slug
+        section["hidden"] = ""
+        section.append(page.fragment)
+        main.append(section)
+
+    _normalize_local_images(soup)
+    write_text(spa_dir / "index.html", str(soup), settings.chm.page_encoding)
+    _copy_assets(model, settings, spa_dir)
+    logger.info("Одностраничник собран: %s (страниц %d)", spa_dir / "index.html", len(model.pages))
+
+
+def _namespace_ids(fragment: Tag, slug: str) -> None:
+    """Префиксирует все id внутри страницы, чтобы они были уникальны в одном документе."""
+    for el in fragment.find_all(id=True):
+        el["id"] = f"{slug}~{el['id']}"
+
+
+def _normalize_local_images(soup: BeautifulSoup) -> None:
+    """Доводит легаси-картинки до ``images/<имя>``.
+
+    ``SpaProfile.image_href`` оформляет лишь те ``src``, что резолвятся через
+    scheme. Ручные легаси-ассеты (``help_wiki_logo.png`` из ``apply_start_fixes``)
+    проходят мимо профиля и остаются голым именем — здесь они так же уходят в
+    ``images/``. Внешние (``://``) и абсолютные (``/``) ссылки не трогаем; то, что
+    уже под ``images/``, оставляем как есть. Файлы в ``images/`` кладёт
+    :func:`_copy_assets` (он берёт базовое имя из тех же ``src``).
+    """
+    for img in soup.find_all("img", src=True):
+        src = str(img["src"])
+        if "://" in src or src.startswith("/") or src.startswith("images/"):
+            continue
+        img["src"] = f"images/{file_name(src)}"
+
+
+def _copy_assets(model: SiteModel, settings: Settings, spa_dir: Path) -> None:
+    """Копирует используемые картинки в spa_out/images и default.css рядом."""
+    images_dir = ensure_dir(spa_dir / "images")
+    sources = (settings.paths.images, settings.paths.out)
+    for name in sorted(model.referenced_images()):
+        src = next((d / name for d in sources if (d / name).is_file()), None)
+        if src is None:
+            logger.warning("SPA: картинка не найдена ни в html_src/images, ни в html_out: %s", name)
+            continue
+        shutil.copy2(src, images_dir / name)
+
+    css = settings.paths.out / "default.css"
+    if css.is_file():
+        shutil.copy2(css, spa_dir / "default.css")
+    else:
+        logger.warning("SPA: default.css не найден в %s — стили не подключены", settings.paths.out)

@@ -18,29 +18,40 @@ from urllib.parse import urljoin
 
 from bs4 import Tag
 
+from ..render.profile import CHM_PROFILE, OutputProfile
 from ..schema import UrlScheme
 
 
-def replace_links(el: Tag, scheme: UrlScheme, base_url: str) -> None:
-    """Заменяет href у всех ссылок внутри узла el (мутация на месте)."""
-    for link in el.find_all("a", href=True):
-        href = link["href"]
+def replace_links(
+    el: Tag, scheme: UrlScheme, base_url: str, profile: OutputProfile | None = None
+) -> None:
+    """Заменяет href у всех ссылок внутри узла el (мутация на месте).
 
-        if link.has_attr("target") and link["target"] == "_blank":
+    Разрешение wiki-ссылки в локальный файл одно для всех целей; различие CHM/SPA
+    только в форматировании итога (``profile.internal_target``) — по умолчанию CHM,
+    поэтому вывод побайтово совпадает со старым.
+    """
+    profile = profile or CHM_PROFILE
+    for link in el.find_all("a", href=True):
+        href = str(link["href"])
+
+        if link.get("target") == "_blank":
             continue  # внешние/намеренно-новые-окна — как в старом коде
-        if link.has_attr("class") and set(link["class"]) & {"fn_bot", "fn_top"}:
+        if set(link.get("class") or []) & {"fn_bot", "fn_top"}:
             continue  # сноски DokuWiki остаются якорями внутри страницы
 
-        href = str(urljoin(base_url, href))
-        if href.startswith(base_url):
+        joined = str(urljoin(base_url, href))
+        if joined.startswith(base_url):
             # порядок важен: сначала отщипываем хвост '#', потом '?'
-            href = _swap_by_scheme(href, "#", scheme)
-            href = _swap_by_scheme(href, "?", scheme)
-            href = href.replace(".html", ".htm")
+            resolved = _swap_by_scheme(joined, "#", scheme)
+            resolved = _swap_by_scheme(resolved, "?", scheme)
+            final, force_blank = profile.internal_target(resolved, base_url)
+            link["href"] = final
+            if force_blank:
+                link["target"] = "_blank"
         else:
+            link["href"] = joined
             link["target"] = "_blank"  # ушедшее на чужой домен — новой вкладкой
-
-        link["href"] = href
 
 
 def _swap_by_scheme(href: str, splitter: str, scheme: UrlScheme) -> str:

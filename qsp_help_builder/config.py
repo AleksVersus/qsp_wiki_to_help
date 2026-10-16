@@ -50,6 +50,7 @@ class PathSettings:
     images: Path   # html_src/images: скачанные картинки (выход этапа download)
     scheme: Path   # urls_links_to_files.json: контракт url -> файл
     anchors: Path  # anchors.json: контракт якорь -> строка/заголовок
+    spa: Path      # spa_out: одностраничник (index.html + images/) — выход render.spa
 
 
 @dataclass(frozen=True)
@@ -121,6 +122,7 @@ def load_settings(config_path: Path | None = None) -> Settings:
 
     wiki_raw = _require_section(raw, "wiki", path)
     paths_raw = _require_section(raw, "paths", path)
+    spa_raw = _require_section(raw, "spa", path)
     chm_raw = _require_section(raw, "chm", path)
     exclude_raw = _require_section(raw, "exclude", path)
     log_raw = _require_section(raw, "logging", path)
@@ -145,6 +147,7 @@ def load_settings(config_path: Path | None = None) -> Settings:
         images=_resolve(root, _require(paths_raw, "images", "paths")),
         scheme=_resolve(root, _require(paths_raw, "scheme", "paths")),
         anchors=_resolve(root, _require(paths_raw, "anchors", "paths")),
+        spa=_resolve(root, _require(spa_raw, "out", "spa")),
     )
 
     chm = ChmSettings(
