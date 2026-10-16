@@ -14,6 +14,7 @@
 
 from __future__ import annotations
 
+import logging
 import tomllib
 from dataclasses import dataclass
 from pathlib import Path
@@ -40,6 +41,7 @@ class PathSettings:
     root: Path     # корень проекта = папка файла qsp_help.toml
     src: Path      # html_src: скачанные страницы wiki (вход этапа 2)
     out: Path      # html_out: подготовленные файлы (выход этапа 2)
+    images: Path   # html_src/images: скачанные картинки (выход этапа download)
     scheme: Path   # urls_links_to_files.json: контракт url -> файл
     anchors: Path  # anchors.json: контракт якорь -> строка/заголовок
 
@@ -131,6 +133,7 @@ def load_settings(config_path: Path | None = None) -> Settings:
         root=root,
         src=_resolve(root, _require(paths_raw, "src", "paths")),
         out=_resolve(root, _require(paths_raw, "out", "paths")),
+        images=_resolve(root, _require(paths_raw, "images", "paths")),
         scheme=_resolve(root, _require(paths_raw, "scheme", "paths")),
         anchors=_resolve(root, _require(paths_raw, "anchors", "paths")),
     )
@@ -159,3 +162,27 @@ def load_settings(config_path: Path | None = None) -> Settings:
         exclude_files=exclude_files,
         logging=logging_s,
     )
+
+
+def configure_logging(settings: Settings) -> None:
+    """Настраивает логгеры ПО ЯВНОМУ вызову, а не на уровне импорта модуля.
+
+    Старый qsp_wiki_downloader.py вызывал logging.basicConfig в шапке модуля —
+    настройка срабатывала ещё до main и влияла на всё приложение при любом
+    import (backlog handoff §4.6). Здесь логи подключаются только когда этап
+    реально запускается (pipeline/cli). Файл лога — исторический download_log.
+    """
+    level = getattr(logging, settings.logging.level, logging.INFO)
+    root = logging.getLogger()
+    root.setLevel(level)
+    for handler in list(root.handlers):  # идемпотентность при повторных вызовах
+        root.removeHandler(handler)
+    log_path = settings.logging.download_log
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
+    file_handler = logging.FileHandler(log_path, encoding="utf-8")
+    file_handler.setFormatter(formatter)
+    stream_handler = logging.StreamHandler()
+    stream_handler.setFormatter(formatter)
+    root.addHandler(file_handler)
+    root.addHandler(stream_handler)

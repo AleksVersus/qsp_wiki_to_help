@@ -20,6 +20,7 @@ user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 [paths]
 src = "html_src"
 out = "html_out"
+images = "html_src/images"                    # куда downloader кладёт скачанные картинки
 scheme = "html_src/urls_links_to_files.json"
 anchors = "html_src/anchors.json"
 

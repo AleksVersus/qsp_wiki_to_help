@@ -9,7 +9,8 @@
 - ``templates``— дословные заготовки страниц CHM/HHС/HHK из старого кода;
 - ``anchors``  — единая модель anchors.json (Фаза 2);
 - ``prepare``  — этап подготовки html_src→html_out, порт ChmPrepare (Фаза 3);
-- ``download``/``pipeline`` — появляются в Фазах 4–5.
+- ``download`` — этап выгрузки с wiki (crawler/naming), порт WikiDownloader (Фаза 4);
+- ``pipeline``/``cli`` — появляются в Фазе 5.
 
 Правило приёмки каждого изменения: пересборка html_out обязана совпасть
 с эталоном ``_baseline/2026-10-16`` (см. BASELINE.md там же).

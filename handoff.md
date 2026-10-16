@@ -142,6 +142,20 @@ extract_keywords ищет именно их. Для hhk строится кар�
   пересобрал html_out побайтово == `m_regen1.json` (73 файла, 0 расхождений; манифест
   `_baseline/2026-10-16/m_phase3.json`, html_out откачен git restore). `tests/test_prepare.py`
   — 23 офлайн-теста; всего 33 зелёных. Старые `chm_prepare/` не тронуты.
+- **Фаза 4 выполнена**: `WikiDownloader` разобран на `qsp_help_builder/download/`
+  (`naming.py` — чистые page_filename/image_filename/image_extension; `crawler.py` —
+  чистые `extract_page_links`/`collect_image_urls` + `Crawler`/`DownloadStats`). Ключевое
+  изменение по плану: скачивание картинок больше НЕ побочный эффект обхода — за BFS
+  собирается множество URL картинок, прогон отдельным `download_images`. Логгер: `logging.basicConfig`
+  из шапки модуля заменён на явный `config.configure_logging(settings)` (вызывается в
+  `run_download`). Настройки краулера из `Settings` (base_url/timeout/delay/UA), добавлен
+  `[paths].images`. Контракты сохранены 1:1: имена файлов, ИСТОРИК-баг query-строки
+  (`fetch.php?media=… → fetch.png`) закреплён тестом, scheme пишется в `urls_links_to_files.json`
+  (значения — пути от корня проекта, потребителю нужно только имя). НЮАНС: относительные
+  wiki-href `help:coding` без ведущего `/` urljoin принимает за схему URL и теряет их —
+  реальные ссылки DokuWiki идут как `/help:coding` (проверено тестами). Офлайн-тесты:
+  test_naming (13) + test_crawler (8, mock-сессия); всего 54 зелёных. Сеть не трогали,
+  html_src не перезаписывали (реальный краул — ручной). Старый `qsp_wiki_downloader/` не тронут.
 
 ## 4. Известные проблемы / подозрительные места (вести как backlog)
 
@@ -193,12 +207,14 @@ extract_keywords ищет именно их. Для hhk строится кар�
 
 1. Открытые вопросы закрыты (plan.md § «Принятые решения»); **Фаза 0 завершена** —
    бейзлайн и правило приёмки в `_baseline/2026-10-16/BASELINE.md`;
-2. Следующий шаг — **Фаза 4 (разбор download)**: выделить `download/crawler.py` и
-   `download/naming.py` из `qsp_wiki_downloader/qsp_wiki_downloader.py`; вынести инициализацию
-   логгера из module-level; убрать скачивание картинок из `extract_links` (сбор URL картинок →
-   отдельный проход). Сохранить выходные контракты `html_src` (`urls_links_to_files.json`
-   формат не ломать). Сетевой код офлайн-тестируется через mock (реальный краул — ручной
-   прогон). (Фазы 0–3 завершены 2026-10-16; старые скрипты до Фазы 5 не трогать.)
+2. Следующий шаг — **Фаза 5 (Pipeline + CLI)**: `qsp_help_builder/pipeline.py`
+   (`run_download` из download/ уже готов; добавить обёртки `run_prepare`/`run_anchors`)
+   и `cli.py` (argparse: download | prepare | anchors | all; точка входа `python -m
+   qsp_help_builder`). Настроить лог один раз в cli через `config.configure_logging`.
+   README корня обновить под единый запуск; `test_*.py` старого downloader'а не переносить
+   (их покрывают новые mock-тесты download/). После сверки бейзлайна (prepare_all == m_regen1)
+   — **удалить** `qsp_wiki_downloader/` и `chm_prepare/` целиком, без shim (решение п.6).
+   (Фазы 0–4 завершены 2026-10-16; старые скрипты до Фазы 5 не трогать.)
 4. При проектировании Фаз 3–5 учитывать будущее направление: внутренним ссылкам
    разрешаться в слаги/модель, а не только в .htm-файлы (см. plan.md «Направление»,
    Фазы 7–8) — иначе модель сайта придётся выводить задним числом;
