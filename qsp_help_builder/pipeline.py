@@ -41,7 +41,7 @@ def run_prepare(settings: Settings) -> None:
 def run_anchors(settings: Settings) -> Anchors:
     """Этап извлечения якорей из СОБРАННОГО html_out обратно в anchors.json.
 
-    Порт _auxtools/extract_keywords.py: читает qsp.hhk + htm-страницы из out и
+    Порт быв. _auxtools/extract_keywords.py: читает qsp.hhk + htm-страницы из out и
     пишет anchors.json. Это замыкает цикл handoff §1 (якоря переживают пересборку);
     имеет смысл ТОЛЬКО после run_prepare (нужен свежий html_out).
     """
