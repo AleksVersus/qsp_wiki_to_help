@@ -126,7 +126,8 @@ SPA_PAGE = """<!DOCTYPE html>
     if (isMobile()) { openOverlay(true); }
   }
 
-  // пункты содержания со вложенным списком делаем сворачиваемыми (caret слева)
+  // пункты содержания со вложенным списком делаем сворачиваемыми (caret слева);
+  // на старте все такие узлы свёрнуты — класс collapsed добавляется сразу
   function initCollapsible() {
     var items = sidebar.querySelectorAll("#toc li");
     for (var i = 0; i < items.length; i++) {
@@ -135,7 +136,7 @@ SPA_PAGE = """<!DOCTYPE html>
         if (kids[k].tagName === "UL") { sub = kids[k]; break; }
       }
       if (!sub) { continue; }
-      li.className += " has-children";
+      li.className += " has-children collapsed";
       var label = li.querySelector(".li") || li;
       var caret = document.createElement("span");
       caret.className = "spa-caret";

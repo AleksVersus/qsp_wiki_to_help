@@ -119,14 +119,34 @@ body.dokuwiki {
 }
 
 /* ------------------- сворачиваемые пункты содержания ------------------- */
-.spa-sidebar li.has-children > .li {
-    cursor: default;
+
+/* В TOC отказываемся от нативных маркеров DokuWiki (квадратик): у узлов с
+   потомками роль маркера играет каретка, у листовых — точка «•». */
+.spa-sidebar #toc ul {
+    list-style: none;
 }
 
+/* Единый левый «желоб» под маркер (каретка или точка). */
+.spa-sidebar #toc li > .li {
+    position: relative;
+    padding-left: 1.3em;
+}
+
+.spa-sidebar #toc li.has-children > .li {
+    cursor: default;               /* переключает только каретка, не вся строка */
+}
+
+/* Каретка: крупный шрифт для удобного попадания курсором. */
 .spa-caret {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
     display: inline-block;
-    min-width: 1em;
-    margin-right: 2px;
+    min-width: 1.1em;
+    font-size: 1.4em;
+    line-height: 1;
+    text-align: center;
     color: #9096a0;
     cursor: pointer;
     user-select: none;
@@ -140,6 +160,15 @@ body.dokuwiki {
     content: "\25B8";              /* ▸ — свёрнуто */
 }
 
+/* Маркер листовых пунктов (без потомков) — «точка посередине». */
+.spa-sidebar #toc li:not(.has-children) > .li::before {
+    content: "\2022";              /* • — bullet */
+    position: absolute;
+    left: 0;
+    color: #9096a0;
+}
+
+/* Вложенный список скрыт, пока узел свёрнут. */
 .spa-sidebar li.has-children.collapsed > ul {
     display: none;
 }

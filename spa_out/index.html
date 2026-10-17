@@ -13570,7 +13570,7 @@ aaa aaa 45<br/>
         if (kids[k].tagName === "UL") { sub = kids[k]; break; }
       }
       if (!sub) { continue; }
-      li.className += " has-children";
+      li.className += " has-children collapsed";
       var label = li.querySelector(".li") || li;
       var caret = document.createElement("span");
       caret.className = "spa-caret";

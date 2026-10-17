@@ -8,11 +8,10 @@
     }
     html {
         overflow-x: auto;
-        overflow-y: scroll;
     }
     html, body {
         color: #333;
-        background: #fbfaf9 url(https://wiki.qsp.org/lib/tpl/qspdokuwiki/images/page-gradient.png) top left repeat-x;
+        background: #fbfaf9;
         margin: 0;
         padding: 0;
     }
