@@ -6,12 +6,19 @@
 от CHM/SPA/PWA — способ сериализации и раскладки:
 
 - содержание (sidebar) задаёт вложенность папок: каждый уровень TOC — свой каталог;
-- страницы вне содержания уходят в ``help_add/``;
+  всё дерево содержания вкладывается в ``qsp_wiki/`` (``WIKI_DIR``), оставляя в
+  корне выхода лишь ``help_add/`` и ``.docusaurus_build/``;
+- страницы вне содержания (и служебные ``HELP_ADD_ONLY_SLUGS`` вроде ``help_keywords``)
+  уходят в ``help_add/``; относительные ссылки ``qsp_wiki`` <-> ``help_add``
+  считаются от общего корня docs и работают в обе стороны;
 - HTML каждой страницы вручную конвертируется в MDX (:mod:`.convert`);
 - порядок задают атрибуты Docusaurus: ``_category_.json`` (папки) и
   ``sidebar_position`` (файлы), а числа и цели ссылок переживают пересборку в
   мутируемых JSON-базах (:mod:`.bases`);
-- ссылки в .mdx — относительные от самого файла; картинки — в центральный ``img/``.
+- ссылки в .mdx — относительные от самого файла; картинки коллоцируются рядом с
+  документом, который их использует (отдельной папки-каталога в docs нет, поэтому
+  Docusaurus не превращает её в раздел; дубликаты одной картинки в разных папках
+  допустимы и осознанны).
 
 Содержимое модели (тексты/ссылки/картинки)Prepare не трогает: CHM-вывод побайтово
 не меняется (правило приёмки бейзлайна).
@@ -31,12 +38,24 @@ from ..profile import DocusaurusProfile, IMG_LINK_PREFIX
 from ..spa import NAV_SOURCE_SLUG
 from .bases import DocRecord, FolderRecord, LinksBase, Numbering
 from .convert import ConvertContext, relhref, render_body
-from .toc import HELP_ADD_DIR, Layout, build_layout, parse_toc
+from .toc import HELP_ADD_DIR, WIKI_DIR, Layout, build_layout, parse_toc
 
 logger = logging.getLogger(__name__)
 
-IMG_DIR = PurePosixPath("img")
 DOC_EXT = ".mdx"
+
+# Метка/позиция корневого раздела содержания (qsp_wiki) в сайдбаре Docusaurus.
+# Без ``_category_.json`` Docusaurus показал бы сырое имя папки и поставил бы её
+# после help_add (алфавитный порядок по умолчанию), поэтому задаём label + position.
+WIKI_LABEL = "QSP-Wiki"
+WIKI_POSITION = 1
+
+# Страницы, которые всегда уходят в ``help_add`` и никогда не становятся пунктом
+# содержания, даже если на них есть ссылка в TOC (``help_keywords`` — служебный
+# указатель: в CHM он питает ``.hhk``, в Docusaurus как раздел не нужен, но должен
+# оставаться файлом и быть доступным ссылками). Вырезаются из дерева, поэтому
+# обычным путём попадают во «вне содержания» (help_add).
+HELP_ADD_ONLY_SLUGS = frozenset({"help_keywords"})
 
 # Хвостовой маркер вики в <title> страниц («... [Документация QSP]») — убирается
 # только здесь (в Docusaurus), чтобы title/label сайдбара были чистыми; CHM/SPA
@@ -54,6 +73,10 @@ def render_docusaurus(settings: Settings) -> None:
     model = build_site_model(settings, DocusaurusProfile())
     out = ensure_dir(settings.paths.docusaurus)
     bases = ensure_dir(settings.paths.docusaurus_bases)
+    # Пересборка даёт дерево заново: убираем прошлый вывод (кроме мутируемых
+    # баз в .docusaurus_build), иначе переезд содержания в qsp_wiki/ оставил бы
+    # устаревшие .mdx в корне, которые Docusaurus проиндексировал бы как разделы.
+    _clean_generated(out, bases)
 
     layout = _build_layout(model, settings)
     # слаги дополнительных страниц тоже должны резолвиться ссылками -> обновляем links
@@ -66,29 +89,54 @@ def render_docusaurus(settings: Settings) -> None:
     numbering.save(bases / "numbering.json")
 
     _write_folders(out, layout, folder_recs, positions["folder"])
+    _write_wiki_category(out)
+    image_sources = (settings.paths.images, settings.paths.out)
     missing: set[str] = set()
-    count = _write_docs(out, model, placements, positions["doc"], links_map, missing)
+    count = _write_docs(
+        out, model, placements, positions["doc"], links_map, missing, image_sources
+    )
     if missing:
         logger.warning(
             "Docusaurus: ссылки на отсутствующие страницы (%d): %s",
             len(missing), ", ".join(sorted(missing)),
         )
-    _copy_images(model, settings, out / "img")
 
     logger.info(
-        "Docusaurus собран: %s (документов %d, папок %d)",
-        out, count, len(layout.folders),
+        "Docusaurus собран: %s (документов %d, папок %d; содержание в %s/)",
+        out, count, len(layout.folders), WIKI_DIR,
     )
+
+
+def _clean_generated(out: Path, bases: Path) -> None:
+    """Удаляет прежний вывод из ``out``, сохраняя папку мутируемых баз.
+
+    Сборка пишет всё дерево заново; без очистки переезд содержания в ``qsp_wiki/``
+    оставил бы в корне прежние .mdx (и служебные .mdx_), которые Docusaurus
+    собрал бы как лишние разделы. ``.docusaurus_build`` (numbering/links) не трогаем.
+    """
+    keep = bases.resolve()
+    for child in out.iterdir():
+        if child.resolve() == keep:
+            continue
+        if child.is_dir():
+            shutil.rmtree(child)
+        else:
+            child.unlink()
 
 
 # ------------------------------------------------------------------ раскладка
 
 
 def _build_layout(model: SiteModel, settings: Settings) -> Layout:
-    """TOC-дерево + layout; страницы вне содержания добавляет в help_add/."""
+    """TOC-дерево + layout; страницы вне содержания добавляет в help_add/.
+
+    Всё содержание вкладывается в ``WIKI_DIR`` (``qsp_wiki/``), а ``HELP_ADD_ONLY_SLUGS``
+    вырезаются из дерева — они не попадут в ``layout.links`` и штатным образом
+    уедут в ``help_add`` (с сохранением работающих ссылок туда/оттуда).
+    """
     sidebar = model.by_slug.get(NAV_SOURCE_SLUG)
     nodes = parse_toc(sidebar.fragment) if sidebar is not None else []
-    available = set(model.by_slug) - {NAV_SOURCE_SLUG}
+    available = set(model.by_slug) - {NAV_SOURCE_SLUG} - set(HELP_ADD_ONLY_SLUGS)
     layout = build_layout(nodes, available, settings.docusaurus.start_page)
 
     extra_slugs = [
@@ -162,14 +210,20 @@ def _write_docs(
     positions: dict[str, int],
     links_map: dict[str, str],
     missing: set[str],
+    image_sources: tuple[Path, ...],
 ) -> int:
     count = 0
     for slug, file_path in placements:
         page = model.by_slug.get(slug)
         if page is None:
             continue
+        # Картинки коллоцируем рядом с документом: img_dir == папка файла, поэтому
+        # relhref даёт голое имя (foo.png), а файл копируется в ту же папку. Так в
+        # docs.path нет отдельной папки-каталога картинок (она стала бы разделом).
+        doc_dir = out / file_path.parent.as_posix()
+        _colocate_images(page, doc_dir, image_sources)
         ctx = ConvertContext(
-            src_dir=file_path.parent, links=links_map, img_dir=IMG_DIR, missing=missing
+            src_dir=file_path.parent, links=links_map, img_dir=file_path.parent, missing=missing
         )
         body = render_body(page.fragment, ctx)
         key = f"{file_path.parent.as_posix()}/{file_path.name}"
@@ -193,32 +247,52 @@ def _yaml(value: str) -> str:
     return value.replace("\\", "\\\\").replace('"', '\\"')
 
 
-# ------------------------------------------------------------------ картинки
+# ------------------------------------------------------------------ корневой раздел и картинки
 
 
-def _copy_images(model: SiteModel, settings: Settings, images_dir: Path) -> None:
-    """Копирует используемые картинки в центральный ``<out>/img`` (два источника-каталога).
+def _write_wiki_category(out: Path) -> None:
+    """Заводит ``qsp_wiki/_category_.json`` (метка корневого раздела + позиция).
 
-    Профиль оформил ``src`` токеном ``IMGLINK::<имя>`` (а не готовым путём, как
-    CHM/SPA), поэтому :meth:`SiteModel.referenced_images` тут не подходит — он
-    вернул бы токен целиком. Собираем имена сами: снимаем префикс токена,
-    отсекаем внешние/абсолютные адреса.
+    Вложенные категории получают свой файл в :func:`_write_folders`; этого верхнего
+    уровня генератор не создаёт, а без него Docusaurus показал бы сырое имя папки и
+    поставил бы её после help_add.
     """
-    ensure_dir(images_dir)
-    sources = (settings.paths.images, settings.paths.out)
+    ensure_dir(out / WIKI_DIR)
+    save_json(
+        {"label": WIKI_LABEL, "position": WIKI_POSITION},
+        out / WIKI_DIR / "_category_.json",
+    )
+
+
+def _page_image_names(page: object) -> set[str]:
+    """Локальные имена картинок страницы (без внешних/абсолютных адресов).
+
+    Профиль оформил ``src`` токеном ``IMGLINK::<имя>``; легаси-ассеты идут голым
+    именем (``help_wiki_logo.png``). В обоих случаях берём :func:`file_name`.
+    """
     names: set[str] = set()
-    for page in model.pages:
-        for img in page.fragment.find_all("img", src=True):
-            src = str(img["src"])
-            if src.startswith(IMG_LINK_PREFIX):
-                names.add(file_name(src[len(IMG_LINK_PREFIX):]))
-            elif "://" in src or src.startswith("/"):
-                continue
-            elif src:
-                names.add(file_name(src))
-    for name in sorted(names):
+    for img in page.fragment.find_all("img", src=True):  # type: ignore[attr-defined]
+        src = str(img["src"])
+        if src.startswith(IMG_LINK_PREFIX):
+            names.add(file_name(src[len(IMG_LINK_PREFIX):]))
+        elif "://" in src or src.startswith("/"):
+            continue
+        elif src:
+            names.add(file_name(src))
+    return names
+
+
+def _colocate_images(page: object, doc_dir: Path, sources: tuple[Path, ...]) -> None:
+    """Копирует картинки страницы в её собственную папку (colocation, дубликаты ок).
+
+    Одна и та же картинка, используемая документами разных папок, кладётся в каждую
+    из них — ссылка остаётся ``foo.png`` в той же директории, а в docs.path нет
+    отдельной папки-каталога, которая стала бы разделом сайдбара.
+    """
+    for name in sorted(_page_image_names(page)):
         src = next((d / name for d in sources if (d / name).is_file()), None)
         if src is None:
             logger.warning("картинка не найдена ни в html_src/images, ни в html_out: %s", name)
             continue
-        shutil.copy2(src, images_dir / file_name(name))
+        ensure_dir(doc_dir)
+        shutil.copy2(src, doc_dir / name)

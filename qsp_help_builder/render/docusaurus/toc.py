@@ -26,7 +26,15 @@ from bs4 import Tag
 from ...render.profile import DOC_LINK_PREFIX
 
 # Категория «вне содержания» — куда кладутся страницы, на которые нет ссылки из TOC.
+# Остаётся в корне выхода (рядом с ``.docusaurus_build``), а не внутри
+# ``WIKI_DIR`` — так на её документы можно сослаться из дерева и обратно.
 HELP_ADD_DIR = "help_add"
+
+# Корень дерева содержания: все TOC-документы и папки-категории собираются внутрь
+# этой папки выхода (``<out>/qsp_wiki/...``), оставляя в корне лишь ``help_add``
+# и ``.docusaurus_build``. Относительные ссылки между разделами считаются
+# от общего корня docs, поэтому ``qsp_wiki`` <-> ``help_add`` резолвятся штатно.
+WIKI_DIR = "qsp_wiki"
 
 # кириллица -> латиница для имён папок (метки категорий — русские).
 _TRANSLIT = {
@@ -157,9 +165,10 @@ def build_layout(
     folders: list[FolderSpec] = []
     links: dict[str, str] = {}
 
-    # старт — первым в корне (получает позицию 1 в нумерации нижележащего прохода).
+    # старт — первым в разделе (position 1 в нумерации нижележащего прохода);
+    # всё дерево содержания вкладывается в WIKI_DIR, оставляя help_add/img в корне.
     ordered = _promote_start(nodes, start_slug)
-    _walk(ordered, PurePosixPath("."), docs, folders, links, available)
+    _walk(ordered, PurePosixPath(WIKI_DIR), docs, folders, links, available)
     return Layout(docs=docs, folders=folders, links=links)
 
 

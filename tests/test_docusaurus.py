@@ -26,10 +26,11 @@ from qsp_help_builder.config import (
 from qsp_help_builder.fs_utils import save_json, write_text
 from qsp_help_builder.render.docusaurus import render_docusaurus
 from qsp_help_builder.render.docusaurus.convert import ConvertContext, render_body
-from qsp_help_builder.render.docusaurus.toc import HELP_ADD_DIR, slugify_cyr
+from qsp_help_builder.render.docusaurus.toc import HELP_ADD_DIR, WIKI_DIR, slugify_cyr
 
 BASE_URL = "https://wiki.qsp.org"
 PROGRAMMING = slugify_cyr("Программирование")  # имя папки категории (транслит)
+WIKI = WIKI_DIR  # корень дерева содержания внутри выхода
 
 
 def make_settings(tmp_path: Path) -> Settings:
@@ -75,7 +76,8 @@ def seed(tmp_path: Path, settings: Settings, extra_toc: str = "") -> None:
     write_text(src / "start.html", _page(
         "В начало [Документация QSP]",
         f'<h1 id="gl">Дом</h1><p>a {{b}} c</p>'
-        f'<p><img src="{BASE_URL}/_media/help:msgbox.png"></p>',
+        f'<p><img src="{BASE_URL}/_media/help:msgbox.png"></p>'
+        f'<p><a href="{BASE_URL}/help:keywords">Указатель</a></p>',
     ), "utf-8")
     write_text(src / "help_coding.html", _page(
         "Код [Документация QSP]",
@@ -87,6 +89,11 @@ def seed(tmp_path: Path, settings: Settings, extra_toc: str = "") -> None:
     write_text(src / "help_strings.html", _page("Строки [Документация QSP]", "<p>строки</p>"), "utf-8")
     write_text(src / "help_regexp.html", _page("Регэкспы [Документация QSP]", "<p>regex</p>"), "utf-8")
     write_text(src / "help_extra.html", _page("Лишнее [Документация QSP]", "<p>нет ссылки из TOC</p>"), "utf-8")
+    # help_keywords — есть в TOC, но принудительно уезжает в help_add (HELP_ADD_ONLY_SLUGS)
+    write_text(src / "help_keywords.html", _page(
+        "Ключевые слова. Указатель [Документация QSP]",
+        f'<p>указатель: <a href="{BASE_URL}/help:coding">Код</a></p>',
+    ), "utf-8")
 
     regexp_li = _li(3, f'<a href="{BASE_URL}/help:regexp">Регэкспы</a>')
     strings_sub = f'<ul>{regexp_li}</ul>'
@@ -101,6 +108,7 @@ def seed(tmp_path: Path, settings: Settings, extra_toc: str = "") -> None:
         '<ul>'
         + _li(1, "<strong>Программирование</strong>", category_sub)
         + _li(1, f'<a href="{BASE_URL}/start">В начало</a>')
+        + _li(1, f'<a href="{BASE_URL}/help:keywords">Ключевые слова</a>')
         + extra_toc
         + '</ul>',
     ), "utf-8")
@@ -113,6 +121,7 @@ def seed(tmp_path: Path, settings: Settings, extra_toc: str = "") -> None:
                 f"{BASE_URL}/help:strings": r"html_src\help_strings.html",
                 f"{BASE_URL}/help:regexp": r"html_src\help_regexp.html",
                 f"{BASE_URL}/help:extra": r"html_src\help_extra.html",
+                f"{BASE_URL}/help:keywords": r"html_src\help_keywords.html",
             },
             "images": {f"{BASE_URL}/_media/help:msgbox.png": r"html_src\images\help_msgbox.png"},
         },
@@ -133,13 +142,16 @@ def test_layout_by_toc_levels(tmp_path: Path):
     render_docusaurus(settings)
     out = settings.paths.docusaurus
 
-    # категория -> папка; ссылка без детей -> .mdx внутри неё
-    assert (out / PROGRAMMING / "help_coding.mdx").is_file()
+    # категория -> папка; ссылка без детей -> .mdx внутри неё (всё — внутри qsp_wiki/)
+    assert (out / WIKI / PROGRAMMING / "help_coding.mdx").is_file()
     # родитель-с-детьми -> папка по slug, индекс-док внутри + ребёнок рядом
-    assert (out / PROGRAMMING / "help_strings" / "help_strings.mdx").is_file()
-    assert (out / PROGRAMMING / "help_strings" / "help_regexp.mdx").is_file()
-    # корневая ссылка -> файл в корне
-    assert (out / "start.mdx").is_file()
+    assert (out / WIKI / PROGRAMMING / "help_strings" / "help_strings.mdx").is_file()
+    assert (out / WIKI / PROGRAMMING / "help_strings" / "help_regexp.mdx").is_file()
+    # корневая ссылка -> файл в корне раздела содержания
+    assert (out / WIKI / "start.mdx").is_file()
+    # в корне выхода больше нет документов содержания (ушли в qsp_wiki/)
+    assert not (out / "start.mdx").exists()
+    assert not (out / PROGRAMMING).exists()
     # sidebar как контент не пишется
     assert not (out / "sidebar.mdx").exists()
 
@@ -148,21 +160,51 @@ def test_off_toc_pages_go_to_help_add(tmp_path: Path):
     settings = make_settings(tmp_path)
     seed(tmp_path, settings)
     render_docusaurus(settings)
+    # help_add остаётся в корне выхода (не внутри qsp_wiki)
     assert (settings.paths.docusaurus / HELP_ADD_DIR / "help_extra.mdx").is_file()
+    assert not (settings.paths.docusaurus / WIKI / HELP_ADD_DIR).exists()
+
+
+def test_help_keywords_forced_to_help_add(tmp_path: Path):
+    settings = make_settings(tmp_path)
+    seed(tmp_path, settings)
+    render_docusaurus(settings)
+    out = settings.paths.docusaurus
+    # help_keywords есть в TOC, но принудительно уезжает в help_add, а не в дерево
+    assert (out / HELP_ADD_DIR / "help_keywords.mdx").is_file()
+    assert not (out / WIKI / "help_keywords.mdx").exists()
+    assert not (out / "help_keywords.mdx").exists()
+    assert not (out / "help_keywords.mdx_").exists()  # не переименовывается
+    # ссылка с help_keywords на документ дерева (help:coding) резолвится в qsp_wiki
+    kw = _read(settings, f"{HELP_ADD_DIR}/help_keywords.mdx")
+    assert "../qsp_wiki/programmirovanie/help_coding.mdx" in kw
+    # ссылка из дерева (start) на help_keywords резолвится в help_add
+    start = _read(settings, f"{WIKI}/start.mdx")
+    assert "../help_add/help_keywords.mdx" in start
+
+
+def test_wiki_root_category_json(tmp_path: Path):
+    settings = make_settings(tmp_path)
+    seed(tmp_path, settings)
+    render_docusaurus(settings)
+    # корневой раздел содержания получает метку и позицию (иначе — сырое имя qsp_wiki)
+    cat = json.loads(_read(settings, f"{WIKI}/_category_.json"))
+    assert cat["label"] == "QSP-Wiki"
+    assert cat["position"] == 1
 
 
 def test_category_json_with_doc_index(tmp_path: Path):
     settings = make_settings(tmp_path)
     seed(tmp_path, settings)
     render_docusaurus(settings)
-    cat = json.loads(_read(settings, f"{PROGRAMMING}/help_strings/_category_.json"))
+    cat = json.loads(_read(settings, f"{WIKI}/{PROGRAMMING}/help_strings/_category_.json"))
     assert cat["label"] == "Строки"
     assert isinstance(cat["position"], int)
     assert cat["link"]["type"] == "doc"
     # id — относительная ссылка на индекс-док от папки категории, без расширения
     assert cat["link"]["id"] == "help_strings"
     # чистая категория (без индекс-дока) не имеет link.type==doc
-    top = json.loads(_read(settings, f"{PROGRAMMING}/_category_.json"))
+    top = json.loads(_read(settings, f"{WIKI}/{PROGRAMMING}/_category_.json"))
     assert "link" not in top
 
 
@@ -171,24 +213,26 @@ def test_relative_links_and_images(tmp_path: Path):
     seed(tmp_path, settings)
     render_docusaurus(settings)
 
-    coding = _read(settings, f"{PROGRAMMING}/help_coding.mdx")
+    coding = _read(settings, f"{WIKI}/{PROGRAMMING}/help_coding.mdx")
     # rel от папки help_coding к ребёнку help_strings
     assert "help_strings/help_regexp.mdx" in coding
     # якорь на себя: тот же файл + #aa
     assert "help_coding.mdx#aa" in coding
     # внешняя — абсолют
     assert "[внешняя](https://example.com)" in coding
-    # картинка (start в корне) -> img/... и файл скопирован
-    start = _read(settings, "start.mdx")
-    assert "](img/help_msgbox.png)" in start
-    assert (settings.paths.docusaurus / "img" / "help_msgbox.png").is_file()
+    # картинка коллоцируется рядом с документом: start в qsp_wiki -> голое имя foo.png,
+    # файл лежит в той же папке; центрального img/ на выходе больше нет
+    start = _read(settings, f"{WIKI}/start.mdx")
+    assert "](help_msgbox.png)" in start
+    assert (settings.paths.docusaurus / WIKI / "help_msgbox.png").is_file()
+    assert not (settings.paths.docusaurus / "img").exists()
 
 
 def test_mdx_braces_escaped_and_frontmatter(tmp_path: Path):
     settings = make_settings(tmp_path)
     seed(tmp_path, settings)
     render_docusaurus(settings)
-    start = _read(settings, "start.mdx")
+    start = _read(settings, f"{WIKI}/start.mdx")
     assert start.startswith("---")
     assert 'title: "В начало"' in start
     assert "sidebar_position: 1" in start  # старт — первым в корне
@@ -200,7 +244,7 @@ def test_title_marker_stripped(tmp_path: Path):
     seed(tmp_path, settings)
     render_docusaurus(settings)
     # метка «[Документация QSP]» убирается из title во front-matter
-    coding = _read(settings, f"{PROGRAMMING}/help_coding.mdx")
+    coding = _read(settings, f"{WIKI}/{PROGRAMMING}/help_coding.mdx")
     assert 'title: "Код"' in coding
     assert "Документация QSP" not in coding.split("# ")[0]  # в front-matter метки нет
 
@@ -211,17 +255,17 @@ def test_positions_are_per_folder_and_interleaved(tmp_path: Path):
     render_docusaurus(settings)
     # корень: старт promoted вперёд -> 1, папка-категория -> 2 (доки и папки
     # нумеруются вместе, поэтому категория идёт сразу после старта, а не в хвосте)
-    root_start_pos = _frontmatter_position(_read(settings, "start.mdx"))
+    root_start_pos = _frontmatter_position(_read(settings, f"{WIKI}/start.mdx"))
     assert root_start_pos == 1
-    prog_cat = json.loads(_read(settings, f"{PROGRAMMING}/_category_.json"))
+    prog_cat = json.loads(_read(settings, f"{WIKI}/{PROGRAMMING}/_category_.json"))
     assert prog_cat["position"] == 2
     # внутри категории доки/подпапки — своя нумерация с 1: help_coding=1, подпапка help_strings=2
-    coding_pos = _frontmatter_position(_read(settings, f"{PROGRAMMING}/help_coding.mdx"))
+    coding_pos = _frontmatter_position(_read(settings, f"{WIKI}/{PROGRAMMING}/help_coding.mdx"))
     assert coding_pos == 1
-    strings_cat = json.loads(_read(settings, f"{PROGRAMMING}/help_strings/_category_.json"))
+    strings_cat = json.loads(_read(settings, f"{WIKI}/{PROGRAMMING}/help_strings/_category_.json"))
     assert strings_cat["position"] == 2
     # индекс-док категории = 1, ребёнок help_regexp получает свой порядок внутри папки
-    regexp_pos = _frontmatter_position(_read(settings, f"{PROGRAMMING}/help_strings/help_regexp.mdx"))
+    regexp_pos = _frontmatter_position(_read(settings, f"{WIKI}/{PROGRAMMING}/help_strings/help_regexp.mdx"))
     assert regexp_pos == 1
 
 
@@ -240,12 +284,12 @@ def test_bases_persist_stored_overrides_computed(tmp_path: Path):
     assert numbering_same == numbering_first
 
     # ручная правка позиции в numbering.json имеет приоритет над вычисленной
-    numbering_first["./start.mdx"]["position"] = 99
+    numbering_first[f"{WIKI}/start.mdx"]["position"] = 99
     save_json(numbering_first, bases / "numbering.json")
     render_docusaurus(settings)
     after = json.loads((bases / "numbering.json").read_text(encoding="utf-8"))
-    assert after["./start.mdx"]["position"] == 99
-    assert _frontmatter_position(_read(settings, "start.mdx")) == 99
+    assert after[f"{WIKI}/start.mdx"]["position"] == 99
+    assert _frontmatter_position(_read(settings, f"{WIKI}/start.mdx")) == 99
 
     # новый узел (перенос help_extra из help_add в корень TOC): ключ отсутствует в
     # базе -> получает вычисленный TOC-порядок внутри корня (после start=99-го и
@@ -253,8 +297,8 @@ def test_bases_persist_stored_overrides_computed(tmp_path: Path):
     seed(tmp_path, settings, extra_toc=_li(1, f'<a href="{BASE_URL}/help:extra">Лишнее</a>'))
     render_docusaurus(settings)
     numbering2 = json.loads((bases / "numbering.json").read_text(encoding="utf-8"))
-    assert "./help_extra.mdx" in numbering2  # ключ появился по новому пути
-    new_pos = int(numbering2["./help_extra.mdx"]["position"])
+    assert f"{WIKI}/help_extra.mdx" in numbering2  # ключ появился по новому пути
+    new_pos = int(numbering2[f"{WIKI}/help_extra.mdx"]["position"])
     assert new_pos == 3
 
 
