@@ -20,6 +20,7 @@
 from __future__ import annotations
 
 import logging
+import re
 import shutil
 from pathlib import Path, PurePosixPath
 
@@ -37,6 +38,16 @@ logger = logging.getLogger(__name__)
 IMG_DIR = PurePosixPath("img")
 DOC_EXT = ".mdx"
 
+# Хвостовой маркер вики в <title> страниц («... [Документация QSP]») — убирается
+# только здесь (в Docusaurus), чтобы title/label сайдбара были чистыми; CHM/SPA
+# берут <title> из source_soup и этот суффикс сохраняют (бейзлайн не двигается).
+_TITLE_MARK = re.compile(r"\s*\[Документация QSP\]\s*$")
+
+
+def _clean_title(value: str) -> str:
+    """Снимает с заголовка хвостовой маркер «[Документация QSP]»."""
+    return _TITLE_MARK.sub("", value).strip()
+
 
 def render_docusaurus(settings: Settings) -> None:
     """Полная сборка дерева Docusaurus по настройкам (полностью офлайн)."""
@@ -51,9 +62,7 @@ def render_docusaurus(settings: Settings) -> None:
 
     doc_recs, folder_recs, placements = _records(model, layout)
     numbering = Numbering.load(bases / "numbering.json")
-    positions = numbering.assign(
-        doc_recs, folder_recs, start_slug_key=_start_key(layout, settings.docusaurus.start_page)
-    )
+    positions = numbering.assign(doc_recs, folder_recs)
     numbering.save(bases / "numbering.json")
 
     _write_folders(out, layout, folder_recs, positions["folder"])
@@ -93,39 +102,34 @@ def _build_layout(model: SiteModel, settings: Settings) -> Layout:
 
 
 def _records(model: SiteModel, layout: Layout) -> tuple[list[DocRecord], list[FolderRecord], list[tuple[str, PurePosixPath]]]:
-    """Готовит записи нумерации (docs+folders) и порядок записи файлов (slug, путь)."""
+    """Готовит записи нумерации (docs+folders, с вычисленным из TOC порядком)
+    и порядок записи файлов (slug, путь)."""
     doc_recs: list[DocRecord] = []
     placements: list[tuple[str, PurePosixPath]] = []
 
     for doc in layout.docs:
         page = model.by_slug.get(doc.slug)
-        label = (page.title if page and page.title else doc.slug)
+        label = _clean_title(page.title) if page and page.title else doc.slug
         folder = doc.file_path.parent.as_posix()
         key = f"{folder}/{doc.file_path.name}"
-        doc_recs.append(DocRecord(key=key, folder=folder, filename=doc.file_path.name, label=label))
+        doc_recs.append(DocRecord(key=key, folder=folder, filename=doc.file_path.name, label=label, position=doc.position))
         placements.append((doc.slug, doc.file_path))
 
-    for slug in layout.extra_slugs:
+    # страницы вне содержания: порядок внутри help_add — по модели (имя файла);
+    # позиции считаются заново в этой же папке, начиная с 1.
+    for i, slug in enumerate(layout.extra_slugs, start=1):
         page = model.by_slug.get(slug)
-        label = (page.title if page and page.title else slug)
+        label = _clean_title(page.title) if page and page.title else slug
         file_path = PurePosixPath(f"{HELP_ADD_DIR}/{slug}{DOC_EXT}")
         key = f"{HELP_ADD_DIR}/{file_path.name}"
-        doc_recs.append(DocRecord(key=key, folder=HELP_ADD_DIR, filename=file_path.name, label=label))
+        doc_recs.append(DocRecord(key=key, folder=HELP_ADD_DIR, filename=file_path.name, label=label, position=i))
         placements.append((slug, file_path))
 
     folder_recs = [
-        FolderRecord(key=f.rel.as_posix(), path=f.rel.as_posix(), label=f.label)
+        FolderRecord(key=f.rel.as_posix(), path=f.rel.as_posix(), label=f.label, position=f.position)
         for f in layout.folders
     ]
     return doc_recs, folder_recs, placements
-
-
-def _start_key(layout: Layout, start_slug: str) -> str:
-    """Ключ нумерации стартового документа, если он лежит в корне (для позиции 1)."""
-    for doc in layout.docs:
-        if doc.slug == start_slug and doc.file_path.parent == PurePosixPath("."):
-            return f"./{doc.file_path.name}"
-    return ""
 
 
 # ------------------------------------------------------------------ запись
@@ -170,8 +174,8 @@ def _write_docs(
         body = render_body(page.fragment, ctx)
         key = f"{file_path.parent.as_posix()}/{file_path.name}"
         position = positions.get(key, count + 1)
-        label = page.title or slug
-        text = _frontmatter(page.title or slug, position, label) + "\n\n" + body
+        title = _clean_title(page.title) if page.title else slug
+        text = _frontmatter(title, position, title) + "\n\n" + body
         write_text(out / file_path.as_posix(), text, "utf-8")
         count += 1
     return count

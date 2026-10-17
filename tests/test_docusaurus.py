@@ -73,20 +73,20 @@ def seed(tmp_path: Path, settings: Settings, extra_toc: str = "") -> None:
     # start — корневой док + картинка; help_coding — под категорией; help_strings —
     # родитель-с-детьми; help_regexp — его ребёнок; help_extra — вне содержания.
     write_text(src / "start.html", _page(
-        "В начало",
+        "В начало [Документация QSP]",
         f'<h1 id="gl">Дом</h1><p>a {{b}} c</p>'
         f'<p><img src="{BASE_URL}/_media/help:msgbox.png"></p>',
     ), "utf-8")
     write_text(src / "help_coding.html", _page(
-        "Код",
+        "Код [Документация QSP]",
         f'<h2 id="aa">Структура</h2>'
         f'<p><a href="{BASE_URL}/help:regexp">Регэкспы</a> и '
         f'<a href="{BASE_URL}/help:coding#aa">на себя</a> и '
         f'<a href="https://example.com">внешняя</a></p>',
     ), "utf-8")
-    write_text(src / "help_strings.html", _page("Строки", "<p>строки</p>"), "utf-8")
-    write_text(src / "help_regexp.html", _page("Регэкспы", "<p>regex</p>"), "utf-8")
-    write_text(src / "help_extra.html", _page("Лишнее", "<p>нет ссылки из TOC</p>"), "utf-8")
+    write_text(src / "help_strings.html", _page("Строки [Документация QSP]", "<p>строки</p>"), "utf-8")
+    write_text(src / "help_regexp.html", _page("Регэкспы [Документация QSP]", "<p>regex</p>"), "utf-8")
+    write_text(src / "help_extra.html", _page("Лишнее [Документация QSP]", "<p>нет ссылки из TOC</p>"), "utf-8")
 
     regexp_li = _li(3, f'<a href="{BASE_URL}/help:regexp">Регэкспы</a>')
     strings_sub = f'<ul>{regexp_li}</ul>'
@@ -195,7 +195,37 @@ def test_mdx_braces_escaped_and_frontmatter(tmp_path: Path):
     assert "a &#123;b&#125; c" in start  # литеральные фигурные скобки экранированы
 
 
-def test_bases_persist_and_reuse_positions(tmp_path: Path):
+def test_title_marker_stripped(tmp_path: Path):
+    settings = make_settings(tmp_path)
+    seed(tmp_path, settings)
+    render_docusaurus(settings)
+    # метка «[Документация QSP]» убирается из title во front-matter
+    coding = _read(settings, f"{PROGRAMMING}/help_coding.mdx")
+    assert 'title: "Код"' in coding
+    assert "Документация QSP" not in coding.split("# ")[0]  # в front-matter метки нет
+
+
+def test_positions_are_per_folder_and_interleaved(tmp_path: Path):
+    settings = make_settings(tmp_path)
+    seed(tmp_path, settings)
+    render_docusaurus(settings)
+    # корень: старт promoted вперёд -> 1, папка-категория -> 2 (доки и папки
+    # нумеруются вместе, поэтому категория идёт сразу после старта, а не в хвосте)
+    root_start_pos = _frontmatter_position(_read(settings, "start.mdx"))
+    assert root_start_pos == 1
+    prog_cat = json.loads(_read(settings, f"{PROGRAMMING}/_category_.json"))
+    assert prog_cat["position"] == 2
+    # внутри категории доки/подпапки — своя нумерация с 1: help_coding=1, подпапка help_strings=2
+    coding_pos = _frontmatter_position(_read(settings, f"{PROGRAMMING}/help_coding.mdx"))
+    assert coding_pos == 1
+    strings_cat = json.loads(_read(settings, f"{PROGRAMMING}/help_strings/_category_.json"))
+    assert strings_cat["position"] == 2
+    # индекс-док категории = 1, ребёнок help_regexp получает свой порядок внутри папки
+    regexp_pos = _frontmatter_position(_read(settings, f"{PROGRAMMING}/help_strings/help_regexp.mdx"))
+    assert regexp_pos == 1
+
+
+def test_bases_persist_stored_overrides_computed(tmp_path: Path):
     settings = make_settings(tmp_path)
     seed(tmp_path, settings)
     render_docusaurus(settings)
@@ -209,13 +239,30 @@ def test_bases_persist_and_reuse_positions(tmp_path: Path):
     numbering_same = json.loads((bases / "numbering.json").read_text(encoding="utf-8"))
     assert numbering_same == numbering_first
 
-    # новый узел в TOC (перенос help_extra из help_add в корень) -> позиция > прежнего максимума
-    prev_max = max(int(e["position"]) for e in numbering_first.values())
+    # ручная правка позиции в numbering.json имеет приоритет над вычисленной
+    numbering_first["./start.mdx"]["position"] = 99
+    save_json(numbering_first, bases / "numbering.json")
+    render_docusaurus(settings)
+    after = json.loads((bases / "numbering.json").read_text(encoding="utf-8"))
+    assert after["./start.mdx"]["position"] == 99
+    assert _frontmatter_position(_read(settings, "start.mdx")) == 99
+
+    # новый узел (перенос help_extra из help_add в корень TOC): ключ отсутствует в
+    # базе -> получает вычисленный TOC-порядок внутри корня (после start=99-го и
+    # категории=2-го), то есть следующий свободный слот корня = 3.
     seed(tmp_path, settings, extra_toc=_li(1, f'<a href="{BASE_URL}/help:extra">Лишнее</a>'))
     render_docusaurus(settings)
     numbering2 = json.loads((bases / "numbering.json").read_text(encoding="utf-8"))
+    assert "./help_extra.mdx" in numbering2  # ключ появился по новому пути
     new_pos = int(numbering2["./help_extra.mdx"]["position"])
-    assert new_pos > prev_max
+    assert new_pos == 3
+
+
+def _frontmatter_position(mdx: str) -> int:
+    for line in mdx.split("---")[1].splitlines():
+        if line.startswith("sidebar_position:"):
+            return int(line.split(":", 1)[1].strip())
+    raise AssertionError("sidebar_position не найден во front-matter")
 
 
 def test_code_block_in_list_item_breaks_onto_own_lines():

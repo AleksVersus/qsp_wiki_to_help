@@ -65,19 +65,31 @@ class TocNode:
 
 @dataclass
 class DocSpec:
-    """Один документ и его желаемый путь (папки + имя файла)."""
+    """Один документ и его желаемый путь (папки + имя файла).
+
+    ``position`` — вычисленный порядок внутри родительской папки (1-й по TOC,
+    перемешиваясь с подпапками); для индекс-дока категории = 1 (саму категорию
+    Docusaurus рендерит по ``_category_.json.link``, а не как соседа).
+    """
 
     slug: str
     file_path: PurePosixPath  # rel docs root с расширением (.mdx)
+    position: int = 0
 
 
 @dataclass
 class FolderSpec:
-    """Папка категории: путь, метка, позиция в группе брата, слаг индекс-дока."""
+    """Папка категории: путь, метка, позиция в группе брата, слаг индекс-дока.
+
+    ``position`` — порядок среди соседей родителя (доки и подпапки — одна
+    нумерация, т.к. Docusaurus сравнивает ``_category_.json.position`` именно
+    так).
+    """
 
     rel: PurePosixPath
     label: str
     index_slug: str  # "" если индекс-дока нет (чистый заголовок)
+    position: int = 0
 
 
 @dataclass
@@ -145,7 +157,7 @@ def build_layout(
     folders: list[FolderSpec] = []
     links: dict[str, str] = {}
 
-    # старт — первым в корне (position 1 задаёт нумерация ниже).
+    # старт — первым в корне (получает позицию 1 в нумерации нижележащего прохода).
     ordered = _promote_start(nodes, start_slug)
     _walk(ordered, PurePosixPath("."), docs, folders, links, available)
     return Layout(docs=docs, folders=folders, links=links)
@@ -167,6 +179,10 @@ def _walk(
     available: set[str],
 ) -> None:
     used_names: set[str] = set()
+    # Единый счётчик соседей папки: документы и подпапки нумеруются вместе,
+    # поэтому порядок в сайдбаре Docusaurus повторяет порядок TOC (позиция
+    # сравнивается только внутри одной папки, не глобально).
+    pos = 0
     for node in nodes:
         if node.slug and node.slug not in available:
             # страницы нет в модели (исключена/не скачана) — вырезаем ветку целиком
@@ -177,24 +193,29 @@ def _walk(
             # чистый текстовый заголовок -> папка
             if not has_children:
                 continue
+            pos += 1
             name = _unique(slugify_cyr(node.label), used_names)
             child_folder = folder / name
-            folders.append(FolderSpec(rel=child_folder, label=node.label, index_slug=""))
+            folders.append(FolderSpec(rel=child_folder, label=node.label, index_slug="", position=pos))
             _walk(node.children, child_folder, docs, folders, links, available)
             continue
 
         # узел — документ
         doc_file = f"{node.slug}.mdx"
         if has_children:
+            pos += 1
             name = _unique(node.slug, used_names)
             child_folder = folder / name
-            folders.append(FolderSpec(rel=child_folder, label=node.label, index_slug=node.slug))
+            folders.append(FolderSpec(rel=child_folder, label=node.label, index_slug=node.slug, position=pos))
             links[node.slug] = (child_folder / node.slug).as_posix()
-            docs.append(DocSpec(slug=node.slug, file_path=child_folder / doc_file))
+            # индекс-док категории — её собственная страница, соседу не отдаёт
+            # место: позиция 1 (Docusaurus уберёт его из списка по category.link).
+            docs.append(DocSpec(slug=node.slug, file_path=child_folder / doc_file, position=1))
             _walk(node.children, child_folder, docs, folders, links, available)
         else:
+            pos += 1
             links[node.slug] = (folder / node.slug).as_posix()
-            docs.append(DocSpec(slug=node.slug, file_path=folder / doc_file))
+            docs.append(DocSpec(slug=node.slug, file_path=folder / doc_file, position=pos))
 
 
 def _unique(name: str, used: set[str]) -> str:
