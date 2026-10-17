@@ -62,7 +62,7 @@ def _class_str(tag: Tag) -> str:
     return str(cls or "")
 
 
-def _relhref(src_dir: PurePosixPath, target: PurePosixPath) -> str:
+def relhref(src_dir: PurePosixPath, target: PurePosixPath) -> str:
     """Относительный posix-путь от папки файла к цели (обе — rel docs root)."""
     sp: list[str] = [] if str(src_dir) in (".", "") else list(src_dir.parts)
     tp = list(target.parts)
@@ -200,7 +200,7 @@ def _resolve_doc_link(href: str, ctx: ConvertContext) -> str | None:
         ctx.missing.add(slug)
         return None
     target = PurePosixPath(f"{path}.mdx")
-    rel = _relhref(ctx.src_dir, target)
+    rel = relhref(ctx.src_dir, target)
     return f"{rel}#{anchor}" if anchor else rel
 
 
@@ -208,13 +208,13 @@ def _render_img(tag: Tag, ctx: ConvertContext) -> str:
     src = str(tag.get("src", ""))
     alt = (tag.get("alt") or "").strip()
     if src.startswith(IMG_LINK_PREFIX):
-        href = _relhref(ctx.src_dir, ctx.img_dir / src[len(IMG_LINK_PREFIX):])
+        href = relhref(ctx.src_dir, ctx.img_dir / src[len(IMG_LINK_PREFIX):])
     elif "://" in src or src.startswith("/"):
         return f"![{alt}]({src})"
     elif src.startswith("images/"):
-        href = _relhref(ctx.src_dir, ctx.img_dir / file_name(src))
+        href = relhref(ctx.src_dir, ctx.img_dir / file_name(src))
     elif src:
-        href = _relhref(ctx.src_dir, ctx.img_dir / file_name(src))
+        href = relhref(ctx.src_dir, ctx.img_dir / file_name(src))
     else:
         return ""
     return f"![{alt}]({href})"

@@ -159,7 +159,8 @@ def test_category_json_with_doc_index(tmp_path: Path):
     assert cat["label"] == "Строки"
     assert isinstance(cat["position"], int)
     assert cat["link"]["type"] == "doc"
-    assert cat["link"]["id"] == f"{PROGRAMMING}/help_strings/help_strings"
+    # id — относительная ссылка на файл индекс-дока от папки категории
+    assert cat["link"]["id"] == "help_strings.mdx"
     # чистая категория (без индекс-дока) не имеет link.type==doc
     top = json.loads(_read(settings, f"{PROGRAMMING}/_category_.json"))
     assert "link" not in top

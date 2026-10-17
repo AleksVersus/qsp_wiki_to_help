@@ -29,7 +29,7 @@ from ...model import SiteModel, build_site_model
 from ..profile import DocusaurusProfile, IMG_LINK_PREFIX
 from ..spa import NAV_SOURCE_SLUG
 from .bases import DocRecord, FolderRecord, LinksBase, Numbering
-from .convert import ConvertContext, render_body
+from .convert import ConvertContext, relhref, render_body
 from .toc import HELP_ADD_DIR, Layout, build_layout, parse_toc
 
 logger = logging.getLogger(__name__)
@@ -141,7 +141,13 @@ def _write_folders(
             "position": positions.get(rec.key, 1),
         }
         if spec.index_slug:
-            category["link"] = {"type": "doc", "id": layout.links[spec.index_slug]}
+            # id — относительная ссылка на файл индекс-дока от папки категории
+            # (как и все ссылки в .mdx), а не docs-root идентификатор.
+            doc_rel = PurePosixPath(f"{layout.links[spec.index_slug]}{DOC_EXT}")
+            category["link"] = {
+                "type": "doc",
+                "id": relhref(spec.rel, doc_rel),
+            }
         save_json(category, folder_dir / "_category_.json")
 
 
