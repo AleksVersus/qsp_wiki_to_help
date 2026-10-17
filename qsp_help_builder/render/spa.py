@@ -193,13 +193,15 @@ def render_spa(settings: Settings) -> None:
     spa_dir = ensure_dir(settings.paths.spa)
 
     soup = BeautifulSoup(SPA_PAGE, "lxml")
-    assemble_body(soup, model, settings.spa.start_page)
+    assemble_body(soup, model, settings.spa.start_page, toc_excluded_slugs(settings))
     write_text(spa_dir / "index.html", str(soup), settings.chm.page_encoding)
     copy_assets(model, settings, spa_dir)
     logger.info("Одностраничник собран: %s (страниц %d)", spa_dir / "index.html", len(model.pages))
 
 
-def assemble_body(soup: BeautifulSoup, model: SiteModel, start_page: str) -> None:
+def assemble_body(
+    soup: BeautifulSoup, model: SiteModel, start_page: str, exclude_slugs: frozenset[str]
+) -> None:
     """Наполняет каркас ``SPA_PAGE`` навигацией, указателем и контент-секциями.
 
     Переиспользуется рендерером PWA (``render.pwa``): и SPA, и PWA дают один и тот
@@ -213,6 +215,7 @@ def assemble_body(soup: BeautifulSoup, model: SiteModel, start_page: str) -> Non
 
     sidebar = model.by_slug.get(NAV_SOURCE_SLUG)
     if sidebar is not None:
+        _prune_excluded_toc_items(sidebar.fragment, exclude_slugs)
         _namespace_ids(sidebar.fragment, sidebar.slug)
         nav.append(sidebar.fragment)
 
@@ -232,6 +235,38 @@ def assemble_body(soup: BeautifulSoup, model: SiteModel, start_page: str) -> Non
         main.append(section)
 
     _normalize_local_images(soup)
+
+
+def toc_excluded_slugs(settings: Settings) -> frozenset[str]:
+    """Slug-исключения содержания: файлы ``[exclude]`` + ссылка на указатель.
+
+    То же множество, что CHM передаёт в ``rebuild_hhc_ul`` (``exclude`` +
+    ``help_keywords``), — поэтому из TOC одностраничника/PWA режутся те же пункты.
+    """
+    return frozenset(settings.exclude_files) | {HHK_SOURCE_SLUG}
+
+
+def _prune_excluded_toc_items(fragment: Tag, exclude_slugs: frozenset[str]) -> None:
+    """Убирает из содержания ссылки на исключаемые разделы и на указатель.
+
+    Повторяет правило CHM (:func:`prepare.hhc.rebuild_hhc_ul`): ``li`` с якорем на
+    slug из ``exclude_slugs`` вырезается целиком. Сравнение по точному slug
+    (``#slug`` / ``#slug~anchor``), поэтому ``help_qspider_aeroqsp`` остаётся —
+    исключаем лишь сам ``help_aeroqsp``.
+    """
+    doomed: list[Tag] = []
+    for a in fragment.find_all("a", href=True):
+        href = str(a["href"])
+        if not href.startswith("#"):
+            continue
+        slug = href[1:].split("~", 1)[0]
+        if slug in exclude_slugs:
+            li = a.find_parent("li")
+            if li is not None and not getattr(li, "decomposed", False):
+                doomed.append(li)
+    for li in doomed:
+        if not getattr(li, "decomposed", False):
+            li.decompose()
 
 
 def _content_pages(model: SiteModel, start_slug: str) -> list[Page]:

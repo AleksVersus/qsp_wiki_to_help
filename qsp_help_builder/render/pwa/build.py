@@ -30,7 +30,7 @@ from ...config import Settings
 from ...fs_utils import ensure_dir, save_json, write_text
 from ...model import SiteModel, build_site_model
 from ..profile import SpaProfile
-from ..spa import NAV_SOURCE_SLUG, SPA_PAGE, assemble_body, copy_assets
+from ..spa import NAV_SOURCE_SLUG, SPA_PAGE, assemble_body, copy_assets, toc_excluded_slugs
 from .assets import resolve_css_urls
 from .search import build_search_index
 from .shell import (
@@ -67,7 +67,7 @@ def render_pwa(settings: Settings) -> None:
     out_dir = ensure_dir(settings.paths.pwa)
 
     soup = BeautifulSoup(SPA_PAGE, "lxml")
-    assemble_body(soup, model, settings.pwa.start_page)
+    assemble_body(soup, model, settings.pwa.start_page, toc_excluded_slugs(settings))
     _add_pwa_shell(soup, settings)
     write_text(out_dir / "index.html", str(soup), settings.chm.page_encoding)
 

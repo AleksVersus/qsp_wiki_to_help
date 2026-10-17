@@ -378,11 +378,9 @@
     }
     .dokuwiki a.wikilink1 {
         color: #080;
-        background-color: inherit;
     }
     .dokuwiki a.wikilink2 {
         color: #d30;
-        background-color: inherit;
     }
     .dokuwiki img.media {
         margin: .2em 0;
