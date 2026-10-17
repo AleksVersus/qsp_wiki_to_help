@@ -141,9 +141,9 @@ def _write_folders(
             "position": positions.get(rec.key, 1),
         }
         if spec.index_slug:
-            # id — относительная ссылка на файл индекс-дока от папки категории
-            # (как и все ссылки в .mdx), а не docs-root идентификатор.
-            doc_rel = PurePosixPath(f"{layout.links[spec.index_slug]}{DOC_EXT}")
+            # id — относительная ссылка на индекс-док от папки категории без
+            # расширения (как и все относительные пути в .mdx, но id — без ``.mdx``).
+            doc_rel = PurePosixPath(layout.links[spec.index_slug])
             category["link"] = {
                 "type": "doc",
                 "id": relhref(spec.rel, doc_rel),
