@@ -11,6 +11,7 @@ from pathlib import Path
 
 from qsp_help_builder.config import (
     ChmSettings,
+    DocusaurusSettings,
     LoggingSettings,
     PathSettings,
     Settings,
@@ -38,6 +39,8 @@ def make_settings(tmp_path: Path, start_page: str = "start") -> Settings:
         anchors=tmp_path / "html_src" / "anchors.json",
         spa=tmp_path / "spa_out",
         pwa=tmp_path / "pwa_out",
+        docusaurus=tmp_path / "docusaurus_docs",
+        docusaurus_bases=tmp_path / "docusaurus_docs" / ".docusaurus_build",
         res_chm=tmp_path / "_res_src" / "chm",
         res_spa=tmp_path / "_res_src" / "spa",
     )
@@ -46,7 +49,8 @@ def make_settings(tmp_path: Path, start_page: str = "start") -> Settings:
     pwa = PwaSettings(start_page, "QSP", "QSP", "#2f6db0", "#f4f5f7", "standalone",
                       "images/help_wiki_logo.png")
     return Settings(
-        tmp_path / "qsp_help.toml", wiki, paths, SpaSettings(start_page), pwa, chm, frozenset(), log
+        tmp_path / "qsp_help.toml", wiki, paths, SpaSettings(start_page), pwa,
+        DocusaurusSettings(start_page), chm, frozenset(), log
     )
 
 

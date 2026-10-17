@@ -19,6 +19,7 @@ from . import download as download_stage
 from .anchors import Anchors
 from .config import Settings
 from .render.chm import render_chm
+from .render.docusaurus import render_docusaurus
 from .render.pwa import render_pwa
 from .render.spa import render_spa
 
@@ -79,6 +80,17 @@ def run_anchors(settings: Settings) -> Anchors:
     )
     anchors.save(settings.paths.anchors)
     return anchors
+
+
+def run_docusaurus(settings: Settings) -> None:
+    """Этап Docusaurus html_src -> [docusaurus].out (дерево .mdx по уровням содержания).
+
+    Переиспользует ту же модель и примитивы подготовки, что CHM/SPA, только с
+    ``DocusaurusProfile`` (ссылки/картинки — токены, разворачиваемые в относительные
+    пути при записи каждого файла). Порядок — атрибуты Docusaurus + JSON-базы.
+    """
+    logger.info("Этап docusaurus: %s -> %s", settings.paths.src, settings.paths.docusaurus)
+    render_docusaurus(settings)
 
 
 def run_all(settings: Settings) -> None:

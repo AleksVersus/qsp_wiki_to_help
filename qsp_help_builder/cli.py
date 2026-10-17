@@ -26,6 +26,7 @@ COMMANDS = {
     "anchors": pipeline.run_anchors,
     "spa": pipeline.run_spa,
     "pwa": pipeline.run_pwa,
+    "docusaurus": pipeline.run_docusaurus,
     "all": pipeline.run_all,
 }
 
@@ -41,6 +42,7 @@ def build_parser() -> argparse.ArgumentParser:
         help="download — выгрузка с wiki (нужна сеть); prepare — html_src->html_out (CHM); "
         "anchors — извлечение якорей из собранного html_out; spa — одностраничник "
         "html_src->spa_out; pwa — PWA для хостинга html_src->[pwa].out (docs); "
+        "docusaurus — дерево .mdx-документов html_src->[docusaurus].out; "
         "all — download->prepare->anchors.",
     )
     parser.add_argument(

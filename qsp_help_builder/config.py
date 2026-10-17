@@ -47,6 +47,8 @@ class PathSettings:
     anchors: Path  # anchors.json: контракт якорь -> строка/заголовок
     spa: Path      # spa_out: одностраничник (index.html + images/) — выход render.spa
     pwa: Path      # [pwa].out (папка docs): PWA (индекс + manifest/sw/поиск) — выход render.pwa
+    docusaurus: Path       # [docusaurus].out: дерево .mdx-документов — выход render.docusaurus
+    docusaurus_bases: Path # [docusaurus].bases: мутируемые JSON-базы (нумерация/ссылки)
     res_chm: Path  # _res_src/chm: статичные ресурсы (default.css и пр.) -> html_out
     res_spa: Path  # _res_src/spa: статичные ресурсы (default.css и пр.) -> spa_out/[pwa].out
 
@@ -77,6 +79,17 @@ class PwaSettings:
 
 
 @dataclass(frozen=True)
+class DocusaurusSettings:
+    """Docusaurus-режим: параметры вывода, не сводимые к путям.
+
+    start_page — slug документа, которому при возможности отдаётся корень
+    (position 1 в своей папке); остальные порядки задаёт нумерация из JSON-базы.
+    """
+
+    start_page: str
+
+
+@dataclass(frozen=True)
 class ChmSettings:
     """Этап подготовки (быв. dict настроек ChmPrepare + хардкод имён qsp.*)."""
 
@@ -101,6 +114,7 @@ class Settings:
     paths: PathSettings
     spa: SpaSettings
     pwa: PwaSettings
+    docusaurus: DocusaurusSettings
     chm: ChmSettings
     exclude_files: frozenset[str]  # wiki-разделы, исключаемые из справки (files_to_del)
     logging: LoggingSettings
@@ -146,6 +160,7 @@ def load_settings(config_path: Path | None = None) -> Settings:
     paths_raw = _require_section(raw, "paths", path)
     spa_raw = _require_section(raw, "spa", path)
     pwa_raw = _require_section(raw, "pwa", path)
+    docsau_raw = _require_section(raw, "docusaurus", path)
     chm_raw = _require_section(raw, "chm", path)
     exclude_raw = _require_section(raw, "exclude", path)
     log_raw = _require_section(raw, "logging", path)
@@ -172,6 +187,8 @@ def load_settings(config_path: Path | None = None) -> Settings:
         anchors=_resolve(root, _require(paths_raw, "anchors", "paths")),
         spa=_resolve(root, _require(spa_raw, "out", "spa")),
         pwa=_resolve(root, _require(pwa_raw, "out", "pwa")),
+        docusaurus=_resolve(root, _require(docsau_raw, "out", "docusaurus")),
+        docusaurus_bases=_resolve(root, _require(docsau_raw, "bases", "docusaurus")),
         res_chm=_resolve(root, _require(chm_raw, "res", "chm")),
         res_spa=_resolve(root, _require(spa_raw, "res", "spa")),
     )
@@ -188,6 +205,10 @@ def load_settings(config_path: Path | None = None) -> Settings:
         background_color=str(_require(pwa_raw, "background_color", "pwa")),
         display=str(_require(pwa_raw, "display", "pwa")),
         icon=str(_require(pwa_raw, "icon", "pwa")),
+    )
+
+    docusaurus = DocusaurusSettings(
+        start_page=str(_require(docsau_raw, "start_page", "docusaurus")),
     )
 
     chm = ChmSettings(
@@ -214,6 +235,7 @@ def load_settings(config_path: Path | None = None) -> Settings:
         paths=paths,
         spa=spa,
         pwa=pwa,
+        docusaurus=docusaurus,
         chm=chm,
         exclude_files=exclude_files,
         logging=logging_s,

@@ -12,6 +12,7 @@ from pathlib import Path
 
 from qsp_help_builder.config import (
     ChmSettings,
+    DocusaurusSettings,
     LoggingSettings,
     PathSettings,
     Settings,
@@ -37,13 +38,16 @@ def make_settings(tmp_path: Path) -> Settings:
         anchors=tmp_path / "html_src" / "anchors.json",
         spa=tmp_path / "spa_out",
         pwa=tmp_path / "pwa_out",
+        docusaurus=tmp_path / "docusaurus_docs",
+        docusaurus_bases=tmp_path / "docusaurus_docs" / ".docusaurus_build",
         res_chm=tmp_path / "_res_src" / "chm",
         res_spa=tmp_path / "_res_src" / "spa",
     )
     chm = ChmSettings("sidebar.htm", "help_keywords.htm", "qsp.hhc", "qsp.hhk", "utf-8", "windows-1251")
     log = LoggingSettings("DEBUG", tmp_path / "dl.log")
     return Settings(
-        tmp_path / "qsp_help.toml", wiki, paths, SpaSettings("start"), _pwa(), chm, frozenset(), log
+        tmp_path / "qsp_help.toml", wiki, paths, SpaSettings("start"), _pwa(),
+        DocusaurusSettings("start"), chm, frozenset(), log
     )
 
 

@@ -15,6 +15,7 @@ from bs4 import BeautifulSoup
 
 from qsp_help_builder.config import (
     ChmSettings,
+    DocusaurusSettings,
     LoggingSettings,
     PathSettings,
     Settings,
@@ -127,6 +128,8 @@ def settings(tmp_path: Path) -> Settings:
         anchors=tmp_path / "html_src" / "anchors.json",
         spa=tmp_path / "spa_out",
         pwa=tmp_path / "pwa_out",
+        docusaurus=tmp_path / "docusaurus_docs",
+        docusaurus_bases=tmp_path / "docusaurus_docs" / ".docusaurus_build",
         res_chm=tmp_path / "_res_src" / "chm",
         res_spa=tmp_path / "_res_src" / "spa",
     )
@@ -134,7 +137,7 @@ def settings(tmp_path: Path) -> Settings:
     log = LoggingSettings(level="DEBUG", download_log=tmp_path / "dl.log")
     pwa = PwaSettings("start", "QSP", "QSP", "#2f6db0", "#f4f5f7", "standalone",
                       "images/help_wiki_logo.png")
-    return Settings(tmp_path / "qsp_help.toml", wiki, paths, SpaSettings("start"), pwa, chm, frozenset(), log)
+    return Settings(tmp_path / "qsp_help.toml", wiki, paths, SpaSettings("start"), pwa, DocusaurusSettings("start"), chm, frozenset(), log)
 
 
 def test_crawler_run_traverses_pages_and_downloads_images_separately(settings):

@@ -68,3 +68,35 @@ class SpaProfile:
 
 CHM_PROFILE: OutputProfile = ChmProfile()
 SPA_PROFILE: OutputProfile = SpaProfile()
+
+
+class DocusaurusProfile:
+    """Формат Docusaurus: цели ссылок/картинок помечаются токенами.
+
+    Отличие от CHM/SPA: итоговый относительный путь зависит от папки,
+    в которой окажется ИСХОДНЫЙ файл, а общий профиль этого не знает (он один на
+    все страницы). Поэтому профиль лишь кодирует цель токеном, а конвертер
+    (:mod:`render.docusaurus.convert`) разворачивает токен в относительный путь уже
+    при записи конкретного ``.mdx``.
+    - внутренняя ссылка -> ``DOCLINK::<slug>::<anchor>``;
+    - картинка -> ``IMGLINK::<имя файла>``;
+    - внешняя/нераспознанная вики-ссылка -> абсолютный URL в новой вкладке.
+    """
+
+    def internal_target(self, resolved: str, base_url: str) -> tuple[str, bool]:
+        if _is_absolute(resolved, base_url):
+            return resolved, True
+        head, _, rest = resolved.partition("#")
+        anchor = rest.split("?", 1)[0] if rest else ""
+        slug = PurePosixPath(head).stem
+        return f"DOCLINK::{slug}::{anchor}", False
+
+    def image_href(self, name: str) -> str:
+        return f"IMGLINK::{name}"
+
+
+DOCUSAURUS_PROFILE: OutputProfile = DocusaurusProfile()
+
+# Префиксы токенов, которые распознаёт конвертер Docusaurus.
+DOC_LINK_PREFIX = "DOCLINK::"
+IMG_LINK_PREFIX = "IMGLINK::"
