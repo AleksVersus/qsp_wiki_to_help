@@ -243,23 +243,65 @@ def _render_list(tag: Tag, depth: int, ordered: bool, ctx: ConvertContext) -> st
             None,
         )
         src = content_div if content_div is not None else li
-        inline = _render_li_content(src, ctx)
         marker = f"{index}. " if ordered else "- "
-        out.append(f"{indent}{marker}{inline}")
+        out.append(_compose_item(indent, marker, _render_li_content(src, ctx)))
         index += 1
         for sub in li.find_all(["ul", "ol"], recursive=False):
             out.append(_render_list(sub, depth + 1, sub.name == "ol", ctx))
     return "\n".join(out)
 
 
-def _render_li_content(src: Tag, ctx: ConvertContext) -> str:
-    """Инлайн содержимого li (из div.li в DokuWiki), без вложенных списков."""
-    parts: list[str] = []
+def _render_li_content(src: Tag, ctx: ConvertContext) -> list[tuple[str, str]]:
+    """Сегменты содержимого li: ("inline", текст) и ("block", готовый Markdown-блок).
+
+    Вложенные списки пропускаются (их рендерит :func:`_render_list` отдельно).
+    Блочные дети (``<pre>``) выносятся отдельными сегментами, чтобы границы
+    fenced-кода встали на отдельные строки, а не прилипли к тексту пункта
+    (иначе Docusaurus не распознает блок и разваливает сборку).
+    """
+    segments: list[tuple[str, str]] = []
+    inline: list[str] = []
+
+    def flush_inline() -> None:
+        if inline:
+            text = "".join(inline).strip()
+            if text:
+                segments.append(("inline", text))
+            inline.clear()
+
     for child in src.children:
         if isinstance(child, Tag) and child.name in ("ul", "ol"):
-            continue  # вложенные списки рендерит _render_list отдельно
-        parts.append(render_inline(child, ctx))
-    return "".join(parts).strip()
+            continue
+        if isinstance(child, Tag) and child.name == "pre":
+            block = _render_pre(child)
+            if block.strip():
+                flush_inline()
+                segments.append(("block", block))
+            continue
+        inline.append(render_inline(child, ctx))
+    flush_inline()
+    return segments
+
+
+def _compose_item(indent: str, marker: str, segments: list[tuple[str, str]]) -> str:
+    """Собирает пункт: инлайн — на строке маркера, блоки — строками ниже с отступом."""
+    cont = indent + " " * len(marker)
+    lines: list[str] = []
+    idx = 0
+    if segments and segments[0][0] == "inline":
+        lines.append(f"{indent}{marker}{segments[0][1]}")
+        idx = 1
+    else:
+        lines.append(f"{indent}{marker.strip()}")
+    for _kind, text in segments[idx:]:
+        lines.append("")
+        lines.append(_indent_block(text, cont))
+    return "\n".join(lines)
+
+
+def _indent_block(block: str, prefix: str) -> str:
+    """Отступает все непустые строки блока (CommonMark-продолжение пункта списка)."""
+    return "\n".join(prefix + ln if ln.strip() else ln for ln in block.split("\n"))
 
 
 # ------------------------------------------------------------------ таблицы

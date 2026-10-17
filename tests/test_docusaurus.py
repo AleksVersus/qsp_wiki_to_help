@@ -9,7 +9,9 @@ help_add/, ссылки/картинки делает относительным
 """
 
 import json
-from pathlib import Path
+from pathlib import Path, PurePosixPath
+
+from bs4 import BeautifulSoup, Tag
 
 from qsp_help_builder.config import (
     ChmSettings,
@@ -23,6 +25,7 @@ from qsp_help_builder.config import (
 )
 from qsp_help_builder.fs_utils import save_json, write_text
 from qsp_help_builder.render.docusaurus import render_docusaurus
+from qsp_help_builder.render.docusaurus.convert import ConvertContext, render_body
 from qsp_help_builder.render.docusaurus.toc import HELP_ADD_DIR, slugify_cyr
 
 BASE_URL = "https://wiki.qsp.org"
@@ -212,3 +215,20 @@ def test_bases_persist_and_reuse_positions(tmp_path: Path):
     numbering2 = json.loads((bases / "numbering.json").read_text(encoding="utf-8"))
     new_pos = int(numbering2["./help_extra.mdx"]["position"])
     assert new_pos > prev_max
+
+
+def test_code_block_in_list_item_breaks_onto_own_lines():
+    # <pre> внутри <li> (типично для DokuWiki): границы fenced-кода обязаны
+    # вставать на отдельные строки с отступом-продолжением пункта, иначе
+    # Docusaurus не распознает блок и роняет сборку.
+    frag = BeautifulSoup(
+        '<div class="page group"><ul>'
+        '<li class="level1"><div class="li">Отступы кода: '
+        '<pre class="brush: qsp">\n*p 1\n  *p 2\n</pre></div></li>'
+        "</ul></div>",
+        "html.parser",
+    ).find("div")
+    assert isinstance(frag, Tag)
+    ctx = ConvertContext(src_dir=PurePosixPath("."), links={}, img_dir=PurePosixPath("img"))
+    out = render_body(frag, ctx)
+    assert "- Отступы кода:\n\n  ```qsp\n  *p 1\n    *p 2\n  ```" in out
