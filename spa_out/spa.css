@@ -120,52 +120,71 @@ body.dokuwiki {
 
 /* ------------------- сворачиваемые пункты содержания ------------------- */
 
-/* В TOC отказываемся от нативных маркеров DokuWiki (квадратик): у узлов с
-   потомками роль маркера играет каретка, у листовых — точка «•». */
+/* Компактные отступы TOC: DokuWiki даёт «двойной» сдвиг вправо
+   (ul{padding-left:1.5em} + li{margin-left:1.5em}). В панели снимаем его,
+   оставляя по 1em на уровень вложенности. */
+.spa-sidebar #toc ul,
+.spa-sidebar #toc ol {
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.spa-sidebar #toc li {
+    margin-left: 0;
+}
+
+.spa-sidebar #toc ul ul {
+    padding-left: 1em;             /* отступ одного уровня вложенности */
+}
+
+/* Отказ от нативных маркеров DokuWiki (квадратик): у узлов с потомками роль
+   маркера играет каретка, у листовых — точка «•». */
 .spa-sidebar #toc ul {
     list-style: none;
 }
 
-/* Единый левый «желоб» под маркер (каретка или точка). */
+/* Строка пункта: единый левый «желоб» под маркер + цельная подсветка. */
 .spa-sidebar #toc li > .li {
     position: relative;
-    padding-left: 1.3em;
+    padding: 2px 4px 2px 1.5em;    /* слева — место под маркер */
+    border-radius: 4px;
 }
 
-.spa-sidebar #toc li.has-children > .li {
-    cursor: default;               /* переключает только каретка, не вся строка */
-}
-
-/* Каретка: крупный шрифт для удобного попадания курсором. */
-.spa-caret {
+/* Каретка и точка сидят в желобе ОДИНАКОВОЙ ширины (1.5em — влезает и крупный
+   глиф каретки) и центрированы в нём → одинаковое расстояние до текста. */
+.spa-sidebar #toc .spa-caret,
+.spa-sidebar #toc li:not(.has-children) > .li::before {
     position: absolute;
     left: 0;
     top: 50%;
     transform: translateY(-50%);
-    display: inline-block;
-    min-width: 1.1em;
-    font-size: 1.4em;
+    width: 1.5em;
     line-height: 1;
     text-align: center;
     color: #9096a0;
+}
+
+.spa-sidebar #toc .spa-caret {
     cursor: pointer;
     user-select: none;
 }
 
-.spa-caret::before {
+.spa-sidebar #toc .spa-caret::before {
     content: "\25BE";              /* ▾ — раскрыто */
+    font-size: 1.4em;             /* крупный глиф внутри желоба фикс. ширины */
 }
 
-.spa-sidebar li.collapsed .spa-caret::before {
+.spa-sidebar #toc li.collapsed .spa-caret::before {
     content: "\25B8";              /* ▸ — свёрнуто */
 }
 
-/* Маркер листовых пунктов (без потомков) — «точка посередине». */
 .spa-sidebar #toc li:not(.has-children) > .li::before {
-    content: "\2022";              /* • — bullet */
-    position: absolute;
-    left: 0;
-    color: #9096a0;
+    content: "\2022";              /* • — bullet для листовых пунктов */
+}
+
+/* Подсветка строки целиком при наведении: полупрозрачный скруглённый прямоугольник. */
+.spa-sidebar #toc li > .li:hover {
+    background: rgba(47, 109, 176, 0.25);
 }
 
 /* Вложенный список скрыт, пока узел свёрнут. */
