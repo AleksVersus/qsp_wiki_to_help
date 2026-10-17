@@ -13581,7 +13581,8 @@ aaa aaa 45<br/>
     if (isMobile()) { openOverlay(true); }
   }
 
-  // пункты содержания со вложенным списком делаем сворачиваемыми (caret слева)
+  // пункты содержания со вложенным списком делаем сворачиваемыми (caret слева);
+  // на старте все такие узлы свёрнуты — класс collapsed добавляется сразу
   function initCollapsible() {
     var items = sidebar.querySelectorAll("#toc li");
     for (var i = 0; i < items.length; i++) {

@@ -1,4 +1,4 @@
-const CACHE = "qsp-pwa-5a1eb88d9acc";
+const CACHE = "qsp-pwa-ca86158bc3a9";
 const PRECACHE = ["./", "default.css", "images/help_ballad.jpg", "images/help_input_window.png", "images/help_level13.jpg", "images/help_msgbox.png", "images/help_qspblank2.jpg", "images/help_wiki_logo.png", "images/help_window_msg.png", "images/image.png", "images/qgen.png", "index.html", "manifest.webmanifest", "search.json", "spa.css"];
 
 self.addEventListener("install", (e) => {

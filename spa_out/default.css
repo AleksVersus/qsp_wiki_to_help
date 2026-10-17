@@ -8,7 +8,7 @@
     }
     html {
         overflow-x: auto;
-        overflow-y: scroll;
+        /* overflow-y: scroll; */
     }
     html, body {
         color: #333;
