@@ -42,7 +42,7 @@ from .toc import HELP_ADD_DIR, WIKI_DIR, Layout, build_layout, parse_toc
 
 logger = logging.getLogger(__name__)
 
-DOC_EXT = ".mdx"
+DOC_EXT = ".md"
 
 # Метка/позиция корневого раздела содержания (qsp_wiki) в сайдбаре Docusaurus.
 # Без ``_category_.json`` Docusaurus показал бы сырое имя папки и поставил бы её
