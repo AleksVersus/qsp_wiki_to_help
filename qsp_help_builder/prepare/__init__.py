@@ -1,4 +1,4 @@
-"""Этап подготовки: html_src -> html_out (htm + hhc/hhk).
+"""Этап подготовки: .build/wiki -> .build/chm (htm + hhc/hhk).
 
 Порт класса ChmPrepare из chm_prepare/to_chm_prepare.py, разобранный на
 переиспользуемые модули (Фаза 3 рефакторинга):

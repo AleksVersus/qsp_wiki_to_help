@@ -18,7 +18,11 @@ from qsp_help_builder.config import ConfigError
 
 def test_parser_accepts_all_commands():
     parser = cli.build_parser()
-    for cmd in ("download", "prepare", "anchors", "spa", "pwa", "docusaurus", "all"):
+    for cmd in (
+        "download", "prepare", "anchors", "spa", "pwa", "docusaurus",
+        "markdown-sync", "markdown-validate", "all",
+        "markdown-build",
+    ):
         assert parser.parse_args([cmd]).command == cmd
 
 

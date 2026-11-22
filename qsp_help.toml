@@ -3,6 +3,8 @@
 # Значений by-default в коде нет — без этого файла сборка не запускается.
 # Все относительные пути считаются от папки этого файла (корень проекта),
 # запуск из любого CWD даёт одинаковый результат (чинка backlog handoff §4.1).
+# Временные входы/выходы сборки лежат в игнорируемом .build/; docs/ оставлен
+# отслеживаемым как опубликованный источник GitHub Pages.
 #
 # Каждый параметр пересажен дословно из старого кода (указан источник),
 # чтобы выход совпадал с бейзлайном _baseline/2026-10-16.
@@ -15,22 +17,22 @@ timeout_sec = 30.0
 delay_sec = 0.5
 user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
 
-# --- Пути (источник: dict self.sets в ChmPrepare.__init__ + output_dir загрузчика) ---
+# --- Пути (рабочие входы/выходы сборки) ---
 # note: мёртвый ключ 'start_file' из старого dict не перенесён — код его не читал.
 [paths]
-src = "html_src"
-out = "html_out"
-images = "html_src/images"                    # куда downloader кладёт скачанные картинки
-scheme = "html_src/urls_links_to_files.json"
-anchors = "html_src/anchors.json"
+src = ".build/wiki"
+out = ".build/chm"
+images = ".build/wiki/images"                 # куда downloader кладёт скачанные картинки
+scheme = ".build/wiki/urls_links_to_files.json"
+anchors = ".build/wiki/anchors.json"
 
-# --- Одностраничник (SPA, Фаза 7): гибрид index.html + папка images/ рядом ---
+# --- Одностраничник (SPA): гибрид index.html + папка images/ рядом ---
 [spa]
-out = "spa_out"                             # каталог выхода одностраничника
+out = ".build/spa"                         # временный каталог одностраничника
 start_page = "start"                        # slug первой страницы (открывается без хеша)
-res = "_res_src/spa"                        # статичные ресурсы SPA (default.css и пр.) -> spa_out
+res = "assets/spa"                          # статические ресурсы SPA -> .build/spa
 
-# --- PWA (Фаза 8): то же, что SPA, + манифест + service worker + поиск ---
+# --- PWA: то же, что SPA, + манифест + service worker + поиск ---
 # Оболочка одностраничника для хостинга (GitHub Pages). Каталог вывода — `docs`:
 # GitHub Pages автоматически берёт папку `docs/` в ветке как корень сайта (Deploy from a
 # branch). Пути в выходных артефактах (manifest/sw/поиск/иконка) относительные, поэтому
@@ -47,18 +49,18 @@ background_color = "#f4f5f7"                # фон сплэш-экрана/у�
 display = "standalone"
 icon = "images/help_wiki_logo.png"          # иконка манифеста (уже в выходе как картинка start)
 
-# --- Docusaurus (режим docs): дерево .mdx-документов по уровням содержания ---
+# --- Docusaurus (режим docs): дерево .md-документов по уровням содержания ---
 # Pages из содержания (sidebar) раскладываются по вложенным папкам; вне содержания ->
 # help_add/. Порядок задают _category_.json (папки) и sidebar_position (файлы), а числа
 # и цели ссылок переживают пересборку в мутируемых JSON-базах в [docusaurus].bases.
 [docusaurus]
-out = "docusaurus_docs"                       # корень дерева документов (в Docusaurus — docs.path)
-bases = "docusaurus_docs/.docusaurus_build"   # папка мутируемых JSON-баз (numbering/links)
+out = ".build/docusaurus_docs"                     # временное дерево документов (Docusaurus docs.path)
+bases = ".build/docusaurus_docs/.docusaurus_build" # сохраняемые базы нумерации/ссылок
 start_page = "start"                          # slug, которому отдаётся корень (position 1)
 
 # --- Подготовка CHM (источник: ChmPrepare; keys 'hhc'/'hhk' и хардкод qsp.hhc/qsp.hhk) ---
 [chm]
-res = "_res_src/chm"                # статичные ресурсы CHM (default.css и пр.) -> html_out
+res = "assets/chm"                  # статические ресурсы CHM -> .build/chm
 hhc_source = "sidebar.htm"          # скачанный help:sidebar -> основа содержания
 hhk_source = "help_keywords.htm"    # скачанный help:keywords -> основа указателя
 hhc_output = "qsp.hhc"
@@ -89,5 +91,20 @@ files = [
 # --- Логирование (источник: logging.basicConfig в шапке qsp_wiki_downloader.py) ---
 [logging]
 level = "DEBUG"
-download_log = "wiki_download.log"  # исторически был qsp_wiki_downloader/wiki_download.log;
-                                     # перенесён в корень, т.к. эта папка удалена (Фаза 5)
+download_log = ".build/logs/wiki_download.log"
+
+# --- Отдельный вход из исходников Docusaurus Markdown ---
+# markdown-sync делает sparse checkout только docs_path в игнорируемый source-каталог.
+# Страница/папка выбирается вручную через pages.json; эта настройка независима от
+# [docusaurus], который по-прежнему генерирует Docusaurus Markdown из wiki HTML.
+[docusaurus_markdown]
+repository = "https://github.com/QSPFoundation/qspfoundation.github.io.git"
+ref = "main"
+docs_path = "docs"
+source = ".build/docusaurus_source"
+pages = "docusaurus_markdown/pages.json"
+toc = "docusaurus_markdown/toc.json"
+chm_out = ".build/docusaurus_markdown/chm"
+spa_out = ".build/docusaurus_markdown/spa"
+pwa_out = ".build/docusaurus_markdown/pwa"
+state = ".build/docusaurus_markdown/state"

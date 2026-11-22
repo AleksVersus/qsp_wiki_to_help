@@ -1,4 +1,4 @@
-"""Этап download: выгрузка страниц и картинок с wiki.qsp.org в html_src (Фаза 4).
+"""Этап download: выгрузка страниц и картинок с wiki.qsp.org в .build/wiki (Фаза 4).
 
 Публичный интерфейс пакета download:
 - ``run_download(settings)`` — композиция этапа (создаёт Crawler, настраивает лог,

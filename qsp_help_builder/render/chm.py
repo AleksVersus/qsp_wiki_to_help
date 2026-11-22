@@ -1,5 +1,5 @@
 # pyright: reportUnknownMemberType=false, reportAttributeAccessIssue=false
-"""Рендерер CHM: модель -> html_out (.htm + qsp.hhc + qsp.hhk).
+"""Рендерер CHM: модель -> .build/chm (.htm + qsp.hhc + qsp.hhk).
 
 Это прежний этап ``prepare`` (порт ``ChmPrepare.main``), переписанный на нейтральную
 модель (:func:`model.build_site_model`) с ``ChmProfile``. Порядок и способ сериализации
@@ -63,7 +63,7 @@ def render_chm(settings: Settings) -> None:
         anchors=anchors,
     )
 
-    # статичные ресурсы (default.css и пр.) — из _res_src/chm в html_out
+    # статичные ресурсы (default.css и пр.) — из assets/chm в .build/chm
     res = copy_tree(settings.paths.res_chm, out_dir)
     if res:
         logger.info("CHM: ресурсы скопированы из %s: %s", settings.paths.res_chm, ", ".join(res))

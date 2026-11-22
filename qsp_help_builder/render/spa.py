@@ -1,12 +1,12 @@
 # pyright: reportUnknownMemberType=false, reportAttributeAccessIssue=false, reportOptionalMemberAccess=false, reportUnknownArgumentType=false, reportIndexIssue=false, reportArgumentType=false
-"""Рендерер-одностраничник (SPA): модель -> ``spa_out/index.html`` + ``images/``.
+"""Рендерер-одностраничник (SPA): модель -> ``.build/spa/index.html`` + ``images/``.
 
 Гибрид (решение п.4/7): один ``index.html`` и локальная папка картинок рядом —
 без base64 и без zip. Открывается двойным кликом с ``file://`` (как CHM), но
 навигация — hash-router поверх встроенного JS: ссылки ``#slug``, якоря
 ``#slug~anchor``.
 
-Дизайн — двухпанельный (каркас в ``_res_src/spa/spa.css``, стили контента — из
+Дизайн — двухпанельный (каркас в ``assets/spa/spa.css``, стили контента — из
 DokuWiki ``default.css``; ``<body>`` размечен классом ``dokuwiki``, чтобы эти
 стили применялись): слева узкая панель (~30%) с вкладками «Содержание»
 (``#toc``) и «Указатель» (``#index``), справа — широкий контент (``#content``);
@@ -27,8 +27,8 @@ DokuWiki ``default.css``; ``<body>`` размечен классом ``dokuwiki`
 - якоря из anchors.json вставляются в контент страниц по номерам строк — как в
   CHM (``wrap_into_template`` + ``Anchors.inject_into_text``), затем namespace'ятся
   до ``{slug}~{anchor}``, чтобы ссылки указателя резолвились в одном документе;
-- картинки из манифеста модели копируются в ``images/`` (источник: html_src/images,
-  с откатом на html_out для легаси-ассетов вроде логотипа).
+- картинки из манифеста модели копируются в ``images/`` (источник: .build/wiki/images,
+  с откатом на .build/chm для легаси-ассетов вроде логотипа).
 """
 
 from __future__ import annotations
@@ -368,21 +368,21 @@ def _normalize_local_images(soup: BeautifulSoup) -> None:
 def copy_assets(model: SiteModel, settings: Settings, out_dir: Path) -> None:
     """Копирует используемые картинки в ``<out>/images`` и статичные ресурсы рядом.
 
-    Общий для SPA и PWA: выходная папка передаётся (``spa_out``/``[pwa].out``), а
-    ресурсы (default.css, spa.css) всегда берутся из ``_res_src/spa`` — у PWA тот же
+    Общий для SPA и PWA: выходная папка передаётся (``.build/spa``/``[pwa].out``), а
+    ресурсы (default.css, spa.css) всегда берутся из ``assets/spa`` — у PWA тот же
     CSS-каркас, отдельного дерева ресурсов нет (легаси-логотип start подтягивается
-    из ``html_out``, т.к. в ``html_src/images`` он лежит как ``wiki_logo.png``).
+    из ``.build/chm``, т.к. в ``.build/wiki/images`` он лежит как ``wiki_logo.png``).
     """
     images_dir = ensure_dir(out_dir / "images")
     sources = (settings.paths.images, settings.paths.out)
     for name in sorted(model.referenced_images()):
         src = next((d / name for d in sources if (d / name).is_file()), None)
         if src is None:
-            logger.warning("картинка не найдена ни в html_src/images, ни в html_out: %s", name)
+            logger.warning("картинка не найдена ни в .build/wiki/images, ни в .build/chm: %s", name)
             continue
         shutil.copy2(src, images_dir / name)
 
-    # default.css и прочие статичные ресурсы — из _res_src/spa (свой, не из html_out)
+    # default.css и прочие статичные ресурсы — из assets/spa (свой, не из .build/chm)
     res = copy_tree(settings.paths.res_spa, out_dir)
     if res:
         logger.info("ресурсы скопированы из %s: %s", settings.paths.res_spa, ", ".join(res))

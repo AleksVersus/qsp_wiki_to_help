@@ -2,7 +2,7 @@
 """Тесты рендерера Docusaurus (режим docs).
 
 Офлайн на маленькой фикстуре: проверяем, что render_docusaurus раскладывает
-.mdx по папкам согласно уровням содержания, страницы вне содержания кладёт в
+.md по папкам согласно уровням содержания, страницы вне содержания кладёт в
 help_add/, ссылки/картинки делает относительными от файла, порядок пишет через
 атрибуты Docusaurus, а JSON-базы (numbering/links) переживают пересборку.
     python -m pytest tests/test_docusaurus.py -v
@@ -142,18 +142,19 @@ def test_layout_by_toc_levels(tmp_path: Path):
     render_docusaurus(settings)
     out = settings.paths.docusaurus
 
-    # категория -> папка; ссылка без детей -> .mdx внутри неё (всё — внутри qsp_wiki/)
-    assert (out / WIKI / PROGRAMMING / "help_coding.mdx").is_file()
+    # категория -> папка; ссылка без детей -> .md внутри неё (всё — внутри qsp_wiki/)
+    assert (out / WIKI / PROGRAMMING / "help_coding.md").is_file()
+    assert not (out / WIKI / PROGRAMMING / "help_coding.mdx").exists()
     # родитель-с-детьми -> папка по slug, индекс-док внутри + ребёнок рядом
-    assert (out / WIKI / PROGRAMMING / "help_strings" / "help_strings.mdx").is_file()
-    assert (out / WIKI / PROGRAMMING / "help_strings" / "help_regexp.mdx").is_file()
+    assert (out / WIKI / PROGRAMMING / "help_strings" / "help_strings.md").is_file()
+    assert (out / WIKI / PROGRAMMING / "help_strings" / "help_regexp.md").is_file()
     # корневая ссылка -> файл в корне раздела содержания
-    assert (out / WIKI / "start.mdx").is_file()
+    assert (out / WIKI / "start.md").is_file()
     # в корне выхода больше нет документов содержания (ушли в qsp_wiki/)
-    assert not (out / "start.mdx").exists()
+    assert not (out / "start.md").exists()
     assert not (out / PROGRAMMING).exists()
     # sidebar как контент не пишется
-    assert not (out / "sidebar.mdx").exists()
+    assert not (out / "sidebar.md").exists()
 
 
 def test_off_toc_pages_go_to_help_add(tmp_path: Path):
@@ -161,7 +162,7 @@ def test_off_toc_pages_go_to_help_add(tmp_path: Path):
     seed(tmp_path, settings)
     render_docusaurus(settings)
     # help_add остаётся в корне выхода (не внутри qsp_wiki)
-    assert (settings.paths.docusaurus / HELP_ADD_DIR / "help_extra.mdx").is_file()
+    assert (settings.paths.docusaurus / HELP_ADD_DIR / "help_extra.md").is_file()
     assert not (settings.paths.docusaurus / WIKI / HELP_ADD_DIR).exists()
 
 
@@ -171,16 +172,16 @@ def test_help_keywords_forced_to_help_add(tmp_path: Path):
     render_docusaurus(settings)
     out = settings.paths.docusaurus
     # help_keywords есть в TOC, но принудительно уезжает в help_add, а не в дерево
-    assert (out / HELP_ADD_DIR / "help_keywords.mdx").is_file()
-    assert not (out / WIKI / "help_keywords.mdx").exists()
-    assert not (out / "help_keywords.mdx").exists()
-    assert not (out / "help_keywords.mdx_").exists()  # не переименовывается
+    assert (out / HELP_ADD_DIR / "help_keywords.md").is_file()
+    assert not (out / WIKI / "help_keywords.md").exists()
+    assert not (out / "help_keywords.md").exists()
+    assert not (out / "help_keywords.md_").exists()  # не переименовывается
     # ссылка с help_keywords на документ дерева (help:coding) резолвится в qsp_wiki
-    kw = _read(settings, f"{HELP_ADD_DIR}/help_keywords.mdx")
-    assert "../qsp_wiki/programmirovanie/help_coding.mdx" in kw
+    kw = _read(settings, f"{HELP_ADD_DIR}/help_keywords.md")
+    assert "../qsp_wiki/programmirovanie/help_coding.md" in kw
     # ссылка из дерева (start) на help_keywords резолвится в help_add
-    start = _read(settings, f"{WIKI}/start.mdx")
-    assert "../help_add/help_keywords.mdx" in start
+    start = _read(settings, f"{WIKI}/start.md")
+    assert "../help_add/help_keywords.md" in start
 
 
 def test_wiki_root_category_json(tmp_path: Path):
@@ -213,26 +214,26 @@ def test_relative_links_and_images(tmp_path: Path):
     seed(tmp_path, settings)
     render_docusaurus(settings)
 
-    coding = _read(settings, f"{WIKI}/{PROGRAMMING}/help_coding.mdx")
+    coding = _read(settings, f"{WIKI}/{PROGRAMMING}/help_coding.md")
     # rel от папки help_coding к ребёнку help_strings
-    assert "help_strings/help_regexp.mdx" in coding
+    assert "help_strings/help_regexp.md" in coding
     # якорь на себя: тот же файл + #aa
-    assert "help_coding.mdx#aa" in coding
+    assert "help_coding.md#aa" in coding
     # внешняя — абсолют
     assert "[внешняя](https://example.com)" in coding
     # картинка коллоцируется рядом с документом: start в qsp_wiki -> голое имя foo.png,
     # файл лежит в той же папке; центрального img/ на выходе больше нет
-    start = _read(settings, f"{WIKI}/start.mdx")
+    start = _read(settings, f"{WIKI}/start.md")
     assert "](help_msgbox.png)" in start
     assert (settings.paths.docusaurus / WIKI / "help_msgbox.png").is_file()
     assert not (settings.paths.docusaurus / "img").exists()
 
 
-def test_mdx_braces_escaped_and_frontmatter(tmp_path: Path):
+def test_markdown_braces_escaped_and_frontmatter(tmp_path: Path):
     settings = make_settings(tmp_path)
     seed(tmp_path, settings)
     render_docusaurus(settings)
-    start = _read(settings, f"{WIKI}/start.mdx")
+    start = _read(settings, f"{WIKI}/start.md")
     assert start.startswith("---")
     assert 'title: "В начало"' in start
     assert "sidebar_position: 1" in start  # старт — первым в корне
@@ -244,7 +245,7 @@ def test_title_marker_stripped(tmp_path: Path):
     seed(tmp_path, settings)
     render_docusaurus(settings)
     # метка «[Документация QSP]» убирается из title во front-matter
-    coding = _read(settings, f"{WIKI}/{PROGRAMMING}/help_coding.mdx")
+    coding = _read(settings, f"{WIKI}/{PROGRAMMING}/help_coding.md")
     assert 'title: "Код"' in coding
     assert "Документация QSP" not in coding.split("# ")[0]  # в front-matter метки нет
 
@@ -255,17 +256,17 @@ def test_positions_are_per_folder_and_interleaved(tmp_path: Path):
     render_docusaurus(settings)
     # корень: старт promoted вперёд -> 1, папка-категория -> 2 (доки и папки
     # нумеруются вместе, поэтому категория идёт сразу после старта, а не в хвосте)
-    root_start_pos = _frontmatter_position(_read(settings, f"{WIKI}/start.mdx"))
+    root_start_pos = _frontmatter_position(_read(settings, f"{WIKI}/start.md"))
     assert root_start_pos == 1
     prog_cat = json.loads(_read(settings, f"{WIKI}/{PROGRAMMING}/_category_.json"))
     assert prog_cat["position"] == 2
     # внутри категории доки/подпапки — своя нумерация с 1: help_coding=1, подпапка help_strings=2
-    coding_pos = _frontmatter_position(_read(settings, f"{WIKI}/{PROGRAMMING}/help_coding.mdx"))
+    coding_pos = _frontmatter_position(_read(settings, f"{WIKI}/{PROGRAMMING}/help_coding.md"))
     assert coding_pos == 1
     strings_cat = json.loads(_read(settings, f"{WIKI}/{PROGRAMMING}/help_strings/_category_.json"))
     assert strings_cat["position"] == 2
     # индекс-док категории = 1, ребёнок help_regexp получает свой порядок внутри папки
-    regexp_pos = _frontmatter_position(_read(settings, f"{WIKI}/{PROGRAMMING}/help_strings/help_regexp.mdx"))
+    regexp_pos = _frontmatter_position(_read(settings, f"{WIKI}/{PROGRAMMING}/help_strings/help_regexp.md"))
     assert regexp_pos == 1
 
 
@@ -284,12 +285,12 @@ def test_bases_persist_stored_overrides_computed(tmp_path: Path):
     assert numbering_same == numbering_first
 
     # ручная правка позиции в numbering.json имеет приоритет над вычисленной
-    numbering_first[f"{WIKI}/start.mdx"]["position"] = 99
+    numbering_first[f"{WIKI}/start.md"]["position"] = 99
     save_json(numbering_first, bases / "numbering.json")
     render_docusaurus(settings)
     after = json.loads((bases / "numbering.json").read_text(encoding="utf-8"))
-    assert after[f"{WIKI}/start.mdx"]["position"] == 99
-    assert _frontmatter_position(_read(settings, f"{WIKI}/start.mdx")) == 99
+    assert after[f"{WIKI}/start.md"]["position"] == 99
+    assert _frontmatter_position(_read(settings, f"{WIKI}/start.md")) == 99
 
     # новый узел (перенос help_extra из help_add в корень TOC): ключ отсутствует в
     # базе -> получает вычисленный TOC-порядок внутри корня (после start=99-го и
@@ -297,13 +298,33 @@ def test_bases_persist_stored_overrides_computed(tmp_path: Path):
     seed(tmp_path, settings, extra_toc=_li(1, f'<a href="{BASE_URL}/help:extra">Лишнее</a>'))
     render_docusaurus(settings)
     numbering2 = json.loads((bases / "numbering.json").read_text(encoding="utf-8"))
-    assert f"{WIKI}/help_extra.mdx" in numbering2  # ключ появился по новому пути
-    new_pos = int(numbering2[f"{WIKI}/help_extra.mdx"]["position"])
+    assert f"{WIKI}/help_extra.md" in numbering2  # ключ появился по новому пути
+    new_pos = int(numbering2[f"{WIKI}/help_extra.md"]["position"])
     assert new_pos == 3
 
 
-def _frontmatter_position(mdx: str) -> int:
-    for line in mdx.split("---")[1].splitlines():
+def test_legacy_mdx_numbering_key_migrates_to_md(tmp_path: Path):
+    settings = make_settings(tmp_path)
+    seed(tmp_path, settings)
+    render_docusaurus(settings)
+
+    bases = settings.paths.docusaurus_bases
+    numbering_path = bases / "numbering.json"
+    numbering = json.loads(numbering_path.read_text(encoding="utf-8"))
+    numbering[f"{WIKI}/start.mdx"] = numbering.pop(f"{WIKI}/start.md")
+    numbering[f"{WIKI}/start.mdx"]["position"] = 99
+    save_json(numbering, numbering_path)
+
+    render_docusaurus(settings)
+
+    migrated = json.loads(numbering_path.read_text(encoding="utf-8"))
+    assert f"{WIKI}/start.mdx" not in migrated
+    assert migrated[f"{WIKI}/start.md"]["position"] == 99
+    assert _frontmatter_position(_read(settings, f"{WIKI}/start.md")) == 99
+
+
+def _frontmatter_position(markdown: str) -> int:
+    for line in markdown.split("---")[1].splitlines():
         if line.startswith("sidebar_position:"):
             return int(line.split(":", 1)[1].strip())
     raise AssertionError("sidebar_position не найден во front-matter")

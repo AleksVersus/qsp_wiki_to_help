@@ -1,0 +1,126 @@
+[
+  {
+    "label": "QSP-Wiki",
+    "children": [
+      {"label": "Справочная информация о платформе Quest Soft Player", "slug": "start"},
+      {"label": "Что такое QSP?", "slug": "help_qsp"},
+      {"label": "Локации", "slug": "help_locations"},
+      {
+        "label": "Вывод текста",
+        "children": [
+          {"label": "Окно основного описания", "slug": "help_main"},
+          {"label": "Окно дополнительного описания", "slug": "help_stat"},
+          {"label": "Окно сообщений", "slug": "help_msgbox"}
+        ]
+      },
+      {"label": "Действия", "slug": "help_acts"},
+      {"label": "Переходы", "slug": "help_goto"},
+      {"label": "Предметы (инвентарь)", "slug": "help_objs"},
+      {
+        "label": "Программирование",
+        "children": [
+          {"label": "Порядок работы интерпретатора", "slug": "help_principle"},
+          {"label": "Переменные", "slug": "help_variables"},
+          {"label": "Выражения", "slug": "help_expressions"},
+          {"label": "Программный код", "slug": "help_coding"},
+          {"label": "Циклы", "slug": "help_cycle"},
+          {"label": "Массивы", "slug": "help_arrays"},
+          {
+            "label": "Строки",
+            "slug": "help_strings",
+            "children": [
+              {"label": "Регулярные выражения", "slug": "help_regexp"}
+            ]
+          },
+          {"label": "Кортежи", "slug": "help_tuples"},
+          {"label": "Условия", "slug": "help_conditional"},
+          {"label": "Пользовательские функции и процедуры", "slug": "help_organizing"},
+          {"label": "Переходы внутри локации", "slug": "help_jump"},
+          {"label": "Служебные локации", "slug": "help_service_locations"},
+          {"label": "Динамический код", "slug": "help_dynamical"}
+        ]
+      },
+      {
+        "label": "Оформление",
+        "children": [
+          {"label": "Меню", "slug": "help_menu"},
+          {"label": "Звук", "slug": "help_sound"},
+          {"label": "Графика", "slug": "help_graphics"},
+          {"label": "Настройки интерфейса", "slug": "help_interface"},
+          {"label": "HTML", "slug": "help_html"}
+        ]
+      },
+      {
+        "label": "Расширенные возможности",
+        "children": [
+          {"label": "Ввод текста игроком", "slug": "help_inputs"},
+          {"label": "Работа с файлами игр, использование модулей", "slug": "help_modules"},
+          {"label": "Сохранения", "slug": "help_savegame"},
+          {"label": "Реальное время", "slug": "help_realtime"}
+        ]
+      },
+      {
+        "label": "Нюансы написания игр под разные плееры",
+        "children": [
+          {
+            "label": "Особенности написания игр для классического плеера",
+            "slug": "help_classic_qsp"
+          },
+          {
+            "label": "qSpider — плеер с поддержкой HTML",
+            "slug": "help_qspider",
+            "children": [
+              {"label": "Конфигурационный файл", "slug": "help_qspider_gamecfg"},
+              {"label": "Особенности работы AeroQSP-игр на qSpider", "slug": "help_qspider_aeroqsp"},
+              {
+                "label": "Взаимодействие с интерфейсом (расширенные возможности qSpider)",
+                "slug": "help_qspider_interface"
+              },
+              {"label": "Темы оформления", "slug": "help_qspider_themes"},
+              {"label": "Специальные HTML-теги", "slug": "help_qspider_spectags"},
+              {"label": "Встроенная библиотека qspider", "slug": "help_qspider_inclib"}
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Утилиты и средства разработки",
+        "children": [
+          {"label": "Quest Generator", "slug": "help_qgen"},
+          {"label": "Отладчик", "slug": "help_debugger"},
+          {"label": "TXT2GAM. Краткое руководство", "slug": "help_txt2gam"},
+          {"label": "Анализатор кода QSP", "slug": "help_analyzer"}
+        ]
+      },
+      {"label": "Ограничения QSP", "slug": "help_limits"},
+      {"label": "Как сделать", "slug": "howto_start"},
+      {"label": "Словарь терминов", "slug": "help_glossary"}
+    ]
+  },
+  {
+    "label": "QSP-Wiki Additionals",
+    "children": [
+      {"label": "Баг", "slug": "glossary_bag"},
+      {"label": "Standalone-сборка игры на классическом плеере", "slug": "help_classic_standalone"},
+      {
+        "label": "Поддерживаемые классическим плеером HTML-теги и атрибуты",
+        "slug": "help_html_classic"
+      },
+      {"label": "Ключевые слова", "slug": "help_keywords"},
+      {"label": "Операторы", "slug": "help_keywords_operator"},
+      {"label": "Многомерные массивы", "slug": "help_multid_array"},
+      {"label": "Подключение утилиты к текстовому редактору", "slug": "help_txt2gam_emeditor"},
+      {"label": "TXT2GAM. Сборка для Linux", "slug": "help_txt2gam_linux"},
+      {"label": "Пишем QSP-игру в текстовом редакторе", "slug": "help_txt2gam_manual"},
+      {
+        "label": "Тем, кто применяет TXT2GAM (использование препроцессора)",
+        "slug": "help_txt2gam_preprocessor"
+      },
+      {"label": "Продвинутое использование массивов", "slug": "howto_arrays"},
+      {"label": "Именованные константы", "slug": "howto_namedconst"},
+      {"label": "Третий параметр RAND", "slug": "howto_randomize"},
+      {"label": "Расширение для MS Visual Studio Code (VS Code)", "slug": "howto_vscode_extension"},
+      {"label": "Самоучитель по регулярным выражениям", "slug": "regex_start"}
+    ]
+  }
+]

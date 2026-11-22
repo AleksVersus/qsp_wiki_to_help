@@ -1,8 +1,12 @@
 /.obsidian/
 /_baseline/
-/docusaurus_docs/
+/.build/
 /html_out/*.chm
 */wiki_download.log
 /wiki_download.log
 *.sublime-workspace
 __pycache__/
+/.pytest_cache/
+*.py[cod]
+*.log
+*.tmp

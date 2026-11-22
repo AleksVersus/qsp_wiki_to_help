@@ -87,6 +87,8 @@ class Numbering:
 
         for d in docs:
             pos = self._existing_position(d.key)
+            if pos is None and d.key.endswith(".md"):
+                pos = self._existing_position(f"{d.key[:-3]}.mdx")
             if pos is None:
                 pos = d.position
             doc_pos[d.key] = pos

@@ -140,7 +140,7 @@ class Anchors:
         hhk_encoding: str,
         page_encoding: str,
     ) -> "Anchors":
-        """Собирает anchors из готового html_out: qsp.hhk + htm-файлы с id=...
+        """Собирает anchors из готового .build/chm: qsp.hhk + htm-файлы с id=...
 
         Полный порт old ExtractKeyword: берёт OBJECT из hhk, для ссылок с якорем
         ищет первое вхождение id="<anchor>" в соответствующем htm и запоминает

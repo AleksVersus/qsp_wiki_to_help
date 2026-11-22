@@ -27,6 +27,11 @@ from .prepare.page_clean import apply_start_fixes, extract_page
 from .prepare.images import process_images
 from .render.profile import OutputProfile
 from .schema import UrlScheme
+from .docusaurus_markdown.model import (
+    build_docusaurus_markdown_model,
+    build_markdown_model,
+    build_markdown_site_model,
+)
 
 # Парсер тот же, что у этапа prepare: разбор влияет на дерево и на байты вывода.
 HTML_PARSER = "lxml"
@@ -70,7 +75,7 @@ class SiteModel:
 
 
 def build_site_model(settings: Settings, profile: OutputProfile) -> SiteModel:
-    """Готовит модель из ``html_src`` для целевого профиля (полностью офлайн)."""
+    """Готовит модель из ``.build/wiki`` для целевого профиля (полностью офлайн)."""
     scheme = UrlScheme.load(settings.paths.scheme)
     anchors = Anchors.load(settings.paths.anchors)
     base_url = settings.wiki.base_url
@@ -92,6 +97,6 @@ def build_site_model(settings: Settings, profile: OutputProfile) -> SiteModel:
 
 
 def _html_sources(src_dir: Path, exclude: frozenset[str]) -> list[Path]:
-    """Отсортированные .html из html_src без исключаемых разделов (стабильный порядок)."""
+    """Отсортированные .html из .build/wiki без исключаемых разделов (стабильный порядок)."""
     files = [p for p in sorted(src_dir.iterdir()) if p.is_file() and p.suffix == ".html"]
     return [p for p in files if p.stem not in exclude]

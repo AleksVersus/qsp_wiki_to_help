@@ -1,14 +1,14 @@
 # pyright: reportUnknownMemberType=false, reportAttributeAccessIssue=false, reportOptionalMemberAccess=false, reportUnknownArgumentType=false, reportIndexIssue=false, reportArgumentType=false, reportUnknownVariableType=false, reportUnknownParameterType=false, reportMissingParameterType=false
-"""Конвертер HTML-фрагмента страницы в MDX-тело документа (Docusaurus).
+"""Конвертер HTML-фрагмента страницы в Markdown-тело документа (Docusaurus).
 
 Написан вручную (решение пользователя — без новой зависимости): обходит дерево
-``fragment`` модели и печатает Markdown, понятный Docusaurus (`.mdx`). Отличие от
+``fragment`` модели и печатает Markdown, понятный Docusaurus (`.md`). Отличие от
 CHM/SPA — цели ссылок/картинок приходят от ``DocusaurusProfile`` токенами
 (``DOCLINK::<slug>::<anchor>`` / ``IMGLINK::<имя>``); здесь они разворачиваются в
 относительные пути ОТ КОНКРЕТНОГО файла (``ConvertContext.src_dir``), т.к. только
 рендерер знает, в какую папку лёг документ.
 
-Экранирование под MDX: в текстовых узлах ``{ } <`` уходят в сущности (``&#123;``,
+Экранирование для Docusaurus: в текстовых узлах ``{ } <`` уходят в сущности (``&#123;``,
 ``&#125;``, ``&lt;``), иначе MDX-парсер примет их за JSX. Содержимое ``<pre>``/
 ``<code>`` (в fenced-блоке) — литеральное, не экранируется.
 """
@@ -24,6 +24,7 @@ from bs4.element import Comment, NavigableString
 
 from ...fs_utils import file_name
 from ...render.profile import DOC_LINK_PREFIX, IMG_LINK_PREFIX
+from .toc import DOC_EXT
 
 # теги-содержимое, которые div/section трактует как блочных детей
 _BLOCKISH = {
@@ -77,7 +78,7 @@ def relhref(src_dir: PurePosixPath, target: PurePosixPath) -> str:
 
 
 def render_body(fragment: Tag, ctx: ConvertContext) -> str:
-    """Возвращает MDX-тело страницы (без front-matter) с одной завершающей \\n."""
+    """Возвращает Markdown-тело страницы (без front-matter) с одной завершающей \\n."""
     blocks: list[str] = []
     for child in fragment.children:
         rendered = render_block(child, ctx)
@@ -199,7 +200,7 @@ def _resolve_doc_link(href: str, ctx: ConvertContext) -> str | None:
     if path is None:
         ctx.missing.add(slug)
         return None
-    target = PurePosixPath(f"{path}.mdx")
+    target = PurePosixPath(f"{path}{DOC_EXT}")
     rel = relhref(ctx.src_dir, target)
     return f"{rel}#{anchor}" if anchor else rel
 

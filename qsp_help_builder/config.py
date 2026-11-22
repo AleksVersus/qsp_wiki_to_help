@@ -1,8 +1,10 @@
 """Настройки сборки — единственный источник: внешний ``qsp_help.toml``.
 
 Решение пользователя от 2026-10-16 (plan.md § «Принятые решения», п.2):
-значений by-default в коде НЕТ. Отсутствие файла, секции или ключа — ошибка
-загрузки, а не повод что-то подставлять молча.
+значений by-default в коде НЕТ. Отсутствие файла, обязательной секции для
+активного инструмента или ключа — ошибка, а не повод что-то подставлять молча.
+Секция ``[docusaurus_markdown]`` опциональна для старых команд и обязательна
+для ``markdown-sync``.
 
 Что это чинит по сравнению со старыми скриптами:
 - ``ChmPrepare.__init__`` держил dict настроек с путями через
@@ -18,6 +20,7 @@ import logging
 import tomllib
 from dataclasses import dataclass
 from pathlib import Path
+from pathlib import PurePosixPath
 from typing import Any
 
 
@@ -40,17 +43,17 @@ class PathSettings:
     """Рабочие пути. После загрузки все — абсолютные."""
 
     root: Path     # корень проекта = папка файла qsp_help.toml
-    src: Path      # html_src: скачанные страницы wiki (вход этапа 2)
-    out: Path      # html_out: подготовленные файлы (выход этапа 2)
-    images: Path   # html_src/images: скачанные картинки (выход этапа download)
+    src: Path      # .build/wiki: скачанные страницы wiki (вход этапа 2)
+    out: Path      # .build/chm: подготовленные файлы (выход этапа 2)
+    images: Path   # .build/wiki/images: скачанные картинки (выход этапа download)
     scheme: Path   # urls_links_to_files.json: контракт url -> файл
     anchors: Path  # anchors.json: контракт якорь -> строка/заголовок
-    spa: Path      # spa_out: одностраничник (index.html + images/) — выход render.spa
+    spa: Path      # .build/spa: одностраничник (index.html + images/) — выход render.spa
     pwa: Path      # [pwa].out (папка docs): PWA (индекс + manifest/sw/поиск) — выход render.pwa
-    docusaurus: Path       # [docusaurus].out: дерево .mdx-документов — выход render.docusaurus
+    docusaurus: Path       # [docusaurus].out: дерево .md-документов — выход render.docusaurus
     docusaurus_bases: Path # [docusaurus].bases: мутируемые JSON-базы (нумерация/ссылки)
-    res_chm: Path  # _res_src/chm: статичные ресурсы (default.css и пр.) -> html_out
-    res_spa: Path  # _res_src/spa: статичные ресурсы (default.css и пр.) -> spa_out/[pwa].out
+    res_chm: Path  # assets/chm: статичные ресурсы (default.css и пр.) -> .build/chm
+    res_spa: Path  # assets/spa: статичные ресурсы -> .build/spa/[pwa].out
 
 
 @dataclass(frozen=True)
@@ -90,11 +93,27 @@ class DocusaurusSettings:
 
 
 @dataclass(frozen=True)
+class DocusaurusMarkdownSettings:
+    """Входной Markdown-конвейер из исходников Docusaurus."""
+
+    repository: str
+    ref: str
+    docs_path: PurePosixPath
+    source_dir: Path
+    pages_manifest: Path
+    toc_manifest: Path
+    chm_out: Path | None = None
+    spa_out: Path | None = None
+    pwa_out: Path | None = None
+    state_dir: Path | None = None
+
+
+@dataclass(frozen=True)
 class ChmSettings:
     """Этап подготовки (быв. dict настроек ChmPrepare + хардкод имён qsp.*)."""
 
-    hhc_source: str    # файл в html_out — основа содержания (был ключ 'hhc')
-    hhk_source: str    # файл в html_out — основа указателя (был ключ 'hhk')
+    hhc_source: str    # файл в .build/chm — основа содержания (был ключ 'hhc')
+    hhk_source: str    # файл в .build/chm — основа указателя (был ключ 'hhk')
     hhc_output: str    # имя итогового файла содержания (был хардкод 'qsp.hhc')
     hhk_output: str    # имя итогового файла указателя (был хардкод 'qsp.hhk')
     page_encoding: str       # кодировка htm-страниц (исторически utf-8)
@@ -118,6 +137,9 @@ class Settings:
     chm: ChmSettings
     exclude_files: frozenset[str]  # wiki-разделы, исключаемые из справки (files_to_del)
     logging: LoggingSettings
+    # Опционален для обратной совместимости пользовательских конфигов старых команд;
+    # новая команда требует эту секцию и выдаёт явную ошибку, если её нет.
+    docusaurus_markdown: DocusaurusMarkdownSettings | None = None
 
 
 def default_config_path() -> Path:
@@ -166,6 +188,51 @@ def load_settings(config_path: Path | None = None) -> Settings:
     log_raw = _require_section(raw, "logging", path)
 
     root = path.resolve().parent
+
+    markdown_raw = raw.get("docusaurus_markdown")
+    docusaurus_markdown: DocusaurusMarkdownSettings | None = None
+    if markdown_raw is not None:
+        if not isinstance(markdown_raw, dict):
+            raise ConfigError("Секция [docusaurus_markdown] должна быть таблицей")
+        repository = str(_require(markdown_raw, "repository", "docusaurus_markdown")).strip()
+        ref = str(_require(markdown_raw, "ref", "docusaurus_markdown")).strip()
+        docs_path_value = str(_require(markdown_raw, "docs_path", "docusaurus_markdown"))
+        docs_path = PurePosixPath(docs_path_value)
+        if (
+            not repository
+            or not ref
+            or not docs_path_value
+            or "\\" in docs_path_value
+            or docs_path.is_absolute()
+            or not docs_path.parts
+            or ".." in docs_path.parts
+        ):
+            raise ConfigError(
+                "[docusaurus_markdown] требует repository/ref и docs_path "
+                "с относительным POSIX-путём без '..'"
+            )
+        source_dir = _resolve(root, str(_require(markdown_raw, "source", "docusaurus_markdown")))
+        build_root = (root / ".build").resolve()
+        if not source_dir.is_relative_to(build_root) or source_dir == build_root:
+            raise ConfigError(
+                "[docusaurus_markdown].source должен находиться внутри .build/"
+            )
+        docusaurus_markdown = DocusaurusMarkdownSettings(
+            repository=repository,
+            ref=ref,
+            docs_path=docs_path,
+            source_dir=source_dir,
+            pages_manifest=_resolve(
+                root, str(_require(markdown_raw, "pages", "docusaurus_markdown"))
+            ),
+            toc_manifest=_resolve(
+                root, str(_require(markdown_raw, "toc", "docusaurus_markdown"))
+            ),
+            chm_out=_resolve(root, str(markdown_raw["chm_out"])) if "chm_out" in markdown_raw else None,
+            spa_out=_resolve(root, str(markdown_raw["spa_out"])) if "spa_out" in markdown_raw else None,
+            pwa_out=_resolve(root, str(markdown_raw["pwa_out"])) if "pwa_out" in markdown_raw else None,
+            state_dir=_resolve(root, str(markdown_raw["state"])) if "state" in markdown_raw else None,
+        )
 
     wiki = WikiSettings(
         base_url=str(_require(wiki_raw, "base_url", "wiki")).rstrip("/"),
@@ -239,6 +306,7 @@ def load_settings(config_path: Path | None = None) -> Settings:
         chm=chm,
         exclude_files=exclude_files,
         logging=logging_s,
+        docusaurus_markdown=docusaurus_markdown,
     )
 
 

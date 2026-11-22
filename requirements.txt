@@ -4,3 +4,6 @@
 requests>=2.25.1
 beautifulsoup4>=4.9.3
 lxml>=4.6.3
+markdown-it-py>=3,<5
+mdit-py-plugins>=0.4,<1
+PyYAML>=6,<7

@@ -1,5 +1,5 @@
 # pyright: reportUnknownMemberType=false, reportAttributeAccessIssue=false, reportOptionalMemberAccess=false, reportUnknownArgumentType=false, reportIndexIssue=false, reportArgumentType=false, reportUnknownVariableType=false
-"""Рендерер Docusaurus: модель -> ``docusaurus_docs/`` (дерево .mdx-документов).
+"""Рендерер Docusaurus: модель -> ``.build/docusaurus_docs/`` (дерево .md-документов).
 
 Четвёртый выход поверх той же нейтральной модели (:func:`model.build_site_model`),
 но с ``DocusaurusProfile`` (ссылки/картинки — токены, а не готовые адреса). Отличие
@@ -11,11 +11,11 @@
 - страницы вне содержания (и служебные ``HELP_ADD_ONLY_SLUGS`` вроде ``help_keywords``)
   уходят в ``help_add/``; относительные ссылки ``qsp_wiki`` <-> ``help_add``
   считаются от общего корня docs и работают в обе стороны;
-- HTML каждой страницы вручную конвертируется в MDX (:mod:`.convert`);
+- HTML каждой страницы вручную конвертируется в Markdown (:mod:`.convert`);
 - порядок задают атрибуты Docusaurus: ``_category_.json`` (папки) и
   ``sidebar_position`` (файлы), а числа и цели ссылок переживают пересборку в
   мутируемых JSON-базах (:mod:`.bases`);
-- ссылки в .mdx — относительные от самого файла; картинки коллоцируются рядом с
+- ссылки в .md — относительные от самого файла; картинки коллоцируются рядом с
   документом, который их использует (отдельной папки-каталога в docs нет, поэтому
   Docusaurus не превращает её в раздел; дубликаты одной картинки в разных папках
   допустимы и осознанны).
@@ -38,11 +38,9 @@ from ..profile import DocusaurusProfile, IMG_LINK_PREFIX
 from ..spa import NAV_SOURCE_SLUG
 from .bases import DocRecord, FolderRecord, LinksBase, Numbering
 from .convert import ConvertContext, relhref, render_body
-from .toc import HELP_ADD_DIR, WIKI_DIR, Layout, build_layout, parse_toc
+from .toc import DOC_EXT, HELP_ADD_DIR, WIKI_DIR, Layout, build_layout, parse_toc
 
 logger = logging.getLogger(__name__)
-
-DOC_EXT = ".md"
 
 # Метка/позиция корневого раздела содержания (qsp_wiki) в сайдбаре Docusaurus.
 # Без ``_category_.json`` Docusaurus показал бы сырое имя папки и поставил бы её
@@ -75,7 +73,7 @@ def render_docusaurus(settings: Settings) -> None:
     bases = ensure_dir(settings.paths.docusaurus_bases)
     # Пересборка даёт дерево заново: убираем прошлый вывод (кроме мутируемых
     # баз в .docusaurus_build), иначе переезд содержания в qsp_wiki/ оставил бы
-    # устаревшие .mdx в корне, которые Docusaurus проиндексировал бы как разделы.
+    # устаревшие документы в корне, которые Docusaurus проиндексировал бы как разделы.
     _clean_generated(out, bases)
 
     layout = _build_layout(model, settings)
@@ -111,7 +109,7 @@ def _clean_generated(out: Path, bases: Path) -> None:
     """Удаляет прежний вывод из ``out``, сохраняя папку мутируемых баз.
 
     Сборка пишет всё дерево заново; без очистки переезд содержания в ``qsp_wiki/``
-    оставил бы в корне прежние .mdx (и служебные .mdx_), которые Docusaurus
+    оставил бы в корне прежние .md/.mdx (и служебные файлы), которые Docusaurus
     собрал бы как лишние разделы. ``.docusaurus_build`` (numbering/links) не трогаем.
     """
     keep = bases.resolve()
@@ -194,7 +192,7 @@ def _write_folders(
         }
         if spec.index_slug:
             # id — относительная ссылка на индекс-док от папки категории без
-            # расширения (как и все относительные пути в .mdx, но id — без ``.mdx``).
+            # расширения (как и все относительные пути в .md, но id — без расширения).
             doc_rel = PurePosixPath(layout.links[spec.index_slug])
             category["link"] = {
                 "type": "doc",
@@ -292,7 +290,7 @@ def _colocate_images(page: object, doc_dir: Path, sources: tuple[Path, ...]) -> 
     for name in sorted(_page_image_names(page)):
         src = next((d / name for d in sources if (d / name).is_file()), None)
         if src is None:
-            logger.warning("картинка не найдена ни в html_src/images, ни в html_out: %s", name)
+            logger.warning("картинка не найдена ни в .build/wiki/images, ни в .build/chm: %s", name)
             continue
         ensure_dir(doc_dir)
         shutil.copy2(src, doc_dir / name)

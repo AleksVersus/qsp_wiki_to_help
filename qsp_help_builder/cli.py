@@ -18,6 +18,7 @@ from pathlib import Path
 
 from . import pipeline
 from .config import ConfigError, configure_logging, load_settings
+from .docusaurus_markdown.errors import DocusaurusMarkdownError
 
 # Команда -> имя функции pipeline. Порядок буквальный, «all» собран отдельно.
 COMMANDS = {
@@ -27,6 +28,9 @@ COMMANDS = {
     "spa": pipeline.run_spa,
     "pwa": pipeline.run_pwa,
     "docusaurus": pipeline.run_docusaurus,
+    "markdown-sync": pipeline.run_markdown_sync,
+    "markdown-validate": pipeline.run_markdown_validate,
+    "markdown-build": pipeline.run_markdown_build,
     "all": pipeline.run_all,
 }
 
@@ -34,15 +38,18 @@ COMMANDS = {
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="python -m qsp_help_builder",
-        description="Сборка офлайн-справки QSP из wiki.qsp.org (этапы конвейера).",
+        description="Сборка офлайн-справки QSP из wiki.qsp.org и Markdown-источников Docusaurus.",
     )
     parser.add_argument(
         "command",
         choices=sorted(COMMANDS),
-        help="download — выгрузка с wiki (нужна сеть); prepare — html_src->html_out (CHM); "
-        "anchors — извлечение якорей из собранного html_out; spa — одностраничник "
-        "html_src->spa_out; pwa — PWA для хостинга html_src->[pwa].out (docs); "
-        "docusaurus — дерево .mdx-документов html_src->[docusaurus].out; "
+        help="download — выгрузка с wiki (нужна сеть); prepare — .build/wiki->.build/chm (CHM); "
+        "anchors — извлечение якорей из .build/chm; spa — одностраничник "
+        ".build/wiki->.build/spa; pwa — PWA для хостинга .build/wiki->docs; "
+        "docusaurus — дерево .md-документов .build/wiki->[docusaurus].out; "
+        "markdown-sync — sparse checkout и проверка выбранных исходников Docusaurus; "
+        "markdown-validate — локальная проверка Markdown, ссылок, якорей, ассетов и TOC; "
+        "markdown-build — CHM/SPA/PWA из локального Markdown-входа (отдельные выходы); "
         "all — download->prepare->anchors.",
     )
     parser.add_argument(
@@ -56,6 +63,12 @@ def build_parser() -> argparse.ArgumentParser:
         default=None,
         choices=["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"],
         help="переопределить уровень логирования из конфига для этого запуска.",
+    )
+    parser.add_argument(
+        "--target",
+        choices=["chm", "spa", "pwa", "all"],
+        default="all",
+        help="цель для markdown-build (по умолчанию all).",
     )
     return parser
 
@@ -75,7 +88,17 @@ def main(argv: list[str] | None = None) -> int:
         )
 
     configure_logging(settings)
-    COMMANDS[args.command](settings)
+    try:
+        if args.command == "markdown-build":
+            pipeline.run_markdown_build(settings, args.target)
+        else:
+            COMMANDS[args.command](settings)
+    except ConfigError as exc:
+        print(str(exc), file=sys.stderr)
+        return 2
+    except DocusaurusMarkdownError as exc:
+        print(str(exc), file=sys.stderr)
+        return 1
     return 0
 
 

@@ -17,17 +17,24 @@ import logging
 
 from . import download as download_stage
 from .anchors import Anchors
-from .config import Settings
+from .config import ConfigError, Settings
+from .docusaurus_markdown import MarkdownValidationError, sync_source, validate_source
 from .render.chm import render_chm
 from .render.docusaurus import render_docusaurus
 from .render.pwa import render_pwa
+from .render.docusaurus_markdown import (
+    render_markdown_chm,
+    render_markdown_pwa,
+    render_markdown_spa,
+)
+from .docusaurus_markdown.incremental import build_incremental
 from .render.spa import render_spa
 
 logger = logging.getLogger(__name__)
 
 
 def run_download(settings: Settings) -> download_stage.DownloadStats:
-    """Этап выгрузки с wiki. Требует сеть; перезаписывает html_src.
+    """Этап выгрузки с wiki. Требует сеть; перезаписывает .build/wiki.
 
     Лог настраивает вызывающий (cli) — здесь configure_log=False, иначе два
     прохода настройки на один запуск.
@@ -36,7 +43,7 @@ def run_download(settings: Settings) -> download_stage.DownloadStats:
 
 
 def run_prepare(settings: Settings) -> None:
-    """Этап подготовки html_src -> html_out (htm + qsp.hhc/qsp.hhk). Полностью офлайн.
+    """Этап подготовки .build/wiki -> .build/chm (htm + qsp.hhc/qsp.hhk). Полностью офлайн.
 
     С Фазы 7 — это CHM-рендерер поверх нейтральной модели.
     """
@@ -45,7 +52,7 @@ def run_prepare(settings: Settings) -> None:
 
 
 def run_spa(settings: Settings) -> None:
-    """Этап одностраничника html_src -> spa_out (index.html + images/). Полностью офлайн.
+    """Этап одностраничника .build/wiki -> .build/spa (index.html + images/). Полностью офлайн.
 
     Переиспользует те же примитивы подготовки, что и CHM, только с SpaProfile
     (ссылки/картинки в формате хеш-навигации).
@@ -55,7 +62,7 @@ def run_spa(settings: Settings) -> None:
 
 
 def run_pwa(settings: Settings) -> None:
-    """Этап PWA html_src -> [pwa].out (папка docs: индекс + манифест + service worker + поиск). Офлайн.
+    """Этап PWA .build/wiki -> [pwa].out (папка docs: индекс + манифест + service worker + поиск). Офлайн.
 
     Надстройка над одностраничником: тот же контент-документ (SpaProfile) плюс
     устанавливаемость и клиентский поиск — то, что нужно для хостинга (GitHub Pages).
@@ -65,11 +72,11 @@ def run_pwa(settings: Settings) -> None:
 
 
 def run_anchors(settings: Settings) -> Anchors:
-    """Этап извлечения якорей из СОБРАННОГО html_out обратно в anchors.json.
+    """Этап извлечения якорей из СОБРАННОГО .build/chm обратно в anchors.json.
 
     Порт быв. _auxtools/extract_keywords.py: читает qsp.hhk + htm-страницы из out и
     пишет anchors.json. Это замыкает цикл handoff §1 (якоря переживают пересборку);
-    имеет смысл ТОЛЬКО после run_prepare (нужен свежий html_out).
+    имеет смысл ТОЛЬКО после run_prepare (нужен свежий .build/chm).
     """
     logger.info("Этап anchors: из %s в %s", settings.paths.out, settings.paths.anchors)
     anchors = Anchors.extract_from_build(
@@ -83,7 +90,7 @@ def run_anchors(settings: Settings) -> Anchors:
 
 
 def run_docusaurus(settings: Settings) -> None:
-    """Этап Docusaurus html_src -> [docusaurus].out (дерево .mdx по уровням содержания).
+    """Этап Docusaurus .build/wiki -> [docusaurus].out (дерево .md по уровням содержания).
 
     Переиспользует ту же модель и примитивы подготовки, что CHM/SPA, только с
     ``DocusaurusProfile`` (ссылки/картинки — токены, разворачиваемые в относительные
@@ -91,6 +98,62 @@ def run_docusaurus(settings: Settings) -> None:
     """
     logger.info("Этап docusaurus: %s -> %s", settings.paths.src, settings.paths.docusaurus)
     render_docusaurus(settings)
+
+
+def run_markdown_sync(settings: Settings) -> None:
+    """Получает и проверяет выбранные Docusaurus Markdown-исходники."""
+    markdown_settings = settings.docusaurus_markdown
+    if markdown_settings is None:
+        raise ConfigError(
+            "Команде markdown-sync нужна секция [docusaurus_markdown] в qsp_help.toml"
+        )
+    result = sync_source(markdown_settings)
+    logger.info(
+        "Markdown source синхронизирован: %s (%d страниц, commit %s)",
+        result.source_dir,
+        len(result.pages),
+        result.commit,
+    )
+
+
+def run_markdown_validate(settings: Settings) -> None:
+    """Validates the local Markdown corpus without writing build outputs."""
+    markdown_settings = settings.docusaurus_markdown
+    if markdown_settings is None:
+        raise ConfigError(
+            "Команде markdown-validate нужна секция [docusaurus_markdown] в qsp_help.toml"
+        )
+    report = validate_source(markdown_settings)
+    if report.diagnostics:
+        raise MarkdownValidationError(report.diagnostics)
+    logger.info(
+        "Markdown validation прошла: %d страниц, %d ссылок (%d без перехода на исключённые заглушки), "
+        "%d локальных ассетов",
+        len(report.pages),
+        report.link_count,
+        report.unlinked_link_count,
+        len(report.assets),
+    )
+
+
+def run_markdown_build(settings: Settings, target: str) -> None:
+    """Собирает один или все отдельные выходы Markdown-входа."""
+    if target not in {"chm", "spa", "pwa", "all"}:
+        raise ConfigError("markdown-build target должен быть chm|spa|pwa|all")
+    if settings.docusaurus_markdown is None:
+        raise ConfigError(
+            "Команде markdown-build нужна секция [docusaurus_markdown] в qsp_help.toml"
+        )
+    targets = ("chm", "spa", "pwa") if target == "all" else (target,)
+    renderers = {
+        "chm": render_markdown_chm,
+        "spa": render_markdown_spa,
+        "pwa": render_markdown_pwa,
+    }
+    for name in targets:
+        output, skipped = build_incremental(settings, name, renderers[name])
+        if skipped:
+            logger.info("Markdown %s пропущен без изменений: %s", name, output)
 
 
 def run_all(settings: Settings) -> None:

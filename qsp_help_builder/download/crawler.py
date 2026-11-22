@@ -10,7 +10,7 @@
 - сессия/таймаут/задержка/user-agent берутся из Settings (не захардкожены);
 - логгер — logging.getLogger(__name__), НЕ настраивается при импорте (см. config).
 
-Выходные контракты сохранены: html_src/*.html, html_src/images/*,
+Выходные контракты сохранены: .build/wiki/*.html, .build/wiki/images/*,
 urls_links_to_files.json (UrlScheme: url -> путь; consumer берёт только имя файла).
 """
 
